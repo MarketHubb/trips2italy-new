@@ -133,9 +133,10 @@ function output_hero_callouts($hero) {
 
 function output_hero_links($hero, $format = "desktop") {
     $links_array = $hero['links'];
+    $links_count = count($hero['links']);
     $container_class = ($format === "mobile") ? 'justify-content-center flex-column' : '';
 
-    $output = '<div class="hero-links my-4 py-2 ' . $container_class . ' ">';
+    $output = '<div class="hero-links my-4 py-2 ' . $container_class . ' " data-count="' . $links_count . '">';
 
     foreach ($links_array as $link) {
         $copy_array = get_desktop_mobile_copy($link['copy']);

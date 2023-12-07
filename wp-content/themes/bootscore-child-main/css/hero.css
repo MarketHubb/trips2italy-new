@@ -88,8 +88,18 @@ header.hero-masonry h1 span.stylized
 header.hero-desktop[data-type="text-left"] .hero-callouts ul li p {
     color: #fff;
 }
-
 header.hero-desktop .hero-links {
+    display: grid !important;
+    gap: 10px;
+    justify-items: center;
+}
+header.hero-desktop .hero-links[data-count="1"] {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: .5rem 1rem;
+    justify-items: center;
+}
+header.hero-desktop .hero-links[data-count="2"] {
     display: grid !important;
     grid-template-columns: 1fr 30%;
     gap: 10px;
