@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'wc_mano_negra_btabold';
+    src: url('../fonts/WCManoNegraBoldBta-webfont.eot');
+    src: url('../fonts/WCManoNegraBoldBta-webfont.eot') format('embedded-opentype'),
+    url('../fonts/WCManoNegraBoldBta-webfont.woff') format('woff');
+
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.custom-content .script, .modal-body .script {
+    font-family: 'wc_mano_negra_btabold';
+}

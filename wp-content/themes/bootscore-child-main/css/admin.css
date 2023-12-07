@@ -1,0 +1,11 @@
+body.term-php form#edittag {
+    max-width: 100% !important;
+}
+#grid-3-col div.acf-repeater:first-of-type > input + table.acf-table > tbody {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 1.5rem;
+}
+#grid-3-col div.acf-repeater:first-of-type > input + table.acf-table > tbody tr.acf-row > .acf-row-handle + td.acf-fields {
+    width: 100%;
+}

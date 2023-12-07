@@ -1,0 +1,157 @@
+/* Confirmation Message */
+.gform_confirmation_message h1 {
+    font-size: 1.8rem !important;
+    margin-bottom: 0px !important;
+    font-weight: 800 !important;
+    font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif !important;
+}
+.gform_confirmation_message p {
+    font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif !important;
+    font-size: 1em !important;
+    color: #333 !important;
+}
+/* Gavity Forms Custom Styles */
+#gform_ajax_spinner_4 {
+    display: none !important;
+}
+#form-container, #gform_4 {
+    text-align: center !important;
+}
+#gform_4 input[type="submit"], #field_4_3, #field_4_4, #field_4_5, #field_4_6, #field_4_7 {
+    display: none;
+}
+#gform_1 .contact-phone, #gform_1 .contact-email {
+    /*margin-top: 0 !important;*/
+}
+.gform_wrapper li.gf_list_inline ul.gfield_radio li {
+    margin-bottom: 0 !important;
+}
+#gform_1 .preferred-contact label:not(.gfield_label) {
+    vertical-align: text-top !important;
+    font-size: 15px !important;
+    margin-left: 8px !important;
+}
+#gform_1 .preferred-contact input[type="radio"] + label {
+    border-bottom: 2px solid #fff;
+}
+#gform_1 .preferred-contact input[type="radio"]:checked + label {
+    color: #111 !important;
+    border-bottom: 2px solid #2276b3;
+}
+#gform_1 .preferred-contact ul li:first-of-type {
+    margin-right: 1em !important;
+}
+.gform_wrapper {
+    /*display: inherit !important;*/
+}
+body .gform_wrapper ul li.gfield {
+    margin-top: 2em !important;
+}
+body .gform_wrapper .top_label div.ginput_container {
+    margin-top: 2px !important;
+}
+#field_4_10 {
+    margin-top: 2em !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+}
+#gform_4 .gsection_title {
+    font-weight: 700 !important;
+}
+#field_4_8, #field_4_9 {
+    margin-top: .25em !important;
+}
+label[for="input_4_8"], label[for="input_4_9"] {
+    display: none !important;
+}
+.gform_body .textarea.large {
+    max-height: 100px !important;
+}
+.gform_body input[type="text"], .gform_body input[type="email"], .gform_body input[type="tel"], .gform_body textarea {
+    background-color: #f5f8fa !important;
+    color: #33475b !important;
+    font-size: 1rem !important;
+    line-height: 1.375 !important;
+    border: 1px solid !important;
+    border-color: #cbd6e2 !important;
+    border-radius: .1875rem !important;
+    width: 100% !important;
+    min-height: 2.5rem !important;
+    padding: 0.5625rem 0.625rem !important;
+    transition: all 0.15s ease-out !important;
+}
+.gform_wrapper.gf_browser_chrome ul.gform_fields li.gfield select {
+    margin-left: 0 !important;
+}
+.gform_body select {
+    font-size: 1.15em !important;
+    background: #f9f9f9 !important;
+    border: 1px solid #aaa;
+    height: 2em;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    -webkit-appearance: menulist;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    border-radius: 5px;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 3px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    padding: 2px 0 2px 3px !important;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: rgba(255,255,255, 1) !important;
+}
+/* MEDIA QUERIES */
+
+/*Tablets and up */
+@media (min-width: 768px) {
+    select.gfield_select {
+        width: 75% !important;
+    }
+    #field_4_8 {
+        text-align: right;
+    }
+    #field_4_9 {
+        text-align: left;
+    }
+}
+/* Large Devices (Bootstrap) */
+@media only screen and (min-width : 768px) {
+    #gform_confirmation_message_4 {
+        position: relative;
+        top: 8em;
+    }
+}
+/* Medium Devices (Tablets and smaller) */
+@media only screen and (max-width : 992px) {
+    #field_4_8, #field_4_9 {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+    #field_4_8 {
+        margin-bottom: 1em;
+    }
+    #form-phone-number {
+        font-weight: bolder;
+    }
+}
+@media all and (max-width: 479px) {
+    .mobile-no-show {
+        display: none !important;
+    }
+    .gform_wrapper .top_label .gfield_label {
+        font-weight: 600 !important;
+    }
+
+}

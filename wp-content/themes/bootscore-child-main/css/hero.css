@@ -1,0 +1,157 @@
+/*region GLOBAL (Mobile & Desktop) */
+.form-heading .dynamic {
+    font-family: 'Courgette', cursive;
+    letter-spacing: .025rem;
+    color: #e07d26 !important;
+    font-size: 105%;
+    padding-left: 2px;
+    border-bottom: 1px solid;
+}
+.form-heading {
+    border-bottom: 1px solid #dcecfa;
+}
+
+/*endregion*/
+/*region MOBILE HERO */
+header.hero-mobile.hero-container {
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+}
+header .hero-description {
+    line-height: 1.35;
+}
+/*region DARK TEXT (Light Background) */
+header.hero-mobile.hero-text-dark h1 span.stylized {
+    color: #e07d26 !important;
+}
+header.hero-mobile.hero-text-dark .hero-callouts {
+    display: flex;
+    justify-content: center;
+}
+header.hero-mobile.hero-text-dark .hero-callouts i {
+    color: #E07D26 !important;
+}
+/*endregion*/
+
+/*region LIGHT TEXT (Dark Background) */
+header.hero-mobile.hero-text-light h1,
+header.hero-mobile.hero-text-light p.hero-description,
+header.hero-mobile.hero-text-light div.hero-callouts ul li
+{
+    color: #fff !important;
+}
+header.hero-mobile.hero-text-light h1 span.stylized {
+    color: #E09D26 !important;
+}
+header.hero-mobile.hero-text-light .hero-callouts {
+    display: flex;
+    justify-content: center;
+}
+header.hero-mobile.hero-text-light .hero-callouts i,
+header.hero-desktop[data-type="text-left"] .hero-callouts i
+{
+    color: #E07D26 !important;
+}
+header.hero-mobile.hero-text-light .hero-links a[data-type="Phone"] {
+    color: #fff !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .015rem;
+}
+header.hero-mobile.hero-text-light .hero-links a span {
+    font-size: .95rem;
+    opacity: .9;
+    letter-spacing: normal;
+}
+/*endregion*/
+
+/*endregion*/
+
+/*region DESKTOP HERO */
+header.hero-desktop.text-overlay h1,
+header.hero-full-width h1
+{
+    color: #fff;
+}
+header.hero-desktop p.lead {
+    font-size: 1.15rem;
+    font-weight: 500;
+    word-spacing: -1px;
+    line-height: 1.6;
+}
+header.hero-desktop.text-overlay h1 span.stylized,
+header.hero-masonry h1 span.stylized
+{
+    color: #e07d26 !important;
+}
+header.hero-desktop[data-type="text-left"] .hero-callouts ul li p {
+    color: #fff;
+}
+
+header.hero-desktop .hero-links {
+    display: grid !important;
+    grid-template-columns: 1fr 30%;
+    gap: 10px;
+    justify-items: center;
+}
+header.hero-desktop .hero-links .text-link {
+    color: #fff;
+}
+header.hero-desktop .hero-links a[data-type="Phone"] {
+    display: inline-grid;
+    justify-items: center;
+    font-weight: 600;
+}
+/*endregion*/
+
+/*region MEDIA QUERIES*/
+@media (max-width: 1580px) {
+    header.hero-desktop .hero-links {
+        grid-template-columns: unset !important;
+        grid-template-rows: 1fr 1fr;
+        grid-row-gap: 1.5rem;
+    }
+}
+@media (max-width: 767px) {
+    .form-heading-logo {
+        max-height: 42px;
+    }
+    .form-heading h1 {
+        font-size: 1.2rem;
+    }
+    .form-heading p {
+        font-size: .95rem;
+        color: #404859 !important;
+    }
+
+    header.hero-mobile.hero-text-dark h1,
+    header.hero-mobile.hero-text-dark p.hero-description,
+    header.hero-mobile.hero-text-dark div.hero-callouts ul li,
+    div.form-heading-mobile p
+    {
+        color: #404859 !important;
+    }
+    div.form-heading-mobile p {
+        line-height: 1.5;
+    }
+
+    /*region MOBILE */
+    header.hero-mobile p.hero-description {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
+    header.hero-mobile div.hero-callouts > ul {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: start;
+    }
+    header.hero-mobile .hero-links {
+        display: grid !important;
+        grid-template-rows: 1fr 1fr;
+        grid-row-gap: 1.5rem;
+    }
+    /*endregion*/
+
+}
+/*endregion*/

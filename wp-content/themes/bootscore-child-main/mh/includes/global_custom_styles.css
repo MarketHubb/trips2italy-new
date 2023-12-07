@@ -1,0 +1,55 @@
+/* Global */
+.no-border, .no-borders {
+    border: none !important;
+}
+.inline {
+    display: inline;
+}
+.inline-block {
+    display: inline-block;
+}
+.letter-tight, .letters-tight {
+    letter-spacing: -.015rem;
+}
+/* Color */
+.text-white, .txt-white {
+    color: #fff !important;
+}
+.text-blue, .txt-blue {
+    color: #176fb8 !important;
+}
+.text-gray, .txt-gray {
+    color: #787878 !important;
+}
+.text-darkgray, .txt-darkgray {
+    color: #555 !important;
+}
+.text-black, .txt-black {
+    color: #000 !important;
+}
+/* Buttons / Links */
+.text-link, .text-link:visited {
+    color: #007bff;
+}
+/* Alert Bar */
+.phone-cta span.badge {
+    vertical-align: text-top;
+    margin-right: .25rem;
+}
+.phone-cta p:first-of-type {
+    font-size: 1rem;
+}
+.phone-cta p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+.phone-cta p.letter-tight {
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    bottom: 3px;
+    margin-bottom: -7px;
+}
+.phone-cta a.text-link {
+    font-size: inherit !important;
+}
