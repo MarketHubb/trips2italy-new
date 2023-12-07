@@ -3,6 +3,12 @@
 
 get_header(); ?>
 
+<?php
+$order_by = (get_field('order_by', 'option') === 'date_published') ? 'date' : 'title';
+$order = get_field('order', 'option') ? strtoupper(get_field('order', 'option')) : 'DESC';
+?>
+
+
 <section class="my-5">
 
     <?php
@@ -10,6 +16,8 @@ get_header(); ?>
     $postcard_posts = get_posts(array(
         'post_type' => 'postcards',
         'posts_per_page' => -1,
+        'order' => $order,
+        'orderby' => $order_by
     ));
 
     $postcards  = '<div class="container">';
