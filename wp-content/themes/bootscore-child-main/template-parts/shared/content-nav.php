@@ -40,7 +40,7 @@
 
             <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                    <a href="#" class="btn btn-sm bg-orange text-white btn-round mb-0 me-1" data-bs-toggle="modal" data-bs-target="#modalppc"  role="button">Plan My Trip</a>
+                    <button data-type="Form" data-target="form" class="btn btn-sm bg-orange text-white btn-round mb-0 me-1" role="button">Plan My Trip</a>
                 </li>
             </ul>
         </div>
