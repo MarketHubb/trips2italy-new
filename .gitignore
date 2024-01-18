@@ -148,6 +148,7 @@ fabric.properties
 # Configuration
 wp-config.php
 /wp-content/advanced-cache.php
+/wp-content/wp-rocket-config/t2i-new.test.php
 
 # Example themes
 /wp-content/themes/twenty*/
