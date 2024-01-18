@@ -131,9 +131,23 @@ fabric.properties
 /pages/
 /docs/
 
+# Active theme only
+/wp-admin/
+/wp-content/index.php
+/wp-content/languages
+/wp-content/plugins/index.php
+/wp-content/themes/index.php
+/wp-content/cache/
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
 
 # Configuration
 wp-config.php
+/wp-content/advanced-cache.php
 
 # Example themes
 /wp-content/themes/twenty*/
