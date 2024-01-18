@@ -38,8 +38,8 @@
 
                     $package_posts = get_posts(array(
                         'post_type' => 'package',
-                        'posts_per_page' => -1,
-                        'post_status' => ['draft', 'publish'],
+                        'posts_per_page' => 6,
+                        'post_status' => ['published'],
                         'name' => $slug_from_title
                     ));
 
@@ -63,17 +63,19 @@
                             $package_card .= '</a>';
                             $package_card .= '<p class="clamp-4">' . get_field('description', $package->ID) . '</p>';
                             $package_card .= '<div class="mt-auto">';
-                            $package_card .= '<a href="http://t2i-new.test/package/flavors-of-venice-tour-vacation-packages-for-2021-2022/" type="button" class="btn btn-outline-primary btn-sm">View Package Details</a>
-                                </div>';
+
+                            // Don't display links on travels (PPC) pages
+                            if (!str_contains(get_home_url(), "travels.")) {
+                                $package_card .= '<a href="' . get_permalink($package->ID) . '" type="button" class="btn btn-outline-primary btn-sm">View Package Details</a>';
+                            }
+
+                            $package_card .= '</div>';
                             $package_card .= '</div></div></div>';
                         }
 
                         echo $package_card;
-
                     }
-
                 }
-
             }
 
             ?>
