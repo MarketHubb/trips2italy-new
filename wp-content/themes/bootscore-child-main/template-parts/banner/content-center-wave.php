@@ -32,7 +32,7 @@ if (!$hero) {
                     <?php  ?>
 
                     <?php if ($hero['button_text']) { ?>
-                    <button type="button" class="btn bg-orange btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#modalppc">
+                    <button type="button" class="btn bg-orange btn-lg mt-2" data-target="form" data-type="Form">
                         <?php echo $hero['button_text']; ?>
                     </button>
                     <?php } ?>
