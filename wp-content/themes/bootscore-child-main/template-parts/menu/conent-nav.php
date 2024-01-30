@@ -46,7 +46,7 @@
 
             <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                    <a href="#" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1" role="button">Plan Our Trip</a>
+                    <button class="btn btn-sm bg-gradient-primary btn-round mb-0 me-1" data-type="form" data-target="form" role="button">Plan Our Trip</a>
                 </li>
             </ul>
         </div>
