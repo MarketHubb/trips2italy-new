@@ -23,6 +23,7 @@ require_once 'includes/forms.php';
 // Custom admin styles and scripts
 function admin_style() {
     wp_enqueue_style('admin', get_stylesheet_directory_uri() . '/css/admin.css');
+    wp_enqueue_script('admin-js', get_stylesheet_directory_uri() . '/js/admin.js');
 }
 add_action( 'admin_enqueue_scripts', 'admin_style' );
 
@@ -85,7 +86,7 @@ function bootscore_child_enqueue_styles() {
     // custom.js
     wp_enqueue_script('custom-js', get_stylesheet_directory_uri() . '/js/custom.js', false, '', true);
 
-    if (is_singular('location') || is_tax('location_region')) {
+    if (is_singular('location') || is_tax('location_region') || is_singular('package')) {
         wp_enqueue_script('destinations-js', get_stylesheet_directory_uri() . '/js/destinations.js', false, '', true);
         wp_enqueue_script('bs5-lightbox', get_stylesheet_directory_uri() . '/js/bs5-lightbox.js', ['bootstrap'], '', true);
     }
