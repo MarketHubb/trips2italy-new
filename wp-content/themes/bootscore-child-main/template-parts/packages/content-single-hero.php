@@ -3,7 +3,7 @@ $bg_image = get_field('featured_image', $post->ID);
 ?>
 <header>
     <div class="page-header min-vh-75">
-        <div class="oblique position-absolute top-0 h-100 d-md-block d-none">
+        <div class="oblique position-absolute top-0 h-100 d-md-block">
             <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url(<?php echo $bg_image['url']; ?>)"></div>
         </div>
         <div class="container">
@@ -30,7 +30,7 @@ $bg_image = get_field('featured_image', $post->ID);
                     <h1 class="fs-2"><?php the_title(); ?></h1>
                     <p class="lead pe-md-5 me-md-5">Fully customizable and starting at <?php echo get_field('price', $post->ID); ?></p>
                     <div class="buttons">
-                        <button type="button" class="btn btn bg-orange  mt-4" data-bs-toggle="modal" data-bs-target="#modalppc">Get a Customized Travel Itinerary</button>
+                        <button type="button" class="btn btn bg-orange  mt-4" data-target="form" data-type="Form">Get a Customized Travel Itinerary</button>
                     </div>
                 </div>
             </div>
