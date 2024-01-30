@@ -23,17 +23,18 @@ function galleryLightbox($args = [])
 // endregion
 
 // region Content
-function get_content_section_heading($heading_array = array(), $row = true, $text_center = true)
+function get_content_section_heading($heading_array = array(), $row = true, $text_center = true, $light_text = null)
 {
     if (is_array($heading_array)) {
 
         if ($row) {
-            $heading = '<div class="row justify-content-center section-heading mb-5 pb-2">';
+            $light_text_class = ($light_text) ? "text-light" : '';
+            $heading = '<div class="row justify-content-center section-heading mb-5 pb-2 ' . $light_text_class . '">';
         }
 
         $col_classes = ($text_center) ? "text-center" : '';
 
-        $heading .= '<div class="col-md-6 ' . $col_classes . '">';
+        $heading .= '<div class="col-md-8 ' . $col_classes . '">';
 
         if ($heading_array['heading']) {
             $heading .= '<h2 class="mb-1 mt-2">' . $heading_array['heading'] . '</h2>';
@@ -42,7 +43,7 @@ function get_content_section_heading($heading_array = array(), $row = true, $tex
             $heading .= '<h2 class="text-gradient text-primary stylized">' . $heading_array['subheading'] . '</h2>';
         }
         if ($heading_array['description']) {
-            $heading .= '<p class="lead mt-4 heading-description">' . $heading_array['description'] . '</p>';
+            $heading .= '<p class="lead mt-4 fw-600 fs-5 lh-base heading-description">' . $heading_array['description'] . '</p>';
         }
 
         $heading .= '</div>';
@@ -562,7 +563,7 @@ function get_alternate_content($section, $side)
     $text = get_alternate_text($section, $side);
     $img = get_alternate_img($section, $side);
 
-    $content = '<div class="row py-7">';
+    $content = '<div class="row py-5 py-md-7">';
 
     if ($side === "left") {
         $content .= $text . $img . '</div>';
