@@ -66,8 +66,8 @@ function hero_description($hero, $size = 'desktop') {
 
         $classes = get_hero_copy_classes($hero);
 
-        $description  = '<div class="mt-4">';
-        $description .= '<p class="hero-description fw-500">';
+        $description  = '<div class="mt-4 px-3 px-md-0">';
+        $description .= '<p class="hero-description lh-base fw-500">';
         $description .= $hero['copy']['description'][$size] . '</p>';
         $description .= '</div>';
     }
@@ -78,12 +78,12 @@ function hero_description($hero, $size = 'desktop') {
 function hero_callouts($hero, $size = "desktop") {
 
     if (!empty($hero['callouts'])) {
-        $callouts  = '<div class="my-4 py-4 hero-callouts">';
+        $callouts  = '<div class="my-4 py-4 px-2 px-md-0 hero-callouts">';
         $callouts .= '<ul class="list-group border-0">';
 
         foreach ($hero['callouts'] as $callout) {
-            $callouts .= '<li class="list-group-item bg-transparent ps-0 border-0 py-1 ps-1 pe-0">';
-            $callouts .= '<p class="mb-0 pb-0 fw-600 grayscale"><i class="fa-solid fa-check pe-3"></i>' . $callout[$size] . '</p></li>';
+            $callouts .= '<li class="list-group-item bg-transparent text-start ps-0 border-0 py-1 ps-1 pe-0">';
+            $callouts .= '<p class="mb-0 pb-0 fw-600 grayscale text-wider stylized"><i class="fa-solid fa-check pe-2 pe-md-3"></i>' . $callout[$size] . '</p></li>';
         }
 
         $callouts .= '</ul>';
@@ -171,14 +171,14 @@ function output_hero_links($hero, $format = "desktop") {
         }
 
         if ($el_type && $attributes) {
-            $link_container_class = ($format === "mobile") ? 'mx-auto text-center' : '';
+            $link_container_class = ($format === "mobile") ? 'mx-auto text-center' : 'justify-start';
             $link_copy = replace_variable_in_copy($copy_array[$format], $hero['refer_post']);
 
             if ($link['type'] === 'Phone') {
                 $link_copy = '<span class="d-block lh-1 phone-callout fw-normal small">' . $link_copy . '</span>' . $link['destination'];
             }
 
-            $output .= '<div class="inline-flex ' . $link_container_class . '">';
+            $output .= '<div class="d-inline-flex  ' . $link_container_class . '">';
             $output .= '<' . $el_type . ' ';
             $output .= $attributes . $classes . ' data-type="' . $link['type'] . '">';
 //            $output .= $copy_array[$format];
