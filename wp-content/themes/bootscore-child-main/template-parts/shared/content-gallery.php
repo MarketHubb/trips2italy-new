@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="d-grid grid-cols-3 grid-gap-2">
+    <div class="d-grid grid-cols-3 sm-grid-cols-1 grid-gap-2">
 
         <?php
         $images = get_field('images', get_queried_object());
