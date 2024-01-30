@@ -71,11 +71,19 @@
     </div>
 </section>
 
-
-<!--CTA -->
-<?php //get_template_part('template-parts/packages/content', 'single-cta'); ?>
 <!-- Testimonial -->
 <?php get_template_part('template-parts/packages/content', 'single-testimonial'); ?>
+
+<!--Photo Gallery -->
+<?php 
+$gallery_args = [
+    'repeater_field' => 'image_gallery',
+    'sub_field_image' => 'image',
+    'sub_field_description' => 'description'
+];
+get_template_part('template-parts/shared/content', 'gallery-repeater', $gallery_args); 
+?>
+
 <!-- Related -->
 <?php get_template_part('template-parts/packages/content', 'single-related'); ?>
 

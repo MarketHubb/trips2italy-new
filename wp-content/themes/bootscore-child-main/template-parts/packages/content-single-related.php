@@ -23,7 +23,7 @@
                 $image = get_field('featured_image', $package->ID);
                 if ($image) {
                     $p .= '<div class="col-lg-4 mb-lg-0 mb-4">
-                                <a href="javascript:;">
+                                <a href="' . get_permalink($package->ID) . '">
                                     <div class="card card-background move-on-hover mb-4">';
                     $p .= '<div class="full-background" style="background-image: url(' . $image['url'] . ')"></div>';
                     $p .= '<div class="card-body pt-12">
