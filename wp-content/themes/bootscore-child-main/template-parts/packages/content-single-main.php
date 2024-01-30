@@ -20,7 +20,9 @@
                                         <h1 class="mt-0">
                                             <small><?php echo get_field('price', $post->ID) ?></small>
                                         </h1>
-                                        <button type="button" class="btn bg-orange btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#modalppc">Talk to Us</button>
+                                        <!-- <button type="button" class="btn bg-orange btn-lg mt-2" data-bs-toggle="modal" data-bs-target="#modalppc">Talk to Us</button> -->
+                                        <button data-type="Form" data-target="form" class="btn bg-orange btn-lg mt-2" role="button">Talk to Us
+                                        </button>
                                         <p class="text-sm">Like to change something?<br><strong>Our packages
                                                 are 100% customizable</strong></p>
                                     </div>
