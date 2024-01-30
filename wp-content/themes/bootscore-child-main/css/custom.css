@@ -667,6 +667,20 @@ button.btn.btn-primary:not(.page-active):hover
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 767px) {
+    .oblique {
+        width: 100%;
+        right: 0;
+    }
+    .oblique + div h1,
+    .oblique + div p
+    {
+        color: #fff !important;
+    }
+    .footer-links .destination-list {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
     .sm-grid-cols-1 {
         grid-template-columns: auto;
     }
