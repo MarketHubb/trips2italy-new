@@ -1,3 +1,40 @@
+.wpex.horizontal-timeline:not(.no-arr-top) .hor-container {
+    padding: 0 15px;
+}
+.justify-start {
+    justify-self: start;
+}
+.pb-7 {
+    padding-bottom: 7rem !important;
+}
+.pb-8 {
+    padding-bottom: 8rem !important;
+}
+.bg-blue-light {
+    background-color: rgba(166, 211, 255, .15) !important;
+}
+.panel-copy-container {
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.9) 100%);
+}
+.card-cover {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.section-heading p.heading-description {
+    font-weight: 600;
+}
+.section-heading.text-light h2:first-of-type,
+.section-heading.text-light p.heading-description
+{
+    color: #fff  !important;
+}
+.section-heading.text-light h2:nth-of-type(2) {
+    color: #E09D26 !important;
+    background-image: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+}
 a > img.shadow:hover {
     border: 2px solid rgb(255, 228, 132);
     box-shadow: rgba(255, 228, 132, 0.4) 0px 0px 0px 4px;
@@ -64,6 +101,9 @@ a.form-nav-button.disabled {
 }
 .text-wide {
     letter-spacing: .025rem;
+}
+.text-wider {
+    letter-spacing: .05rem;
 }
 p.stylized {
     font-size: 105%;
