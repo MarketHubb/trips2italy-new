@@ -6,15 +6,15 @@ function custom_copy_or_default($string, $matches, $replace) {
 function replace_variable_in_copy($string, $dynamic = null, $text_transform = null) {
     preg_match_all('/{(.*?)}/', $string, $matches);
 
-    if (!empty($matches)) {
+    if (!empty($matches[0])) {
 
         $replace_text = $dynamic ?: $matches[1][0];
         $replace_text = ($text_transform === "lower") ? strtolower($replace_text) : $replace_text;
         $replace = '<span class="dynamic">' . $replace_text . '</span>';
-        $output  = str_replace($matches[0], $replace, $string);
+        $string  = str_replace($matches[0], $replace, $string);
     }
 
-    return $output ?: null;
+    return $string ?: null;
 }
 
 function customize_itinerary_copy($hero, $refer_id = null) {
