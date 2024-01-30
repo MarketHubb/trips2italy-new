@@ -35,7 +35,8 @@
                                 <i class="<?php echo $featured['icon']; ?> fa-xl opacity-10 fs-3"></i>
                             </div>
                             <h5 class="d-inline-block fw-bolder text-uppercase"><?php echo $featured['heading']; ?></h5>
-                            <h5 class="text-gradient text-primary mb-4"><?php echo $featured['subheading']; ?></h5>
+                            <h5 class="d-none d-md-block text-gradient text-primary mb-4"><?php echo $featured['subheading']; ?></h5>
+                            <h5 class="d-block d-md-none fs-6 fw-bold text-gradient text-primary mb-4"><?php echo $featured['subheading']; ?></h5>
                             <p class="text-sm"></p>
                         </div>
                     </div>
