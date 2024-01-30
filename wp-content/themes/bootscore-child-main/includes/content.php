@@ -1,10 +1,34 @@
 <?php
+// region Shared
+function galleryLightbox($args = [])
+{
+    $gallery = '';
+
+    if (isset($args["src"]) && $args["src"]) {
+        $gallery .= '<div class="">';
+        $gallery .= '<a href="' . $args['src'] . '" ';
+        $gallery .= 'data-toggle="lightbox" data-gallery="example-gallery">';
+        $gallery .= '<img src="' . $args['src'] . '" class="img-fluid rounded shadow" />';
+        $gallery .= '</a>';
+    }
+
+    if (isset($args['caption']) && $args['caption']) {
+        $gallery .= '<div class="text-center"><p class="small px-4 text-dark pt-2">' . $args['caption'] . '</p></div>';
+    }
+
+    $gallery .= '</div>';
+
+    return $gallery;
+}
+// endregion
+
 // region Content
-function get_content_section_heading($heading_array = array(), $row = true, $text_center = true ) {
+function get_content_section_heading($heading_array = array(), $row = true, $text_center = true)
+{
     if (is_array($heading_array)) {
 
         if ($row) {
-            $heading  = '<div class="row justify-content-center section-heading mb-5 pb-2">';
+            $heading = '<div class="row justify-content-center section-heading mb-5 pb-2">';
         }
 
         $col_classes = ($text_center) ? "text-center" : '';
@@ -31,13 +55,15 @@ function get_content_section_heading($heading_array = array(), $row = true, $tex
     }
 }
 
-function set_url_from_link_type($link_type) {
+function set_url_from_link_type($link_type)
+{
     if ($link_type === "Post - Regions") {
         return "region";
     }
 }
 
-function get_content_section_links($section = array(), $path, $arrow = null) {
+function get_content_section_links($section = array(), $path, $arrow = null)
+{
     // Var Paths
     $style = $path . 'style';
     $text = $path . 'text';
@@ -47,7 +73,7 @@ function get_content_section_links($section = array(), $path, $arrow = null) {
     $classes = ($section[$style] === 'Button') ? 'btn bg-orange btn-lg' : 'text-dark icon-move-right fw-bold fs-5';
 
     if ($section[$url]) {
-        $output  = '<a ';
+        $output = '<a ';
         $output .= 'href="' . $section[$url] . '" ';
         $output .= 'class="' . $classes . '">';
         $output .= $section[$text];
@@ -62,7 +88,8 @@ function get_content_section_links($section = array(), $path, $arrow = null) {
     return $output ?: null;
 }
 
-function get_stats($stats = array()) {
+function get_stats($stats = array())
+{
     if (is_array($stats)) {
         $content = '';
         foreach ($stats as $stat) {
@@ -80,18 +107,22 @@ function get_stats($stats = array()) {
 // endregion
 
 //region Helpers
-function get_parent_term_id($term) {
+function get_parent_term_id($term)
+{
     return ($term->parent === 0) ? $term->term_id : $term->parent;
 }
-function get_post_parent_id($post) {
+function get_post_parent_id($post)
+{
     return ($post->post_parent === 0) ? $post->ID : $post->post_parent;
 }
-function lowercase_no_spaces($string) {
-    return strtolower(str_replace(" ", "",$string));
+function lowercase_no_spaces($string)
+{
+    return strtolower(str_replace(" ", "", $string));
 }
 //endregion
-function get_formatted_region_page_type($title, $destination = null) {
-    $removal_words = ["Ultimate","Guide","For","Traveling", "Travel","Vacation","Italy","In"];
+function get_formatted_region_page_type($title, $destination = null)
+{
+    $removal_words = ["Ultimate", "Guide", "For", "Traveling", "Travel", "Vacation", "Italy", "In"];
 
     if ($destination) {
         $removal_words[] = $destination;
@@ -114,12 +145,13 @@ function get_formatted_region_page_type($title, $destination = null) {
     return trim($clean_title);
 }
 
-function get_hero_breadcrumb_links($object, $type) {
+function get_hero_breadcrumb_links($object, $type)
+{
 
-    $breadcrumbs[] =  [
+    $breadcrumbs[] = [
         'text' => 'All Destinations',
         'link' => get_permalink(27712),
-        'icon' => get_home_url() .'/wp-content/uploads/2023/01/Marker.svg'
+        'icon' => get_home_url() . '/wp-content/uploads/2023/01/Marker.svg'
     ];
 
     if ($object->post_type === 'location') {
@@ -142,7 +174,7 @@ function get_hero_breadcrumb_links($object, $type) {
     $current_page = ($type === "post") ? get_the_title($object->ID) : get_term($object->term_id)->name;
 
     $breadcrumbs[] = [
-        'text' => str_replace("Ultimate", "",$current_page),
+        'text' => str_replace("Ultimate", "", $current_page),
         'link' => null,
         'icon' => get_home_url() . '/wp-content/uploads/2023/07/Map-Pin.svg'
     ];
@@ -150,22 +182,23 @@ function get_hero_breadcrumb_links($object, $type) {
     return $breadcrumbs;
 }
 
-function get_post_hero_inputs($postObj) {
+function get_post_hero_inputs($postObj)
+{
     $id = $postObj->ID;
     $parent = get_post_parent($postObj);
     $initial = ($parent) ? $parent : $postObj;
     $hero = [];
-    
+
     if ($postObj->post_type === 'location') {
         $image = (get_field('featured_image', $id)) ? get_field('featured_image', $id)['url'] : get_field('image_slider_url', $id);
 
         if ($image) {
-            $hero['image'] =  remove_home_url($image);
+            $hero['image'] = remove_home_url($image);
         }
 
         $hero['heading'] = ($parent) ? $parent->post_title : $postObj->post_title;
 
-        $hero['heading_2'] = ($parent) ?  trim(str_replace($parent->post_title, "", $postObj->post_title)) . " Guide" : "Ultimate Travel Guide";
+        $hero['heading_2'] = ($parent) ? trim(str_replace($parent->post_title, "", $postObj->post_title)) . " Guide" : "Ultimate Travel Guide";
 
         $hero['button_text'] = "Get My Custom " . $initial->post_title . " Itinerary";
 
@@ -174,7 +207,9 @@ function get_post_hero_inputs($postObj) {
 
     return $hero;
 }
-function get_tax_hero_inputs($term) {
+
+function get_tax_hero_inputs($term)
+{
     $image = (get_field('featured_image', $term)) ? get_field('featured_image', $term)['url'] : remove_home_url(get_field('image_slider_url', $term));
     $hero['image'] = $image;
     $hero['heading'] = $term->name;
@@ -184,7 +219,8 @@ function get_tax_hero_inputs($term) {
     return $hero;
 }
 
-function location_post_tabs($postObj) {
+function location_post_tabs($postObj)
+{
     $parent = get_post_parent($postObj);
     $initial = ($parent) ? $parent : $postObj;
     $tabs['location'] = $initial->post_title;
@@ -195,11 +231,13 @@ function location_post_tabs($postObj) {
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
     ];
 
-    $children_posts = get_posts(array(
-        'post_type' => 'location',
-        'post_parent' => $initial->ID,
-        'posts_per_page' => -1
-    ));
+    $children_posts = get_posts(
+        array(
+            'post_type' => 'location',
+            'post_parent' => $initial->ID,
+            'posts_per_page' => -1
+        )
+    );
 
     foreach ($children_posts as $child_post) {
         $tabs['pages'][] = [
@@ -212,7 +250,8 @@ function location_post_tabs($postObj) {
     return $tabs;
 }
 
-function location_tax_tabs($postObj) {
+function location_tax_tabs($postObj)
+{
     $parent_id = get_parent_term_id($postObj);
     $parent = get_term_by('ID', $parent_id, 'location_region');
     $tabs['location'] = $parent->name;
@@ -223,11 +262,13 @@ function location_tax_tabs($postObj) {
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
     ];
 
-    $children_terms = get_terms(array(
-        'taxonomy' => 'location_region',
-        'hide_empty' => false,
-        'parent' => $parent_id
-    ));
+    $children_terms = get_terms(
+        array(
+            'taxonomy' => 'location_region',
+            'hide_empty' => false,
+            'parent' => $parent_id
+        )
+    );
 
     foreach ($children_terms as $child_term) {
         $tabs['pages'][] = [
@@ -240,13 +281,15 @@ function location_tax_tabs($postObj) {
     return $tabs;
 }
 
-function location_tabs($postObj, $type) {
+function location_tabs($postObj, $type)
+{
     $tabs = ($type === "post") ? location_post_tabs($postObj) : location_tax_tabs($postObj);
 
     return $tabs ?: null;
 }
 
-function location_hero_and_tab_inputs($postObj) {
+function location_hero_and_tab_inputs($postObj)
+{
     $inputs = null;
 
     if ($postObj->ID) {
@@ -266,11 +309,8 @@ function location_hero_and_tab_inputs($postObj) {
     return $inputs ?: null;
 }
 
-function location_tab_inputs($postObj) {
-
-}
-
-function region_tabs($term) {
+function region_tabs($term)
+{
     $parent_term_id = get_parent_term_id($term);
     $parent_region = get_term_by('ID', $parent_term_id, 'location_region');
     $region_terms[] = [
@@ -279,11 +319,13 @@ function region_tabs($term) {
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
     ];
 
-    $children_terms = get_terms(array(
-        'taxonomy' => 'region',
-        'hide_empty' => false,
-        'parent' => $parent_term_id
-    ));
+    $children_terms = get_terms(
+        array(
+            'taxonomy' => 'region',
+            'hide_empty' => false,
+            'parent' => $parent_term_id
+        )
+    );
 
     foreach ($children_terms as $child_term) {
         $child_term_name = htmlspecialchars($child_term->name);
@@ -303,7 +345,8 @@ function region_tabs($term) {
     return $region_terms;
 }
 
-function get_tax_tab_inputs($term) {
+function get_tax_tab_inputs($term)
+{
     $parent_term_id = get_parent_term_id($term);
     $parent_region = get_term_by('ID', $parent_term_id, 'region');
     $region_terms[] = [
@@ -312,11 +355,13 @@ function get_tax_tab_inputs($term) {
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
     ];
 
-    $children_terms = get_terms(array(
-        'taxonomy' => 'region',
-        'hide_empty' => false,
-        'parent' => $parent_term_id
-    ));
+    $children_terms = get_terms(
+        array(
+            'taxonomy' => 'region',
+            'hide_empty' => false,
+            'parent' => $parent_term_id
+        )
+    );
 
     foreach ($children_terms as $child_term) {
         $child_term_name = htmlspecialchars($child_term->name);
@@ -335,20 +380,24 @@ function get_tax_tab_inputs($term) {
 
     return $region_terms;
 }
-function get_city_post_tab_inputs($post) {
+
+function get_city_post_tab_inputs($post)
+{
     $parent_post_id = get_post_parent_id($post);
-    $parent_post_title = format_region_title($parent_post_id,get_the_title($parent_post_id));
+    $parent_post_title = format_region_title($parent_post_id, get_the_title($parent_post_id));
     $region_posts[] = [
         'name' => $parent_post_title,
         'permalink' => get_permalink($parent_post_id),
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
     ];
 
-    $children_posts = get_posts(array(
-        'post_type' => get_post_type($post),
-        'post_parent' => $parent_post_id,
-        'posts_per_page' => -1
-    ));
+    $children_posts = get_posts(
+        array(
+            'post_type' => get_post_type($post),
+            'post_parent' => $parent_post_id,
+            'posts_per_page' => -1
+        )
+    );
 
     foreach ($children_posts as $child_post) {
         $child_term_name = get_the_title($child_post->ID);
@@ -368,10 +417,12 @@ function get_city_post_tab_inputs($post) {
 
     return $region_posts;
 }
-function format_region_title($post_id) {
+
+function format_region_title($post_id)
+{
     $title = get_the_title($post_id);
 
-    $removal_words = ["Ultimate","Guide","For","Traveling", "Travel","Vacation","Italy","In", "of", "-", "What to See", "Of", "Travelers", "What to See"];
+    $removal_words = ["Ultimate", "Guide", "For", "Traveling", "Travel", "Vacation", "Italy", "In", "of", "-", "What to See", "Of", "Travelers", "What to See"];
 
     $title_array = explode(" ", $title);
 
@@ -391,12 +442,16 @@ function format_region_title($post_id) {
 
     return trim($clean_title);
 }
-function format_region_child_page_type($post_id, $parent=null) {
+
+function format_region_child_page_type($post_id, $parent = null)
+{
     $city = format_region_title($post_id);
     return $city;
 
 }
-function format_region_page_type($post_id, $parent_id = null) {
+
+function format_region_page_type($post_id, $parent_id = null)
+{
     $city = get_post($post_id);
     if ($city->post_parent !== 0 && get_field('standardized_title')) {
         return 'Ultimate ' . get_field('standardized_title');
@@ -412,7 +467,9 @@ function format_region_page_type($post_id, $parent_id = null) {
     }
 
 }
-function get_icon_for_region_page($formatted_title) {
+
+function get_icon_for_region_page($formatted_title)
+{
     $url = get_home_url();
     switch (true) {
         case str_contains($formatted_title, 'History'):
@@ -425,24 +482,29 @@ function get_icon_for_region_page($formatted_title) {
             return $url . '/wp-content/uploads/2023/09/cal-2.svg';
     }
 }
-function get_excerpt_for_post($text, $length = 10) {
-    $length = abs((int)$length);
-    if(strlen($text) > $length) {
+
+function get_excerpt_for_post($text, $length = 10)
+{
+    $length = abs((int) $length);
+    if (strlen($text) > $length) {
         $text = preg_replace("/^(.{1,$length})(\s.*|$)/s", '\\1...', $text);
     }
-    return($text);
+    return ($text);
 }
+
 //region Hero
 
 //endregion
 
-function remove_travel_guides_from_content($string) {
+function remove_travel_guides_from_content($string)
+{
     $string = str_replace('<strong>Travel Guides</strong>', '', $string);
 
     return str_replace('<b></b><b></b>', '', $string);
 }
 
-function remove_embeds_from_content($content, $return_type=null) {
+function remove_embeds_from_content($content, $return_type = null)
+{
     $content = explode("\n", $content);
     $clean_array = [];
     $clean_content = '';
@@ -458,12 +520,12 @@ function remove_embeds_from_content($content, $return_type=null) {
     return (!$return_type) ? $clean_content : $clean_array;
 }
 
-
-function get_alternate_text($section, $side) {
+function get_alternate_text($section, $side)
+{
     $column_classes = $side === "left" ? '' : 'order-1 order-md-1 order-lg-1';
     $link = get_content_section_links($section, "link_link_", true);
 
-    $text =  '<div class="col-lg-6 col-md-12 me-auto ' . $column_classes . '">
+    $text = '<div class="col-lg-6 col-md-12 me-auto ' . $column_classes . '">
                 <div class="p-3 pt-0">
                     <h2 class="text-gradient text-warning mb-0 font-weight-bolder">' . $section['region'] . '</h2>
                     <h4 class="mb-4">' . $section['callout'] . '</h4>
@@ -473,18 +535,20 @@ function get_alternate_text($section, $side) {
         $text .= $link;
     }
 
-//                    <a href="javascript:;" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
+    //                    <a href="javascript:;" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
 //                        <i class="fas fa-arrow-right text-sm ms-1"></i>
 //                    </a>
     $text .= '</div></div>';
 
     return $text;
 }
-function get_alternate_img($section, $side) {
+
+function get_alternate_img($section, $side)
+{
     $column_classes = $side === "left" ? '' : ' order-2 order-md-2 order-lg-1';
     $img_classes = $side === "right" ? ' transform-355' : ' transform-1';
 
-//    <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
+    //    <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
 //    <div class="w-100 h-100 bg-gradient-warning border-radius-xl position-absolute background-shape" alt=""></div>
     return '<div class="col-lg-6 col-md-8' . $column_classes . '">
                 <div class="position-relative text-center">
@@ -492,11 +556,13 @@ function get_alternate_img($section, $side) {
                 </div>
             </div>';
 }
-function get_alternate_content($section, $side) {
+
+function get_alternate_content($section, $side)
+{
     $text = get_alternate_text($section, $side);
     $img = get_alternate_img($section, $side);
 
-    $content  = '<div class="row py-7">';
+    $content = '<div class="row py-7">';
 
     if ($side === "left") {
         $content .= $text . $img . '</div>';
@@ -504,13 +570,15 @@ function get_alternate_content($section, $side) {
         $content .= $img . $text . '</div>';
     }
 
-//    $content .=  $side === "left" ? get_alternate_text($section, $side) : get_alternate_img($section, $side);
+    //    $content .=  $side === "left" ? get_alternate_text($section, $side) : get_alternate_img($section, $side);
 //    $content .=  $side === "right" ? get_alternate_img($section, $side) : get_alternate_text($section, $side);
 //    $content .= '</div>';
 
     return $content;
 }
-function get_left_alternate($section) {
+
+function get_left_alternate($section)
+{
     return '<div class="row py-7">
             <div class="col-lg-6 col-md-12 me-auto">
                 <div class="p-3 pt-0">
@@ -532,7 +600,9 @@ function get_left_alternate($section) {
             </div>
         </div>';
 }
-function get_right_alternate($section) {
+
+function get_right_alternate($section)
+{
     return '<div class="row py-7">
             <div class="col-lg-6 col-md-8 order-2 order-md-2 order-lg-1">
                 <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">

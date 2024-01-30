@@ -6,6 +6,7 @@
             <h3>PHOTOS</h3>
         </div>
     </div>
+
     <div class="d-grid grid-cols-3 grid-gap-2">
 
         <?php
@@ -16,20 +17,9 @@
             $gallery = '';
             while ( have_rows('images', get_queried_object()) ) : the_row();
 
-                $src = get_sub_field('image', get_queried_object())['url'];
-                $caption = get_sub_field('description', get_queried_object());
-
-                $gallery .= '<div class="">';
-                $gallery .= '<a href="' . $src . '" ';
-                $gallery .= 'data-toggle="lightbox" data-gallery="example-gallery">';
-                $gallery .= '<img src="' . $src . '" class="img-fluid rounded" />';
-                $gallery .= '</a>';
-
-                if ($caption) {
-                    $gallery .= '<div class="text-center"><p class="small px-4 text-dark pt-2">' . $caption . '</p></div>';
-                }
-
-                $gallery .= '</div>';
+                $gallery_args['src'] = get_sub_field('image', get_queried_object())['url'];
+                $gallery_args['caption'] = get_sub_field('description', get_queried_object());
+                $gallery .= galleryLightbox($gallery_args);
 
             endwhile;
         else:
