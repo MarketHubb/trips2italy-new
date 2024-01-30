@@ -7,7 +7,7 @@
         <a class="navbar-brand pt-1 pb-2" href="<?php echo get_home_url(); ?>" rel="tooltip" title="Custom Italian Vacations" data-placement="bottom">
             <img src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg' ?>" alt="">
         </a>
-        <a href="#" class="btn btn-sm bg-orange text-white btn-round mb-0 me-1 d-inline-block d-md-none mobile-header-cta" data-bs-toggle="modal" data-bs-target="#modalppc"  role="button">Plan My Trip</a>
+        <button data-type="Form" data-target="form" class="btn btn-sm d-inline-block d-md-none bg-orange text-white btn-round mb-0 me-1" role="button">Plan My Trip</a>
         <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon mt-2">
         <span class="navbar-toggler-bar bar1"></span>
