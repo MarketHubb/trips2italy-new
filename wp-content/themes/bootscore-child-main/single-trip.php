@@ -21,16 +21,15 @@ get_template_part('template-parts/features/content', 'features-7', $why_args);
 ?>
 
 
-<?php
-// Why T2I -
-get_template_part('template-parts/city/content', 'explore');
+<?php get_template_part('template-parts/city/content', 'explore');?>
+
+<?php get_template_part('template-parts/trips/content', 'why'); ?>
+
+<?php 
+if (get_field('itinerary')) {
+	get_template_part('template-parts/top/timeline'); 
+}
 ?>
-
-<?php get_template_part('template-parts/city/content', 'why'); ?>
-
-<?php // get_template_part('template-parts/city/content', 'package'); ?>
-
-<?php get_template_part('template-parts/top/timeline'); ?>
 
 <?php get_template_part('template-parts/trips/content', 'packages'); ?>
 
