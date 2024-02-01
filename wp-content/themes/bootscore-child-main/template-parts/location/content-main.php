@@ -1,12 +1,13 @@
 <?php
-$postObj = get_queried_object();
+$queried_object = get_queried_object();
 
-if ($postObj->ID) {
+if ($queried_object->ID) {
     $type = 'post';
+    $post_obj = get_post($queried_object);
 } else {
     $type = 'taxonomy';
 }
-$inputs = location_tabs($postObj, $type);
+$inputs = location_tabs($queried_object, $type);
 ksort($inputs['pages']);
 
 ?>
@@ -59,7 +60,13 @@ ksort($inputs['pages']);
             ?>
 
             <?php
-            get_template_part('template-parts/location/content', 'related');
+            $related_args['type'] = $type;
+            $related_args['related_locations'] = related_locations_in_region($post_obj);
+
+            if (isset($related_args) && !empty($related_args)) {
+                get_template_part('template-parts/location/content', 'related', $related_args);
+            }
+            
             ?>
 
         </div>

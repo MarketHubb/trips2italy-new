@@ -28,7 +28,7 @@ $dropdown_city .= 'Jump to City</a>';
 $dropdown_city .= '<ul class="dropdown-menu" aria-labelledby="navbarDropdownCity">';
 
 foreach ($regions as $region) {
-    $output .= '<section id="' . lowercase_no_spaces($region->name) . '" class="region-container py-4 my-4" data-region="' . $region->name . '">';
+    $output .= '<section id="' . lowercase_no_spaces($region->name) . '" class="region-container py-4 my-4" data-region="' . $region->name . '" data-termid="' . $region->term_id . '">';
     $output .= '<div class="container">';
 
     $dropdown_region .= '<li><a class="dropdown-item fs-6 fw-500" href="#' . lowercase_no_spaces($region->name) . '">';
@@ -46,22 +46,9 @@ foreach ($regions as $region) {
         ),
     );
 
-//    $output .= '<div class="region-copy py-5">';
-
     $query = new WP_Query($query_args);
 
     if ($query->have_posts()) :
-//        $output .= '<div class="d-flex justify-content-end row-cols-2 row gx-md-10 mb-5">';
-//        $output .= '<div class="region-copy py-5">';
-//        $output .= '<img src="' . get_field('region_icon', $region) . '" class="region-icon d-block" />';
-//        $output .= '<h2 class="me-4">' . $region->name . '</h2>';
-//        $output .= '<p class="clamp-4">' . $region->description . '</p>';
-//        $output .= '<a class="btn bg-orange btn-lg mt-2" href="' . get_term_link($region->term_id) . '">Explore the ' . $region->name . ' Region</a>';
-//        $output .= '</div>';
-//        $output .= '<div class="region-image py-4">';
-//        $output .= '<img src="' . get_field('featured_image', $region)['url'] . '" class="rounded shadow object-fit h-100" />';
-//        $output .= '</div></div>';
-
         $output .= '<div class="row gx-md-10 mb-5">';
         $output .= '<div class="region-image pt-4">';
         $output .= '<img src="' . get_field('featured_image', $region)['url'] . '" class="rounded shadow object-fit h-100" />';
@@ -93,7 +80,6 @@ foreach ($regions as $region) {
                 $image_url = remove_home_url($city_image);
                 $card_args = [];
                 $card_args['image_url'] = $image_url;
-//                $card_args['heading'] = '<h4 class="fs-5 fw-bolder">' . get_field('city_name') . '</h4>';
                 $card_args['heading'] = '<h4 class="fs-5 fw-bolder">' . get_the_title() . '</h4>';
                 $card_args['body'] = '<ul class="list-group list-group-flush">';
                 $card_args['body'] .= list_group_item(array(
@@ -115,7 +101,6 @@ foreach ($regions as $region) {
                     foreach ($children_cities as $child) {
                         $card_args['body'] .= list_group_item(array(
                             'url' => get_permalink($child->ID),
-//                            'text' => get_field('standardized_title', $child->ID)
                             'text' => get_the_title($child->ID)
                         ));
                     }
