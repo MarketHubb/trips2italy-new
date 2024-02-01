@@ -1,6 +1,10 @@
 <?php $bg_image = get_home_url() . '/wp-content/uploads/2021/11/Featured-BG.jpg'; ?>
 
-<section class="py-7 background-image-container" style="background-image: linear-gradient(to right,rgba(255,255,255,.1), rgba(255,255,255,.1) 35%, rgba(255,255,255,.1) 100%),url(<?php echo $bg_image; ?>">
+<?php 
+$tone_class = strtolower(get_field('feature_panels')['image_tone']);
+ ?>
+
+<section class="py-7 background-image-container bg-panels-<?php echo $tone_class ?>" style="background-image: linear-gradient(to right,rgba(255,255,255,.1), rgba(255,255,255,.1) 35%, rgba(255,255,255,.1) 100%),url(<?php echo $bg_image; ?>">
     <div class="container">
 
         <!-- Section Heading -->
@@ -22,9 +26,9 @@
 
                 <div class="col-12 col-md-4 mb-5 mb-md-0">
                     <div class="card card-cover no-border feature-cards h-100 overflow-hidden text-white bg-blue-light rounded shadow-lg" style="background-image: url(<?php echo $panel['image']['url']; ?>)">
-                        <div class="d-flex flex-column h-100 py-5 px-4 pb-8 p-md-5 text-white  border border-3 border-white rounded text-shadow-1 panel-copy-container">
+                        <div class="d-flex flex-column h-100 py-5 px-4 pb-10 p-md-5 text-white  border border-3 border-white rounded text-shadow-1 panel-copy-container">
                             <h2 class="pt-0 mt-0 mb-3 fs-2 text-white lh-sm fw-bolder"><?php echo $panel['heading']; ?></h2>
-                            <p class="text-white mb-5 pb-5"><?php echo $panel['description']; ?></p>
+                            <p class="text-white mb-5 pb-5 fw-500"><?php echo $panel['description']; ?></p>
                         </div>
                     </div>
                 </div>
