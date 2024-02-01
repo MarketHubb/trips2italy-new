@@ -1,8 +1,18 @@
-<?php $inputs = get_query_var('inputs'); ?>
+<?php
+$postObj = get_queried_object();
+
+if ($postObj->ID) {
+    $type = 'post';
+} else {
+    $type = 'taxonomy';
+}
+$inputs = location_tabs($postObj, $type);
+ksort($inputs['pages']);
+
+?>
 
 <div class="entry-content single-city">
-
-    <?php get_template_part('template-parts/menu/content', 'button-group', $inputs['tabs']); ?>
+    <?php get_template_part('template-parts/menu/content', 'button-group', $inputs); ?>
 
 
     <div id="custom" class="py-4">

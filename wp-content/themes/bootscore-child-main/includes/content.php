@@ -169,7 +169,6 @@ function get_hero_breadcrumb_links($object, $type)
                 ];
             }
         }
-
     }
 
     $current_page = ($type === "post") ? get_the_title($object->ID) : get_term($object->term_id)->name;
@@ -219,14 +218,32 @@ function get_tax_hero_inputs($term)
 
     return $hero;
 }
+function sort_order_locations($child_title)
+{
+    switch ($child_title) {
+        case str_contains($child_title, 'history'):
+            $order = 1;
+            break;
+        case str_contains($child_title, 'food'):
+            $order = 2;
+            break;
+        case str_contains($child_title, 'culture'):
+            $order = 3;
+            break;
+        case str_contains($child_title, 'things'):
+            $order = 4;
+            break;
+    }
 
+    return $order;
+}
 function location_post_tabs($postObj)
 {
     $parent = get_post_parent($postObj);
     $initial = ($parent) ? $parent : $postObj;
     $tabs['location'] = $initial->post_title;
 
-    $tabs['pages'][] = [
+    $tabs['pages'][0] = [
         'name' => "Ultimate Travel Guide",
         'permalink' => get_permalink($initial->ID),
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
@@ -241,7 +258,14 @@ function location_post_tabs($postObj)
     );
 
     foreach ($children_posts as $child_post) {
-        $tabs['pages'][] = [
+        $child_post_title = strtolower($child_post->post_title);
+        $order = sort_order_locations($child_post_title);
+
+        if (strpos($child_post_title, "&#8217;s") !== false) {
+            $child_post_title = str_replace("&#8217;s", "", $child_post_title);
+        }
+
+        $tabs['pages'][$order] = [
             'name' => trim(str_replace($initial->post_title, "", $child_post->post_title)),
             'permalink' => get_permalink($child_post->ID),
             'icon' => get_icon_for_region_page(get_the_title($child_post->ID))
@@ -257,7 +281,7 @@ function location_tax_tabs($postObj)
     $parent = get_term_by('ID', $parent_id, 'location_region');
     $tabs['location'] = $parent->name;
 
-    $tabs['pages'][] = [
+    $tabs['pages'][0] = [
         'name' => "Region Guide",
         'permalink' => get_term_link($parent),
         'icon' => get_home_url() . '/wp-content/uploads/2023/01/Pin-Shadow.svg'
@@ -272,7 +296,10 @@ function location_tax_tabs($postObj)
     );
 
     foreach ($children_terms as $child_term) {
-        $tabs['pages'][] = [
+        $child_term_title = strtolower($child_term->name);
+        $order = sort_order_locations($child_term_title);
+
+        $tabs['pages'][$order] = [
             'name' => trim(str_replace($parent->name, "", $child_term->name)),
             'permalink' => get_term_link($child_term),
             'icon' => get_icon_for_region_page($child_term->name)
@@ -448,7 +475,6 @@ function format_region_child_page_type($post_id, $parent = null)
 {
     $city = format_region_title($post_id);
     return $city;
-
 }
 
 function format_region_page_type($post_id, $parent_id = null)
@@ -466,7 +492,6 @@ function format_region_page_type($post_id, $parent_id = null)
         }
         return $title;
     }
-
 }
 
 function get_icon_for_region_page($formatted_title)
@@ -516,7 +541,6 @@ function remove_embeds_from_content($content, $return_type = null)
             $clean_content .= "\n" . $line . "\n";
             $clean_array[] = $line;
         }
-
     }
     return (!$return_type) ? $clean_content : $clean_array;
 }
@@ -537,8 +561,8 @@ function get_alternate_text($section, $side)
     }
 
     //                    <a href="javascript:;" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
-//                        <i class="fas fa-arrow-right text-sm ms-1"></i>
-//                    </a>
+    //                        <i class="fas fa-arrow-right text-sm ms-1"></i>
+    //                    </a>
     $text .= '</div></div>';
 
     return $text;
@@ -550,7 +574,7 @@ function get_alternate_img($section, $side)
     $img_classes = $side === "right" ? ' transform-355' : ' transform-1';
 
     //    <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
-//    <div class="w-100 h-100 bg-gradient-warning border-radius-xl position-absolute background-shape" alt=""></div>
+    //    <div class="w-100 h-100 bg-gradient-warning border-radius-xl position-absolute background-shape" alt=""></div>
     return '<div class="col-lg-6 col-md-8' . $column_classes . '">
                 <div class="position-relative text-center">
                     <img src="' . $section['image_mobile'] . '" class="w-100 border-radius-xl mt-4  shadow ' . $img_classes . '" alt="">
@@ -572,8 +596,8 @@ function get_alternate_content($section, $side)
     }
 
     //    $content .=  $side === "left" ? get_alternate_text($section, $side) : get_alternate_img($section, $side);
-//    $content .=  $side === "right" ? get_alternate_img($section, $side) : get_alternate_text($section, $side);
-//    $content .= '</div>';
+    //    $content .=  $side === "right" ? get_alternate_img($section, $side) : get_alternate_text($section, $side);
+    //    $content .= '</div>';
 
     return $content;
 }
@@ -625,5 +649,3 @@ function get_right_alternate($section)
             </div>
         </div>';
 }
-
-?>
