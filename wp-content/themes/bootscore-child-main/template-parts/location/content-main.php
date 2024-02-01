@@ -63,7 +63,7 @@ ksort($inputs['pages']);
             $related_args['type'] = $type;
             $related_args['related_locations'] = related_locations_in_region($post_obj);
 
-            if (isset($related_args) && !empty($related_args)) {
+            if (isset($related_args) && !empty($related_args['related_locations'])) {
                 get_template_part('template-parts/location/content', 'related', $related_args);
             }
             
