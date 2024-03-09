@@ -10,6 +10,7 @@
         $args = array(
             'post_type' => 'trip',
             'posts_per_page' => -1,
+            'order' => 'ASC'
         );
         $trip_types = get_posts($args);
         ?>
@@ -32,7 +33,7 @@
                                         <div class="card-body border-radius-md pt-12 pb-0 h-100">
                                             <div class="mt-auto">
                                                 <h3 class="text-white fw-bolder"><?php echo get_the_title($trip->ID); ?></h3>
-                                                <p class="fw-500 lh-base clamp-3 mb-4 pb-3"><?php echo get_field('excerpt', $trip->ID); ?></p>
+                                                <p class="fw-500 lh-base clamp-3 mb-5"><?php echo get_field('excerpt', $trip->ID); ?></p>
                                             </div>
                                         </div>
                                     </div>
