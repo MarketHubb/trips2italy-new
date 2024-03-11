@@ -163,19 +163,15 @@ function clean_text($text)
 
 function remove_home_url($url)
 {
+    $domain = get_bloginfo( 'url');
+    $dev_domain = 't2i-new.test';
 
-    $domains_array = [
-        't2i-new.test',
-        'staging.trips2italy.com',
-        'http://',
-        'https://',
-    ];
 
-    foreach ($domains_array as $domain) {
-        $url = str_replace($domain, '', $url);
+    if (!str_contains($domain, $dev_domain) && str_contains($url, $dev_domain)) {
+        return str_replace($dev_domain, $domain, $url);
     }
 
-    return get_home_url() . $url;
+    return $url;
 }
 
 function get_hero_values($post_id)

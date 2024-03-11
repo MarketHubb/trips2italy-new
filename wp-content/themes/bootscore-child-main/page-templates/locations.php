@@ -84,7 +84,7 @@ foreach ($regions as $region) {
                 // Setup card
                 $parent_id = get_the_ID();
                 $domain = get_bloginfo('url');
-                $location_image = (get_field('featured_image')['sizes']['large']) ?: str_replace('t2i-new.test', $domain, get_field('image_slider_url', $post->ID));
+                $location_image = (get_field('featured_image')['sizes']['large']) ?: remove_home_url(get_field('image_slider_url', $post->ID));
                 $location_heading = '<h5 class="tracking-none fw-700 icon-move-right">' . get_the_title() . '</h5>';
                 $card_args = [];
                 $card_args['image_url'] = $location_image;
@@ -123,7 +123,7 @@ $dropdown .= $dropdown_region . $dropdown_city . '</div></div>';
 $output = $dropdown . $output;
 echo $output;
 ?>
-
+ 
 
 
 <?php get_footer(); ?>
