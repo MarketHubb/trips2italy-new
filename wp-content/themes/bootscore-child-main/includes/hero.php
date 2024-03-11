@@ -1,9 +1,10 @@
 <?php
 
-function form_heading($dynamic = null) {
+function form_heading($dynamic = null)
+{
     $form_heading = get_desktop_mobile_copy(get_field('form_heading', 'option'), ",", $dynamic);
     $form_subheading = get_desktop_mobile_copy(get_field('form_subheading', 'option'), ",",  $dynamic);
-    $form_description = get_desktop_mobile_copy(get_field('form_description', 'option'),"\n", $dynamic);
+    $form_description = get_desktop_mobile_copy(get_field('form_description', 'option'), "\n", $dynamic);
     $desktop = '<div class="col-8 form-heading-desktop mt-4">';
     $mobile = '<div class="col-12 form-heading-mobile">';
 
@@ -31,7 +32,8 @@ function form_heading($dynamic = null) {
 }
 
 //region Output (Views)
-function output_hero_heading($hero) {
+function output_hero_heading($hero)
+{
     $heading_1_classes = ($hero['type'] !== "masonry") ? "text-white" : "";
     $heading_2_classes = ($hero['type'] === "masonry") ? "text-primary text-gradient" : " stylized text-orange";
 
@@ -41,7 +43,7 @@ function output_hero_heading($hero) {
 
         if (!empty($hero['copy']['heading_2'])) {
             $heading .= '<span class="d-block ' . $heading_2_classes . '">' .  $hero['copy']['heading_2']['desktop'] . '</span>';
-         }
+        }
 
         $heading .= '</h1>';
     }
@@ -49,41 +51,51 @@ function output_hero_heading($hero) {
     return $heading;
 }
 
-function hero_heading($hero, $size = 'desktop') {
-    $output  = '<h1 class="">' . $hero['copy']['heading_1'][$size];
+function hero_heading($hero, $size = 'desktop')
+{
+    $heading = (isset($hero['copy']['heading_1'][$size]) && !empty($hero['copy']['heading_1'][$size])) ? $hero['copy']['heading_1'][$size] : $hero['copy']['heading_1']['desktop'];
+    $heading2 = (isset($hero['copy']['heading_2'][$size]) && !empty($hero['copy']['heading_2'][$size])) ? $hero['copy']['heading_2'][$size] : $hero['copy']['heading_2']['desktop'];
 
-    if ($hero['copy']['heading_2'][$size]) {
-        $output .= '<span class="stylized d-block mt-1">' . $hero['copy']['heading_2'][$size] . '</span>';
+    if (isset($heading)) {
+        $output  = '<h1 class="">' . $heading;
     }
 
-    $output .= '</h1>';
+    if (isset($heading2)) {
+        $output .= '<span class="stylized d-block mt-1">' . $heading2 . '</span>';
+    }
 
-    return $output ?: null;
+    if (isset(($output))) {
+        $output .= '</h1>';
+        return $output;
+    }
 }
 
-function hero_description($hero, $size = 'desktop') {
-    if (!empty($hero['copy']['description'][$size])) {
+function hero_description($hero, $size = 'desktop')
+{
+    $description = (isset($hero['copy']['description'][$size]) && !empty($hero['copy']['description'][$size])) ? $hero['copy']['description'][$size] : $hero['copy']['description']['desktop'];
 
+    if (isset($description)) {
         $classes = get_hero_copy_classes($hero);
-
-        $description  = '<div class="mt-4 px-3 px-md-0">';
-        $description .= '<p class="hero-description lh-base fw-500">';
-        $description .= $hero['copy']['description'][$size] . '</p>';
-        $description .= '</div>';
+        $output  = '<div class="mt-4 px-3 px-md-0">';
+        $output .= '<p class="hero-description lh-base fw-500">';
+        $output .= $description . '</p>';
+        $output .= '</div>';
     }
 
-    return ($description) ?: null;
+    return isset($output) ? $output : null;
 }
 
-function hero_callouts($hero, $size = "desktop") {
+function hero_callouts($hero, $size = "desktop")
+{
 
-    if (!empty($hero['callouts'])) {
+    if (isset($hero['callouts']) && !empty($hero['callouts'])) {
         $callouts  = '<div class="my-4 py-4 px-2 px-md-0 hero-callouts">';
         $callouts .= '<ul class="list-group border-0">';
 
         foreach ($hero['callouts'] as $callout) {
+            $callout_key = (isset($callout[$size]) && !empty($callouts[$size])) ? $size : 'desktop';
             $callouts .= '<li class="list-group-item bg-transparent text-start ps-0 border-0 py-1 ps-1 pe-0">';
-            $callouts .= '<p class="mb-0 pb-0 fw-600 grayscale text-wider stylized"><i class="fa-solid fa-check pe-2 pe-md-3"></i>' . $callout[$size] . '</p></li>';
+            $callouts .= '<p class="mb-0 pb-0 fw-600 grayscale text-wider stylized"><i class="fa-solid fa-check pe-2 pe-md-3"></i>' . $callout[$callout_key] . '</p></li>';
         }
 
         $callouts .= '</ul>';
@@ -93,7 +105,8 @@ function hero_callouts($hero, $size = "desktop") {
     return (isset($callouts)) ? $callouts : null;
 }
 
-function output_hero_description($hero) {
+function output_hero_description($hero)
+{
     if (!empty($hero['copy']['description']['desktop'])) {
 
         $classes = get_hero_copy_classes($hero);
@@ -107,7 +120,8 @@ function output_hero_description($hero) {
     return (isset($description)) ? $description : null;
 }
 
-function output_hero_callouts($hero) {
+function output_hero_callouts($hero)
+{
 
     if (!empty($hero['callouts']) && strlen($hero['callouts'][0]) > 0) {
 
@@ -131,7 +145,8 @@ function output_hero_callouts($hero) {
     return ($callouts) ?: null;
 }
 
-function output_hero_links($hero, $format = "desktop") {
+function output_hero_links($hero, $format = "desktop")
+{
     $links_array = $hero['links'];
     $links_count = count($hero['links']);
     $container_class = ($format === "mobile") ? 'justify-content-center flex-column' : '';
@@ -173,7 +188,8 @@ function output_hero_links($hero, $format = "desktop") {
         if ($el_type && $attributes) {
             $link_container_class = ($format === "mobile") ? 'mx-auto text-center' : 'justify-start';
             $refer_post = isset($hero['refer_post']) ? $hero['refer_post'] : null;
-            $link_copy = replace_variable_in_copy($copy_array[$format], $refer_post);
+            $link_text = (isset($copy_array[$format])) ? $copy_array[$format] : $copy_array['desktop'];
+            $link_copy = replace_variable_in_copy($link_text, $refer_post);
 
             if ($link['type'] === 'Phone') {
                 $link_copy = '<span class="d-block lh-1 phone-callout fw-normal small">' . $link_copy . '</span>' . $link['destination'];
@@ -182,7 +198,6 @@ function output_hero_links($hero, $format = "desktop") {
             $output .= '<div class="d-inline-flex  ' . $link_container_class . '">';
             $output .= '<' . $el_type . ' ';
             $output .= $attributes . $classes . ' data-type="' . $link['type'] . '">';
-//            $output .= $copy_array[$format];
             $output .= $link_copy;
             $output .= '</' . $el_type . '>';
             $output .= '</div>';
@@ -194,19 +209,22 @@ function output_hero_links($hero, $format = "desktop") {
     return ($output) ?: null;
 }
 
-function output_itinerary_links($hero, $format = "desktop") {
-
+function output_itinerary_links($hero, $format = "desktop")
+{
 }
 
-function output_masonry_images($image_array) {
+function output_masonry_images($image_array)
+{
     $output = '<div class="row">';
     $i = 1;
-    $start_array = [1,2,4,6];
-    $end_array = [3,5,7];
+    $start_array = [1, 2, 4, 6];
+    $end_array = [3, 5, 7];
 
     foreach ($image_array as $image) {
 
-        if ($i > 7) { break; }
+        if ($i > 7) {
+            break;
+        }
 
         if (in_array($i, $start_array)) {
             $start = '<div class="col-lg-3 col-6">';
@@ -235,7 +253,8 @@ function output_masonry_images($image_array) {
 
 
 //region Data (Models)
-function get_hero_copy_classes($hero) {
+function get_hero_copy_classes($hero)
+{
     $classes = [];
 
     if ($hero['type'] === 'text-center') {
@@ -251,7 +270,8 @@ function get_hero_copy_classes($hero) {
     return $classes;
 }
 
-function get_hero_callouts_legacy($object) {
+function get_hero_callouts_legacy($object)
+{
     $object_type = get_object_type($object);
     $hero_callouts = [];
 
@@ -274,7 +294,8 @@ function get_hero_callouts_legacy($object) {
     return $hero_callouts ?: null;
 }
 
-function get_hero_callouts($object) {
+function get_hero_callouts($object)
+{
     $hero_callouts = [];
     $inputs = get_field('hero_banner_shared', $object);
     $callouts_array = $inputs['hero_callouts'];
@@ -285,13 +306,13 @@ function get_hero_callouts($object) {
         foreach ($callouts_array as $callout) {
             $hero_callouts[] = get_desktop_mobile_copy($callout['callout'], "\n", $dynamic);
         }
-
     }
 
     return $hero_callouts ?: null;
 }
 
-function get_hero_links_legacy($object) {
+function get_hero_links_legacy($object)
+{
     $object_type = get_object_type($object);
     $hero_links = [];
 
@@ -331,13 +352,13 @@ function get_hero_links_legacy($object) {
                     $hero_links[] = $link_array;
                 }
             }
-
     }
 
     return $hero_links;
 }
 
-function get_hero_links($object) {
+function get_hero_links($object)
+{
     $inputs = get_field('hero_banner_shared', $object);
 
     if ($inputs['links_links']) {
@@ -370,13 +391,13 @@ function get_hero_links($object) {
 
             $hero_links[] = $link_array;
         }
-
     }
 
     return $hero_links;
 }
 
-function get_masonry_image_attributes($count) {
+function get_masonry_image_attributes($count)
+{
     switch ($count) {
         case 1:
             return "w-100 border-radius-lg shadow mt-0 mt-lg-7";
@@ -393,7 +414,8 @@ function get_masonry_image_attributes($count) {
     }
 }
 
-function get_hero_masonry_images_legacy($object, $object_type = null) {
+function get_hero_masonry_images_legacy($object, $object_type = null)
+{
     $object_type = ($object_type) ?: get_object_type($object);
     $hero_masonry = [];
 
@@ -411,7 +433,8 @@ function get_hero_masonry_images_legacy($object, $object_type = null) {
     return $hero_masonry;
 }
 
-function get_hero_masonry_images($object, $object_type = null) {
+function get_hero_masonry_images($object, $object_type = null)
+{
     $hero_masonry = [];
     $inputs = get_field('hero_banner_shared', $object);
 
@@ -424,7 +447,8 @@ function get_hero_masonry_images($object, $object_type = null) {
     return $hero_masonry;
 }
 
-function get_hero_images_legacy($object, $hero_type = null) {
+function get_hero_images_legacy($object, $hero_type = null)
+{
     $object_type = get_object_type($object);
     $hero_images = [];
 
@@ -439,13 +463,13 @@ function get_hero_images_legacy($object, $hero_type = null) {
             if ($hero_type === "masonry") {
                 $hero_images['masonry'] = get_hero_masonry_images($object);
             }
-
     }
 
     return $hero_images;
 }
 
-function get_hero_images($object, $hero_type = null) {
+function get_hero_images($object, $hero_type = null)
+{
     $hero_images = [];
     $inputs = get_field('hero_banner_shared', $object);
 
@@ -460,7 +484,8 @@ function get_hero_images($object, $hero_type = null) {
     return $hero_images;
 }
 
-function get_hero_stats_legacy($object) {
+function get_hero_stats_legacy($object)
+{
     $inputs = get_field('hero_banner_shared', $object->ID);
 
     if ($inputs && $inputs['stats_include_stats']) {
@@ -468,7 +493,8 @@ function get_hero_stats_legacy($object) {
     }
 }
 
-function get_hero_stats($object) {
+function get_hero_stats($object)
+{
     $inputs = get_field('hero_banner_shared');
 
     if ($inputs && $inputs['stats_include_stats']) {
@@ -476,7 +502,8 @@ function get_hero_stats($object) {
     }
 }
 
-function get_hero_copy_legacy($object) {
+function get_hero_copy_legacy($object)
+{
     $object_type = get_object_type($object);
     $hero_copy = [];
 
@@ -490,15 +517,14 @@ function get_hero_copy_legacy($object) {
                 $hero_copy['heading_1'] = get_desktop_mobile_copy($inputs['hero_heading_1']);
                 $hero_copy['heading_2'] = get_desktop_mobile_copy($inputs['hero_heading_2']);
                 $hero_copy['description'] = get_desktop_mobile_copy($inputs['hero_description'], "\n");
-
             }
-
     }
 
     return $hero_copy;
 }
 
-function get_hero_copy($object) {
+function get_hero_copy($object)
+{
     $inputs = get_field('hero_banner_shared', $object);
 
     if ($inputs) {
@@ -507,47 +533,51 @@ function get_hero_copy($object) {
         $hero_copy['heading_1'] = get_desktop_mobile_copy($inputs['hero_heading_1']);
         $hero_copy['heading_2'] = get_desktop_mobile_copy($inputs['hero_heading_2']);
         $hero_copy['description'] = get_desktop_mobile_copy($inputs['hero_description'], "\n");
-
     }
 
     return $hero_copy;
 }
 
-function get_hero_wave_legacy($object) {
+function get_hero_wave_legacy($object)
+{
     $object_type = get_object_type($object);
 
     switch ($object_type) {
         case "page":
         case "trip":
             $inputs = get_field('hero_banner_shared', $object->ID);
-            return strtolower(str_replace(" ", "-",$inputs['motion']));
+            return strtolower(str_replace(" ", "-", $inputs['motion']));
     }
 }
 
-function get_hero_wave($object) {
+function get_hero_wave($object)
+{
     $inputs = get_field('hero_banner_shared', $object->ID);
 
-    return strtolower(str_replace(" ", "-",$inputs['motion']));
+    return strtolower(str_replace(" ", "-", $inputs['motion']));
 }
 
-function get_hero_type_legacy($object) {
+function get_hero_type_legacy($object)
+{
     $object_type = get_object_type($object);
 
     switch ($object_type) {
         case "page":
         case "trip":
             $inputs = get_field('hero_banner_shared', $object->ID);
-            return strtolower(str_replace(" ", "-",$inputs['hero_type']));
+            return strtolower(str_replace(" ", "-", $inputs['hero_type']));
     }
 }
 
-function get_hero_type($object) {
+function get_hero_type($object)
+{
     $inputs = get_field('hero_banner_shared', $object);
 
-    return strtolower(str_replace(" ", "-",$inputs['hero_type']));
+    return strtolower(str_replace(" ", "-", $inputs['hero_type']));
 }
 
-function get_hero_dynamic_text($object) {
+function get_hero_dynamic_text($object)
+{
     $object_format = ($object->ID) ? "post" : "taxonomy";
 
     switch ($object_format) {
@@ -560,7 +590,8 @@ function get_hero_dynamic_text($object) {
     }
 }
 
-function get_hero_include_legacy($object) {
+function get_hero_include_legacy($object)
+{
     $object_type = get_object_type($object);
 
     switch ($object_type) {
@@ -570,11 +601,13 @@ function get_hero_include_legacy($object) {
     }
 }
 
-function get_hero_include($object) {
+function get_hero_include($object)
+{
     return  get_field('include_hero_banner', $object);
 }
 
-function get_hero_inputs($object) {
+function get_hero_inputs($object)
+{
     $hero = [];
     $hero['include'] = get_hero_include($object);
     $hero['type'] = get_hero_type($object);

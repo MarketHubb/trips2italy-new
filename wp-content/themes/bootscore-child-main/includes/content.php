@@ -27,9 +27,11 @@ function get_content_section_heading($heading_array = array(), $row = true, $tex
 {
     if (is_array($heading_array)) {
 
+        $heading = '';
+
         if ($row) {
             $light_text_class = ($light_text) ? "text-light" : '';
-            $heading = '<div class="row justify-content-center section-heading mb-5 pb-2 ' . $light_text_class . '">';
+            $heading .= '<div class="row justify-content-center section-heading mb-5 pb-2 ' . $light_text_class . '">';
         }
 
         $cols_orientation = ($text_center) ? " text-center" : ' ';

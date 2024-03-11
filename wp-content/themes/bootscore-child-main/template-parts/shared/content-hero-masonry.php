@@ -1,3 +1,4 @@
+<h1>content-hero-masonry.php</h1>
 <?php
 $hero = $args;
 $bg_image = $args['background_image'];

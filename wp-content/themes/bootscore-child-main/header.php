@@ -174,7 +174,7 @@
 
         function get_shared_hero_banner($object) {
             $hero_inputs = get_hero_inputs($object);
-
+            
             if (!empty($hero_inputs) && $hero_inputs['include']) {
                 get_template_part('template-parts/hero/content', $hero_inputs['template'], $hero_inputs);
                 get_template_part('template-parts/hero-banner/content', 'main', $hero_inputs);
