@@ -20,6 +20,16 @@ require_once 'includes/types.php';
 require_once 'includes/hero.php';
 require_once 'includes/forms.php';
 
+function meks_which_template_is_loaded()
+{
+    if (is_super_admin()) {
+        global $template;
+        highlight_string("<?php\n\$template =\n" . var_export($template, true) . ";\n?>");
+    }
+}
+
+add_action('wp_footer', 'meks_which_template_is_loaded');
+
 // Custom admin styles and scripts
 function admin_style()
 {
@@ -124,17 +134,6 @@ function bootscore_child_enqueue_styles()
     wp_enqueue_script('template', get_stylesheet_directory_uri() . '/mh/timeline/template.js', array('jquery'));
     wp_enqueue_script('mh_custom_scripts', get_stylesheet_directory_uri() . '/mh/includes/custom_scripts.js', array('jquery'));
 }
-
-function meks_which_template_is_loaded()
-{
-    if (is_super_admin()) {
-        global $template;
-        /*        highlight_string("<?php\n\$template =\n" . var_export($template, true) . ";\n?>");*/
-    }
-}
-
-add_action('wp_footer', 'meks_which_template_is_loaded');
-
 
 function mh_conditional_script_loading()
 {
