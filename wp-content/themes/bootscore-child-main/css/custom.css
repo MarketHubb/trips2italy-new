@@ -1,3 +1,6 @@
+.card-background .copy-bottom {
+    top: 1.5rem;
+}
 .shadow-lg-dark {
     box-shadow: 0 40px 50px -12px rgb(0 0 0 / 0.75);
 }
