@@ -382,7 +382,7 @@
         });
         // Full height hero background image (less sticky header)
         hero.css({
-            height: heroHeight,
+            minHeight: heroHeight,
         });
     }
     //endregion

@@ -6,7 +6,7 @@
     $mobile_image = $args['images']['mobile_image'] ?: $args['images']['background_image'] ?>
 
     <!-- Mobile -->
-    <header class="d-flex d-md-none pt-5 hero-container hero-mobile hero-text-<?php echo strtolower($text_color); ?>" style="background-image: url(<?php echo $mobile_image; ?>);">
+    <header class="d-flex d-md-none py-5 hero-container hero-mobile hero-text-<?php echo strtolower($text_color); ?>" style="background-image: url(<?php echo $mobile_image; ?>);">
 
         <div class="container-fluid">
             <div class="row">
