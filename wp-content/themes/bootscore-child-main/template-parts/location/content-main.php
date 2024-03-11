@@ -7,16 +7,16 @@ if ($queried_object->ID) {
 } else {
     $type = 'taxonomy';
 }
-$inputs = location_tabs($queried_object, $type);
-ksort($inputs['pages']);
+$tab_inputs = location_tabs($queried_object, $type);
+ksort($tab_inputs['pages']);
 
 ?>
 
 <div class="entry-content single-city">
-    <?php get_template_part('template-parts/menu/content', 'button-group', $inputs); ?>
+    <?php get_template_part('template-parts/menu/content', 'button-group', $tab_inputs); ?>
 
     <?php
-    // $hero = get_tax_hero_values(get_queried_object());
+    $hero = get_tax_hero_values(get_queried_object());
     $output = '<div id="location-region-content" class="py-4 my-5">';
     $location_content = get_field('content_clean', get_queried_object());
 
@@ -92,7 +92,7 @@ ksort($inputs['pages']);
         <div class="container">
             <?php
             $related_args['type'] = $type;
-            $related_args['related_locations'] = related_locations_in_region($post_obj);
+            $related_args['related_locations'] = isset($post_obj) ? related_locations_in_region($post_obj) : null;
 
             if (isset($related_args) && !empty($related_args['related_locations'])) {
                 get_template_part('template-parts/location/content', 'related', $related_args);

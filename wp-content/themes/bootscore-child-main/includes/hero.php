@@ -90,11 +90,11 @@ function hero_callouts($hero, $size = "desktop") {
         $callouts .= '</div>';
     }
 
-    return ($callouts) ?: null;
+    return (isset($callouts)) ? $callouts : null;
 }
 
 function output_hero_description($hero) {
-    if (!empty($hero['copy']['description']['mobile'])) {
+    if (!empty($hero['copy']['description']['desktop'])) {
 
         $classes = get_hero_copy_classes($hero);
 
@@ -104,7 +104,7 @@ function output_hero_description($hero) {
         $description .= '</div>';
     }
 
-    return ($description) ?: null;
+    return (isset($description)) ? $description : null;
 }
 
 function output_hero_callouts($hero) {
@@ -172,7 +172,8 @@ function output_hero_links($hero, $format = "desktop") {
 
         if ($el_type && $attributes) {
             $link_container_class = ($format === "mobile") ? 'mx-auto text-center' : 'justify-start';
-            $link_copy = replace_variable_in_copy($copy_array[$format], $hero['refer_post']);
+            $refer_post = isset($hero['refer_post']) ? $hero['refer_post'] : null;
+            $link_copy = replace_variable_in_copy($copy_array[$format], $refer_post);
 
             if ($link['type'] === 'Phone') {
                 $link_copy = '<span class="d-block lh-1 phone-callout fw-normal small">' . $link_copy . '</span>' . $link['destination'];

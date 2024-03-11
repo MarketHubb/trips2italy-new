@@ -2,7 +2,6 @@
 
     <?php
     $hero = $args;
-
     ?>
 
     <header class="header-2 test text-overlay">

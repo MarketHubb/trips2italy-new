@@ -20,11 +20,12 @@
             <ul class="navbar-nav navbar-nav-hover mx-auto mb-3">
                 
                 <?php 
+                $id = get_the_id();
                 if( have_rows('primary_nav', 'option') ):
                     $nav = '';
                     while ( have_rows('primary_nav', 'option') ) : the_row();
                         $page = get_sub_field('page', 'option');
-                        $active_class = ($post->ID === $page->ID) ? 'active ' : '';
+                        $active_class = (isset($id) && $id === $page->ID) ? 'active ' : '';
                         $nav .= '<li class="nav-item px-md-4">';
                         $nav .= '<a href="' .  get_permalink($page) . '" ';
                         $nav .= 'class="' . $active_class . 'nav-link ps-md-2 d-flex flex-column justify-content-between cursor-pointer align-items-center" role="button">';

@@ -56,7 +56,7 @@ if ($args) {
                         </div>
 
                         <?php
-                        $mobile = (bool)$hero['button_text_mobile'];
+                        $mobile = isset($hero['button_text_mobile']);
 
                         if (!$mobile) { ?>
                             <div class="buttons">
