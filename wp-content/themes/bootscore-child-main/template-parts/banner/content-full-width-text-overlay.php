@@ -1,7 +1,6 @@
 <?php
 if ($args) {
     $hero = $args;
-/*    highlight_string("<?php\n\$hero =\n" . var_export($hero, true) . ";\n?>");*/
 ?>
 <header>
     <div class="page-header min-vh-50">
@@ -42,13 +41,13 @@ if ($args) {
                                 <?php echo $hero['heading'] ?>
                             </h1>
 
-                            <?php if ($hero['heading_2']) { ?>
+                            <?php if (isset($hero['heading_2'])) { ?>
                                 <h1 class="mb-0">
                                     <?php echo $hero['heading_2'] ?>
                                 </h1>
                             <?php } ?>
 
-                            <?php if ($hero['description']) { ?>
+                            <?php if (isset($hero['description'])) { ?>
                                 <p class="lead pe-5 me-5">
                                     <?php echo $hero['description']; ?>
                                 </p>
