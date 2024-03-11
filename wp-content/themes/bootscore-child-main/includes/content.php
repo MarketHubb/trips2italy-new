@@ -199,7 +199,7 @@ function get_post_hero_inputs($postObj)
         $image = (get_field('featured_image', $id)) ? get_field('featured_image', $id)['url'] : get_field('image_slider_url', $id);
 
         if ($image) {
-            $hero['image'] = remove_home_url($image);
+            $hero['image'] = remove_dev_domain_from_url($image);
         }
 
         $hero['heading'] = ($parent) ? $parent->post_title : $postObj->post_title;
@@ -216,7 +216,7 @@ function get_post_hero_inputs($postObj)
 
 function get_tax_hero_inputs($term)
 {
-    $image = (get_field('featured_image', $term)) ? get_field('featured_image', $term)['url'] : remove_home_url(get_field('image_slider_url', $term));
+    $image = (get_field('featured_image', $term)) ? get_field('featured_image', $term)['url'] : remove_dev_domain_from_url(get_field('image_slider_url', $term));
     $hero['image'] = $image;
     $hero['heading'] = $term->name;
     $region_name = ($term->parent === 0) ? $term->name : get_term($term->parent)->name;

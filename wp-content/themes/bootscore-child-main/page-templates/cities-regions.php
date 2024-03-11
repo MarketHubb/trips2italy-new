@@ -90,7 +90,7 @@ foreach ($regions as $region) {
                 // Setup card
                 $parent_id = get_the_ID();
                 $city_image = get_field('image_slider_url', $post->ID);
-                $image_url = remove_home_url($city_image);
+                $image_url = remove_dev_domain_from_url($city_image);
                 $card_args = [];
                 $card_args['image_url'] = $image_url;
                 $card_args['heading'] = '<h4 class="fs-5 fw-bolder">' . get_field('city_name') . '</h4>';

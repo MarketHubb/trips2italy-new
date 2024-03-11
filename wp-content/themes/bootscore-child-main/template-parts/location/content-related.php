@@ -14,7 +14,7 @@ if (isset($args)) {
 
         $output .= '<div class="col-md-4 mb-5">';
         $city_image = get_field('image_slider_url', $location->ID);
-        $image_url = remove_home_url($city_image);
+        $image_url = remove_dev_domain_from_url($city_image);
         $card_args = [];
         $card_args['image_url'] = $image_url;
         $card_args['heading'] = '<h4 class="fs-5 fw-bolder">' . get_the_title($location->ID) . '</h4>';

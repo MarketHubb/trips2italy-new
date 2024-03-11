@@ -161,7 +161,7 @@ function clean_text($text)
     return trim($text);
 }
 
-function remove_home_url($url)
+function remove_dev_domain_from_url($url)
 {
     $domain = get_bloginfo( 'url');
     $dev_domain = 't2i-new.test';
@@ -187,7 +187,7 @@ function get_hero_values($post_id)
         $hero['heading'] = get_the_title($post_id);
         $bg_image = get_field('image_slider_url', $post_id);
         $bg_image = (!$bg_image) ? get_field('featured_image') : null;
-        $hero['background_image'] = remove_home_url($bg_image);
+        $hero['background_image'] = remove_dev_domain_from_url($bg_image);
         $hero['gallery_string'] = get_field('image_id', $post_id);
         $gallery_ids = explode(',', $hero['gallery_string']);
         foreach ($gallery_ids as $id) {
