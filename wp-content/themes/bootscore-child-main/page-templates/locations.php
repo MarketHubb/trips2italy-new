@@ -83,12 +83,11 @@ foreach ($regions as $region) {
 
                 // Setup card
                 $parent_id = get_the_ID();
-                $new_city_image = get_field('featured_image')['sizes']['large'];
-                $city_image = ($new_city_image) ?: get_field('image_slider_url', $post->ID);
-                $image_url = remove_home_url($city_image);
+                $domain = get_bloginfo('url');
+                $location_image = (get_field('featured_image')['sizes']['large']) ?: str_replace('t2i-new.test', $domain, get_field('image_slider_url', $post->ID));
                 $location_heading = '<h5 class="tracking-none fw-700 icon-move-right">' . get_the_title() . '</h5>';
                 $card_args = [];
-                $card_args['image_url'] = $image_url;
+                $card_args['image_url'] = $location_image;
                 $card_args['background'] = 'gray-50';
                 $card_args['heading'] = $location_heading;
 
@@ -100,37 +99,6 @@ foreach ($regions as $region) {
 
                 $card = single_card_waves($card_args);
                 $output .= $card . '</div>';
-                // $card_args['heading'] = '<h4 class="fs-5 fw-bolder">Explore ' . get_the_title() . '</h4>';
-                // $card_args['body'] = '<ul class="list-group list-group-flush bg-transparent">';
-                // $card_args['body'] .= list_group_item(array(
-                // 'url' => get_permalink($post->ID),
-                // 'text' => 'Ultimate Travel Guide'
-                // 'text' => 'Explore ' . get_the_title()
-                // ));
-
-                // $children_cities = get_posts(array(
-                //     'post_type' => 'location',
-                //     'post_parent' => $parent_id,
-                //     'posts_per_page' => -1,
-                //     'meta_key' => 'standardized_title',
-                //     'orderby' => 'meta_value',
-                // ),
-                // );
-
-                // if (count($children_cities) > 0) {
-                // foreach ($children_cities as $child) {
-                //     $card_args['body'] .= list_group_item(array(
-                //         'url' => get_permalink($child->ID),
-                //         'text' => get_the_title($child->ID)
-                //     ));
-                // }
-
-                //     $card_args['body'] .= '</ul>';
-                //     $card = single_card_waves($card_args);
-                //     $output .= $card;
-                //     $output .= '</div>';
-                // }
-
             }
 
 
@@ -155,7 +123,6 @@ $dropdown .= $dropdown_region . $dropdown_city . '</div></div>';
 $output = $dropdown . $output;
 echo $output;
 ?>
-<!--</div>-->
 
 
 
