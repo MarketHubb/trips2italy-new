@@ -1,4 +1,12 @@
 <?php
+function output_order_testimonials()
+{
+    $posts_array = [];
+    $posts_array['order_by'] = (get_field('order_by', 'option') === 'date_published') ? 'date' : 'title';
+    $posts_array['order'] = get_field('order', 'option') ? strtoupper(get_field('order', 'option')) : 'DESC';
+
+    return $posts_array;
+}
 function related_locations_in_region($post_obj)
 {
     $post_parent = $post_obj->post_parent;
@@ -17,7 +25,7 @@ function related_locations_in_region($post_obj)
             )
         )
     ));
-    
+
     return $related_locations;
 }
 function custom_copy_or_default($string, $matches, $replace)

@@ -123,7 +123,8 @@
                     <p class="mb-0 fw-600 text-dark  small ps-1"><?php echo $nav_heading ?></p>
                 </div>
                 <div class="d-inline-block small">
-                    <span class="form-nav-button small" data-state="hide"  id="form-hide">Back</span>
+                    <button class="form-nav-button border-0 btn-outline-info text-muted fs-5 p-0 lh-1 small" data-state="hide"  id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></button>
+                    <!-- <span class="form-nav-button small" data-state="hide"  id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></span> -->
                 </div>
             </div>
         </div>

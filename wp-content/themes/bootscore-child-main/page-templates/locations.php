@@ -3,7 +3,8 @@
 get_header(); ?>
 
 <?php
-$regions = get_terms(array(
+$regions = get_terms(
+    array(
         'taxonomy' => 'location_region',
         'exclude' => [5245]
     )
@@ -28,7 +29,7 @@ $dropdown_city .= 'Jump to City</a>';
 $dropdown_city .= '<ul class="dropdown-menu" aria-labelledby="navbarDropdownCity">';
 
 foreach ($regions as $region) {
-    $output .= '<section id="' . lowercase_no_spaces($region->name) . '" class="region-container py-4 my-4" data-region="' . $region->name . '" data-termid="' . $region->term_id . '">';
+    $output .= '<section id="' . lowercase_no_spaces($region->name) . '" class="region-container py-7" data-region="' . $region->name . '" data-termid="' . $region->term_id . '">';
     $output .= '<div class="container">';
 
     $dropdown_region .= '<li><a class="dropdown-item fs-6 fw-500" href="#' . lowercase_no_spaces($region->name) . '">';
@@ -49,20 +50,26 @@ foreach ($regions as $region) {
     $query = new WP_Query($query_args);
 
     if ($query->have_posts()) :
-        $output .= '<div class="row gx-md-10 mb-5">';
-        $output .= '<div class="region-image pt-4">';
-        $output .= '<img src="' . get_field('featured_image', $region)['url'] . '" class="rounded shadow object-fit h-100" />';
-        $output .= '</div>';
-        $output .= '<div class="region-copy py-4 pb-1 py-md-5">';
-        $output .= '<img src="' . get_field('region_icon', $region) . '" class="region-icon d-inline me-3" />';
+        $output .= '<div class="row align-content-center align-middle gx-md-4 mb-5">';
+        $output .= '<div class="col-md-5">';
+        $output .= '<img src="' . get_field('region_icon', $region) . '" class="region-icon d-block mb-4" />';
         $output .= '<h2 class="d-inline-block">' . $region->name . '</h2>';
         $output .= '<p class="clamp-4">' . $region->description . '</p>';
-        $output .= '<a class="btn bg-orange btn-lg mt-2" href="' . get_term_link($region->term_id) . '">Explore the ' . $region->name . ' Region</a>';
-        $output .= '</div></div>';
+        $output .= '<div class="mt-6">';
+        $output .= '<a class="btn bg-orange btn-lg mb-0" href="' . get_term_link($region->term_id) . '">Explore the ' . $region->name . ' Region</a>';
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '<div class="col-md-7">';
+        $output .= '<img src="' . get_field('featured_image', $region)['url'] . '" class="rounded shadow object-fit h-100" />';
+        $output .= '</div>';
+        $output .= '<div class="region-image pt-4">';
+        $output .= '</div>';
+        $output .= '</div>';
+        $output .= '<hr>';
 
         $output .= '<div class="row justify-content-start py-3">';
         $output .= '<div class="col-md-8">';
-        $output .= '<h4 class="fw-bolder">The cities & towns of ' . $region->name . ':</h4>';
+        $output .= '<h5 class="fw-bolder">The cities & towns of ' . $region->name . '</h5>';
         $output .= '</div></div>';
 
         $output .= '<div class="row justify-content-start">';
@@ -72,44 +79,57 @@ foreach ($regions as $region) {
             // Set region name (clean)
             if ($post->post_parent === 0) {
                 $dropdown_city_array[] = get_field('city_name');
-                $output .= '<div id="' . strtolower(str_replace(" ", "",get_field('city_name'))) . '" class="col-12 col-md-4 my-3">';
+                $output .= '<div id="' . strtolower(str_replace(" ", "", get_field('city_name'))) . '" class="col-12 col-md-4 my-3">';
 
                 // Setup card
                 $parent_id = get_the_ID();
-                $city_image = get_field('image_slider_url', $post->ID);
+                $new_city_image = get_field('featured_image')['sizes']['large'];
+                $city_image = ($new_city_image) ?: get_field('image_slider_url', $post->ID);
                 $image_url = remove_home_url($city_image);
+                $location_heading = '<h5 class="tracking-none fw-700 icon-move-right">' . get_the_title() . '</h5>';
                 $card_args = [];
                 $card_args['image_url'] = $image_url;
-                $card_args['heading'] = '<h4 class="fs-5 fw-bolder">' . get_the_title() . '</h4>';
-                $card_args['body'] = '<ul class="list-group list-group-flush">';
-                $card_args['body'] .= list_group_item(array(
-                    'url' => get_permalink($post->ID),
-                    'text' => 'Ultimate Travel Guide'
-                ));
+                $card_args['background'] = 'gray-50';
+                $card_args['heading'] = $location_heading;
 
-                $children_cities = get_posts(array(
-                    'post_type' => 'location',
-                    'post_parent' => $parent_id,
-                    'posts_per_page' => -1,
-                    'meta_key' => 'standardized_title',
-                    'orderby' => 'meta_value',
-                ),
-                );
+                // Description
+                $body_content = wp_strip_all_tags(get_field('content_clean'));
+                $card_args['body']  = '<p class="clamp-3">' . $body_content . '</p>';
+                $card_args['body'] .= '<a href="' . get_permalink($post->ID) . '"><p class="tracking-none fw-600 no-anti mb-0 icon-move-right">Explore ' . get_the_title() . '<i class="fas fa-arrow-right text-sm ps-2"></i></h4></a>';
 
-                if (count($children_cities) > 0) {
 
-                    foreach ($children_cities as $child) {
-                        $card_args['body'] .= list_group_item(array(
-                            'url' => get_permalink($child->ID),
-                            'text' => get_the_title($child->ID)
-                        ));
-                    }
+                $card = single_card_waves($card_args);
+                $output .= $card . '</div>';
+                // $card_args['heading'] = '<h4 class="fs-5 fw-bolder">Explore ' . get_the_title() . '</h4>';
+                // $card_args['body'] = '<ul class="list-group list-group-flush bg-transparent">';
+                // $card_args['body'] .= list_group_item(array(
+                // 'url' => get_permalink($post->ID),
+                // 'text' => 'Ultimate Travel Guide'
+                // 'text' => 'Explore ' . get_the_title()
+                // ));
 
-                    $card_args['body'] .= '</ul>';
-                    $card = single_card_waves($card_args);
-                    $output .= $card;
-                    $output .= '</div>';
-                }
+                // $children_cities = get_posts(array(
+                //     'post_type' => 'location',
+                //     'post_parent' => $parent_id,
+                //     'posts_per_page' => -1,
+                //     'meta_key' => 'standardized_title',
+                //     'orderby' => 'meta_value',
+                // ),
+                // );
+
+                // if (count($children_cities) > 0) {
+                // foreach ($children_cities as $child) {
+                //     $card_args['body'] .= list_group_item(array(
+                //         'url' => get_permalink($child->ID),
+                //         'text' => get_the_title($child->ID)
+                //     ));
+                // }
+
+                //     $card_args['body'] .= '</ul>';
+                //     $card = single_card_waves($card_args);
+                //     $output .= $card;
+                //     $output .= '</div>';
+                // }
 
             }
 
@@ -140,5 +160,3 @@ echo $output;
 
 
 <?php get_footer(); ?>
-
-

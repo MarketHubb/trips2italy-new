@@ -1,34 +1,38 @@
-<?php $section = ($args['section']) ?: '<section class="pt-3 pb-4" id="count-stats">'; ?>
+<?php $section_container = ($args['section']) ?: '<section class="pt-3 pb-4 bg-light" id="count-stats">'; ?>
 
-    <?php echo $section; ?>
+<?php echo $section_container; ?>
 
-    <div class="container">
+<div class="container">
 
-        <?php
-        $heading_vals = $args['heading'];
-        
-        $heading = get_content_section_heading($heading_vals);
-        if ($heading) {
-            echo $heading;
-        }
-        ?>
+    <?php
+    $heading_vals = $args['heading'];
 
-        <div class="row">
-            <div class="col-lg-9 z-index-2 border-radius-xl mx-auto py-3 blur shadow-blur stats-cols">
-                <div class="row">
+    $heading = get_content_section_heading($heading_vals);
+    if ($heading) {
+        echo $heading;
+    }
+    ?>
 
-                    <?php
-                    $stats = get_stats($args['content']);
-                    if ($stats) {
-                        echo  $stats;
-                    }
-                    ?>
+</div>
 
-                </div>
+<?php $style = ($args['image']) ? 'container-fluid background-image-full py-8" style="background-image: url(' . $args['image'] . ')"' : 'container"'; ?>
+
+<div class="<?php echo $style; ?>>
+
+    <div class="row">
+        <div class="col-lg-9 z-index-2 border-radius-xl mx-auto py-3 blur shadow-blur stats-cols">
+            <div class="row">
+
+                <?php
+                $stats = get_stats($args['content']);
+                if ($stats) {
+                    echo  $stats;
+                }
+                ?>
+
             </div>
         </div>
-
     </div>
-</section>
+</div>
 
-        
+</section>

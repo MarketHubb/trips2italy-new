@@ -344,6 +344,14 @@ form .gf_page_steps .gf_step {
 
 /* Medium devices (DOWN) */
 @media (max-width: 767px) {
+    #form-footer-sticky > div {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #form-footer-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .5rem;
+    }
     #gform_confirmation_wrapper_11 {
         min-height: 100vh;
         width: 114%;
@@ -486,11 +494,6 @@ form .gf_page_steps .gf_step {
         margin-bottom: 0.25rem;
         font-size: .9rem !important;
     }
-    /*#gform_11.swiper {*/
-    /*    overflow: visible;*/
-    /*}*/
-    .gform_page .gform_page_footer {
-        /*display: none;*/
-    }
+
 }
 

@@ -3,6 +3,7 @@ get_header(); ?>
 
 <?php
 $hero = get_hero_banner(get_the_ID());
+highlight_string("<?php\n\$hero =\n" . var_export($hero, true) . ";\n?>");
 if (isset($hero)) {
     get_template_part('template-parts/shared/content', $hero['template-path'], $hero);
 }

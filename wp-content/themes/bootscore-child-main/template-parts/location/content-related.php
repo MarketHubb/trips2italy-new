@@ -1,52 +1,13 @@
 <?php
 if (isset($args)) {
-    // $postObj = get_query_var('postObj');
-
-    // if ($postObj->ID) {
-    //     $type = 'post';
-
-    //     $query = get_posts(array(
-    //         'post_type' => 'location',
-    //         'posts_per_page' => -1,
-    //         'post__not_in' => array($postObj->ID),
-    //         'post_parent' => 0,
-    //         'tax_query' => array(
-    //             array(
-    //                 'taxonomy' => 'location_region',
-    //                 'field' => 'term_id',
-    //                 'terms' => get_the_terms(get_the_ID(), "location_region")[0]->term_id
-    //             ),
-    //         )
-    //     ));
-    // }
-
-    // if ($postObj->term_id) {
-    //     $type = 'taxonomy';
-
-    //     $query = get_posts(array(
-    //         'post_type' => 'location',
-    //         'posts_per_page' => -1,
-    //         'post_parent' => 0,
-    //         'tax_query' => array(
-    //             array(
-    //                 'taxonomy' => 'location_region',
-    //                 'field' => 'term_id',
-    //                 'terms' => $postObj->term_id
-    //             ),
-    //         )
-    //     ));
-    // }
-
-    
-
-
-    $output = '<div class="row py-4 my-5">';
+    $output = '<div class="row">';
     $output .= '<div class="col-12">';
 
     $heading_modifier = ($args['type'] === 'post') ? 'other ' : '';
     $heading = 'Explore these ' . $heading_modifier . ' cities and towns in the ' . get_the_terms(get_the_ID(), "location_region")[0]->name . ' region of Italy';
+    $heading = 'Explore the ' . get_the_terms(get_the_ID(), "location_region")[0]->name . ' region of Italy';
 
-    $output .= '<h3 class="mb-4">' . $heading . '</h3>';
+    $output .= '<h3 class="mb-5">' . $heading . '</h3>';
     $output .= '</div>';
 
     foreach ($args['related_locations'] as $location) {

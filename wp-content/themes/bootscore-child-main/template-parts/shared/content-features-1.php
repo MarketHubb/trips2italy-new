@@ -6,12 +6,12 @@
 
             <?php
             $heading_vals = get_field('how_section_heading', $post->ID);
-            echo get_content_section_heading($heading_vals, false, false);
+            echo get_content_section_heading($heading_vals, false, false, false, 'col-md-5', 'mt-4 fw-normal heading-description pe-md-3 pe-lg-4');
             ?>
 
             <?php if (is_singular('package')) {  ?>
 
-                <div class="col-lg-6">
+                <div class="col-md-7">
                     <h3 class="text-gradient text-primary mb-0 mt-2">Vacationing to Italy</h3>
                     <h3>Has never been easier</h3>
                     <p>For nearly two decades we have been working with brides, grandparents, friends, parents or anyone with an adventurous spirit to plan the ultimate Italian vacation. Unlike internet travel sites or even our competitors, our team consists of first generation Italians who know where to go and what to do. Don't just see Italy. Live it. </p>

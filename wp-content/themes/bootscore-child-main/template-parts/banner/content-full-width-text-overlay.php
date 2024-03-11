@@ -61,7 +61,7 @@ if ($args) {
 
                         if (!$mobile) { ?>
                             <div class="buttons">
-                                <button type="button" class="btn bg-gradient-warning btn-lg mt-4 mb-0" data-bs-toggle="modal" data-bs-target="#modalppc" role="button">
+                                <button type="button" class="btn bg-gradient-warning btn-lg mt-4 mb-0" data-type="Form" data-target="form" role="button">
                                     <?php echo $hero['button_text']; ?>
                                 </button>
                             </div>
@@ -70,7 +70,7 @@ if ($args) {
                         <?php if ($mobile) { ?>
                             <!-- Desktop -->
                             <div class="buttons">
-                                <button type="button" class="d-none d-md-inline-block btn bg-gradient-warning btn-lg mt-4 mb-0" data-bs-toggle="modal" data-bs-target="#modalppc" role="button">
+                                <button type="button" class="d-none d-md-inline-block btn bg-gradient-warning btn-lg mt-4 mb-0" data-type="Form" data-target="form" role="button">
                                     <?php echo $hero['button_text']; ?>
                                 </button>
                             </div>

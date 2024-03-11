@@ -6,7 +6,11 @@ get_header(); ?>
     <div class="row">
         <div class="col">
 
-            <?php  get_template_part('template-parts/migrate/content','location-images'); ?>
+            <h1>Create (Demo)</h1>
+
+            <?php
+            get_template_part('template-parts/migrate/content', 'location-slugs');
+            ?>
 
         </div>
     </div>

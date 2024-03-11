@@ -13,11 +13,13 @@ $order = get_field('order', 'option') ? strtoupper(get_field('order', 'option'))
 
     <?php
 
+    $output_array = output_order_testimonials();
+
     $postcard_posts = get_posts(array(
         'post_type' => 'postcards',
         'posts_per_page' => -1,
-        'order' => $order,
-        'orderby' => $order_by
+        'order' => $output_array['order'],
+        'orderby' => $output_array['order_by']
     ));
 
     $postcards  = '<div class="container">';

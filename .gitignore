@@ -70,6 +70,9 @@ Temporary Items
 # CMake
 cmake-build-*/
 
+# node modules
+node_modules/
+
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
@@ -109,6 +112,7 @@ fabric.properties
 /wp-content/index.php
 /wp-content/languages
 /wp-content/plugins/
+/wp-content/mu-plugins/
 /wp-content/themes/index.php
 /wp-content/themes/bootscore-main/
 /wp-includes/

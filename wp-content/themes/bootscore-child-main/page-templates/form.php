@@ -15,7 +15,6 @@ $hero = get_query_var("hero");
 <?php
 $hero = ($hero) ?: get_hero_inputs(get_queried_object());
 get_template_part('template-parts/hero-banner/content', 'main', $hero);
-
 ?>
 
 <section class="my-6 my-md-7 d-none">

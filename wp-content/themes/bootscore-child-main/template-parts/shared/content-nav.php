@@ -17,7 +17,7 @@
         </button>
         <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0" id="navigation">
 
-            <ul class="navbar-nav navbar-nav-hover mx-auto">
+            <ul class="navbar-nav navbar-nav-hover mx-auto mb-3">
                 
                 <?php 
                 if( have_rows('primary_nav', 'option') ):

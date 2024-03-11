@@ -23,7 +23,7 @@ function galleryLightbox($args = [])
 // endregion
 
 // region Content
-function get_content_section_heading($heading_array = array(), $row = true, $text_center = true, $light_text = null)
+function get_content_section_heading($heading_array = array(), $row = true, $text_center = true, $light_text = null, $cols = null, $description_classes = null)
 {
     if (is_array($heading_array)) {
 
@@ -32,9 +32,13 @@ function get_content_section_heading($heading_array = array(), $row = true, $tex
             $heading = '<div class="row justify-content-center section-heading mb-5 pb-2 ' . $light_text_class . '">';
         }
 
-        $col_classes = ($text_center) ? "text-center" : '';
+        $cols_orientation = ($text_center) ? " text-center" : ' ';
 
-        $heading .= '<div class="col-md-8 ' . $col_classes . '">';
+        $cols = ($cols) ?: 'col-md-8';
+
+        $column_classes = $cols . $cols_orientation;
+
+        $heading .= '<div class="' . $column_classes . '">';
 
         if ($heading_array['heading']) {
             $heading .= '<h2 class="mb-1 mt-2">' . $heading_array['heading'] . '</h2>';
@@ -42,8 +46,10 @@ function get_content_section_heading($heading_array = array(), $row = true, $tex
         if ($heading_array['subheading']) {
             $heading .= '<h2 class="text-gradient text-primary stylized">' . $heading_array['subheading'] . '</h2>';
         }
+
         if ($heading_array['description']) {
-            $heading .= '<p class="lead mt-4 fw-600 fs-5 lh-base heading-description">' . $heading_array['description'] . '</p>';
+            $description_classes = ($description_classes) ?: 'lead mt-4 fw-600 fs-5 lh-base heading-description';
+            $heading .= '<p class="' . $description_classes . '">' . $heading_array['description'] . '</p>';
         }
 
         $heading .= '</div>';
@@ -98,7 +104,7 @@ function get_stats($stats = array())
             $content .= '<div class="p-3 text-center">';
             $content .= '<h1 class="text-gradient text-primary"><span id="state1" countto="">' . $stat['stat'] . '</span></h1>';
             $content .= '<h5 class="mt-3">' . $stat['subheading'] . '</h5>';
-            $content .= '<p class="text-sm">' . $stat['description'] . '</p>';
+            $content .= '<p class="px-lg-4 fw-semibold anti">' . $stat['description'] . '</p>';
             $content .= '</div><hr class="vertical dark"></div>';
         }
     }
@@ -556,13 +562,8 @@ function get_alternate_text($section, $side)
                     <h4 class="mb-4">' . $section['callout'] . '</h4>
                     <p class="region-description lead">' . $section['excerpt'] . '</p>';
 
-    if ($link) {
-        $text .= $link;
-    }
-
-    //                    <a href="javascript:;" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
-    //                        <i class="fas fa-arrow-right text-sm ms-1"></i>
-    //                    </a>
+    $text .= '<a href="' . $section['region_link'] . '" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'];
+    $text .= '<i class="fas fa-arrow-right text-sm ms-1"></i></a>';
     $text .= '</div></div>';
 
     return $text;
@@ -612,7 +613,7 @@ function get_left_alternate($section)
                     <h2 class="text-gradient text-warning mb-0 font-weight-bolder">' . $section['region'] . '</h2>
                     <h4 class="mb-4">' . $section['callout'] . '</h4>
                     <p class="region-description lead">' . $section['excerpt'] . '</p>
-                    <a href="javascript:;" class="text-dark icon-move-right  fw-bold fs-5">Discover ' . $section['region'] . '
+                    <a href="' . $section['region_link'] . '" class="text-dark icon-move-right  fw-bold fs-5">Discover ' . $section['region'] . '
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
                     </a>
                 </div>
@@ -642,7 +643,7 @@ function get_right_alternate($section)
                     <h3 class="text-gradient text-info mb-0">' . $section['region'] . '</h3>
                     <h4 class="mb-4">' . $section['callout'] . '</h4>
                     <p class="region-description lead">' . $section['excerpt'] . '</p>
-                    <a href="javascript:;" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
+                    <a href="' . $section['region_link'] . '" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
                         <i class="fas fa-arrow-right text-sm ms-1"></i>
                     </a>
                 </div>

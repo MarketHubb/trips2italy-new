@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
 
     //region CONSTANTS
     const pageContainer = $('#page');
@@ -25,12 +25,13 @@
     function showHideForm() {
         pageContainer.toggleClass('d-none')
         formContainer.toggleClass('d-none');
+        window.scrollTop();
     }
 
     function formDisplay() {
         let paddingArray = [];
 
-        $('.form-navs').each(function(index, el) {
+        $('.form-navs').each(function (index, el) {
             let placement = $(this).data('placement');
             paddingArray[placement] = $(this).height()
         });
@@ -78,11 +79,11 @@
     }
 
     function removeConditionalRequired() {
-        $('#gform_11 .conditionally-required').each(function() {
+        $('#gform_11 .conditionally-required').each(function () {
             $(this).removeClass('gfield_contains_required');
             $(this).find('.gfield_label.gform-field-label span.gfield_required').remove();
 
-            $(this).find('input').each(function() {
+            $(this).find('input').each(function () {
                 $(this).removeAttr('aria-required');
             });
         });
@@ -164,11 +165,11 @@
             $('#footer-button-submit')
                 .removeClass('d-none')
                 .addClass('submit-grid-item')
-                // .html(formFooter);
+            // .html(formFooter);
             $('#footer-button-next')
                 .addClass('d-none')
                 .removeClass('order-2')
-        // Not on final page
+            // Not on final page
         } else {
             footerSubmitBtn
                 .addClass('d-none');
@@ -191,7 +192,7 @@
             return false;
         }
 
-        $('#gform_11 #gform_page_11_4 input[type="text"]').each(function() {
+        $('#gform_11 #gform_page_11_4 input[type="text"]').each(function () {
             if ($(this).val().length === 0) {
                 formCompleted = false;
             }
@@ -207,11 +208,11 @@
     //endregion
 
     //region GRAVITY FORM: Confirmation pae shown
-    jQuery(document).on('gform_confirmation_loaded', function(event, formId){
+    jQuery(document).on('gform_confirmation_loaded', function (event, formId) {
         let confirmationWrapper = $('#gform_confirmation_wrapper_11');
         let pageTitle = $('#page').data('title');
         let heroImage = $('.hero-container.hero-mobile').css('background-image');
-        heroImage = heroImage.replace('url(','').replace(')','').replace(/\"/gi, "");
+        heroImage = heroImage.replace('url(', '').replace(')', '').replace(/\"/gi, "");
 
         if (heroImage.length > 0) {
             confirmationWrapper
@@ -228,41 +229,41 @@
     //endregion
 
     //region WINDOW LOAD
-    $(window).on('load', function() {
+    $(window).on('load', function () {
         // EVENT: Footer submit
-        footerSubmitBtn.on('click', function(event) {
+        footerSubmitBtn.on('click', function (event) {
             triggerFormNextOrSubmit($(this), event);
         });
         // EVENT: Show form
-        $('body button[data-type="Form"], body button[data-type="Modal"]').on('click', function(el) {
+        $('body button[data-type="Form"], body button[data-type="Modal"]').on('click', function (el) {
             formDisplay();
         });
 
         // EVENT: Hide form
-        $('body #form-hide, body #confirmation-back').on('click', function(el) {
+        $('body #form-hide, body #confirmation-back').on('click', function (el) {
             showHideForm();
         });
 
         // EVENT: Conditionally require Date or Timetable field
-        $('#gform_11 #field_11_7 input[type="radio"]').on("change", function() {
+        $('#gform_11 #field_11_7 input[type="radio"]').on("change", function () {
             let fieldId = null;
             let aria = false;
             let attrID = $(this).attr("id");
 
-           // Timetable
-           if (attrID !== "choice_11_7_0") {
+            // Timetable
+            if (attrID !== "choice_11_7_0") {
                 fieldId = '11_8';
-           // Date
-           } else {
-               fieldId = '11_9';
-               aria = true;
-           }
+                // Date
+            } else {
+                fieldId = '11_9';
+                aria = true;
+            }
 
             addConditionalRequired(fieldId, aria);
         });
 
         //EVENT: Form change (footer button state)
-        $('#gform_11').on('change', function(event) {
+        $('#gform_11').on('change', function (event) {
             let eventEl = $(event.target);
             toggleFooterSubmitState(eventEl);
             toggleFooterBtnState($(this));
@@ -270,14 +271,14 @@
         });
 
         // EVENT: Apply "has-val" class for text inputs with values
-        $('#gform_11 input[type="text"]').on('change',function() {
-               if ($(this).val().length > 0) {
-                   $(this).addClass('has-val');
-               }
+        $('#gform_11 input[type="text"]').on('change', function () {
+            if ($(this).val().length > 0) {
+                $(this).addClass('has-val');
+            }
         });
 
         // EVENT: Form input 16 + 17 change
-        $('#input_11_16 input, #input_11_17 input').on('change', function() {
+        $('#input_11_16 input, #input_11_17 input').on('change', function () {
             let importantVals = $('#input_11_16 input:checked').length;
             let regionVals = $('#input_11_17 input:checked').length;
 
@@ -291,18 +292,18 @@
         });
 
         // EVENT: Page transition (footer nav)
-        $('body').on('click', '#form-next', function(event) {
+        $('body').on('click', '#form-next', function (event) {
             triggerFormNextOrSubmit($(this), event);
             toggleFooterBtnState($(this));
         });
 
         // EVENT: Page transition (steps)
-        $('.gf_page_steps .gf_step').on('click', function() {
+        $('.gf_page_steps .gf_step').on('click', function () {
             toggleFooterBtnState($(this));
         });
 
         // FOOTER NAV: After clicking on the steps nav
-        $('.gf_page_steps .gf_step').on('click', function() {
+        $('.gf_page_steps .gf_step').on('click', function () {
             if (!$(this).hasClass('gf_step_active') && !$(this).hasClass('gf_step_pending')) {
                 $('#form-next').removeClass('disabled');
             }
@@ -310,7 +311,7 @@
         });
 
 
-        $('a[data-bs-target="#modalppc"]').each(function() {
+        $('a[data-bs-target="#modalppc"]').each(function () {
             $(this)
                 .attr({
                     href: '/get-custom-itinerary/',
@@ -321,7 +322,7 @@
         });
 
         // Locations (Mobile)
-        $(function(){
+        $(function () {
             // bind change event to select
             $('#location_select').on('change', function () {
                 let url = $(this).val(); // get selected value
@@ -332,22 +333,22 @@
             });
         });
         
-        $('#tabs-package-types li a').on("click", function() {
+        $('#tabs-package-types li a').on("click", function () {
             let targetLink = $(this);
 
-            $('#tabs-package-types li a').each(function() {
-               $(this).removeClass('active')
+            $('#tabs-package-types li a').each(function () {
+                $(this).removeClass('active')
             });
 
             targetLink.addClass('active');
 
-           let type = $(this).data('type');
-           $('.trip-package-types').each(function() {
-              $(this).addClass('d-none');
-              if ($(this).attr("id") === type) {
-                  $(this).removeClass('d-none');
-              }
-           });
+            let type = $(this).data('type');
+            $('.trip-package-types').each(function () {
+                $(this).addClass('d-none');
+                if ($(this).attr("id") === type) {
+                    $(this).removeClass('d-none');
+                }
+            });
 
         });
         // $('#package-type-container .trip-package-types')
@@ -368,24 +369,17 @@
         //    }
         // });
 
-
-
-        const featured = $('#features-image-left');
-        const firstSectionHeading = $('#custom > .container > .row > .col-12 h3:first-of-type');
-
-         firstSectionHeading.each(function(event) {
-            if (event === 0) {
-                const ctaEntryPoint = $(this).closest('.container');
-                featured.insertBefore(ctaEntryPoint);
-            }
-         });
-
-
     });
     //endregion
 
     //region MOBILE
     if (windowWidth <= 576) {
+        let mobileNav = $('#masthead > nav');
+        let mobileNavBtn = $('.navbar-toggler');
+
+        mobileNavBtn.on('click', function() {
+            mobileNav.toggleClass('shadow-lg-dark')
+        });
         // Full height hero background image (less sticky header)
         hero.css({
             height: heroHeight,
@@ -396,4 +390,4 @@
 
 
 
-})( jQuery ); // jQuery End
+})(jQuery); // jQuery End

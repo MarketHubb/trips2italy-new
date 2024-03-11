@@ -1,9 +1,17 @@
 <?php if (isset($args)) { ?>
-    
+
+    <?php $hero_inputs = get_query_var('inputs' ); ?>
 
     <div class="row" id="photos-container">
         <div class="col-12">
-            <h3>PHOTOS</h3>
+            <?php 
+            $section_heading = "Photo gallery ";
+            
+            if (is_tax('location_region') && isset ($hero_inputs['hero']['heading'])) {
+                $section_heading = $hero_inputs['hero']['heading'] . ' Photo Gallery';
+            } 
+            ?>
+            <h3 class="mb-4"><?php echo $section_heading; ?></h3>
         </div>
     </div>
 

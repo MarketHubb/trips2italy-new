@@ -1,6 +1,9 @@
 <?php
 // Components
 function single_card_waves($args = array()) {
+    // $card_bg = (isset($args['background'])) ? $args['background'] : 'bg-white';
+
+    // $card  = '<div class="card h-100 city-card ' . $card_bg . '">';
     $card  = '<div class="card h-100 city-card">';
     $card .= '<img class="card-img-top" src="' . $args['image_url'] . '">';
     $card .= '<div class="position-relative overflow-hidden" style="height:50px;margin-top:-50px;">';
