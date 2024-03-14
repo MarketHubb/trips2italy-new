@@ -210,11 +210,11 @@ function get_tax_hero_values($term)
     $region = get_post_region($term);
 
     $hero['type'] = 'post';
-    $hero['region'] = $region[0]->term_id;
+    $hero['region'] = $term->term_id;
     $hero['heading'] = get_the_title($term);
     $bg_image = get_field('image_slider_url', $term);
     $bg_image = (!$bg_image) ? get_field('featured_image', $term)['url'] : null;
-    $hero['background_image'] = $bg_image;
+    $hero['background_image'] = ($bg_image) ?: null;
     $hero['gallery_string'] = get_field('image_id', $term);
     $gallery_ids = explode(',', $hero['gallery_string']);
     foreach ($gallery_ids as $id) {
