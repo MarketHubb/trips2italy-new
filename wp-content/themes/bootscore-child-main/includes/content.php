@@ -286,7 +286,7 @@ function location_post_tabs($postObj)
 function location_tax_tabs($postObj)
 {
     $parent_id = get_parent_term_id($postObj);
-    $parent = get_term_by('ID', $parent_id, 'location_region');
+    $parent = get_term_by('term_id', $parent_id, 'location_region');
     $tabs['location'] = $parent->name;
 
     $tabs['pages'][0] = [
