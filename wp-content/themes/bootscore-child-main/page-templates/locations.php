@@ -79,7 +79,9 @@ foreach ($regions as $region) {
             // Set region name (clean)
             if ($post->post_parent === 0) {
                 $dropdown_city_array[] = get_field('city_name');
-                $output .= '<div id="' . strtolower(str_replace(" ", "", get_field('city_name'))) . '" class="col-12 col-md-4 my-3">';
+                $standardized_title = get_field('standardized_title');
+                $card_id = (isset($standardized_title) && !empty($standardized_title)) ? $standardized_title : 'post-' . $post->ID;
+                $output .= '<div id="' . strtolower(str_replace(' ', '', $card_id)) . '" class="col-12 col-md-4 my-3">';
 
                 // Setup card
                 $parent_id = get_the_ID();
@@ -111,19 +113,9 @@ foreach ($regions as $region) {
 
 $output .= '</div>';
 
-sort($dropdown_city_array);
-foreach ($dropdown_city_array as $city_name) {
-    $dropdown_city .= '<li><a class="dropdown-item fs-6 fw-500" href="#' . strtolower(str_replace(" ", "", $city_name)) . '">';
-    $dropdown_city .=  $city_name . '</a></li>';
-}
-
-$dropdown_region .= '</ul></div>';
-$dropdown_city .= '</ul></div></div>';
-$dropdown .= $dropdown_region . $dropdown_city . '</div></div>';
-$output = $dropdown . $output;
 echo $output;
 ?>
- 
+
 
 
 <?php get_footer(); ?>

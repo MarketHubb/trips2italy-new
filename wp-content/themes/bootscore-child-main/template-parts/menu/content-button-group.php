@@ -3,8 +3,8 @@
         <div class="container">
             <div class="row ">
                 <div class="col-12 mx-auto ">
-                    
-                    <?php 
+
+                    <?php
                     $obj = get_query_var('postObj');
                     $permalink = ($obj->post_type) ? get_permalink($obj->ID) : get_term_link($obj->term_id);
                     $location = $args['location'];

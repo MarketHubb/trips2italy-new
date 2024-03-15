@@ -3,9 +3,10 @@ $queried_object = get_queried_object();
 
 if ($queried_object->ID) {
     $type = 'post';
-    $post_obj = get_post($queried_object);
+    $object_id = $queried_object->ID;
 } else {
     $type = 'taxonomy';
+    $object_id = $queried_object->term_id;
 }
 $tab_inputs = location_tabs($queried_object, $type);
 ksort($tab_inputs['pages']);
@@ -53,29 +54,6 @@ ksort($tab_inputs['pages']);
     $output .= '</div>';
 
     echo $output;
-
-    $tax_content = get_field('content_clean', get_queried_object());
-
-    if ($tax_content) {
-        // echo $tax_content;
-    } else {
-        $legacy_content = get_the_content();
-        $content_array = remove_embeds_from_content($legacy_content, true);
-        $i = 0;
-        $output = '';
-        foreach ($content_array as $block) {
-            $p_classes = $i === 0 ? '' : '';
-            $output .= '<div class="container">';
-            $output .= '<div class="row">';
-            $output .= '<div class="col-12">';
-            $output .= '<p class="' . $p_classes . '">' . $block . '</p>';
-            $output .= '</div></div></div>';
-
-            $i++;
-        }
-
-        // echo $output;
-    }
     ?>
 
 
@@ -92,7 +70,7 @@ ksort($tab_inputs['pages']);
         <div class="container">
             <?php
             $related_args['type'] = $type;
-            $related_args['related_locations'] = isset($post_obj) ? related_locations_in_region($post_obj) : null;
+            $related_args['related_locations'] = (isset($object_id) && isset($type)) ? related_locations_in_region($object_id, $type) : null;
 
             if (isset($related_args) && !empty($related_args['related_locations'])) {
                 get_template_part('template-parts/location/content', 'related', $related_args);

@@ -7,26 +7,38 @@ function output_order_testimonials()
 
     return $posts_array;
 }
-function related_locations_in_region($post_obj)
+
+function related_locations_in_region($object_id, $type)
 {
-    $post_parent = $post_obj->post_parent;
-    $post_terms = get_the_terms($post_obj->ID, "location_region");
+    if ($type === 'post') {
+        $location_post = get_post($object_id);
+        // $post_parent = $location_post->post_parent;
+        $post_terms = get_the_terms($location_post->ID, "location_region");
+        $posts__not_in = [$object_id];
+        $terms = $post_terms[0]->term_id;
+    }
+
+    if ($type === 'taxonomy') {
+        $posts__not_in = [];
+        $tax = get_term($object_id, 'location_region');
+        $terms = $tax->term_id;
+    }
 
     $related_locations = get_posts(array(
         'post_type' => 'location',
         'posts_per_page' => -1,
         'post_parent' => 0,
-        'post__not_in' => [$post_obj->ID],
+        'post__not_in' => $posts__not_in,
         'tax_query' => array(
             array(
                 'taxonomy' => 'location_region',
                 'field' => 'term_id',
-                'terms' => $post_terms[0]->term_id
+                'terms' => $terms
             )
         )
     ));
 
-    return $related_locations;
+    return (isset($related_locations) && count($related_locations) > 0) ? $related_locations : null;
 }
 function custom_copy_or_default($string, $matches, $replace)
 {
@@ -165,7 +177,7 @@ function clean_text($text)
 
 function remove_dev_domain_from_url($url)
 {
-    $domain = get_bloginfo( 'url');
+    $domain = get_bloginfo('url');
     $dev_domain = 't2i-new.test';
 
 
