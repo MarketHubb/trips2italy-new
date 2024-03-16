@@ -88,7 +88,7 @@
                 <ul class="flex-column ms-n3 nav">
 
                     <li class="nav-item">
-                        <a class="nav-link text-secondary" href="<?php echo get_permalink(12765); ?>" >
+                        <a class="nav-link text-secondary" href="<?php echo get_permalink(12767); ?>" >
                             Terms & Conditions
                         </a>
                     </li>
