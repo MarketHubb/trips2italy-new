@@ -1,4 +1,5 @@
-<?php //get_template_part('template-parts/menu/content', 'region-links'); ?>
+<?php //get_template_part('template-parts/menu/content', 'region-links'); 
+?>
 
 <?php get_template_part('template-parts/menu/content', 'city-links'); ?>
 
@@ -99,7 +100,7 @@
 <!-- To top button -->
 <!--<a href="#" class="btn btn-primary shadow top-button position-fixed zi-1020"><i class="fa-solid fa-chevron-up"></i><span class="visually-hidden-focusable">To top</span></a>-->
 
-    </div> <!-- #site -->
+</div> <!-- #site -->
 
 </div><!-- #page -->
 
@@ -123,7 +124,7 @@
                     <p class="mb-0 fw-600 text-dark ps-1"><?php echo $nav_heading ?></p>
                 </div>
                 <div class="d-inline-block small pe-3">
-                    <button class="form-nav-button border-0 btn-outline-info text-muted fs-5 p-0 lh-1 small" data-state="hide"  id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></button>
+                    <button class="form-nav-button border-0 btn-outline-info text-muted fs-5 p-0 lh-1 small" data-state="hide" id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></button>
                     <!-- <span class="form-nav-button small" data-state="hide"  id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></span> -->
                 </div>
             </div>
@@ -140,7 +141,7 @@
         <!-- Form -->
         <div class="row justify-content-center">
             <div class="col">
-                <?php gravity_form(11, $display_title = false, $display_description = false, $display_inactive = false, $field_values=true, $ajax = true, 1); ?>
+                <?php gravity_form(11, $display_title = false, $display_description = false, $display_inactive = false, $field_values = true, $ajax = true, 1); ?>
             </div>
         </div>
 
@@ -154,7 +155,7 @@
                     <a class="w-100 btn btn-lg mb-0 form-nav-button disabled px-4" data-state="hide" href="#" id="form-next" disabled>Next</a>
                 </div>
                 <div class="footer-button" id="footer-button-submit">
-                    <button  class="w-100 btn bg-orange btn-lg mb-0 px-4 disabled d-none" id="footer-submit">Get My Free Itinerary</button>
+                    <button class="w-100 btn bg-orange btn-lg mb-0 px-4 disabled d-none" id="footer-submit">Get My Free Itinerary</button>
                 </div>
             </div>
         </div>
@@ -167,11 +168,30 @@
 
 <?php wp_footer(); ?>
 
-<?php //get_template_part('template-parts/modal/content', 'modal'); ?>
+<?php //get_template_part('template-parts/modal/content', 'modal'); 
+?>
 
-<?php //get_template_part('template-parts/modal/content', 'full-page'); ?>
+<?php //get_template_part('template-parts/modal/content', 'full-page'); 
+?>
 
-
+<script type="text/javascript">
+    var $zoho = $zoho || {};
+    $zoho.salesiq = $zoho.salesiq || {
+        widgetcode: "siq5498c278a23b861117069820a58ff910ca848f22776a3d917e798bedb9a2e627",
+        values: {},
+        ready: function() {
+            $zoho.salesiq.floatbutton.visible('hide');
+        }
+    };
+    var d = document;
+    s = d.createElement("script");
+    s.type = "text/javascript";
+    s.id = "zsiqscript";
+    s.defer = true;
+    s.src = "https://salesiq.zoho.com/widget";
+    t = d.getElementsByTagName("script")[0];
+    t.parentNode.insertBefore(s, t);
+</script>
 </body>
 
 </html>
