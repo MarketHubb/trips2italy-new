@@ -9,18 +9,20 @@ function form_heading($dynamic = null)
     $mobile = '<div class="col-12 form-heading-mobile">';
 
     if (!empty($form_heading)) {
-        $desktop .= '<h1 class="d-none d-md-inline-block">' . $form_heading['desktop'] . ' ';
-        $mobile  .= '<h1 class="d-inline-block d-md-none">' . $form_heading['mobile'] . ' ';
+        $mobile_heading = (isset($form_heading['mobile'])) ? $form_heading['mobile'] : $form_heading['desktop'];
+        $desktop .= '<h3 class="d-none d-md-inline-block">' . $form_heading['desktop'] . ' ';
+        $mobile  .= '<h5 class="d-inline-block fw-700 tracking-tight  d-md-none">' . $mobile_heading . ' ';
     }
 
     if (!empty($form_subheading)) {
+        $mobile_subheading = (isset($form_subheading['mobile'])) ? $form_subheading['mobile'] : $form_subheading['desktop'];
         $desktop .= '<span class=" d-none d-md-inline-block">' . $form_subheading['desktop'] . '</span>';
-        $mobile .= '<span class=" d-inline d-md-none">' . $form_subheading['mobile'] . '</span>';
+        $mobile .= '<span class=" d-inline d-md-none">' . $mobile_subheading . '</span>';
     }
 
     if (!empty($form_heading)) {
-        $desktop .= '</h1>';
-        $mobile  .= '</h1>';
+        $desktop .= '</h3>';
+        $mobile  .= '</h5>';
     }
 
     if (!empty($form_description)) {

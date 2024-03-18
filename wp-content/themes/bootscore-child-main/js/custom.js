@@ -25,7 +25,6 @@
     function showHideForm() {
         pageContainer.toggleClass('d-none')
         formContainer.toggleClass('d-none');
-        window.scrollTop();
     }
 
     function formDisplay() {
@@ -45,6 +44,9 @@
                 paddingBottom: paddingArray.bottom
             });
         }
+
+        window.scrollTop();
+
 
     }
 
@@ -377,7 +379,7 @@
         let mobileNav = $('#masthead > nav');
         let mobileNavBtn = $('.navbar-toggler');
 
-        mobileNavBtn.on('click', function() {
+        mobileNavBtn.on('click', function () {
             mobileNav.toggleClass('shadow-lg-dark')
         });
         // Full height hero background image (less sticky header)

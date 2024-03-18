@@ -1,16 +1,10 @@
 /*region GLOBAL (Mobile & Desktop) */
 .form-heading .dynamic {
-    font-family: 'Courgette', cursive;
-    letter-spacing: .025rem;
     color: #e07d26 !important;
     font-size: 105%;
     padding-left: 2px;
     border-bottom: 1px solid;
 }
-.form-heading {
-    border-bottom: 1px solid #dcecfa;
-}
-
 /*endregion*/
 /*region MOBILE HERO */
 header.hero-mobile.hero-container {

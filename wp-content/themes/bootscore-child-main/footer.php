@@ -106,23 +106,23 @@
 <!-- Lead Form -->
 
 
-<div class="d-none" id="form-main">
+<div class="d-none bg-gray-100" id="form-main">
 
-    <nav class="navbar sticky-top bg-light form-navs px-4 py-0 py-md-2" id="form-header-sticky" data-placement="top">
+    <nav class="navbar sticky-top bg-white form-navs px-0 py-0 py-md-2" id="form-header-sticky" data-placement="top">
         <div class="container-lg  g-0 g-md-2">
-            <div class="d-flex align-items-center justify-content-between w-100">
+            <div class="d-grid w-100">
                 <div class="d-inline-block pt-1 pb-2">
                     <img class="form-heading-logo" src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg' ?>" alt="">
                 </div>
                 <div class="d-inline-block">
                     <?php
-                    $dynamic = ($hero['dynamic']) ?: null;
+                    $dynamic = (isset($hero['dynamic'])) ? $hero['dynamic'] : null;
                     $default_nav_heading = "Italy {Vacation} Itinerary";
                     $nav_heading = replace_variable_in_copy($default_nav_heading, $dynamic);
                     ?>
-                    <p class="mb-0 fw-600 text-dark  small ps-1"><?php echo $nav_heading ?></p>
+                    <p class="mb-0 fw-600 text-dark ps-1"><?php echo $nav_heading ?></p>
                 </div>
-                <div class="d-inline-block small">
+                <div class="d-inline-block small pe-3">
                     <button class="form-nav-button border-0 btn-outline-info text-muted fs-5 p-0 lh-1 small" data-state="hide"  id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></button>
                     <!-- <span class="form-nav-button small" data-state="hide"  id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></span> -->
                 </div>
@@ -133,7 +133,7 @@
     <div class="container-lg px-4">
 
         <!-- Page Heading -->
-        <div class="row pt-0 pt-md-3 pb-3 pb-md-4 mt-2 mb-3 mb-md-4 form-heading">
+        <div class="row pt-0 pb-3 py-md-4 my-md-4 form-heading">
             <?php echo form_heading($dynamic); ?>
         </div>
 

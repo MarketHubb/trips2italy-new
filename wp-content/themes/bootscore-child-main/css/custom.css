@@ -1,9 +1,16 @@
+.dynamic {
+    font-family: 'Courgette', cursive;
+    letter-spacing: .025rem;
+}
+
 .card-background .copy-bottom {
     top: 1.5rem;
 }
+
 .shadow-lg-dark {
     box-shadow: 0 40px 50px -12px rgb(0 0 0 / 0.75);
 }
+
 .bg-gray-100 {
     background-color: #fcfcfd !important;
 }
@@ -36,6 +43,10 @@
 
 .tracking-wide {
     letter-spacing: 0.025em !important;
+}
+
+.tracking-tight {
+    letter-spacing: -0.025em !important;
 }
 
 .gray-50 {
@@ -364,6 +375,7 @@ header .text-container.text-background {
 
 .region-tabs div.flex-equal a {
     font-size: 1.3rem;
+    color: #445d88;
 }
 
 .region-tabs div.flex-equal:not(.page-active) a {
@@ -386,7 +398,7 @@ header .text-container.text-background {
 }
 
 .region-tabs div.flex-equal.page-active a {
-    box-shadow: 0 0.3125rem 0.625rem 0 rgb(0 0 0 / 12%) !important;
+    box-shadow: 0 0.125rem 0.25rem 0 rgb(0 0 0 / 12%) !important;
 }
 
 .region-tabs div.flex-equal:hover img,
@@ -782,41 +794,7 @@ button.btn.btn-primary:not(.page-active):hover {
     }
 }
 
-
-/* Large devices (tablets, less than 992px) */
-@media (max-width: 991.98px) {
-    .md-grid-cols-2 {
-        grid-template-columns: auto auto;
-    }
-
-    .navbar-brand img {
-        width: 50px;
-    }
-
-    .top-button.position-fixed {
-        display: none !important;
-    }
-
-    /* Containers */
-    /*.container-fluid > .row {*/
-    /*    padding-left: 1rem;*/
-    /*    padding-right: 1rem;*/
-    /*}*/
-    /* Global: Text, Font & Links */
-    .btn {
-        display: inline-block;
-        padding-left: 0.875rem;
-        padding-right: 0.875rem;
-        padding-top: 0.625rem;
-        padding-bottom: 0.625rem;
-        text-transform: none;
-        letter-spacing: .015rem;
-    }
-
-    h1,
-    .h1 {
-        font-size: calc(1.425rem + 1.1vw);
-    }
+@media (max-width: 1200px) {
 
     /* Global: Nav */
     .mobile-header-cta {
@@ -869,6 +847,43 @@ button.btn.btn-primary:not(.page-active):hover {
         color: #fff;
         opacity: 1;
         font-weight: 700;
+    }
+}
+
+
+/* Large devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .md-grid-cols-2 {
+        grid-template-columns: auto auto;
+    }
+
+    .navbar-brand img {
+        width: 50px;
+    }
+
+    .top-button.position-fixed {
+        display: none !important;
+    }
+
+    /* Containers */
+    /*.container-fluid > .row {*/
+    /*    padding-left: 1rem;*/
+    /*    padding-right: 1rem;*/
+    /*}*/
+    /* Global: Text, Font & Links */
+    .btn {
+        display: inline-block;
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+        padding-top: 0.625rem;
+        padding-bottom: 0.625rem;
+        text-transform: none;
+        letter-spacing: .015rem;
+    }
+
+    h1,
+    .h1 {
+        font-size: calc(1.425rem + 1.1vw);
     }
 
     /* Section: Hero */
