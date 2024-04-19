@@ -5,7 +5,7 @@
                 <div class="col-12 mx-auto ">
 
                     <?php
-                    $obj = get_query_var('postObj');
+                    $obj = get_query_var('queried_object');
                     $permalink = ($obj->post_type) ? get_permalink($obj->ID) : get_term_link($obj->term_id);
                     $location = $args['location'];
                     ?>

@@ -2,7 +2,7 @@
 <?php $home_url = get_home_url(); ?>
 <nav
 
-    class="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-2 fixed-top z-index-3">
+    class="navbar navbar-expand-xl navbar-light bg-white z-index-3 py-2 fixed-top z-index-3">
     <div class="container">
         <a class="navbar-brand pt-1 pb-2" href="<?php echo get_home_url(); ?>" rel="tooltip" title="Custom Italian Vacations" data-placement="bottom">
             <img src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg' ?>" alt="">

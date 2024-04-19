@@ -1,5 +1,6 @@
 <?php
 $queried_object = get_queried_object();
+set_query_var( 'queried_object', $queried_object, );
 
 if ($queried_object->ID) {
     $type = 'post';
@@ -8,6 +9,7 @@ if ($queried_object->ID) {
     $type = 'taxonomy';
     $object_id = $queried_object->term_id;
 }
+
 $tab_inputs = location_tabs($queried_object, $type);
 ksort($tab_inputs['pages']);
 

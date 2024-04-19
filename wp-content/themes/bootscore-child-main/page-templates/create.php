@@ -9,7 +9,7 @@ get_header(); ?>
             <h1>Create (Demo)</h1>
 
             <?php
-            get_template_part('template-parts/migrate/content', 'location-slugs');
+            get_template_part('template-parts/migrate/content', 'urls');
             ?>
 
         </div>

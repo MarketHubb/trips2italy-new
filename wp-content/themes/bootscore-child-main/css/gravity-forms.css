@@ -202,6 +202,10 @@ input.gfield-choice-input:checked+label:after {
     border-radius: 100% !important;
 }
 
+#input_11_8 input.gfield-choice-input:checked+label:after {
+    transform: translateY(-217%);
+}
+
 .gform_wrapper.gravity-theme div[class*="gchoice_11_16"],
 .gform_wrapper.gravity-theme div[class*="gchoice_11_17"] {
     margin-bottom: 1.5rem;

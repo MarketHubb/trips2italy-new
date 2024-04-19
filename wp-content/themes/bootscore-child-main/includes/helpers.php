@@ -73,13 +73,18 @@ function get_desktop_mobile_copy($string, $delimiter = ",", $dynamic = null)
 {
     $dynamic = ($dynamic) ?: null;
     $copy = [];
-    $string_array = explode($delimiter, $string);
 
-    if (isset($string_array[0])) {
-        $copy['desktop'] = replace_variable_in_copy(trim($string_array[0]), $dynamic);
-    }
-    if (isset($string_array[1])) {
-        $copy['mobile'] = replace_variable_in_copy(trim($string_array[1]) ?: trim($string_array[0]), $dynamic);
+    if (str_contains($string, $delimiter)) {
+        $string_array = explode($delimiter, $string);
+
+        if (isset($string_array[0])) {
+            $copy['desktop'] = replace_variable_in_copy(trim($string_array[0]), $dynamic);
+        }
+        if (isset($string_array[1])) {
+            $copy['mobile'] = replace_variable_in_copy(trim($string_array[1]) ?: trim($string_array[0]), $dynamic);
+        }
+    } else {
+        $copy['desktop'] = replace_variable_in_copy(trim($string), $dynamic);
     }
 
     return $copy ?: null;
