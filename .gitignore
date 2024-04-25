@@ -3,6 +3,12 @@
 .AppleDouble
 .LSOverride
 
+# Ignore markdown files
+*.md
+
+# Ignore everything in the migrate directory
+/migrate/
+
 # Icon must end with two \r
 Icon
 
