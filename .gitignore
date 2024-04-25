@@ -5,6 +5,7 @@
 
 # Ignore markdown files
 *.md
+*.swp
 
 # Ignore everything in the migrate directory
 /migrate/
