@@ -78,16 +78,10 @@
         $('#gform_next_button_11_5').on("click", function() {
             if (scheduleTypeInputId === 9) {
                 let dateVal = $("input_" + scheduleTypeInputId).val();
-                console.log(dateVal);
                 let currentDate = new Date();
                 let departureDate = new Date(dateVal)
-                console.log(departureDate);
-
                 let currentMonth = currentDate.getMonth();
                 let departureMonth = departureDate.getMonth();
-
-                console.log(currentMonth);
-                console.log(departureMonth);
             }
         });
 

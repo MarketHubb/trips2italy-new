@@ -218,7 +218,11 @@ a.form-nav-button.disabled {
     background-color: #e07d26 !important;
     color: #fff !important;
 }
-
+.disabled-soft {
+    background-color: inherit !important;
+    color: inherit !important;
+    border: inherit !important;
+}
 .mask.mask-light {
     background: #fff !important;
     opacity: .95;

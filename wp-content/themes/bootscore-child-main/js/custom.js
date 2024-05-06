@@ -30,7 +30,7 @@
     function formDisplay() {
         let paddingArray = [];
 
-        $('.form-navs').each(function (index, el) {
+        $('.form-navs').each(function () {
             let placement = $(this).data('placement');
             paddingArray[placement] = $(this).height()
         });
@@ -45,9 +45,7 @@
             });
         }
 
-        window.scrollTop();
-
-
+        window.scrollTo(0,0);
     }
 
     function triggerFormNextOrSubmit(target, event) {
@@ -63,20 +61,13 @@
 
             if (targetId === "footer-submit") {
                 if (event.target === formSubmitBtn[0]) return false;
+                    
                 form.trigger('submit');
+                target.addClass('disabled-soft');
+                target.prop('disabled', true);
+                target.text('Submitting Your Information');
             }
 
-        }
-    }
-
-    function triggerFormSubmit(target, event) {
-        if (!target.hasClass('disabled')) {
-
-            let formSubmitInput = $('#gform_11 input#gform_submit_button_11');
-
-            if (event.target === formSubmitInput[0]) return false;
-
-            form.trigger('submit');
         }
     }
 
@@ -210,7 +201,7 @@
     //endregion
 
     //region GRAVITY FORM: Confirmation pae shown
-    jQuery(document).on('gform_confirmation_loaded', function (event, formId) {
+    jQuery(document).on('gform_confirmation_loaded', function () {
         let confirmationWrapper = $('#gform_confirmation_wrapper_11');
         let pageTitle = $('#page').data('title');
         let heroImage = $('.hero-container.hero-mobile').css('background-image');
@@ -237,12 +228,12 @@
             triggerFormNextOrSubmit($(this), event);
         });
         // EVENT: Show form
-        $('body button[data-type="Form"], body button[data-type="Modal"]').on('click', function (el) {
+        $('body button[data-type="Form"], body button[data-type="Modal"]').on('click', function () {
             formDisplay();
         });
 
         // EVENT: Hide form
-        $('body #form-hide, body #confirmation-back').on('click', function (el) {
+        $('body #form-hide, body #confirmation-back').on('click', function () {
             showHideForm();
         });
 
