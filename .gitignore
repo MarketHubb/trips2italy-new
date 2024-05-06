@@ -6,9 +6,11 @@
 # Ignore markdown files
 *.md
 *.swp
+/wp-content/themes/bootscore-child-main/page-templates/create.php
+
 
 # Ignore everything in the migrate directory
-/migrate/
+/wp-content/themes/bootscore-child-main/migrate/
 
 # Icon must end with two \r
 Icon
@@ -122,6 +124,8 @@ fabric.properties
 /wp-content/mu-plugins/
 /wp-content/themes/index.php
 /wp-content/themes/bootscore-main/
+/wp-content/themes/bootscore-child-main/.txt
+/wp-content/themes/bootscore-child-main/.md
 /wp-includes/
 /index.php
 /license.txt
