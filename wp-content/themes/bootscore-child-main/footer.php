@@ -1,3 +1,4 @@
+<i class="fa-solid fa-circle-check"></i>
 <?php //get_template_part('template-parts/menu/content', 'region-links'); 
 ?>
 
@@ -107,9 +108,9 @@
 <!-- Lead Form -->
 
 
-<div class="d-none bg-gray-100" id="form-main">
+<div class="d-none bg-gray-light" id="form-main">
 
-    <nav class="navbar sticky-top bg-white form-navs px-0 py-0 py-md-2" id="form-header-sticky" data-placement="top">
+    <nav class="navbar  sticky-top bg-white form-navs px-0 py-0 py-md-2" id="form-header-sticky" data-placement="top">
         <div class="container-lg  g-0 g-md-2">
             <div class="d-grid w-100">
                 <div class="d-inline-block pt-1 pb-2">
@@ -139,7 +140,7 @@
         </div>
 
         <!-- Form -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="form-row">
             <div class="col">
                 <?php gravity_form(11, $display_title = false, $display_description = false, $display_inactive = false, $field_values = true, $ajax = true, 1); ?>
             </div>
@@ -147,7 +148,7 @@
 
     </div>
 
-    <nav class="navbar sticky-bottom bg-light form-navs w-100 px-4" id="form-footer-sticky" data-placement="bottom">
+    <nav class="navbar shadow-none border border-top border-light sticky-bottom bg-white form-navs w-100 px-4" id="form-footer-sticky" data-placement="bottom">
 
         <div class="container-lg">
             <div id="form-footer-buttons" class="footer-buttons w-100 py-3 d-grid">

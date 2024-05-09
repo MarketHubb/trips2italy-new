@@ -1,37 +1,66 @@
-.package-cards {
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,0)!important;
+.noUi-horizontal .noUi-tooltip {
+    height: 30px;
+    width: 30px;
+    border-radius: 10000px  !important;
 }
+.footer-button a {
+    letter-spacing: .025rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+}
+
+.bg-light {
+    background-color: #F1F5F9 !important;
+}
+
+.border-light {
+    border-color: #E2E8F0 !important;
+}
+.bg-gray-light {
+    background-color: #F1F5F9 !important;
+}
+
+.package-cards {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0) !important;
+}
+
 .package-cards p[class*="clamp"] {
     font-size: 1rem;
     color: #566176;
 }
+
 .package-cards a.btn:hover {
     transform: none !important;
 }
+
 .package-cards:hover img {
     box-shadow: none !important;
 }
+
 .package-cards a.btn {
     color: rgb(25, 95, 164);
     border-color: rgb(25, 95, 164);
 }
-.package-cards:hover a.btn, 
-.package-cards a.btn:hover 
-{
+
+.package-cards:hover a.btn,
+.package-cards a.btn:hover {
     transition: none;
     background-color: rgb(25, 95, 164);
     color: #fff;
     border-color: rgb(25, 95, 164);
 }
+
 .package-cards:hover {
-    background-color:  #fdfdfd;
+    background-color: #fdfdfd;
     outline: 1px solid #eee;
-    box-shadow:  0 .5rem 1rem rgba(0,0,0,.15)!important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
     outline: 1px solid #ddd;
 }
+
 .package-cards:hover * {
     transform: none !important;
 }
+
 .dynamic {
     font-family: 'Courgette', cursive;
     letter-spacing: .025rem;
@@ -218,11 +247,13 @@ a.form-nav-button.disabled {
     background-color: #e07d26 !important;
     color: #fff !important;
 }
+
 .disabled-soft {
     background-color: inherit !important;
     color: inherit !important;
     border: inherit !important;
 }
+
 .mask.mask-light {
     background: #fff !important;
     opacity: .95;
@@ -891,6 +922,10 @@ button.btn.btn-primary:not(.page-active):hover {
 
 /* Large devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
+    #form-row > .col {
+        padding-left: 0;
+        padding-right: 0;
+    }
     .md-grid-cols-2 {
         grid-template-columns: auto auto;
     }
