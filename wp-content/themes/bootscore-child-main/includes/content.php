@@ -1,4 +1,113 @@
 <?php
+// region Packages
+function getRandomImageIndex($image_count, $used_indexes) {
+    // Generate an array of all indexes
+    $all_indexes = range(0, $image_count - 1);
+    
+    // Calculate the array of unused indexes
+    $unused_indexes = array_diff($all_indexes, $used_indexes);
+
+    // Check if there is at least 1 unused index
+    if (count($unused_indexes) < 1) {
+        // Handle the case where there are no unused indexes
+        return ['Error: No unused images available'];
+    }
+
+    // Randomly pick 1 index from unused indexes
+    $randomKey = array_rand($unused_indexes, 1);
+    $randomImageIndex = $unused_indexes[$randomKey];
+
+    return $randomImageIndex;
+}
+
+function splitParagraph($paragraph) {
+	    // Use regular expression to match sentences
+    $sentencePattern = '/([^.!?]*[.!?])/';
+
+    // Find all sentences in the paragraph
+    preg_match_all($sentencePattern, $paragraph, $matches);
+
+    // Extract sentences
+    $sentences = $matches[0];
+
+    // Prepare the first part: Join the first two sentences without adding extra spaces
+    $firstPart = isset($sentences[0]) ? $sentences[0] : '';
+    $firstPart .= isset($sentences[1]) ? $sentences[1] : '';
+
+    // Prepare the second part: Join the remaining sentences without adding extra spaces
+    $secondPart = '';
+    if (count($sentences) > 2) {
+        $secondPart = implode('', array_slice($sentences, 2));
+    }
+
+    // Ensure the first part is trimmed of any leading/trailing spaces
+    $firstPart = trim($firstPart);
+
+    // Ensure the second part is trimmed of any leading/trailing spaces
+    $secondPart = trim($secondPart);
+
+    // Return the parts as an array
+    return [$firstPart, $secondPart];
+}
+
+function clean_includes_excludes($arr)
+{
+	$result = [];
+	foreach ($arr as $item) {
+		if (isset($item['item'])) {
+			$str = $item['item'];
+			if (stripos($str, 'include') === false) {
+				$str = ltrim($str, '-');
+				$str = rtrim($str, '.;:');
+				$str = trim($str);
+				if (!empty($str)) {
+					$result[] = ['item' => $str];
+				}
+			}
+		}
+	}
+	return $result;
+}
+function generateGrid($items)
+{
+	$output = [];
+
+	foreach ($items as $item) {
+		$text = $item['item'];
+		$words = explode(' ', $text);
+		$totalWords = count($words);
+		$headingWords = [];
+		$contentWords = [];
+
+		if ($totalWords <= 4) {
+			$headingWords[] = $words[0];
+			$contentWords = array_slice($words, 1);
+		} else {
+			$maxHeadingLength = 20; // Adjust this value as needed
+			$currentLength = 0;
+			$currentHeading = '';
+
+			foreach ($words as $word) {
+				$wordLength = strlen($word);
+				if ($currentLength + $wordLength <= $maxHeadingLength) {
+					$currentHeading .= $word . ' ';
+					$currentLength += $wordLength + 1; // +1 for the space
+				} else {
+					$headingWords = explode(' ', rtrim($currentHeading));
+					$contentWords = array_slice($words, count($headingWords));
+					break;
+				}
+			}
+		}
+
+		$output[] = [
+			'callout' => implode(' ', $headingWords),
+			'description' => implode(' ', $contentWords),
+		];
+	}
+	return $output;
+}
+
 // region Shared
 function galleryLightbox($args = []) {
 	$gallery = '';
@@ -18,6 +127,20 @@ function galleryLightbox($args = []) {
 	$gallery .= '</div>';
 
 	return $gallery;
+}
+
+function outputGalleryLightbox($photos) 
+{
+	$output  = '<div class="container">';	
+	$output .= '<div class="d-grid sm-grid-cols-1 md-grid-cols-2 grid-cols-3 grid-gap-2">';
+
+	foreach($photos as $photo) {
+		$output .= galleryLightbox($photo);
+	}
+
+	$output .= '</div>';	
+
+	return $output;
 }
 // endregion
 

@@ -1,3 +1,11 @@
+.remaining-list-check-bg {
+    height: 22px;
+    width: 22px;
+}
+.remaining-list-check-bg i {
+    top: -1px;
+    opacity: 1;
+}
 .noUi-horizontal .noUi-tooltip {
     height: 30px;
     width: 30px;
@@ -202,7 +210,7 @@ a>img.shadow:hover {
 }
 
 #form-header-sticky .form-heading-logo {
-    width: 65.52px;
+    width: 55px;
 }
 
 .d-inline-grid {
@@ -333,7 +341,8 @@ header[class*="header"]+#count-stats .stats-cols {
 
 .packages-content {
     position: relative;
-    bottom: 5rem;
+    bottom: 4rem;
+    margin-bottom: -4rem;
 }
 
 .lst-none {
@@ -646,6 +655,10 @@ button.btn.btn-primary:not(.page-active):hover {
 
 .bg-blue {
     background-color: rgba(25, 95, 164, 1);
+}
+
+.bg-blue-lightest {
+    background-color: #f1f8fd;
 }
 
 .tl-point.wpex_point {
