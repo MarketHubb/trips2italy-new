@@ -35,7 +35,7 @@
 								<?php
 								$featured = get_field('featured_includes');
 								$includes = clean_includes_excludes(get_field('includes'));
-								$featured_includes = (isset($featured) && count($featured) === 3) ? $featured : generateGrid($includes);
+								$featured_includes = (is_array($featured) && count($featured) === 3) ? $featured : generateGrid($includes);
 
 								if (count($featured_includes) >= 3) {
 									get_template_part('template-parts/packages/content', 'featured-includes', $featured_includes);

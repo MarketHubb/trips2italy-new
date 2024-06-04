@@ -1,5 +1,5 @@
 <!-- Package::Description -->
-<?php $package_description = get_query_var($package_description_copy); ?>
+<?php $package_description = get_query_var('package_description_copy'); ?>
 <section class="pb-md-5">
 	<div class="container packages-content">
 		<div class="row">

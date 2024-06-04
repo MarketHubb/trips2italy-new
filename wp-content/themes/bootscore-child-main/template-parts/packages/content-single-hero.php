@@ -43,7 +43,7 @@ $bg_image = get_field('featured_image', $post->ID);
                     <div class="buttons">
                         <button type="button" class="btn btn bg-orange  mt-4" data-target="form" data-type="Form">Get a Customized Travel Itinerary</button>
                         <?php if ($hero_description != $price_callout) {
-                            set_query_var( $package_description_copy, $package_description_split[1] );
+                            set_query_var( 'package_description_copy', $package_description_split[1] );
                             echo '<p class="text-sm ps-4 color-heading fw-semibold">' . $price_callout . '</p>';
                         } else {
                             set_query_var( $package_description_copy, $package_description);
