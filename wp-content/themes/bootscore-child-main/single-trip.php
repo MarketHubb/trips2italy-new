@@ -3,6 +3,8 @@ get_header();
 $id = get_field('page_id', $post->ID);
 ?>
 
+ <?php get_template_part('template-parts/shared/content', 'why'); ?>
+
 <?php get_template_part('template-parts/city/content', 'card-wave'); ?>
 
 <?php

@@ -26,8 +26,8 @@ $tone_class = strtolower(get_field('feature_panels')['image_tone']);
 
                 <div class="col-12 col-md-4 mb-5 mb-md-0">
                     <div class="card card-cover no-border feature-cards h-100 overflow-hidden text-white bg-blue-light rounded shadow-lg" style="background-image: url(<?php echo $panel['image']['url']; ?>)">
-                        <div class="d-flex flex-column h-100 py-5 px-4 pb-10 p-md-5 text-white  border border-3 border-white rounded text-shadow-1 panel-copy-container">
-                            <h2 class="pt-0 mt-0 mb-3 fs-2 text-white lh-sm fw-bolder"><?php echo $panel['heading']; ?></h2>
+                        <div class="d-flex flex-column h-100 px-4 pb-10 px-md-5 py-4 text-white  border border-3 border-white rounded text-shadow-1 panel-copy-container">
+                            <h3 class="pt-0 mt-0 fs-4 stylized text-white lh-sm fw-bolder text-orange"><?php echo $panel['heading']; ?></h3>
                             <p class="text-white mb-5 pb-5 fw-500"><?php echo $panel['description']; ?></p>
                         </div>
                     </div>

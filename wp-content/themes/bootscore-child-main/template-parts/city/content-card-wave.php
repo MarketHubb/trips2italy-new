@@ -1,4 +1,4 @@
-<section class="py-5 py-md-7 bg-gray-100">
+<section class="py-5 py-md-7 bg-gray-100" style="background-image:url(http://t2i-new.test/wp-content/uploads/2023/01/AdobeStock_141760356-copy-scaled.jpg); background-size: cover; background-position: center;">
     <div class="container">
 
         <?php
