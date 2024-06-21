@@ -116,7 +116,8 @@ function populate_seasons_radio_input($form)
                     $year = date("Y") . '/' . date("Y", strtotime('+1 year'));
                 }
 
-                $input_val = ucfirst($season) . '<br>' . $year;
+                // $input_val = ucfirst($season) . '<br>' . $year;
+                $input_val = '<span class="text-small text-secondary d-block">' .  ucfirst($season) . '</span><span class="fw-bolder"> ' . $year . '</span>';
                 $choices[] = ['text' => $input_val, 'value' => $input_val];
 
                 // if ($season === 'winter' && $current_day > 200) {

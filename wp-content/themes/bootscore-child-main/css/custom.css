@@ -1,3 +1,6 @@
+.text-sm {
+    font-size: .875rem !important;
+}
 .remaining-list-check-bg {
     height: 22px;
     width: 22px;

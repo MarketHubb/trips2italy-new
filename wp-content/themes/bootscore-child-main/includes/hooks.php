@@ -1,4 +1,28 @@
 <?php
+function sanitize_gform_radio_values($form) {
+    // Target only form ID 11
+    if ($form['id'] == 11) {
+        // Loop through each field in the form
+        foreach($form['fields'] as &$field) {
+            // Check if the field is of type 'radio' and is field ID 8
+            if($field->type == 'radio' && $field->id == 8) {
+                // Loop through each choice in the radio field
+                foreach($field->choices as &$choice) {
+                    // Sanitize the choice text and value by stripping HTML tags
+                    $choice['text'] = strip_tags($choice['text']);
+                    $choice['value'] = strip_tags($choice['value']);
+                }
+            }
+        }
+    }
+
+    // Return the sanitized form
+    return $form;
+}
+
+// Hook the function to gform_pre_submission_filter
+add_filter('gform_pre_submission_filter', 'sanitize_gform_radio_values');
+
 function acf_load_trip_type_itineraries($field)
 {
 
