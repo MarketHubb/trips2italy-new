@@ -1,53 +1,66 @@
 <?php
 // region Packages
-function getRandomImageIndex($image_count, $used_indexes) {
-    // Generate an array of all indexes
-    $all_indexes = range(0, $image_count - 1);
-    
-    // Calculate the array of unused indexes
-    $unused_indexes = array_diff($all_indexes, $used_indexes);
+function extractBeforePipe($string)
+{
+	$string = trim($string);
 
-    // Check if there is at least 1 unused index
-    if (count($unused_indexes) < 1) {
-        // Handle the case where there are no unused indexes
-        return ['Error: No unused images available'];
-    }
-
-    // Randomly pick 1 index from unused indexes
-    $randomKey = array_rand($unused_indexes, 1);
-    $randomImageIndex = $unused_indexes[$randomKey];
-
-    return $randomImageIndex;
+	if (strpos($string, '|') !== false) {
+		return trim(explode('|', $string)[0]);
+	} else {
+		return $string;
+	}
 }
 
-function splitParagraph($paragraph) {
-	    // Use regular expression to match sentences
-    $sentencePattern = '/([^.!?]*[.!?])/';
+function getRandomImageIndex($image_count, $used_indexes)
+{
+	// Generate an array of all indexes
+	$all_indexes = range(0, $image_count - 1);
 
-    // Find all sentences in the paragraph
-    preg_match_all($sentencePattern, $paragraph, $matches);
+	// Calculate the array of unused indexes
+	$unused_indexes = array_diff($all_indexes, $used_indexes);
 
-    // Extract sentences
-    $sentences = $matches[0];
+	// Check if there is at least 1 unused index
+	if (count($unused_indexes) < 1) {
+		// Handle the case where there are no unused indexes
+		return ['Error: No unused images available'];
+	}
 
-    // Prepare the first part: Join the first two sentences without adding extra spaces
-    $firstPart = isset($sentences[0]) ? $sentences[0] : '';
-    $firstPart .= isset($sentences[1]) ? $sentences[1] : '';
+	// Randomly pick 1 index from unused indexes
+	$randomKey = array_rand($unused_indexes, 1);
+	$randomImageIndex = $unused_indexes[$randomKey];
 
-    // Prepare the second part: Join the remaining sentences without adding extra spaces
-    $secondPart = '';
-    if (count($sentences) > 2) {
-        $secondPart = implode('', array_slice($sentences, 2));
-    }
+	return $randomImageIndex;
+}
 
-    // Ensure the first part is trimmed of any leading/trailing spaces
-    $firstPart = trim($firstPart);
+function splitParagraph($paragraph)
+{
+	// Use regular expression to match sentences
+	$sentencePattern = '/([^.!?]*[.!?])/';
 
-    // Ensure the second part is trimmed of any leading/trailing spaces
-    $secondPart = trim($secondPart);
+	// Find all sentences in the paragraph
+	preg_match_all($sentencePattern, $paragraph, $matches);
 
-    // Return the parts as an array
-    return [$firstPart, $secondPart];
+	// Extract sentences
+	$sentences = $matches[0];
+
+	// Prepare the first part: Join the first two sentences without adding extra spaces
+	$firstPart = isset($sentences[0]) ? $sentences[0] : '';
+	$firstPart .= isset($sentences[1]) ? $sentences[1] : '';
+
+	// Prepare the second part: Join the remaining sentences without adding extra spaces
+	$secondPart = '';
+	if (count($sentences) > 2) {
+		$secondPart = implode('', array_slice($sentences, 2));
+	}
+
+	// Ensure the first part is trimmed of any leading/trailing spaces
+	$firstPart = trim($firstPart);
+
+	// Ensure the second part is trimmed of any leading/trailing spaces
+	$secondPart = trim($secondPart);
+
+	// Return the parts as an array
+	return [$firstPart, $secondPart];
 }
 
 function clean_includes_excludes($arr)
@@ -109,7 +122,8 @@ function generateGrid($items)
 }
 
 // region Shared
-function galleryLightbox($args = []) {
+function galleryLightbox($args = [])
+{
 	$gallery = '';
 
 	if (isset($args["src"]) && $args["src"]) {
@@ -129,23 +143,24 @@ function galleryLightbox($args = []) {
 	return $gallery;
 }
 
-function outputGalleryLightbox($photos) 
+function outputGalleryLightbox($photos)
 {
-	$output  = '<div class="container">';	
+	$output  = '<div class="container">';
 	$output .= '<div class="d-grid sm-grid-cols-1 md-grid-cols-2 grid-cols-3 grid-gap-2">';
 
-	foreach($photos as $photo) {
+	foreach ($photos as $photo) {
 		$output .= galleryLightbox($photo);
 	}
 
-	$output .= '</div>';	
+	$output .= '</div>';
 
 	return $output;
 }
 // endregion
 
 // region Content
-function get_content_section_heading($heading_array = array(), $row = true, $text_center = true, $light_text = null, $cols = null, $description_classes = null) {
+function get_content_section_heading($heading_array = array(), $row = true, $text_center = true, $light_text = null, $cols = null, $description_classes = null)
+{
 	if (is_array($heading_array)) {
 
 		$heading = '';
@@ -185,13 +200,15 @@ function get_content_section_heading($heading_array = array(), $row = true, $tex
 	}
 }
 
-function set_url_from_link_type($link_type) {
+function set_url_from_link_type($link_type)
+{
 	if ($link_type === "Post - Regions") {
 		return "region";
 	}
 }
 
-function get_content_section_links($section = array(), $path, $arrow = null) {
+function get_content_section_links($section = array(), $path, $arrow = null)
+{
 	// Var Paths
 	$style = $path . 'style';
 	$text = $path . 'text';
@@ -220,7 +237,8 @@ function get_content_section_links($section = array(), $path, $arrow = null) {
 	return $output ?: null;
 }
 
-function get_stats($stats = array()) {
+function get_stats($stats = array())
+{
 	if (is_array($stats)) {
 		$content = '';
 		foreach ($stats as $stat) {
@@ -238,17 +256,21 @@ function get_stats($stats = array()) {
 // endregion
 
 //region Helpers
-function get_parent_term_id($term) {
+function get_parent_term_id($term)
+{
 	return ($term->parent === 0) ? $term->term_id : $term->parent;
 }
-function get_post_parent_id($post) {
+function get_post_parent_id($post)
+{
 	return ($post->post_parent === 0) ? $post->ID : $post->post_parent;
 }
-function lowercase_no_spaces($string) {
+function lowercase_no_spaces($string)
+{
 	return strtolower(str_replace(" ", "", $string));
 }
 //endregion
-function get_formatted_region_page_type($title, $destination = null) {
+function get_formatted_region_page_type($title, $destination = null)
+{
 	$removal_words = ["Ultimate", "Guide", "For", "Traveling", "Travel", "Vacation", "Italy", "In"];
 
 	if ($destination) {
@@ -272,7 +294,8 @@ function get_formatted_region_page_type($title, $destination = null) {
 	return trim($clean_title);
 }
 
-function get_hero_breadcrumb_links($object, $type) {
+function get_hero_breadcrumb_links($object, $type)
+{
 
 	$breadcrumbs[] = [
 		'text' => 'All Destinations',
@@ -289,7 +312,7 @@ function get_hero_breadcrumb_links($object, $type) {
 				$region_name_clean = lowercase_no_spaces($term->name);
 				$breadcrumbs[] = [
 					'text' => $name,
-					'link' => get_permalink(27712) . '#' . $region_name_clean,
+					'link' => get_term_link( $term, $taxonomy = 'location_region' ),
 					'icon' => get_field('region_icon', $term),
 				];
 			}
@@ -307,7 +330,8 @@ function get_hero_breadcrumb_links($object, $type) {
 	return $breadcrumbs;
 }
 
-function get_post_hero_inputs($postObj) {
+function get_post_hero_inputs($postObj)
+{
 	$id = $postObj->ID;
 	$parent = get_post_parent($postObj);
 	$initial = ($parent) ? $parent : $postObj;
@@ -332,7 +356,8 @@ function get_post_hero_inputs($postObj) {
 	return $hero;
 }
 
-function get_tax_hero_inputs($term) {
+function get_tax_hero_inputs($term)
+{
 	$image = (get_field('featured_image', $term)) ? get_field('featured_image', $term)['url'] : remove_dev_domain_from_url(get_field('image_slider_url', $term));
 	$hero['image'] = $image;
 	$hero['heading'] = $term->name;
@@ -341,25 +366,27 @@ function get_tax_hero_inputs($term) {
 
 	return $hero;
 }
-function sort_order_locations($child_title) {
+function sort_order_locations($child_title)
+{
 	switch ($child_title) {
-	case str_contains($child_title, 'history'):
-		$order = 1;
-		break;
-	case str_contains($child_title, 'food'):
-		$order = 2;
-		break;
-	case str_contains($child_title, 'culture'):
-		$order = 3;
-		break;
-	case str_contains($child_title, 'things'):
-		$order = 4;
-		break;
+		case str_contains($child_title, 'history'):
+			$order = 1;
+			break;
+		case str_contains($child_title, 'food'):
+			$order = 2;
+			break;
+		case str_contains($child_title, 'culture'):
+			$order = 3;
+			break;
+		case str_contains($child_title, 'things'):
+			$order = 4;
+			break;
 	}
 
 	return $order;
 }
-function location_post_tabs($postObj) {
+function location_post_tabs($postObj)
+{
 	$parent = get_post_parent($postObj);
 	$initial = ($parent) ? $parent : $postObj;
 	$tabs['location'] = $initial->post_title;
@@ -396,7 +423,8 @@ function location_post_tabs($postObj) {
 	return $tabs;
 }
 
-function location_tax_tabs($postObj) {
+function location_tax_tabs($postObj)
+{
 	$parent_id = get_parent_term_id($postObj);
 	$parent = get_term_by('term_id', $parent_id, 'location_region');
 	$tabs['location'] = $parent->name;
@@ -429,13 +457,15 @@ function location_tax_tabs($postObj) {
 	return $tabs;
 }
 
-function location_tabs($postObj, $type) {
+function location_tabs($postObj, $type)
+{
 	$tabs = ($type === "post") ? location_post_tabs($postObj) : location_tax_tabs($postObj);
 
 	return $tabs ?: null;
 }
 
-function location_hero_and_tab_inputs($postObj) {
+function location_hero_and_tab_inputs($postObj)
+{
 	$inputs = null;
 
 	if ($postObj->ID) {
@@ -455,7 +485,8 @@ function location_hero_and_tab_inputs($postObj) {
 	return $inputs ?: null;
 }
 
-function region_tabs($term) {
+function region_tabs($term)
+{
 	$parent_term_id = get_parent_term_id($term);
 	$parent_region = get_term_by('ID', $parent_term_id, 'location_region');
 	$region_terms[] = [
@@ -490,7 +521,8 @@ function region_tabs($term) {
 	return $region_terms;
 }
 
-function get_tax_tab_inputs($term) {
+function get_tax_tab_inputs($term)
+{
 	$parent_term_id = get_parent_term_id($term);
 	$parent_region = get_term_by('ID', $parent_term_id, 'region');
 	$region_terms[] = [
@@ -525,7 +557,8 @@ function get_tax_tab_inputs($term) {
 	return $region_terms;
 }
 
-function get_city_post_tab_inputs($post) {
+function get_city_post_tab_inputs($post)
+{
 	$parent_post_id = get_post_parent_id($post);
 	$parent_post_title = format_region_title($parent_post_id, get_the_title($parent_post_id));
 	$region_posts[] = [
@@ -560,7 +593,8 @@ function get_city_post_tab_inputs($post) {
 	return $region_posts;
 }
 
-function format_region_title($post_id) {
+function format_region_title($post_id)
+{
 	$title = get_the_title($post_id);
 
 	$removal_words = ["Ultimate", "Guide", "For", "Traveling", "Travel", "Vacation", "Italy", "In", "of", "-", "What to See", "Of", "Travelers", "What to See"];
@@ -584,12 +618,14 @@ function format_region_title($post_id) {
 	return trim($clean_title);
 }
 
-function format_region_child_page_type($post_id, $parent = null) {
+function format_region_child_page_type($post_id, $parent = null)
+{
 	$city = format_region_title($post_id);
 	return $city;
 }
 
-function format_region_page_type($post_id, $parent_id = null) {
+function format_region_page_type($post_id, $parent_id = null)
+{
 	$city = get_post($post_id);
 	if ($city->post_parent !== 0 && get_field('standardized_title')) {
 		return 'Ultimate ' . get_field('standardized_title');
@@ -605,21 +641,23 @@ function format_region_page_type($post_id, $parent_id = null) {
 	}
 }
 
-function get_icon_for_region_page($formatted_title) {
+function get_icon_for_region_page($formatted_title)
+{
 	$url = get_home_url();
 	switch (true) {
-	case str_contains($formatted_title, 'History'):
-		return $url . '/wp-content/uploads/2023/09/rome-building.svg';
-	case str_contains($formatted_title, 'Food'):
-		return $url . '/wp-content/uploads/2023/09/wine-glasses.svg';
-	case str_contains($formatted_title, 'Culture'):
-		return $url . '/wp-content/uploads/2023/01/Culture.svg';
-	case str_contains($formatted_title, 'Things'):
-		return $url . '/wp-content/uploads/2023/09/cal-2.svg';
+		case str_contains($formatted_title, 'History'):
+			return $url . '/wp-content/uploads/2023/09/rome-building.svg';
+		case str_contains($formatted_title, 'Food'):
+			return $url . '/wp-content/uploads/2023/09/wine-glasses.svg';
+		case str_contains($formatted_title, 'Culture'):
+			return $url . '/wp-content/uploads/2023/01/Culture.svg';
+		case str_contains($formatted_title, 'Things'):
+			return $url . '/wp-content/uploads/2023/09/cal-2.svg';
 	}
 }
 
-function get_excerpt_for_post($text, $length = 10) {
+function get_excerpt_for_post($text, $length = 10)
+{
 	$length = abs((int) $length);
 	if (strlen($text) > $length) {
 		$text = preg_replace("/^(.{1,$length})(\s.*|$)/s", '\\1...', $text);
@@ -631,13 +669,15 @@ function get_excerpt_for_post($text, $length = 10) {
 
 //endregion
 
-function remove_travel_guides_from_content($string) {
+function remove_travel_guides_from_content($string)
+{
 	$string = str_replace('<strong>Travel Guides</strong>', '', $string);
 
 	return str_replace('<b></b><b></b>', '', $string);
 }
 
-function remove_embeds_from_content($content, $return_type = null) {
+function remove_embeds_from_content($content, $return_type = null)
+{
 	$content = explode("\n", $content);
 	$clean_array = [];
 	$clean_content = '';
@@ -652,7 +692,8 @@ function remove_embeds_from_content($content, $return_type = null) {
 	return (!$return_type) ? $clean_content : $clean_array;
 }
 
-function get_alternate_text($section, $side) {
+function get_alternate_text($section, $side)
+{
 	$column_classes = $side === "left" ? '' : 'order-1 order-md-1 order-lg-1';
 	$link = get_content_section_links($section, "link_link_", true);
 
@@ -669,7 +710,8 @@ function get_alternate_text($section, $side) {
 	return $text;
 }
 
-function get_alternate_img($section, $side) {
+function get_alternate_img($section, $side)
+{
 	$column_classes = $side === "left" ? '' : ' order-2 order-md-2 order-lg-1';
 	$img_classes = $side === "right" ? ' transform-355' : ' transform-1';
 
@@ -682,7 +724,8 @@ function get_alternate_img($section, $side) {
             </div>';
 }
 
-function get_alternate_content($section, $side) {
+function get_alternate_content($section, $side)
+{
 	$text = get_alternate_text($section, $side);
 	$img = get_alternate_img($section, $side);
 
@@ -701,7 +744,8 @@ function get_alternate_content($section, $side) {
 	return $content;
 }
 
-function get_left_alternate($section) {
+function get_left_alternate($section)
+{
 	return '<div class="row py-7">
             <div class="col-lg-6 col-md-12 me-auto">
                 <div class="p-3 pt-0">
@@ -724,7 +768,8 @@ function get_left_alternate($section) {
         </div>';
 }
 
-function get_right_alternate($section) {
+function get_right_alternate($section)
+{
 	return '<div class="row py-7">
             <div class="col-lg-6 col-md-8 order-2 order-md-2 order-lg-1">
                 <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
