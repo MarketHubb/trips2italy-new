@@ -60,105 +60,17 @@
 
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
-        <header id="masthead" class="site-header">
+        <?php get_template_part('template-parts/shared/content', 'nav'); 
+        ?>
+        <?php //get_template_part('template-parts/tw/content', 'nav'); ?>
 
-            <?php get_template_part('template-parts/tw/content', 'nav'); ?>
-            
-            <?php //get_template_part('template-parts/shared/content', 'nav'); ?>
-
-            <div class="fixed-top bg-light d-none">
-
-                <nav id="nav-main" class="navbar navbar-expand-lg">
-
-                    <div class="container">
-
-                        <!-- Navbar Brand -->
-                        <a class="navbar-brand xs d-md-none" href="<?php echo esc_url(home_url()); ?>"><img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/img/logo/logo-sm.svg" alt="logo" class="logo xs"></a>
-                        <a class="navbar-brand md d-none d-md-block" href="<?php echo esc_url(home_url()); ?>"><img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/img/logo/logo.svg" alt="logo" class="logo md"></a>
-
-                        <!-- Offcanvas Navbar -->
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-navbar">
-                            <div class="offcanvas-header bg-light">
-                                <span class="h5 mb-0"><?php esc_html_e('Menu', 'bootscore'); ?></span>
-                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <!-- Bootstrap 5 Nav Walker Main Menu -->
-                                <?php
-                                wp_nav_menu(array(
-                                    'theme_location' => 'main-menu',
-                                    'container' => false,
-                                    'menu_class' => '',
-                                    'fallback_cb' => '__return_false',
-                                    'items_wrap' => '<ul id="bootscore-navbar" class="navbar-nav ms-auto %2$s">%3$s</ul>',
-                                    'depth' => 2,
-                                    'walker' => new bootstrap_5_wp_nav_menu_walker()
-                                ));
-                                ?>
-                                <!-- Bootstrap 5 Nav Walker Main Menu End -->
-                            </div>
-                        </div>
-
-
-                        <div class="header-actions d-flex align-items-center">
-
-                            <!-- Top Nav Widget -->
-                            <div class="top-nav-widget">
-                                <?php if (is_active_sidebar('top-nav')) : ?>
-                                    <div>
-                                        <?php dynamic_sidebar('top-nav'); ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-
-                            <!-- Searchform Large -->
-                            <div class="d-none d-lg-block ms-1 ms-md-2 top-nav-search-lg">
-                                <?php if (is_active_sidebar('top-nav-search')) : ?>
-                                    <div>
-                                        <?php dynamic_sidebar('top-nav-search'); ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-
-                            <!-- Search Toggler Mobile -->
-                            <button class="btn btn-outline-secondary d-lg-none ms-1 ms-md-2 top-nav-search-md" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-search" aria-expanded="false" aria-controls="collapse-search">
-                                <i class="fa-solid fa-magnifying-glass"></i><span class="visually-hidden-focusable">Search</span>
-                            </button>
-
-                            <!-- Navbar Toggler -->
-                            <button class="btn btn-outline-secondary d-lg-none ms-1 ms-md-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar">
-                                <i class="fa-solid fa-bars"></i><span class="visually-hidden-focusable">Menu</span>
-                            </button>
-
-                        </div><!-- .header-actions -->
-
-                    </div><!-- .container -->
-
-                </nav><!-- .navbar -->
-
-                <!-- Top Nav Search Mobile Collapse -->
-                <div class="collapse container d-lg-none" id="collapse-search">
-                    <?php if (is_active_sidebar('top-nav-search')) : ?>
-                        <div class="mb-2">
-                            <?php dynamic_sidebar('top-nav-search'); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-
-            </div><!-- .fixed-top .bg-light -->
-
-        </header><!-- #masthead -->
-
-        <div id="site">
+        <div id="site" class="pt-[40px]">
 
             <?php
 
-            if (is_single(26613)) {
-                $header_image = '<section>';
-                $header_image = '<img src="' . get_home_url() . '/wp-content/uploads/2024/07/Honeymoons-full.webp' . '" class="max-h-32 w-full object-cover" />';
-                $header_image .= '</section>';
-                echo $header_image;
-            } else {
+            // if (is_single(26613)) {
+            //     get_template_part( 'template-parts/tw-hero/content', 'image-full' );
+            // } else {
 
                 function get_hero_by_post_type($object)
                 {
@@ -188,7 +100,7 @@
                 {
                     $hero_inputs = get_hero_inputs($object);
 
-                    if (!empty($hero_inputs) && $hero_inputs['include']) {
+                    if (! empty($hero_inputs) && $hero_inputs['include']) {
                         get_template_part('template-parts/hero/content', $hero_inputs['template'], $hero_inputs);
                         get_template_part('template-parts/hero-banner/content', 'main', $hero_inputs);
                     }
@@ -197,7 +109,7 @@
                 function output_hero_banner($object)
                 {
                     $include_hero = get_field('include_hero_banner', $object);
-                    $hero = null;
+                    $hero         = null;
 
                     if ($include_hero) {
                         get_shared_hero_banner($object);
@@ -207,10 +119,5 @@
                 }
 
                 output_hero_banner(get_queried_object());
-                /*        highlight_string("<?php\n\$hero =\n" . var_export($hero, true) . ";\n?>");*/
-
-                //        if ($object->post_type === 'page' && $hero['include'] && get_the_ID() !== 28484) {
-                //            get_template_part('template-parts/hero/content', $hero['template'], $hero);
-                //        }
-            }
+            // }
             ?>
