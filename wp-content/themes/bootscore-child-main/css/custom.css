@@ -1,19 +1,37 @@
-.text-sm {
-    font-size: .875rem !important;
+#trip-cover-image {
+    object-position: 0 28%;
 }
+.bs-blur {
+    box-shadow: inset 0px 0px 2px rgba(254, 254, 254, 0.8196078431);
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+    backdrop-filter: saturate(200%) blur(30px);
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+#breadcrumbs p:last-of-type+.breadcrumb-divider {
+    display: none;
+}
+
+.text-sm {
+    font-size: .875rem;
+}
+
 .remaining-list-check-bg {
     height: 22px;
     width: 22px;
 }
+
 .remaining-list-check-bg i {
     top: -1px;
     opacity: 1;
 }
+
 .noUi-horizontal .noUi-tooltip {
     height: 30px;
     width: 30px;
-    border-radius: 10000px  !important;
+    border-radius: 10000px !important;
 }
+
 .footer-button a {
     letter-spacing: .025rem;
     padding-top: .75rem;
@@ -27,6 +45,7 @@
 .border-light {
     border-color: #E2E8F0 !important;
 }
+
 .bg-gray-light {
     background-color: #F1F5F9 !important;
 }
@@ -421,8 +440,6 @@ header .text-container.text-background {
     width: 50px;
     height: auto;
     filter: invert(60%) sepia(18%) saturate(6318%) hue-rotate(350deg) brightness(96%) contrast(82%);
-    margin-bottom: .5rem;
-    opacity: 25%;
 }
 
 .breadcrumb-icon {
@@ -739,12 +756,13 @@ button.btn.btn-primary:not(.page-active):hover {
 }
 
 .navbar .nav-link {
-    font-size: 1rem;
+    /*    font-size: 1rem;
     font-weight: 600;
     color: #1a2333;
     padding-top: 0;
     padding-bottom: 0;
     opacity: .8;
+*/
 }
 
 .navbar .nav-icons {
@@ -835,7 +853,7 @@ button.btn.btn-primary:not(.page-active):hover {
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     h1 {
-        font-size: 2vw !important;
+        font-size: 2vw;
     }
 
     .header-text-container {
@@ -880,6 +898,9 @@ button.btn.btn-primary:not(.page-active):hover {
 }
 
 @media (max-width: 1200px) {
+   #single-trip-cover {
+    background-position-y: 50%;
+   } 
 
     /* Global: Nav */
     .mobile-header-cta {
@@ -935,13 +956,22 @@ button.btn.btn-primary:not(.page-active):hover {
     }
 }
 
+@media (min-width: 1024px) {
+   #site {
+    padding-top: 64px !important;
+   } 
+}
 
 /* Large devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
-    #form-row > .col {
+   #single-trip-cover {
+    background-position-y: 10%;
+   } 
+    #form-row>.col {
         padding-left: 0;
         padding-right: 0;
     }
+
     .md-grid-cols-2 {
         grid-template-columns: auto auto;
     }

@@ -1,4 +1,37 @@
 (function ($) {
+    $(document).ready(function () {
+        // Hide mobile menu by default
+        $('.lg\\:hidden[role="dialog"]').addClass('hidden');
+
+        // Open mobile menu
+        $('button:contains("Open main menu")').click(function () {
+            $('.lg\\:hidden[role="dialog"]').removeClass('hidden');
+            $('body').addClass('overflow-hidden'); // Prevent scrolling when menu is open
+        });
+
+        // Close mobile menu
+        $('button:contains("Close menu")').click(function () {
+            $('.lg\\:hidden[role="dialog"]').addClass('hidden');
+            $('body').removeClass('overflow-hidden');
+        });
+
+        // Close menu when clicking outside
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.lg\\:hidden[role="dialog"], button:contains("Open main menu")').length) {
+                $('.lg\\:hidden[role="dialog"]').addClass('hidden');
+                $('body').removeClass('overflow-hidden');
+            }
+        });
+
+        // Handle window resize
+        $(window).resize(function () {
+            if ($(window).width() >= 1024) { // 1024px is the default breakpoint for 'lg' in Tailwind
+                $('.lg\\:hidden[role="dialog"]').addClass('hidden');
+                $('body').removeClass('overflow-hidden');
+            }
+        });
+    });
+
 
     //region CONSTANTS
     const pageContainer = $('#page');
@@ -45,7 +78,7 @@
             });
         }
 
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     }
 
     function triggerFormNextOrSubmit(target, event) {

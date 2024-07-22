@@ -1,4 +1,53 @@
 <?php
+function is_page_and_parent($post_id)
+{
+    $post = get_post($post_id);
+
+    if (!$post) {
+        return false;
+    }
+
+    // Check if it's a page and has no parent
+    if ($post->post_type === 'page' && $post->post_parent == 0) {
+        return true;
+    }
+
+    // In all other cases, return false
+    return false;
+}
+
+function get_nav_active_class($current_object, $nav_id, $nav_text)
+{
+    $is_page_and_parent = ($current_object->ID && is_page_and_parent($current_object->ID)) ? true : null;
+
+    if ($is_page_and_parent && $current_object->ID === $nav_id) return true;
+
+    $post_type = ($current_object->ID) ? get_post_type($current_object->ID) : null;
+
+    if ($current_object->taxonomy === 'location_region' && $nav_text === 'Destinations') {
+        return true;
+    }
+
+    if ($post_type ===  'location' && $nav_text === 'Destinations') {
+        return true;
+    }
+
+    if ($post_type ===  'trip' && $nav_text === 'Trip Types') {
+        return true;
+    }
+
+    if ($post_type ===  'package' && $nav_text === 'Packages') {
+        return true;
+    }
+
+    if ($post_type ===  'post' && $nav_text === 'Blog') {
+        return true;
+    }
+
+    return null;
+}
+
+
 function output_order_testimonials()
 {
     $posts_array = [];

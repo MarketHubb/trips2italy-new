@@ -60,9 +60,8 @@
 
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
-        <?php get_template_part('template-parts/shared/content', 'nav'); 
-        ?>
-        <?php //get_template_part('template-parts/tw/content', 'nav'); ?>
+        <?php //get_template_part('template-parts/shared/content', 'nav'); ?>
+        <?php get_template_part('template-parts/tw/content', 'nav'); ?>
 
         <div id="site" class="pt-[40px]">
 

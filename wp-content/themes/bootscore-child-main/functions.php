@@ -1,5 +1,4 @@
 <?php
-// REMOVE BEFORE GOING TO PRODUCTION
 /**
  * Implement the Custom Header feature.
  */
@@ -9,6 +8,7 @@
 //require get_stylesheet_directory_uri() . '/inc/customizer.php';
 
 // Content
+require_once 'includes/queries.php';
 require_once 'includes/hooks.php';
 require_once 'includes/shared.php';
 require_once 'includes/content.php';
@@ -93,9 +93,11 @@ function bootscore_child_enqueue_styles() {
 	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 	// custom.js
 	wp_enqueue_script('custom-js', get_stylesheet_directory_uri() . '/js/custom.js', false, '', true);
+	// Tailwind
+	wp_enqueue_style('tailwind-css', get_stylesheet_directory_uri() . '/css/tailwind.css');
 
 	// Locations
-	if (is_tax('location_region') || is_singular('location')) {
+	if (is_tax('location_region') || is_singular('location') || is_singular( 'trip' )) {
 		wp_enqueue_script('location-region-js', get_stylesheet_directory_uri() . '/js/location-region.js', false, '', true);
 	}
 
