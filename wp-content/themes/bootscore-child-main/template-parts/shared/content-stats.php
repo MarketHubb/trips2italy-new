@@ -20,7 +20,7 @@
 <div class="<?php echo $style; ?>>
 
     <div class="row">
-        <div class="col-lg-9 z-index-2 border-radius-xl mx-auto py-3 blur shadow-blur stats-cols">
+        <div class="col-lg-9 z-index-2 border-radius-xl mx-auto py-3 bs-blur shadow-blur stats-cols">
             <div class="row">
 
                 <?php

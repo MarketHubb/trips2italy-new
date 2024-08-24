@@ -60,17 +60,17 @@
 
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
-        <?php //get_template_part('template-parts/shared/content', 'nav'); ?>
         <?php get_template_part('template-parts/tw/content', 'nav'); ?>
+        <?php //get_template_part('template-parts/shared/content', 'nav'); ?>
 
-        <div id="site" class="pt-[40px]">
+        <div id="site" class="pt-[40px] lg:pt-[63px]">
 
             <?php
-
-            // if (is_single(26613)) {
-            //     get_template_part( 'template-parts/tw-hero/content', 'image-full' );
-            // } else {
-
+            $new_hero_layout = get_field('use_new_layout');
+            if (isset($new_hero_layout) && $new_hero_layout) {
+                get_template_part( 'template-parts/tw-hero/content', 'hero-new' );
+                //get_template_part( 'template-parts/tw-hero/content', 'image-full' );
+            } else {
                 function get_hero_by_post_type($object)
                 {
 
@@ -91,7 +91,8 @@
 
                     // Packages
                     if ($object->post_type === 'package') {
-                        get_template_part('template-parts/packages/content', 'single-hero');
+                        get_template_part( 'template-parts/tw-hero/content', 'hero-angled' );
+                        // get_template_part('template-parts/packages/content', 'single-hero');
                     }
                 }
 
@@ -118,5 +119,5 @@
                 }
 
                 output_hero_banner(get_queried_object());
-            // }
+            }
             ?>

@@ -1,4 +1,5 @@
 (function ($) {
+    
     $(document).ready(function () {
         // Hide mobile menu by default
         $('.lg\\:hidden[role="dialog"]').addClass('hidden');

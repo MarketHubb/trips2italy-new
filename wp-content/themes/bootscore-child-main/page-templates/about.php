@@ -12,7 +12,7 @@ get_header(); ?>
         ?>
 
     <?php get_template_part('template-parts/about/content', 'why'); ?>
-
+    
     <?php get_template_part('template-parts/about/content', 'cta'); ?>
 
     <?php get_template_part('template-parts/about/content', 'testimonial'); ?>

@@ -306,7 +306,12 @@ function get_hero_callouts($object)
         $dynamic = $inputs['dynamic_insertion'] ?: null;
 
         foreach ($callouts_array as $callout) {
-            $hero_callouts[] = get_desktop_mobile_copy($callout['callout'], "\n", $dynamic);
+            $icon = isset($callout['icon']) ? '<img src="' . $callout['icon'] . '" class="max-w-12 max-h-12 filter-dark object-cover inline pr-4" />' : '<i class="fa-solid fa-check pe-2 pe-md-3"></i>';
+            
+            $callout_item = get_desktop_mobile_copy($callout['callout'], "\n", $dynamic);
+            $callout_item['icon'] = $icon;
+            
+            $hero_callouts[] = $callout_item;
         }
     }
 
@@ -402,17 +407,22 @@ function get_masonry_image_attributes($count)
 {
     switch ($count) {
         case 1:
-            return "w-100 border-radius-lg shadow mt-0 mt-lg-7";
+            return "w-full rounded-lg shadow-lg mt-0 lg:mt-24 aspect-[7/12]";
+            // return "w-100 border-radius-lg shadow mt-0 mt-lg-7";
         case 2:
-            return "w-100 border-radius-lg shadow";
+            return "w-full rounded-lg shadow-lg aspect-[7/12]";
+            // return "w-100 border-radius-lg shadow";
         case 3:
         case 5:
         case 7:
-            return "w-100 border-radius-lg shadow mt-4";
+            return "w-full rounded-lg shadow-lg mt-0 lg:mt-6 aspect-[7/12]";
+            // return "w-100 border-radius-lg shadow mt-4";
         case 4:
-            return "w-100 border-radius-lg shadow mt-0 mt-lg-5";
+            return "w-full rounded-lg shadow-lg mt-0 lg:mt-12 aspect-[7/12]";
+            // return "w-100 border-radius-lg shadow mt-0 mt-lg-5";
         case 6:
-            return "w-100 border-radius-lg shadow mt-3";
+            return "w-full rounded-lg shadow-lg mt-0 lg:mt-4 aspect-[7/12]";
+            // return "w-100 border-radius-lg shadow mt-3";
     }
 }
 

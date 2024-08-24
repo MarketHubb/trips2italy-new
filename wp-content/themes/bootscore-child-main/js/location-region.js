@@ -1,7 +1,6 @@
 (function ($) {
 
 	const featured = $('#location-region-content');
-	const locationCta = $('#location-region-cta');
 
 	function remove_empty_paragraphs() {
 
@@ -14,26 +13,31 @@
 		});
 	}
 
-	remove_empty_paragraphs();
 
-	// Insert "CTA" after second paragraph
 	function insert_location_cta() {
-		let ctaEntryPoint = featured.find('div.location-content-block:nth-of-type(4)');
-		console.table("ctaEntryPoint", ctaEntryPoint);
+		// Define the locationCta selector
+		let locationCta = $('#location-region-cta');
+		// Define the entry point
+		let ctaEntryPoint = $('.location-content-block:nth-of-type(4)');
 
 		if (ctaEntryPoint.length === 1) {
+			// Insert the locationCta after the ctaEntryPoint
 			ctaEntryPoint.after(locationCta);
+
+			// Add the closing tags after the locationCta
+			locationCta.after('</div></section>');
 		}
 	}
 
-	insert_location_cta();
 	
-	// firstSectionHeading.each(function (event) {
-	// 	if (event === 0) {
-	// 		const ctaEntryPoint = $(this).closest('.container');
-	// 		featured.insertBefore(ctaEntryPoint);
-	// 	}
-	// });
+	$(document).ready(function () {
+
+		// Call the function to insert the CTA
+		// insert_location_cta();
+		// Function to insert the CTA after the fourth location-content-block
+		remove_empty_paragraphs();
+
+	});
 
     
 })(jQuery);

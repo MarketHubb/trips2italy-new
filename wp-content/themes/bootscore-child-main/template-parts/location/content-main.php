@@ -1,6 +1,6 @@
 <?php
 $queried_object = get_queried_object();
-set_query_var( 'queried_object', $queried_object, );
+set_query_var('queried_object', $queried_object,);
 
 if ($queried_object->ID) {
     $type = 'post';
@@ -12,33 +12,46 @@ if ($queried_object->ID) {
 
 $tab_inputs = location_tabs($queried_object, $type);
 ksort($tab_inputs['pages']);
-
 ?>
+
+<?php //get_template_part('template-parts/tw/content', 'hero-background-image', $queried_object); 
+?>
+
+<?php echo tw_get_section_open(); ?>
+
+<?php echo tw_container_open(); ?>
 
 <div class="entry-content single-city">
     <?php get_template_part('template-parts/menu/content', 'button-group', $tab_inputs); ?>
 
     <?php
     $hero = get_tax_hero_values(get_queried_object());
-    $output = '<div id="location-region-content" class="py-4 my-5">';
     $location_content = get_field('content_clean', get_queried_object());
-
+    $output = '<div id="location-region-content" class="py-4 my-5">';
+    
     if (!empty($location_content)) {
 
-        if (!checkFirstTwoChars($location_content)) {
+        if (!checkfirsttwochars($location_content)) {
             $location_content = '<h3></h3>' . $location_content;
         }
 
-        $location_content_array = splitStringByHeadings($location_content);
+        $location_content_array = splitstringbyheadings($location_content);
 
         if (is_array($location_content_array) && !empty($location_content_array)) {
 
+            $i = 1;
+
             foreach ($location_content_array as $location_content_block) {
-                $lowercaseItem = strtolower($location_content_block);
+
+                // if ($i === 4) {
+                //     $output .= '</div></div></div></section>';
+                // }
+
+                $lowercaseitem = strtolower($location_content_block);
 
                 if (
-                    (strpos($lowercaseItem, '<strong>travel guides</strong>') === false) &&
-                    (strpos($lowercaseItem, '>&nbsp;</') === false) &&
+                    (strpos($lowercaseitem, '<strong>travel guides</strong>') === false) &&
+                    (strpos($lowercaseitem, '>&nbsp;</') === false) &&
                     (strpos($lowercaseItem, '<h4>') === false && strpos($lowercaseItem, 'of italy</h4>') === false) &&
                     (strpos($lowercaseItem, '<b>about') === false && strpos($lowercaseItem, '</b>') === false) &&
                     (strpos($lowercaseItem, '<h4>the cities of') === false && strpos($lowercaseItem, 'italy</h4>') === false)
@@ -49,6 +62,7 @@ ksort($tab_inputs['pages']);
                     $output .= $location_content_block;
                     $output .= '</div></div></div>';
                 }
+                // $i++;
             }
         }
     }
@@ -84,5 +98,7 @@ ksort($tab_inputs['pages']);
     <?php get_template_part('template-parts/location/content', 'cta'); ?>
 
 </div>
+
+<?php echo tw_container_and_section_close(); ?>
 
 <?php get_footer(); ?>

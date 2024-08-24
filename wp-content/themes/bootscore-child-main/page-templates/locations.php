@@ -9,7 +9,11 @@ $regions = get_terms(
         'exclude' => [5245]
     )
 );
+?>
 
+<?php echo tw_section_open(); ?>
+<?php echo tw_container_open(); ?>
+<?php 
 $output = '<div class="content z-index-2" id="destinations">';
 $dropdown  = '<div class="container dropdown-container px-md-4 z-index-3">';
 $dropdown .= '<div class="row justify-content-between row-cols-2 z-index-2 border-radius-xl mb-n4 mx-auto py-3 blur shadow-blur region-dropdown-container bg-gradient-dark">';
@@ -116,6 +120,6 @@ $output .= '</div>';
 echo $output;
 ?>
 
-
+<?php echo tw_container_and_section_close(); ?>
 
 <?php get_footer(); ?>

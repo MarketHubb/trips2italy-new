@@ -1,6 +1,4 @@
-<?php
-$bg_image = get_field('featured_image', $post->ID);
-?>
+<?php $bg_image = get_field('featured_image', $post->ID); ?>
 <header class="">
     <div class="page-header min-vh-75">
         <div class="oblique position-absolute top-0 h-100 d-md-block">
@@ -25,7 +23,7 @@ $bg_image = get_field('featured_image', $post->ID);
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-7 pe-md-5 d-flex justify-content-center text-md-start text-center flex-column mt-sm-0 mt-7">
+                <div class="col-lg-6 col-md-7 pe-md-5 d-flex justify-content-center text-md-start flex-column mt-sm-0 mt-7">
 
                     <h1 class="fs-2 mb-4"><?php the_title(); ?></h1>
 
@@ -36,7 +34,7 @@ $bg_image = get_field('featured_image', $post->ID);
                     $hero_description = isset($package_description_split) && !empty($package_description_split['0']) && !empty($package_description_split['1']) ? $package_description_split[0] : $price_callout;
                      ?>
 
-                    <p class="lead pe-md-5 me-md-5">
+                    <p class="text-base lg:text-lg text-gray-500 my-5">
                         <?php echo $hero_description; ?>
                     </p>
 

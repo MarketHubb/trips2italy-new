@@ -1,4 +1,4 @@
-<section class="py-7 bg-gray-100 post-list">
+<?php echo tw_get_section_open(); ?>
     <div class="container">
         <div class="row justify-content-center section-heading mb-5">
             <div class="col-md-6 text-center">

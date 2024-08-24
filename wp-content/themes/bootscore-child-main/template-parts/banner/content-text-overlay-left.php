@@ -11,7 +11,7 @@ if ($args) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 d-flex justify-content-center flex-column">
-                        <div class="card card-body blur d-flex justify-content-center shadow-lg p-4 p-md-4 p-lg-5 mt-5">
+                        <div class="card card-body bs-blur d-flex justify-content-center shadow-lg p-4 p-md-4 p-lg-5 mt-5">
 
                             <?php
                             if ($hero['breadcrumbs']) {

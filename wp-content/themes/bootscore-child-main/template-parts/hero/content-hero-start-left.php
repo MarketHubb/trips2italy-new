@@ -5,8 +5,13 @@
         class="page-header relative"
         style="background-image: url(<?php echo $args['images']['background_image']; ?>)">
         <span class="mask bg-gradient-dark opacity-9"></span>
-        <div class="container-fluid">
+
+        <div class="container z-50 py-32">
+           <div class="grid grid-cols-12">
+               <div class="md:ml-10 md:col-span-6">
+                   
+        <!-- <div class="container-fluid"> -->
             <!-- <div class="row header-text-container mt-md-n6"> -->
-            <div class="row inline-flex pt-28 pb-36 ">
-                <div class="col-md-5 col-lg-5 col-xl-6 z-index-2">
+            <!-- <div class="row inline-flex pt-28 pb-36 "> -->
+                <!-- <div class="col-md-5 col-lg-5 col-xl-6 z-index-2"> -->
 <?php } ?>

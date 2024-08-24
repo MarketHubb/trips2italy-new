@@ -1,4 +1,18 @@
 <?php
+
+function get_first_sentence($paragraph)
+{
+	// Regular expression to match the first sentence
+	$pattern = '/(.*?[.!?])(\\s|$)/';
+
+	// Use preg_match to find the first sentence
+	if (preg_match($pattern, $paragraph, $matches)) {
+		return $matches[1];
+	}
+
+	// If no sentence-ending punctuation is found, return the entire paragraph
+	return $paragraph;
+}
 // region Packages
 function extractBeforePipe($string)
 {
@@ -63,7 +77,7 @@ function splitParagraph($paragraph)
 	return [$firstPart, $secondPart];
 }
 
-function clean_includes_excludes($arr)
+function standardized_package_includes($arr)
 {
 	$result = [];
 	foreach ($arr as $item) {
@@ -159,6 +173,13 @@ function outputGalleryLightbox($photos)
 // endregion
 
 // region Content
+function get_section_container_open($custom_classes = null)
+{
+	$classes = $custom_classes ?: 'overflow-hidden py-14 md:py-32 px-4 md:px-6';
+
+	return '<section class="' . $classes . '">';
+}
+
 function get_content_section_heading($heading_array = array(), $row = true, $text_center = true, $light_text = null, $cols = null, $description_classes = null)
 {
 	if (is_array($heading_array)) {
@@ -244,9 +265,9 @@ function get_stats($stats = array())
 		foreach ($stats as $stat) {
 			$content .= '<div class="col-md-4 position-relative">';
 			$content .= '<div class="p-3 text-center">';
-			$content .= '<h1 class="text-gradient text-primary"><span id="state1" countto="">' . $stat['stat'] . '</span></h1>';
-			$content .= '<h5 class="mt-3">' . $stat['subheading'] . '</h5>';
-			$content .= '<p class="px-lg-4 fw-semibold anti">' . $stat['description'] . '</p>';
+			$content .= '<h3 class="text-blue tracking-wide text-2xl font-semibold font-heeading">' . $stat['stat'] . '</h3>';
+			$content .= '<h4 class="mt-3 stylized text-orange text-xl lg:text-3xl mb-6">' . $stat['subheading'] . '</h4>';
+			$content .= '<p class="text-gray-700 text-base lg:text-lg px-4">' . $stat['description'] . '</p>';
 			$content .= '</div><hr class="vertical dark"></div>';
 		}
 	}
@@ -312,7 +333,7 @@ function get_hero_breadcrumb_links($object, $type)
 				$region_name_clean = lowercase_no_spaces($term->name);
 				$breadcrumbs[] = [
 					'text' => $name,
-					'link' => get_term_link( $term, $taxonomy = 'location_region' ),
+					'link' => get_term_link($term, $taxonomy = 'location_region'),
 					'icon' => get_field('region_icon', $term),
 				];
 			}
@@ -699,12 +720,12 @@ function get_alternate_text($section, $side)
 
 	$text = '<div class="col-lg-6 col-md-12 me-auto ' . $column_classes . '">
                 <div class="p-3 pt-0">
-                    <h2 class="text-gradient text-warning mb-0 font-weight-bolder">' . $section['region'] . '</h2>
-                    <h4 class="mb-4">' . $section['callout'] . '</h4>
-                    <p class="region-description lead">' . $section['excerpt'] . '</p>';
+                    <h2 class=" tracking-normal fw-bolder mt-3 mb-0 text-xl md:text-2xl">' . $section['region'] . '</h2>
+                    <h4 class="mb-4 stylized text-2xl md:text-3xl text-orange">' . $section['callout'] . '</h4>
+                    <p class="region-description text-gray-600 text-lg lg:text-xl mb-4">' . $section['excerpt'] . '</p>';
 
-	$text .= '<a href="' . $section['region_link'] . '" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'];
-	$text .= '<i class="fas fa-arrow-right text-sm ms-1"></i></a>';
+	// $text .= '<a href="' . $section['region_link'] . '" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'];
+	// $text .= '<i class="fas fa-arrow-right text-sm ms-1"></i></a>';
 	$text .= '</div></div>';
 
 	return $text;
@@ -729,7 +750,7 @@ function get_alternate_content($section, $side)
 	$text = get_alternate_text($section, $side);
 	$img = get_alternate_img($section, $side);
 
-	$content = '<div class="row py-5 py-md-7">';
+	$content = '<div class="row gap-y-10">';
 
 	if ($side === "left") {
 		$content .= $text . $img . '</div>';

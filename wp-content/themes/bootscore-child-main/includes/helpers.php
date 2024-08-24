@@ -1,4 +1,19 @@
 <?php
+function change_array_keys($content_fields, $key_map = [])
+{
+    if (empty($key_map)) return null;
+
+    array_walk($content_fields, function (&$item) use ($key_map) {
+        foreach ($key_map as $oldKey => $newKey) {
+            if (isset($item[$oldKey])) {
+                $item[$newKey] = $item[$oldKey];
+                unset($item[$oldKey]);
+            }
+        }
+    });
+
+    return $content_fields;
+}
 function is_page_and_parent($post_id)
 {
     $post = get_post($post_id);
@@ -102,7 +117,7 @@ function replace_variable_in_copy($string, $dynamic = null, $text_transform = nu
 
         $replace_text = $dynamic ?: $matches[1][0];
         $replace_text = ($text_transform === "lower") ? strtolower($replace_text) : $replace_text;
-        $replace = '<span class="dynamic">' . $replace_text . '</span>';
+        $replace = '<span class="stylized font-bold">' . $replace_text . '</span>';
         $string  = str_replace($matches[0], $replace, $string);
     }
 

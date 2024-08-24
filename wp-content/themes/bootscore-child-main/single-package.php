@@ -1,11 +1,11 @@
 <?php get_header(); ?>
-<!-- Content -->
-<?php get_template_part('template-parts/packages/content', 'single-main'); ?>
-<!-- Why -->
-<?php //get_template_part('template-parts/packages/content', 'single-why'); 
-?>
 
-<section class="py-9 bg-info-soft">
+<?php get_template_part('template-parts/packages/content', 'single-package'); ?>
+
+<?php get_template_part('template-parts/shared/content', 'cta-split-image-blur'); ?>
+
+<!-- Content -->
+<section class="hidden py-9 bg-info-soft">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -67,51 +67,56 @@ $gallery_args = [
 <?php get_template_part('template-parts/packages/content', 'single-related'); ?>
 
 <!-- Conditions -->
-<section>
+<!-- <section>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 justify-content-center">
-                <h4 class="fw-bold">Not included:</h4>
-                <ul class="list-group border-0 ms-0">
-                    <?php
-                    $not_included = clean_includes_excludes(get_field('excludes'));
-                    $gc = '';
-                    foreach ($not_included as $key => $value) {
-                        $gc .= '<li class="list-group-item flex-fill border-0 ps-0 small">' . $value['item'] . '</li>';
-                    }
-                    if (have_rows('excludes')) :
-                        while (have_rows('excludes')) : the_row();
-                            if (!empty(trim(get_sub_field('item')))) {
-                                // $gc .= '<li class="list-group-item flex-fill border-0 text-center">' . get_sub_field('item') . '</li>';
-                            }
+ -->
+<?php echo tw_section_open(); ?>
+<?php echo tw_container_open(); ?>
+<div class="col-lg-6 justify-content-center">
+<h4 class="fw-bold">Not included:</h4>
+<ul class="list-group border-0 ms-0">
+    <?php
+    $not_included = standardized_package_includes(get_field('excludes'));
+    $gc = '';
+    foreach ($not_included as $key => $value) {
+        $gc .= '<li class="list-group-item flex-fill border-0 ps-0 small">' . $value['item'] . '</li>';
+    }
+    if (have_rows('excludes')) :
+        while (have_rows('excludes')) : the_row();
+            if (!empty(trim(get_sub_field('item')))) {
+                // $gc .= '<li class="list-group-item flex-fill border-0 text-center">' . get_sub_field('item') . '</li>';
+            }
 
-                        endwhile;
-                        echo $gc;
-                    endif;
-                    ?>
-                </ul>
-            </div>
-            <div class="col-lg-6 justify-content-center">
-                <h4 class="fw-bold">General conditions:</h4>
-                <ul class="list-group border-0 ms-0">
-                    <?php
-                    if (have_rows('general_conditions')) :
-                        $var = '';
-                        while (have_rows('general_conditions')) : the_row();
-                            if (!empty(trim(get_sub_field('condition')))) {
-                                $var .= '<li class="list-group-item flex-fill border-0 ps-0 small">' . get_sub_field('condition') . '</li>';
-                            }
-                        endwhile;
-                        echo $var;
-                    endif;
-                    ?>
-                </ul>
+        endwhile;
+        echo $gc;
+    endif;
+    ?>
+</ul>
+</div>
+<div class="col-lg-6 justify-content-center mt-12">
+    <h4 class="fw-bold">General conditions:</h4>
+    <ul class="list-group border-0 ms-0">
+        <?php
+        if (have_rows('general_conditions')) :
+            $var = '';
+            while (have_rows('general_conditions')) : the_row();
+                if (!empty(trim(get_sub_field('condition')))) {
+                    $var .= '<li class="list-group-item flex-fill border-0 ps-0 small">' . get_sub_field('condition') . '</li>';
+                }
+            endwhile;
+            echo $var;
+        endif;
+        ?>
+    </ul>
+</div>
+    <?php tw_container_and_section_close(); ?>
+    <!-- </div>
+</div>
+</div>
+</section> -->
 
-            </div>
-        </div>
-    </div>
-</section>
 
 
-
-<?php get_footer(); ?>
+    <?php get_footer(); ?>

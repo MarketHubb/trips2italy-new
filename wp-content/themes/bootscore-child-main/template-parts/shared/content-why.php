@@ -1,20 +1,27 @@
 <!-- <section class="my-5 py-5 bg-po" style="background-image:url(http://t2i-new.test/wp-content/uploads/2023/01/AdobeStock_141760356-copy-scaled.jpg); background-size: cover; background-position: center;"> -->
 
-<section class="my-5 py-5">
+<?php echo tw_section_open(); ?>
 
     <!-- Section Heading -->
     <div class="container">
         <div class="row">
             <div class="row justify-content-center text-center my-sm-5">
+                <?php 
+                $copy = [
+                    'heading' => 'Why lovers of Italian travel',
+                    'subheading' => 'Love Trips 2 Italy',
+                ];
+                echo tw_section_heading($copy); 
+                 ?>
                 <div class="col-lg-5">
                     <h2 class="text-dark mb-0">
-                        Why lovers of Italian travel
+                        
                     </h2>
                     <h2 class="text-primary text-gradient stylized">
-                        love Trips 2 Italy
+                        
                     </h2>
                     <p class="lead">
-                       We don't just plan vacations; we craft once-in-a-lifetime experiences. 
+                       
                     </p>
                 </div>
             </div>

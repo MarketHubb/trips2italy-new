@@ -1,7 +1,3 @@
-<i class="fa-solid fa-circle-check"></i>
-<?php //get_template_part('template-parts/menu/content', 'region-links'); 
-?>
-
 <?php get_template_part('template-parts/menu/content', 'city-links'); ?>
 
 <?php get_template_part('template-parts/shared/content', 'footer'); ?>
@@ -23,7 +19,7 @@
 <footer class="d-none">
 
     <div class="bootscore-footer bg-light pt-5 pb-3">
-        <div class="container">
+        <div class="max-w-7xl mx-auto relative">
 
             <!-- Top Footer Widget -->
             <?php if (is_active_sidebar('top-footer')) : ?>
@@ -193,6 +189,41 @@
     t = d.getElementsByTagName("script")[0];
     t.parentNode.insertBefore(s, t);
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded and parsed');
+
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+        console.log('Elements to be animated:', animateOnScrollElements);
+
+        if (animateOnScrollElements.length === 0) {
+            console.log('No elements found with the class "animate-on-scroll".');
+        }
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    console.log('Element is intersecting:', entry.target);
+                    entry.target.classList.add('animate-fade-in-up', 'opacity-100');
+                    entry.target.classList.remove('opacity-0');
+                    observer.unobserve(entry.target);
+                } else {
+                    console.log('Element is not intersecting:', entry.target);
+                }
+            });
+        }, {
+            rootMargin: '0px 0px 0px 0px', // Adjust as needed
+            threshold: 0.1
+        });
+
+        animateOnScrollElements.forEach(element => {
+            observer.observe(element);
+            console.log('Observing element:', element);
+        });
+    });
+</script>
+
 </body>
 
 </html>

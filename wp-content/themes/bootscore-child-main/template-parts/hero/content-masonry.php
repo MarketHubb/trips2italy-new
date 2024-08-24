@@ -16,33 +16,57 @@
     <header class="d-none d-md-block header-hero hero-masonry" id="hero-masonry" style="background-image:url(<?php echo $hero['images']['background_image']; ?>">
         <div class="page-header min-vh-50 pt-5 pt-md-0">
 
-            <div class="container py-8">
+            <!-- <div class="container py-8"> -->
+            <div class="max-w-7xl mx-auto">
 
                 <!-- Heading (Copy) -->
-                <div class="row justify-content-start">
-                    <div class="col-md-8">
-                        <h1>
+                <!-- <div class="row justify-content-start"> -->
+                <div class="grid grid-cols-2 lg:grid-cols-12 items-center py-24 lg:py-32 lg:gap-x-8">
+                    <!-- <div class="col-md-8"> -->
+                    <div class="col-span-1 md:col-span-5">
+                        <h1 class="font-heading text-blueGray text-lg md:text-3xl lg:text-5xl mb-2">
                             <?php echo $hero['copy']['heading_1']['desktop']; ?>
                             <span class="stylized d-block mt-1">
                                 <?php echo $hero['copy']['heading_2']['desktop']; ?>
                             </span>
                         </h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- Description + Callouts + Button  -->
-                    <div class="my-auto d-none d-md-block <?php echo $text_columns; ?>">
-                        <div class="position-relative mt-n8">
-                            <p class="lead fw-500 text-body-dark">
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- <div class="row"> -->
+                        <!-- Description + Callouts + Button  -->
+                        <!-- <div class="my-auto d-none d-md-block <?php //echo $text_columns; 
+                                                                    ?>"> -->
+                        <!-- <div class="position-relative mt-n8"> -->
+                        <div class="relative">
+                            <p class="text-base md:text-lg text-gray-700 mt-8 lg:pr-8">
                                 <?php echo $hero['copy']['description']['desktop']; ?>
                             </p>
 
                             <div class="my-4 py-4 px-2 px-md-0 hero-callouts">
-                                <ul class="list-group border-0">
+                                <ul role="list" class="mt-8 grid grid-cols-1 gap-y-2 text-sm leading-6">
+
                                     <?php foreach ($hero['callouts'] as $callout) { ?>
-                                        <li class="list-group-item bg-transparent text-start ps-0 border-0 py-1 ps-1 pe-0">
-                                            <p class="mb-0 pb-0 fw-600 text-wider color-heading stylized">
-                                                <i class="fa-solid fa-check pe-2 pe-md-3"></i><?php echo $callout['desktop']; ?>
+
+                                        <li class="flex gap-x-3">
+                                            <svg class="h-7 w-6 flex-none text-orange" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                            </svg>
+                                            <span class="text-gray-800 tracking-wide text-base md:text-lg "><?php echo $callout['desktop']; ?></span>
+                                        </li>
+
+                                    <?php } ?>
+                                </ul>
+
+                                <ul class="hidden list-group border-0">
+                                    <?php foreach ($hero['callouts'] as $callout) { ?>
+                                        <li class="list-group-item bg-transparent text-start border-0 py-2.5">
+                                            <p class="text-base lg:text-xl text-blueGray font-bold">
+                                                <span class="tracking-wide stylized">
+                                                    <?php if (!empty($callout['icon'])) {
+                                                        echo $callout['icon'];
+                                                    } ?>
+                                                    <?php echo $callout['desktop']; ?>
+                                                </span>
                                             </p>
                                         </li>
                                     <?php } ?>
@@ -57,13 +81,16 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- </div> -->
                     </div>
 
                     <!-- Masonry Images-->
                     <?php
                     $masonry_images = $hero['images']['masonry'];
                     if (!empty($masonry_images)) { ?>
-                        <div class="ps-5 pe-0 images <?php echo $image_columns; ?>">
+                        <!-- <div class="ps-5 pe-0 images <?php //echo $image_columns; 
+                                                            ?>"> -->
+                        <div class="col-span-1 md:col-span-7">
                             <?php echo output_masonry_images($masonry_images); ?>
                         </div>
                     <?php } ?>

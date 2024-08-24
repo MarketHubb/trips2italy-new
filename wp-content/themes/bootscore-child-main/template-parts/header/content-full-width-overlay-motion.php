@@ -1,5 +1,5 @@
 <header>
-   <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+   <div id="carouselExampleControls" class="carousel " data-bs-ride="carousel">
       <div class="carousel-inner">
          <div class="carousel-item active">
             <div class="page-header min-vh-75 m-3 border-radius-xl" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/mark.jpg');">
