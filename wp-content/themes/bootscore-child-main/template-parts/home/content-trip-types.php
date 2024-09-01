@@ -7,13 +7,13 @@ echo tw_section_open($args); ?>
 <div class="absolute inset-0 bg-gradient-to-b from-blue lg:bg-gradient-to-r lg:from-gray-950 from-[1%] h-full w-full"></div>
 <div class="max-w-7xl mx-auto z-20 relative">
 
-   <div class="grid grid-cols-1 lg:grid-cols-12 items-center">
-      <div class="lg:col-span-5">
+   <div class="grid grid-cols-1 lg:grid-cols-12 items-center sm:gap-x-4 lg:gap-x-12">
+      <div class="lg:col-span-4">
          <div class="pb-10 z-10">
             <?php echo tw_heading(get_the_ID(), 'trip_types_heading', 'text-left'); ?>
          </div>
       </div>
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-8">
 
          <div class="divide-y divide-gray-200 overflow-hidden rounded-lg  shadow sm:grid sm:grid-cols-2 md:grid-cols-3 gap-y-10 flex flex-col sm:gap-[8px] sm:divide-y-0">
 
@@ -27,7 +27,7 @@ echo tw_section_open($args); ?>
                      <div class="p-6 bs-blur rounded-b lg:rounded-b-none">
                         <div class="mt-3">
                            <h3 class="stylized font-semibold leading-6 text-blueDark">
-                              <a href="<?php echo get_permalink($field['trip_type']->ID); ?>" class="font-bold text-2xl lg:text-2xl xl:text-2xl focus:outline-none">
+                              <a href="<?php echo get_permalink($field['trip_type']->ID); ?>" class="font-bold text-[2rem] md:text-2xl lg:text-3xl focus:outline-none">
                                  <!-- Extend touch target to entire panel -->
                                  <span class="absolute inset-0" aria-hidden="true"></span>
                                  <?php echo $field['trip_type']->post_title; ?>

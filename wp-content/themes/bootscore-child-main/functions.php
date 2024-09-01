@@ -20,6 +20,7 @@ require_once 'includes/regions.php';
 require_once 'includes/types.php';
 require_once 'includes/hero.php';
 require_once 'includes/forms.php';
+require_once 'includes/tw-forms.php';
 
 function meks_which_template_is_loaded() {
 	$domain = get_bloginfo('url');
@@ -94,12 +95,14 @@ function my_acf_op_init() {
 }
 
 // style and scripts
-function enqueue_tailwind_last() {
+function enqueue_tailwind() {
 	// if (is_singular('trip')) {
 		wp_enqueue_style('tailwind-css', get_stylesheet_directory_uri() . '/css/tailwind.css', array(), null, 'all');
+		wp_enqueue_style('tailwind-overrides', get_stylesheet_directory_uri() . '/css/tailwind-overrides.css', array('tailwind-css'), null, 'all');
+		wp_enqueue_script('tailwind-form', get_stylesheet_directory_uri() . '/js/tw-form.js', [], null, false);
 	// }
 }
-add_action('wp_enqueue_scripts', 'enqueue_tailwind_last', 999);
+add_action('wp_enqueue_scripts', 'enqueue_tailwind', 999);
 
 add_action('wp_enqueue_scripts', 'bootscore_child_enqueue_styles');
 function bootscore_child_enqueue_styles() {
@@ -118,6 +121,9 @@ function bootscore_child_enqueue_styles() {
 	// Sliders
 	if (!is_admin()) {
 		wp_enqueue_script('sliders-js', get_stylesheet_directory_uri() . '/js/sliders.js', false, '', true);
+		wp_enqueue_script('scroller-js', get_stylesheet_directory_uri() . '/js/scroller.js', false, '', true);
+		wp_enqueue_script('modal-js', get_stylesheet_directory_uri() . '/js/modal.js', false, '', true);
+		// wp_enqueue_script('card-carousel-js', get_stylesheet_directory_uri() . '/js/card-carousel.js', false, '', true);
 	}
 
 	// Compiled main.css

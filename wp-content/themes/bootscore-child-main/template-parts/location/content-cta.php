@@ -63,7 +63,3 @@
             </div>
         </div>
 </section>
-
-<?php echo tw_get_section_open(); ?>
-
-<?php echo tw_container_open(); ?>

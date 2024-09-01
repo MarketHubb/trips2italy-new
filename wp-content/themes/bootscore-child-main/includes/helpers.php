@@ -1,4 +1,27 @@
 <?php
+function return_portion_of_string($string, $length)
+{
+    // If the string length is less than or equal to the specified length minus 3 (for the ellipsis),
+    // return the original string with the ellipsis
+    if (strlen($string) <= $length - 3) {
+        return $string . '...';
+    }
+
+    // Truncate the string to the specified length minus 3 (to make room for the ellipsis)
+    $truncated = substr($string, 0, $length - 3);
+
+    // Find the position of the last space in the truncated string
+    $lastSpace = strrpos($truncated, ' ');
+
+    // If a space is found, truncate to that position
+    if ($lastSpace !== false) {
+        $truncated = substr($truncated, 0, $lastSpace);
+    }
+
+    // Add ellipsis
+    return $truncated . '...';
+}
+
 function change_array_keys($content_fields, $key_map = [])
 {
     if (empty($key_map)) return null;

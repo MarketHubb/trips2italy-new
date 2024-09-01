@@ -21,7 +21,7 @@ echo tw_section_open($bg_data); ?>
 
                         <div class=" text-center px-4 py-6">
                             <h3 class="text-blue tracking-wide text-2xl font-semibold font-heeading"><?php echo $stat['stat']; ?></h3>
-                            <h4 class="mt-3 stylized text-orange text-xl lg:text-3xl mb-6"><?php echo $stat['subheading']; ?></h4>
+                            <h4 class="mt-3 stylized text-orange text-[2rem] md:text-3xl lg:text-4xl mb-6"><?php echo $stat['subheading']; ?></h4>
                             <p class="text-gray-700 text-base lg:text-lg px-4"><?php echo $stat['description']; ?></p>
                         </div>
 

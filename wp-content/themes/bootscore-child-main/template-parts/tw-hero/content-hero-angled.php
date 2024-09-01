@@ -78,29 +78,63 @@
    </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-12 justify-center">
-   <div class="grid grid-cols-1 lg:grid-cols-12 lg:col-span-10 lg:col-start-2 rounded-lg bg-gradient-to-l from-blueDark to-blueLight ring-2 ring-white shadow-lg p-10 relative bottom-12 lg:gap-x-24 items-center z-10">
-      <div class="col-span-7">
-         <h2 class="tracking-normal text-lg md:text-2xl lg:text-3xl text-white mb-5">
-            Package Description:
-         </h2>
-         <p class="text-base lg:text-lg text-white">
-            <?php echo $package_description_split[1]; ?>
-         </p>
-      </div>
-      <div class="col-span-5 text-center text-white">
-         <h5 class="font-bold text-base lg:text-xl text-white mb-2">Starting at:</h5>
-         <h5 class="font-bold text-lg lg:text-2xl text-white mb-6">
-            <?php echo get_field('price', get_the_id()); ?>
-         </h5>
-         <?php
-         $price_cta_args = [
-            'copy' => 'Talk to Us'
-         ];
-         echo tw_form_cta_btn($price_cta_args); ?>
-      </div>
+
+<div class="max-w-screen-2xl mx-auto px-6 relative bottom-[7rem] hidden">
+   <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+      <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
    </div>
-   <div class="absolute inset-x-0 -top-16 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl" aria-hidden="true">
-      <div class="aspect-[1318/752] w-[82.375rem] flex-none bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"></div>
+   <div class="px-6 py-16 rounded-lg backdrop-blur-lg opacity-[98%] ring-2 ring-white shadow-lg z-20 relative">
+      <div class="absolute inset-0 h-full w-full blur-sm bg-blueDark"></div>
+      <div class="max-w-7xl mx-auto relative z-40">
+         <div class="grid grid-cols-1 md:grid-cols-12">
+            <div class="md:col-span-7">
+               <h2 class="font-bold antialiased text-lg md:text-2xl tracking-wide text-white mb-3">
+                  Package Description:
+               </h2>
+               <p class="text-sm md:text-base text-white">
+                  <?php echo $package_description_split[1]; ?>
+               </p>
+            </div>
+            <div class="md:col-span-5 text-center text-white">
+               <p class="text-lg md:text-xl text-white mb-2">Starting at:</p>
+               <p class="text-lg lg:text-2xl text-white mb-6">
+                  <?php echo get_field('price', get_the_id()); ?> per person
+               </p>
+               <?php
+               $price_cta_args = [
+                  'copy' => 'Talk to Us'
+               ];
+               echo tw_form_cta_btn($price_cta_args); ?>
+            </div>
+         </div>
+      </div>
    </div>
 </div>
+<!-- <div cla2ss="grid grid-cols-1 lg:grid-cols-12 justify-center">
+   <div class="roundedi-back-blueDark/90 backdrop-blur ring-2 ring-white shadow-lg p-10 relative bottom-12 lg:gap-x-24 items-center z-10">
+      <div class="grid max-x-7xl mx-auto grid-cols-1 lg:grid-cols-12 lg:col-span-10 lg:col-start-2 rounded-lg">
+         <div class="col-span-7">
+            <h2 class="tracking-normal text-lg md:text-2xl lg:text-3xl text-white mb-5">
+               Package Description:
+            </h2>
+            <p class="text-base lg:text-lg text-white">
+               <?php echo $package_description_split[1]; ?>
+            </p>
+         </div>
+         <div class="col-span-5 text-center text-white">
+            <h5 class="font-bold text-base lg:text-xl text-white mb-2">Starting at:</h5>
+            <h5 class="font-bold text-lg lg:text-2xl text-white mb-6">
+               <?php echo get_field('price', get_the_id()); ?>
+            </h5>
+            <?php
+            $price_cta_args = [
+               'copy' => 'Talk to Us'
+            ];
+            echo tw_form_cta_btn($price_cta_args); ?>
+         </div>
+      </div>
+      <div class="absolute inset-x-0 -top-16 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl" aria-hidden="true">
+         <div class="aspect-[1318/752] w-[82.375rem] flex-none bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-25" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"></div>
+      </div>
+   </div> -->
+

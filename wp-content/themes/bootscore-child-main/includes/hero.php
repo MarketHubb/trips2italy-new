@@ -1,4 +1,58 @@
 <?php
+// region HERO - Setup
+function get_hero_for_page($queried_object) {
+   $hero = output_hero_banner($queried_object);
+
+   return !empty($hero) ? $hero : null;
+}
+
+function get_hero_by_post_type($object)
+{
+
+    // Locations (Cities & Regions)
+    if ($object->taxonomy === 'location_region' || $object->post_type === 'location') {
+        $inputs = location_hero_and_tab_inputs(get_queried_object());
+        set_query_var('inputs', $inputs);
+
+        if ($inputs['hero']) {
+            get_template_part('template-parts/banner/content', 'full-width-text-overlay', $inputs['hero']);
+        }
+    }
+
+    // Trip Types
+    if ($object->post_type === 'trip') {
+        get_template_part('template-parts/banner/content', 'center-wave');
+    }
+
+    // Packages
+    if ($object->post_type === 'package') {
+        get_template_part('template-parts/tw-hero/content', 'hero-angled');
+        // get_template_part('template-parts/packages/content', 'single-hero');
+    }
+}
+
+function get_shared_hero_banner($object)
+{
+    $hero_inputs = get_hero_inputs($object);
+
+    if (! empty($hero_inputs) && $hero_inputs['include']) {
+        get_template_part('template-parts/hero/content', $hero_inputs['template'], $hero_inputs);
+        get_template_part('template-parts/hero-banner/content', 'main', $hero_inputs);
+    }
+}
+
+function output_hero_banner($object)
+{
+    $include_hero = get_field('include_hero_banner', $object);
+    $hero         = null;
+
+    if ($include_hero) {
+        return get_shared_hero_banner($object);
+    } else {
+        return get_hero_by_post_type($object);
+    }
+}
+
 
 function form_heading($dynamic = null)
 {
@@ -211,9 +265,7 @@ function output_hero_links($hero, $format = "desktop")
     return ($output) ?: null;
 }
 
-function output_itinerary_links($hero, $format = "desktop")
-{
-}
+function output_itinerary_links($hero, $format = "desktop") {}
 
 function output_masonry_images($image_array)
 {
@@ -307,10 +359,10 @@ function get_hero_callouts($object)
 
         foreach ($callouts_array as $callout) {
             $icon = isset($callout['icon']) ? '<img src="' . $callout['icon'] . '" class="max-w-12 max-h-12 filter-dark object-cover inline pr-4" />' : '<i class="fa-solid fa-check pe-2 pe-md-3"></i>';
-            
+
             $callout_item = get_desktop_mobile_copy($callout['callout'], "\n", $dynamic);
             $callout_item['icon'] = $icon;
-            
+
             $hero_callouts[] = $callout_item;
         }
     }

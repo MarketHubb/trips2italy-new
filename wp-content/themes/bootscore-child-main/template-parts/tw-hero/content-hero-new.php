@@ -1,6 +1,5 @@
 <?php $hero_fields = get_hero_fields(get_queried_object());?>
 
-
 <?php if (!empty($hero_fields)) { ?>
 
    <?php
@@ -34,12 +33,12 @@
                </p>
             <?php } ?>
             <?php if ($hero_fields['subheading']) { ?>
-               <h1 class="text-orangeLight stylized font-thin block text-5xl lg:text-6xl mb-4 lg:mb-7">
+               <h1 class="text-orangeLight stylized font-thin block text-[2.25rem] lg:text-6xl mb-4 lg:mb-7">
                   <?php echo $hero_fields['subheading']; ?>
                </h1>
             <?php } ?>
             <?php if ($hero_fields['description']) { ?>
-               <div class="max-w-[90%] lg:max-w-lg mx-auto px-4 lg:px-10 text-center">
+               <div class="lg:max-w-lg mx-auto px-4 lg:px-10 text-center">
                   <p class="text-base md:text-lg lg:text-xl opacity-90">
                      <?php echo $hero_fields['description']; ?>
                   </p>
@@ -74,7 +73,8 @@
             </div>
          <?php } ?>
 
-         <?php if ($hero_fields['callout_icons']) { ?>
+         <?php //if ($hero_fields['callout_icons']) { ?>
+         <?php if ($hero_fields['icons'] !== 'None') { ?>
             <div class="grid grid-cols-3 animate-on-scroll justify-center pt-6 gap-x-2 text-white opacity-0 transition-opacity duration-500" id="icons">
                <?php
                $icons = '';

@@ -51,19 +51,43 @@ function get_scroll_panels($args = [])
 	return $panels;
 }
 
-function get_image_grid($content_array, $lg_grid_cols = 3, $height = null)
+function get_image_grid($content_collection)
 {
-	if (!empty($content_array)) {
-		$height = $height ?: '56';
-		$image_grid = '<div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-' . $lg_grid_cols . ' xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0">';
+	if (!empty($content_collection['content'])) {
+		$grid_classes = !empty($content_collection['classes']['grid']) ? $content_collection['classes']['grid'] : ' grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 ';
+		$heading_classes = !empty($content_collection['classes']['heading']) ? $content_collection['classes']['heading'] : ' text-[2rem] md:text-3xl lg:text-4xl mt-4 stylized text-orange ';
+		$copy_container_classes = !empty($content_collection['classes']['copy_container']) ? $content_collection['classes']['copy_container'] : ' ';
+		$image_classes = !empty($content_collection['classes']['image']) ? $content_collection['classes']['image'] : ' h-56 w-full object-cover object-center group-hover:opacity-75 ';
+		$description_classes = !empty($content_collection['classes']['description']) ? $content_collection['classes']['description'] : ' line-clamp-3 text-gray-600 text-lg ';
 
-		foreach ($content_array as $content) {
-			$image_grid .= '<a href="' . $content['link'] .  '" class="group">';
-			$image_grid .= '<div class="w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 mt-10 lg:mt-0">';
-			$image_grid .= '<img src="' . $content['image'] . '" class="h-' . $height . ' w-full object-cover object-center group-hover:opacity-75"/>';
+		$image_grid = '<div class="' . $grid_classes . '">';
+
+		foreach ($content_collection['content'] as $content) {
+			$image_grid .= '<a href="' . $content['link'] .  '" class="group rounded-md ease-linear duration-100 ring-1 ring-gray-100 hover:scale-105 hover:ring-1 hover:ring-gray-400/20 hover:bg-sky-50/40 hover:shadow-md ">';
+			$image_grid .= '<div class="w-full overflow-hidden rounded-t-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 mt-10 lg:mt-0 ">';
+			$image_grid .= '<img src="' . $content['image'] . '" class="' . $image_classes . '"/>';
 			$image_grid .= '</div>';
-			$image_grid .= '<h3 class="text-xl md:text-2xl lg:text-3xl mt-4 stylized text-orange">' . $content['heading']	 . '</h3>';
-			$image_grid .= '<p class="line-clamp-3 text-gray-600 text-lg">' . $content['description']	 . '</p>';
+			$image_grid .= '<div class="rounded-md px-4 pt-5 pb-8 ">';
+
+			if (isset($content_collection['badges']) && $content_collection['badges']) {
+				$image_grid .= '<div class="h-6">';
+			}
+
+			if (!empty($content['badges'])) {
+				$image_grid .= $content['badges'];
+			}
+
+			if (isset($content_collection['badges']) && $content_collection['badges']) {
+				$image_grid .= '</div>';
+			}
+
+			$image_grid .= '<h3 class="' . $heading_classes . '">' . $content['heading']	 . '</h3>';
+
+			if (!empty($content['description'])) {
+				$image_grid .= '<p class="' . $description_classes . '">' . $content['description']	 . '</p>';
+			}
+
+			$image_grid .= '</div>';
 			$image_grid .= '</a>';
 		}
 		$image_grid .= '</div>';
@@ -99,6 +123,7 @@ function get_hero_fields($queried_obj)
 
 	if (isset($hero_fields['image']['url'])) {
 		$hero_fields['image'] = $hero_fields['image']['url'];
+		$hero_fields['mobile_image'] = $hero_fields['mobile_image']['url'];
 	}
 
 	$hero_field_join = [
@@ -130,7 +155,7 @@ function tw_heading_classes($light_bg = true)
 function tw_callout_classes($light_bg = true)
 {
 	$color = $light_bg ? ' text-orange ' : ' text-blue ';
-	return ' stylized font-normal text-4xl lg:text-6xl text-blue ' . $color;
+	return ' stylized font-normal text-4xl leading-[2.5rem] lg:leading-[3.5rem] lg:text-6xl text-blue ' . $color;
 }
 
 function tw_form_cta_btn($args)
@@ -165,19 +190,23 @@ function tw_cta_btn($args)
 	return $btn;
 }
 
-function tw_section_open($bg_data = null)
+function tw_section_open($section_attributes = null)
 {
 	$section_open = '<section class="px-6 lg:px-0 py-16 md:py-24 ';
 
-	if ($bg_data['classes']) {
-		$section_open .= $bg_data['classes'];
+	if ($section_attributes['classes']) {
+		$section_open .= $section_attributes['classes'];
 	}
 
 	$section_open .= '" ';
 
-	if ($bg_data['image']) {
+	if ($section_attributes['id']) {
+		$section_open .= 'id="' . $section_attributes['id'] . '" ';
+	}
+
+	if ($section_attributes['image']) {
 		$section_open .= 'style="background-image:url(';
-		$section_open .= $bg_data['image'] . ')" ';
+		$section_open .= $section_attributes['image'] . ')" ';
 	}
 
 	$section_open .= '>';

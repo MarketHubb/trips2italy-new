@@ -17,7 +17,7 @@ ksort($tab_inputs['pages']);
 <?php //get_template_part('template-parts/tw/content', 'hero-background-image', $queried_object); 
 ?>
 
-<?php echo tw_get_section_open(); ?>
+<?php echo tw_section_open(); ?>
 
 <?php echo tw_container_open(); ?>
 

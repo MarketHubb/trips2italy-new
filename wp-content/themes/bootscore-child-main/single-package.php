@@ -1,8 +1,19 @@
 <?php get_header(); ?>
 
-<?php get_template_part('template-parts/packages/content', 'single-package'); ?>
+<?php
+$form = GFAPI::get_form(11); // Get form with ID 1
+?>
+<section class="my-12">
+    <div class="max-w-7xl mx-auto rounded-md bg-gray-50 ring-1 ring-gray-200 py-24">
+        <?php echo gravity_form_to_tailwind_exact($form); ?>
+    </div>
+</section>
+
 
 <?php get_template_part('template-parts/shared/content', 'cta-split-image-blur'); ?>
+
+<?php get_template_part('template-parts/packages/content', 'single-package'); ?>
+
 
 <!-- Content -->
 <section class="hidden py-9 bg-info-soft">
@@ -75,25 +86,25 @@ $gallery_args = [
 <?php echo tw_section_open(); ?>
 <?php echo tw_container_open(); ?>
 <div class="col-lg-6 justify-content-center">
-<h4 class="fw-bold">Not included:</h4>
-<ul class="list-group border-0 ms-0">
-    <?php
-    $not_included = standardized_package_includes(get_field('excludes'));
-    $gc = '';
-    foreach ($not_included as $key => $value) {
-        $gc .= '<li class="list-group-item flex-fill border-0 ps-0 small">' . $value['item'] . '</li>';
-    }
-    if (have_rows('excludes')) :
-        while (have_rows('excludes')) : the_row();
-            if (!empty(trim(get_sub_field('item')))) {
-                // $gc .= '<li class="list-group-item flex-fill border-0 text-center">' . get_sub_field('item') . '</li>';
-            }
+    <h4 class="fw-bold">Not included:</h4>
+    <ul class="list-group border-0 ms-0">
+        <?php
+        $not_included = standardized_package_includes(get_field('excludes'));
+        $gc = '';
+        foreach ($not_included as $key => $value) {
+            $gc .= '<li class="list-group-item flex-fill border-0 ps-0 small">' . $value['item'] . '</li>';
+        }
+        if (have_rows('excludes')) :
+            while (have_rows('excludes')) : the_row();
+                if (!empty(trim(get_sub_field('item')))) {
+                    // $gc .= '<li class="list-group-item flex-fill border-0 text-center">' . get_sub_field('item') . '</li>';
+                }
 
-        endwhile;
-        echo $gc;
-    endif;
-    ?>
-</ul>
+            endwhile;
+            echo $gc;
+        endif;
+        ?>
+    </ul>
 </div>
 <div class="col-lg-6 justify-content-center mt-12">
     <h4 class="fw-bold">General conditions:</h4>
@@ -111,12 +122,12 @@ $gallery_args = [
         ?>
     </ul>
 </div>
-    <?php tw_container_and_section_close(); ?>
-    <!-- </div>
+<?php tw_container_and_section_close(); ?>
+<!-- </div>
 </div>
 </div>
 </section> -->
 
 
 
-    <?php get_footer(); ?>
+<?php get_footer(); ?>

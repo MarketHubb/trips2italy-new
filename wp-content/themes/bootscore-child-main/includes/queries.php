@@ -22,6 +22,18 @@ function get_related_packages_by_trip_type($post_id)
 	return !empty($related_packages) ? $related_packages : null;
 }
 
+function query_posts_package($paged = 1)
+{
+	$post_count = get_query_var('paginated_post_count');
+    $args = array(
+        'post_type' => 'package',
+        'posts_per_page' => $post_count,
+        'paged' => $paged,
+    );
+
+    return new WP_Query($args);
+}
+
 function get_posts_package()
 {
 	return get_posts(array(

@@ -2,11 +2,11 @@
 
 <?php if (!empty($hero_inputs)) { ?>
 
-   <header class="">
+   <header class="hidden sm:block">
       <div class="min-h-96 relative flex items-center bg-cover bg-center p-0 overflow-hidden" style="background-image: url(<?php echo $hero_inputs['images']['background_image']; ?>);">
-         <span class="absolute inset-0 w-full h-full  lg:bg-gradient-to-r lg:from-gray-800 from-[1%]"></span>
+         <span class="absolute inset-0 w-full h-full  sm:bg-gradient-to-r sm:from-gray-800 from-[1%]"></span>
          <!-- Copy -->
-         <div class="max-w-7xl mx-auto w-full z-10 relative py-24 lg:py-44 xl:py-56 ">
+         <div class="pl-8 max-w-7xl mx-auto w-full z-10 relative py-24 lg:py-44 xl:py-56 ">
             <div class="lg:max-w-[40%] mb-[104px]">
                <h1 class="">
                   <span class="text-xl md:text-3xl xl:text-4xl text-orangeLight tracking-normal block"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>

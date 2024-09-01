@@ -10,7 +10,8 @@
       'excerpt' => 'description',
       'region' => 'heading',
    ];
-   $content_fields = change_array_keys(get_field('regions'), $keyMap);
+   $content_fields = [];
+   $content_fields['content'] = change_array_keys(get_field('regions'), $keyMap);
    ?>
 
    <?php if (!empty($content_fields)) { ?>

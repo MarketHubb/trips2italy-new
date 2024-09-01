@@ -15,4 +15,6 @@ get_header();
 
 <?php get_template_part('template-parts/home/content', 'posts'); ?>
 
+<?php get_template_part('template-parts/shared/content', 'scroller'); ?>
+
 <?php get_footer(); ?>

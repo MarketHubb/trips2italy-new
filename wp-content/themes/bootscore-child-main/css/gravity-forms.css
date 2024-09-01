@@ -11,14 +11,6 @@
     justify-content: flex-end !important;
 }
 
-#gform_11 {
-    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
-    background: #fff;
-    border-radius: 8px;
-    margin-bottom: 3rem;
-    border: 1px solid #E2E8F0;
-}
-
 #gform_11 .gform-body.gform_body {
     border-top: 1px solid #E2E8F0;
     padding-top: 2rem;

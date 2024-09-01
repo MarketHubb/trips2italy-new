@@ -13,6 +13,15 @@
  */
 
 ?>
+
+<?php
+set_query_var('paginated_post_count', 18);
+global $paged;
+
+if (!isset($paged) || !$paged) {
+    $paged = 1;
+}
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 
@@ -61,63 +70,28 @@
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
         <?php get_template_part('template-parts/tw/content', 'nav'); ?>
-        <?php //get_template_part('template-parts/shared/content', 'nav'); ?>
+        <?php //get_template_part('template-parts/shared/content', 'nav'); 
+        ?>
 
         <div id="site" class="pt-[40px] lg:pt-[63px]">
 
             <?php
             $new_hero_layout = get_field('use_new_layout');
-            if (isset($new_hero_layout) && $new_hero_layout) {
-                get_template_part( 'template-parts/tw-hero/content', 'hero-new' );
-                //get_template_part( 'template-parts/tw-hero/content', 'image-full' );
+            if ($new_hero_layout) {
+                get_template_part('template-parts/tw-hero/content', 'hero-new');
             } else {
-                function get_hero_by_post_type($object)
-                {
-
-                    // Locations (Cities & Regions)
-                    if ($object->taxonomy === 'location_region' || $object->post_type === 'location') {
-                        $inputs = location_hero_and_tab_inputs(get_queried_object());
-                        set_query_var('inputs', $inputs);
-
-                        if ($inputs['hero']) {
-                            get_template_part('template-parts/banner/content', 'full-width-text-overlay', $inputs['hero']);
-                        }
-                    }
-
-                    // Trip Types
-                    if ($object->post_type === 'trip') {
-                        get_template_part('template-parts/banner/content', 'center-wave');
-                    }
-
-                    // Packages
-                    if ($object->post_type === 'package') {
-                        get_template_part( 'template-parts/tw-hero/content', 'hero-angled' );
-                        // get_template_part('template-parts/packages/content', 'single-hero');
-                    }
-                }
-
-                function get_shared_hero_banner($object)
-                {
-                    $hero_inputs = get_hero_inputs($object);
-
-                    if (! empty($hero_inputs) && $hero_inputs['include']) {
-                        get_template_part('template-parts/hero/content', $hero_inputs['template'], $hero_inputs);
-                        get_template_part('template-parts/hero-banner/content', 'main', $hero_inputs);
-                    }
-                }
-
-                function output_hero_banner($object)
-                {
-                    $include_hero = get_field('include_hero_banner', $object);
-                    $hero         = null;
-
-                    if ($include_hero) {
-                        get_shared_hero_banner($object);
-                    } else {
-                        get_hero_by_post_type($object);
-                    }
-                }
-
                 output_hero_banner(get_queried_object());
             }
+
+
+            // if (isset($paged) && $paged > 1) {
+            //     $hero = get_hero_fields(get_queried_object());
+            //     get_template_part('template-parts/tw-hero/content', 'pagination', $hero);
+            // } else {
+            //     if ($new_hero_layout) {
+            //         get_template_part('template-parts/tw-hero/content', 'hero-new');
+            //     } else {
+            //         output_hero_banner(get_queried_object());
+            //     }
+            // }
             ?>

@@ -14,6 +14,22 @@ function get_first_sentence($paragraph)
 	return $paragraph;
 }
 // region Packages
+
+function get_term_badges_for_package($post_id)
+{
+	$terms = [];
+	$terms[] = get_the_terms($post_id, 'topic');
+	$terms[] = get_the_terms($post_id, 'region');
+
+	$term_badges = '';
+
+	foreach ($terms[0] as $term) {
+		$term_badges .= '<span class="inline-flex items-center rounded-full bg-[rgba(25,124,204,.1)] px-2 py-1 text-xs font-medium text-brand ring-1 ring-inset ring-brand/10 relative mr-2">' . $term->name . '</span>';
+	}
+
+	return $term_badges;
+}
+
 function extractBeforePipe($string)
 {
 	$string = trim($string);

@@ -4,6 +4,22 @@
 
 /* Custom styles */
 @layer utilities {
+	.word-spacing-tight {
+		word-spacing: theme('wordSpacing.tight');
+	}
+
+	.word-spacing-normal {
+		word-spacing: theme('wordSpacing.normal');
+	}
+
+	.word-spacing-wide {
+		word-spacing: theme('wordSpacing.wide');
+	}
+
+	.word-spacing-wider {
+		word-spacing: theme('wordSpacing.wider');
+	}
+
 	.collapse {
 		/* Empty definition to effectively disable the class */
 	}
