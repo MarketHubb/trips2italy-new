@@ -208,16 +208,25 @@ function render_field_exact($field)
             $output .= '<div class="col-span-full">';
             $output .= '<fieldset>';
             $output .= get_legend_for_field($field['label']);
-            $output .= '<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">';
+
+            if ($field['cssClass'] === 'input-cards') {
+                $output .= '<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">';
+            } elseif ($field['cssClass'] === 'input-cards-stacked') {
+                $output .= '<div class="space-y-4">';
+            } else {
+                $output .= '<div class="mt-6">';
+            }
+
             foreach ($field['choices'] as $index => $choice) {
                 $choice_id = 'choice_' . $field['id'] . '_' . $index;
                 $label_parts = explode('-', $choice['text']);
-                if (strpos($field['cssClass'], 'input-card') !== false) {
-                    $output .= '<label aria-label="' . esc_attr($label_parts[0]) . '" aria-description="' . (isset($label_parts[1]) ? esc_attr($label_parts[1]) : '') . '" class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none peer-checked:border-indigo-600 peer-checked:ring-2 peer-checked:ring-indigo-600">';
+
+                if ($field['cssClass'] === 'input-cards') {
+                    $output .= '<label aria-label="' . esc_attr($label_parts[0]) . '" aria-description="' . (isset($label_parts[1]) ? esc_attr($label_parts[1]) : '') . '" class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none">';
                     $output .= '<input type="radio" name="input_' . $field['id'] . '" value="' . esc_attr($choice['value']) . '" class="sr-only peer">';
                     $output .= '<span class="flex flex-1">';
                     $output .= '<span class="flex flex-col">';
-                    $output .= '<span class="block text-[.95rem] font-medium text-gray-600 peer-checked:text-gray-900 ">' . esc_html($label_parts[0]) . '</span>';
+                    $output .= '<span class="block text-sm font-medium text-gray-900">' . esc_html($label_parts[0]) . '</span>';
                     if (!empty($label_parts[1])) {
                         $output .= '<span class="mt-1 flex items-center text-sm text-gray-500">' . esc_html($label_parts[1]) . '</span>';
                     }
@@ -226,6 +235,34 @@ function render_field_exact($field)
                     }
                     $output .= '</span>';
                     $output .= '</span>';
+                    $output .= '<svg class="h-5 w-5 text-indigo-600 hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
+                    $output .= '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />';
+                    $output .= '</svg>';
+                    $output .= '<span class="pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent peer-checked:border-indigo-600" aria-hidden="true"></span>';
+                    $output .= '</label>';
+                } elseif ($field['cssClass'] === 'input-cards-stacked') {
+                    $output .= '<label aria-label="' . esc_attr($label_parts[0]) . '" aria-description="' . (isset($label_parts[1]) ? esc_attr($label_parts[1]) : '') . '" class="relative block cursor-pointer rounded-lg border bg-white px-6 py-4 shadow-sm focus:outline-none sm:flex sm:justify-between">';
+                    $output .= '<input type="radio" name="input_' . $field['id'] . '" value="' . esc_attr($choice['value']) . '" class="sr-only peer">';
+                    $output .= '<span class="flex items-center">';
+                    $output .= '<span class="flex flex-col text-sm">';
+                    $output .= '<span class="font-medium text-gray-900">' . esc_html($label_parts[0]) . '</span>';
+                    if (!empty($label_parts[1])) {
+                        $output .= '<span class="text-gray-500">';
+                        $output .= '<span class="block sm:inline">' . esc_html($label_parts[1]) . '</span>';
+                        if (!empty($label_parts[2])) {
+                            $output .= '<span class="hidden sm:mx-1 sm:inline" aria-hidden="true">&middot;</span>';
+                            $output .= '<span class="block sm:inline">' . esc_html($label_parts[2]) . '</span>';
+                        }
+                        $output .= '</span>';
+                    }
+                    $output .= '</span>';
+                    $output .= '</span>';
+                    if (!empty($label_parts[3])) {
+                        $output .= '<span class="mt-2 flex text-sm sm:ml-4 sm:mt-0 sm:flex-col sm:text-right">';
+                        $output .= '<span class="font-medium text-gray-900">' . esc_html($label_parts[3]) . '</span>';
+                        $output .= '<span class="ml-1 text-gray-500 sm:ml-0">/mo</span>';
+                        $output .= '</span>';
+                    }
                     $output .= '<svg class="h-5 w-5 text-indigo-600 hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
                     $output .= '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />';
                     $output .= '</svg>';
@@ -248,6 +285,13 @@ function render_field_exact($field)
             $output .= '</fieldset>';
             $output .= '</div>';
             break;
+
+
+
+
+
+
+
 
 
 
