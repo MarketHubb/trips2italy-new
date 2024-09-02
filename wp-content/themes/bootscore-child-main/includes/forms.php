@@ -89,52 +89,40 @@ function return_season_list($current_season)
 
 
 // Primary Lead (Form ID - 11)
-add_filter('gform_pre_render_11', 'populate_seasons_radio_input');
-add_filter('gform_pre_validation_11', 'populate_seasons_radio_input');
-add_filter('gform_pre_submission_filter_11', 'populate_seasons_radio_input');
-add_filter('gform_admin_pre_render_11', 'populate_seasons_radio_input');
-function populate_seasons_radio_input($form)
-{
-    foreach ($form['fields'] as &$field) {
+// add_filter('gform_pre_render_11', 'populate_seasons_radio_input');
+// add_filter('gform_pre_validation_11', 'populate_seasons_radio_input');
+// add_filter('gform_pre_submission_filter_11', 'populate_seasons_radio_input');
+// add_filter('gform_admin_pre_render_11', 'populate_seasons_radio_input');
+// function populate_seasons_radio_input($form)
+// {
+//     foreach ($form['fields'] as &$field) {
 
-        if ($field_props = $field->id === 8) {
+//         if ($field_props = $field->id === 8) {
 
-            $current_season = get_current_year_season()['season'];
-            $season_list = return_season_list($current_season);
-            $current_day = date("z");
-            $winter_count = 0;
-            $choices = [];
+//             $current_season = get_current_year_season()['season'];
+//             $season_list = return_season_list($current_season);
+//             $current_day = date("z");
+//             $winter_count = 0;
+//             $choices = [];
 
-            foreach ($season_list as $season) {
-                if ($season === 'winter') {
-                    $winter_count++;
-                }
+//             foreach ($season_list as $season) {
+//                 if ($season === 'winter') {
+//                     $winter_count++;
+//                 }
 
-                $year = (!$winter_count) ? date("Y") : date("Y", strtotime('+1 year'));
+//                 $year = (!$winter_count) ? date("Y") : date("Y", strtotime('+1 year'));
 
-                if ($season === 'winter') {
-                    $year = date("Y") . '/' . date("Y", strtotime('+1 year'));
-                }
+//                 if ($season === 'winter') {
+//                     $year = date("Y") . '/' . date("Y", strtotime('+1 year'));
+//                 }
 
-                // $input_val = ucfirst($season) . '<br>' . $year;
-                $input_val = '<span class="text-small text-secondary d-block">' .  ucfirst($season) . '</span><span class="fw-bolder"> ' . $year . '</span>';
-                $choices[] = ['text' => $input_val, 'value' => $input_val];
+//                 $input_val = '<span class="text-small text-secondary d-block">' .  ucfirst($season) . '</span><span class="fw-bolder"> ' . $year . '</span>';
+//                 $choices[] = ['text' => $input_val, 'value' => $input_val];
+                
+//             }
+//             $field->choices = $choices;
+//         }
+//     }
 
-                // if ($season === 'winter' && $current_day > 200) {
-                //     $start_year = date("Y");
-                //     $end_year = date("Y", strtotime('+1 year'));
-                //     $val = ucfirst($season) . ', ' . $start_year . ' / ' . $end_year;
-                //     $choices[] = ['text' => $val, 'value' => $val];
-                //     $winter_count++;
-                // } else {
-                //     $year = date("Y", strtotime('+' . $winter_count . ' year'));
-                //     $val = ucfirst($season) . ', ' . $year;
-                //     $choices[] = ['text' => $val, 'value' => $val];
-                // }
-            }
-            $field->choices = $choices;
-        }
-    }
-
-    return $form;
-}
+//     return $form;
+// }

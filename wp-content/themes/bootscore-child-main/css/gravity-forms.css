@@ -1,6 +1,9 @@
 /*
 * Custom via https://jetsloth.com/articles/gravity-forms/style-your-gravity-forms-checkbox-radio-fields-into-buttons-with-css/
 */
+.gform_wrapper label {
+    font-weight: unset;
+}
 .navbar.form-navs>div>div.d-grid {
     justify-content: space-between !important;
     grid-auto-flow: column !important;
