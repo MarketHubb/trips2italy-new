@@ -21,8 +21,8 @@ echo tw_section_open($section_args); ?>
             <div class="rounded shadow-xl bg-white ring-1 ring-gray-300">
                <img class="h-48 lg:h-72 rounded-t w-full border-b border-b-gray-300 object-cover object-center" src="<?php echo get_the_post_thumbnail_url($field['post']->ID); ?>" alt="" />
                <div class="px-6 py-8 flex flex-col justify-between">
-                  <a class="hover:text-blue" href="<?php echo get_permalink($field['post']->ID); ?>">
-                     <h3 class="text-lg lg:text-xl text-blueGray hover:text-blue tracking-normal mb-3"><?php echo get_the_title($field['post']->ID) ?></h3>
+                  <a class="hover:text-brand-500" href="<?php echo get_permalink($field['post']->ID); ?>">
+                     <h3 class="text-lg lg:text-xl text-brand-700 hover:text-brand-500 tracking-normal mb-3"><?php echo get_the_title($field['post']->ID) ?></h3>
                   </a>
                   <p class=" mt-auto text-base md:text-base text-gray-500 line-clamp-4"><?php echo get_excerpt_for_post(get_the_excerpt($field['post']->ID), 150); ?></p>
                </div>

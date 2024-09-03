@@ -30,7 +30,7 @@
 
       <?php } ?>
 
-      <h2 class="mt-2 text-orange font-[2rem] md:text-4xl stylized">Italy vacation packages</h2>
+      <h2 class="mt-2 text-secondary-500 font-[2rem] md:text-4xl stylized">Italy vacation packages</h2>
 
    </div>
 </div>

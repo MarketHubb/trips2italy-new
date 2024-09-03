@@ -26,7 +26,7 @@ echo tw_section_open($args); ?>
                      <img class="w-full h-48 rounded object-<?php echo $field['image_position']; ?> object-cover" src="<?php echo get_field('featured_image_mobile', $field['trip_type']->ID); ?>" alt="">
                      <div class="p-6 bs-blur rounded-b lg:rounded-b-none">
                         <div class="mt-3">
-                           <h3 class="stylized font-semibold leading-6 text-blueDark">
+                           <h3 class="stylized font-semibold leading-6 text-brand-500Dark">
                               <a href="<?php echo get_permalink($field['trip_type']->ID); ?>" class="font-bold text-[2rem] md:text-2xl lg:text-3xl focus:outline-none">
                                  <!-- Extend touch target to entire panel -->
                                  <span class="absolute inset-0" aria-hidden="true"></span>
@@ -35,7 +35,7 @@ echo tw_section_open($args); ?>
                            </h3>
                            <p class="mt-2 text-sm text-gray-700 line-clamp-2"><?php echo get_field('excerpt', $field['trip_type']->ID); ?></p>
                         </div>
-                        <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-blue" aria-hidden="true">
+                        <span class="pointer-events-none absolute right-6 top-6 text-gray-300 group-hover:text-brand-500" aria-hidden="true">
                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
                            </svg>

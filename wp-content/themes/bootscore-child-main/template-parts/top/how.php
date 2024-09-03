@@ -18,7 +18,7 @@
 //                    $how .= '<div class=" py-4 py-lg-5">';
                     $how .= '<div class="d-flex align-items-center">';
                     $how .= '<div class="flex-shrink-0">';
-                    $how .= '<i class="' . get_sub_field('icon') . ' text-blue fa-xl"></i>';
+                    $how .= '<i class="' . get_sub_field('icon') . ' text-brand-500 fa-xl"></i>';
                     $how .= '</div>';
                     $how .= '<div class="flex-grow-1 ms-3">';
                     $how .= '<p class="lead mb-1 pb-0 fw-bold text-dark roboto">';

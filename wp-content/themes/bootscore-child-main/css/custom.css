@@ -437,7 +437,7 @@ p.stylized {
     color: #404859 !important;
 }
 
-.text-blue {
+.text-brand-500 {
     color: rgb(25, 95, 164);
 }
 
@@ -728,7 +728,7 @@ button.btn.btn-primary:not(.page-active):hover {
     color: #4b5468 !important;
 }
 
-.text-orange {
+.text-secondary-500 {
     color: #e07d26 !important
 }
 

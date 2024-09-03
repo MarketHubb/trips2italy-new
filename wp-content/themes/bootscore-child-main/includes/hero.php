@@ -91,7 +91,7 @@ function form_heading($dynamic = null)
 function output_hero_heading($hero)
 {
     $heading_1_classes = ($hero['type'] !== "masonry") ? "text-white" : "";
-    $heading_2_classes = ($hero['type'] === "masonry") ? "text-primary text-gradient" : " stylized text-orange";
+    $heading_2_classes = ($hero['type'] === "masonry") ? "text-primary text-gradient" : " stylized text-seccondary-500";
 
     if (!empty($hero['copy']['heading_1'])) {
 

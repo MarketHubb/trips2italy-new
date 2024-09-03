@@ -27,7 +27,7 @@ get_template_part('template-parts/shared/content', 'scroller', $scroller_args);
    <div class="mt-16 flex justify-center">
       <p class="relative text-base rounded-full px-4 py-1.5 leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/10 hover:ring-gray-900/20">
          <span class="hidden md:inline">Over <span class="font-bold"><?php echo wp_count_posts('postcards')->publish; ?></span> wonderful clients have hand-written us thank you notes.</span>
-         <a href="<?php echo get_permalink(30385); ?>" class="text-base font-semibold text-blue"><span class="absolute inset-0" aria-hidden="true"></span> View all postcards <span aria-hidden="true">&rarr;</span></a>
+         <a href="<?php echo get_permalink(30385); ?>" class="text-base font-semibold text-brand-500"><span class="absolute inset-0" aria-hidden="true"></span> View all postcards <span aria-hidden="true">&rarr;</span></a>
       </p>
    </div>
 </div>

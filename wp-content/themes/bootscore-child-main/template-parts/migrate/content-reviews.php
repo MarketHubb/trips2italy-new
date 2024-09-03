@@ -27,7 +27,7 @@ foreach ($review_posts as $review_post) {
     // if ($review && $author) {
         $reviews .= '<div class="col-md-4 my-4">';
         $reviews .= '<div class="quote-icon position-relative d-flex z-index-2 justify-content-center">';
-        $reviews .= '<i class="fa-solid fa-quote-left text-orange fa-2xl"></i>';
+        $reviews .= '<i class="fa-solid fa-quote-left text-secondary-500 fa-2xl"></i>';
         $reviews .= '</div>';
         $reviews .= '<div class="border-radius-lg mx-auto p-3 blur shadow-blur review-container">';
         $reviews .= '<p class="review-copy p-3">' . $review . '</p>';

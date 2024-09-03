@@ -2,7 +2,7 @@
 
 <?php if (!empty($nav_fields)) { ?>
 
-   <header class="bg-brandMedium fixed top-0 left-0 right-0 w-full z-50 shadow-md" id="tw-nav-primary">
+   <header class="bg-brand-600 fixed top-0 left-0 right-0 w-full z-50 shadow-md" id="tw-nav-primary">
       <nav class="mx-auto flex max-w-7xl items-center justify-between !px-6 lg:px-8" aria-label="Global">
          <div class="flex lg:flex-1">
             <a href="<?php echo get_home_url(); ?>" class="-m-1.5 p-1.5 md:pt-0">

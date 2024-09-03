@@ -9,7 +9,7 @@
          <div class="pl-8 max-w-7xl mx-auto w-full z-10 relative py-24 lg:py-44 xl:py-56 ">
             <div class="lg:max-w-[40%] mb-[104px]">
                <h1 class="">
-                  <span class="text-xl md:text-3xl xl:text-4xl text-orangeLight tracking-normal block"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
+                  <span class="text-xl md:text-3xl xl:text-4xl text-secondary-400 tracking-normal block"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
                   <span class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white stylized"><?php echo $hero_inputs['copy']['heading_2']['desktop']; ?></span>
                </h1>
                <p class="text-white text-lg mt-6">

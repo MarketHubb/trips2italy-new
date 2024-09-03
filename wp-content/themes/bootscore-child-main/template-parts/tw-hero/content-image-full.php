@@ -10,9 +10,9 @@ $subheading = $hero['subheading'];
        style="background-image: url(<?php echo $bg_image; ?>);">
 
   </div>
-  <h1 class="absolute w-full top-[20%] sm:top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4 font-normal md:font-thin text-blueGray text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+  <h1 class="absolute w-full top-[20%] sm:top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4 font-normal md:font-thin text-brand-700 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
     <?php echo $heading; ?> 
-    <span class="text-orangeDark stylized font-thin block"><?php echo $subheading; ?></span>
+    <span class="text-secondary-500Dark stylized font-thin block"><?php echo $subheading; ?></span>
   </h1>
 </section>
 

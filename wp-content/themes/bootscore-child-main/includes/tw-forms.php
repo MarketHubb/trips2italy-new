@@ -2,7 +2,7 @@
 function gravity_form_to_tailwind_exact($form)
 {
     $output = '<div class="space-y-10 divide-y divide-gray-900/10">';
-    $output .= '<form id="gform_' . $form['id'] . '" class="gform_wrapper gravity-theme space-y-10 md:space-y-16 divide-y divide-gray-900/10 bg-transparent" method="post" enctype="multipart/form-data">';
+    $output .= '<form data-form-id="' . $form['id'] . '" id="gform_' . $form['id'] . '" class="gform_wrapper gravity-theme space-y-10 md:space-y-16 divide-y divide-gray-900/10 bg-transparent" method="post" enctype="multipart/form-data">';
 
     if (!empty($form['pagination'])) {
         // Paginated form
@@ -53,37 +53,34 @@ function gravity_form_to_tailwind_exact($form)
         $output .= '</div>'; // Close grid grid-cols-1
     }
 
-    // Add submit button and hidden fields
-    $output .= '<div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">';
-    $output .= '<button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>';
-    $output .= '<input type="submit" id="gform_submit_button_' . $form['id'] . '" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" value="Save">';
-    $output .= '</div>';
-
     $output .= add_hidden_fields($form);
+    $output .= get_form_submit($form);
     $output .= '</form>';
     $output .= '</div>'; // Close space-y-10 divide-y
 
     return $output;
 }
 
-
-
-
 function get_validation_markup($field)
 {
     $is_required = isset($field['isRequired']) && $field['isRequired'];
+    $input_class_array = get_input_class_array($field);
     $output = '';
 
-    if ($is_required) {
+    if ($is_required || in_array('conditional-required', $input_class_array)) {
         // Error icon
         $output .= '<div class="pointer-events-none absolute inset-y-0 right-0 flex items-start pt-2 pr-3 hidden">';
-        $output .= '<svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
-        $output .= '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />';
-        $output .= '</svg>';
+
+        if ($field['type'] !== 'date') {
+            $output .= '<svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
+            $output .= '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />';
+            $output .= '</svg>';
+        }
+        
         $output .= '</div>';
 
         // Error message
-        $output .= '<p class=" mt-2 text-sm text-red-600 hidden" id="error_' . $field['id'] . '">' . esc_html($field['label']) . ' is required.</p>';
+        $output .= '<p class=" mt-2 text-sm text-red-600 hidden" id="error_' . $field['id'] . '">This field is required.</p>';
     }
 
     return $output;
@@ -146,7 +143,7 @@ function render_field_exact($field)
     $has_conditional_logic = !empty($field['conditionalLogic']) && is_array($field['conditionalLogic']);
     $conditional_logic = $has_conditional_logic ? json_encode($field['conditionalLogic']) : '';
 
-    $wrapper_class = 'gfield py-3';
+    $wrapper_class = 'gfield';
     $wrapper_class .= $is_hidden ? ' gfield_hidden' : '';
     $wrapper_class .= !empty($field['cssClass']) ? ' ' . $field['cssClass'] : '';
     $wrapper_class .= $has_conditional_logic ? ' gfield_conditional' : '';
@@ -154,6 +151,8 @@ function render_field_exact($field)
     $output .= '<div id="field_' . $field['id'] . '" class="' . $wrapper_class . '" ';
     $output .= 'data-field-id="' . $field['id'] . '" ';
     $output .= 'data-field-type="' . $field['type'] . '" ';
+    $output .= 'data-field-type="' . $field['type'] . '" ';
+
     if ($conditional_logic) {
         $output .= 'data-conditional-logic="' . esc_attr($conditional_logic) . '" ';
     }
@@ -162,10 +161,10 @@ function render_field_exact($field)
     if ($is_hidden) {
         $output .= render_hidden_field($field);
     } else {
-        $is_required = isset($field['isRequired']) && $field['isRequired'];
-        $input_class = 'peer block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-6';
-        // $input_class_array = explode(' ', $field['cssClass']);
         $input_class_array = get_input_class_array($field);
+        $is_required = isset($field['isRequired']) && $field['isRequired'];
+        $input_class = ' peer block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-6 placeholder:italic placeholder:text-slate-400 ';
+        // $input_class_array = explode(' ', $field['cssClass']);
 
         switch ($field['type']) {
             case 'text':
@@ -187,7 +186,13 @@ function render_field_exact($field)
                 $output .= '<div class="col-span-full">';
                 $output .= '<label for="input_' . $field['id'] . '" class="block text-sm font-medium leading-6 text-gray-900">' . esc_html($field['label']) . '</label>';
                 $output .= '<div class="relative mt-2">';
-                $output .= '<textarea id="input_' . $field['id'] . '" name="input_' . $field['id'] . '" rows="3" class="' . $input_class . '"' . ($is_required ? ' required' : '') . '></textarea>';
+                $output .= '<textarea id="input_' . $field['id'] . '" name="input_' . $field['id'] . '" rows="5" class="' . $input_class . '"' . ($is_required ? ' required' : '') . ' ;';
+
+                if ($field['placeholder']) {
+                    $output .= ' placeholder="' . $field['placeholder'] . '" ';
+                }
+
+                $output .= '></textarea>';
                 $output .= get_validation_markup($field);
                 $output .= '</div>';
                 $output .= '<p class="mt-3 text-sm leading-6 text-gray-600">' . (isset($field['description']) ? esc_html($field['description']) : '') . '</p>';
@@ -211,11 +216,10 @@ function render_field_exact($field)
             case 'checkbox':
             case 'radio':
                 $output .= '<div class="col-span-full">';
-                $output .= '<fieldset>';
+                $output .= '<fieldset class="relative">';
                 $output .= get_legend_for_field($field['label']);
 
                 if (in_array('row-cards', $input_class_array)) {
-                    // $output .= '<div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">';
                     $output .= '<div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 auto-rows-fr">';
                 } elseif (in_array('col-cards', $input_class_array)) {
                     $output .= '<div class="space-y-4">';
@@ -223,20 +227,23 @@ function render_field_exact($field)
                     $output .= '<div class="mt-6 space-y-6">';
                 }
 
+                $input_index = 1;
                 foreach ($field['choices'] as $index => $choice) {
                     $choice_id = 'choice_' . $field['id'] . '_' . $index;
                     $label_parts = explode(' - ', $choice['text'], 2);
 
                     if (in_array('row-cards', $input_class_array) || in_array('col-cards', $input_class_array)) {
-                        $output .= render_card_input($field, $choice, $choice_id, $index, $label_parts);
+                        $output .= render_card_input($field, $choice, $choice_id, $index, $label_parts, $input_index);
                     } else {
-                        $output .= render_standard_input($field, $choice, $choice_id, $index, $label_parts);
+                        $output .= render_standard_input($field, $choice, $choice_id, $index, $label_parts, $input_index);
                     }
+
+                    $input_index++;
                 }
 
                 $output .= '</div>';
-                $output .= get_validation_markup($field);
                 $output .= '</fieldset>';
+                $output .= get_validation_markup($field);
                 $output .= '</div>';
                 break;
 
@@ -283,31 +290,12 @@ function render_field_exact($field)
     return $output;
 }
 
-
-// function render_card_input($field, $choice, $choice_id, $index, $label_parts)
-// {
-//     $output = '<label class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none">';
-//     $output .= '<input type="' . $field['type'] . '" name="input_' . $field['id'] . '" id="' . $choice_id . '" value="' . esc_attr($choice['value']) . '" class="sr-only peer">';
-//     $output .= '<span class="flex flex-1">';
-//     $output .= '<span class="flex flex-col">';
-//     $output .= '<span class="block text-base font-medium text-gray-900 pr-5 leading-6">' . esc_html($label_parts[0]) . '</span>';
-//     if (isset($label_parts[1])) {
-//         $output .= '<span class="mt-1 flex font-normal items-center text-sm text-gray-500">' . esc_html($label_parts[1]) . '</span>';
-//     }
-//     $output .= '</span>';
-//     $output .= '</span>';
-//     $output .= '<svg class="absolute right-[10px] h-5 w-5 text-indigo-600 hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
-//     $output .= '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />';
-//     $output .= '</svg>';
-//     $output .= '<span class="pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent peer-checked:border-indigo-600" aria-hidden="true"></span>';
-//     $output .= '</label>';
-//     return $output;
-// }
-function render_card_input($field, $choice, $choice_id, $index, $label_parts)
+function render_card_input($field, $choice, $choice_id, $index, $label_parts, $input_index)
 {
+    $required = $input_index === 1 && $field['isRequired'] ? ' required ' : '';
     $output = '<div class="relative">'; // Wrapper to maintain layout
-    $output .= '<input type="' . $field['type'] . '" name="input_' . $field['id'] . '" id="' . $choice_id . '" value="' . esc_attr($choice['value']) . '" class="sr-only peer">';
-    $output .= '<label for="' . $choice_id . '" class="flex cursor-pointer h-full rounded-lg border text-gray-600 font-medium bg-white p-4 shadow-sm focus:outline-none peer-checked:ring-2 peer-checked:ring-blue peer-checked:text-gray-900">';
+    $output .= '<input type="' . $field['type'] . '" name="input_' . $field['id'] . '" id="' . $choice_id . '" value="' . esc_attr($choice['value']) . '" class="sr-only peer" ' . $required . ' >';
+    $output .= '<label for="' . $choice_id . '" class="flex cursor-pointer h-full rounded-lg border text-gray-600 font-medium bg-white p-4 shadow-sm focus:outline-none peer-checked:ring-2 peer-checked:ring-brand-500 peer-checked:bg-brand-100/30 peer-checked:text-gray-900">';
     $output .= '<span class="flex flex-1">';
     $output .= '<span class="flex flex-col">';
     $output .= '<span class="block text-base pr-5 leading-6">' . esc_html($label_parts[0]) . '</span>';
@@ -317,7 +305,7 @@ function render_card_input($field, $choice, $choice_id, $index, $label_parts)
     $output .= '</span>';
     $output .= '</span>';
     $output .= '</label>';
-    $output .= '<svg class="absolute right-[10px] top-[18px] h-5 w-5 text-blue hidden peer-checked:block pointer-events-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
+    $output .= '<svg class="absolute right-[10px] top-[18px] h-5 w-5 text-brand-500 hidden peer-checked:block pointer-events-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">';
     $output .= '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />';
     $output .= '</svg>';
     $output .= '</div>';
@@ -342,14 +330,24 @@ function render_standard_input($field, $choice, $choice_id, $index, $label_parts
 
 function add_hidden_fields($form)
 {
-    $output = '<input type="hidden" name="gform_ajax" value="form_id=' . $form['id'] . '&amp;title=' . urlencode($form['title']) . '&amp;description=' . urlencode($form['description']) . '&amp;tabindex=0">';
-    $output .= '<input type="hidden" class="gform_hidden" name="is_submit_' . $form['id'] . '" value="1">';
-    $output .= '<input type="hidden" class="gform_hidden" name="gform_submit" value="' . $form['id'] . '">';
-    $output .= '<input type="hidden" class="gform_hidden" name="gform_unique_id" value="">';
-    $output .= '<input type="hidden" class="gform_hidden" name="state_' . $form['id'] . '" value="WyJbXSIsImU5MjYyMWVmOWYzYWVkZjQxZDM0OTRmYmU4NTMzNGQ4Il0=">';
-    $output .= '<input type="hidden" class="gform_hidden" name="gform_target_page_number_' . $form['id'] . '" id="gform_target_page_number_' . $form['id'] . '" value="0">';
-    $output .= '<input type="hidden" class="gform_hidden" name="gform_source_page_number_' . $form['id'] . '" id="gform_source_page_number_' . $form['id'] . '" value="1">';
-    $output .= '<input type="hidden" name="gform_field_values" value="">';
+    $output = '';
+    $output .= '<input type="hidden" name="gform_ajax" value="form_id=' . $form['id'] . '&amp;title=' . urlencode($form['title']) . '&amp;description=' . urlencode($form['description']) . '&amp;tabindex=0">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="is_submit_' . $form['id'] . '" value="1">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="gform_submit" value="' . $form['id'] . '">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="gform_submit" value="' . $form['id'] . '">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="gform_unique_id" value="">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="state_' . $form['id'] . '" value="WyJbXSIsImU5MjYyMWVmOWYzYWVkZjQxZDM0OTRmYmU4NTMzNGQ4Il0=">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="gform_target_page_number_' . $form['id'] . '" id="gform_target_page_number_' . $form['id'] . '" value="0">';
+    // $output .= '<input type="hidden" class="gform_hidden" name="gform_source_page_number_' . $form['id'] . '" id="gform_source_page_number_' . $form['id'] . '" value="1">';
+    // $output .= '<input type="hidden" name="gform_field_values" value="">';
 
     return $output;
+}
+
+function get_form_submit($form)
+{
+    if (empty($form['button'])) return null;
+
+    return '<input type="submit" id="gform_submit_button_' . $form['id'] . '" class="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" value="' . $form['button']['text'] . '">';
+    // return '<input type="submit" id="gform_submit_button_' . $form['id'] . '" class="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" value="' . $form['button']['text'] . '" onclick="if(window[&quot;gf_submitting_' . $form['id'] . '&quot;]){return false;}  if( !jQuery(&quot;#gform_' . $form['id'] . '&quot;)[0].checkValidity || jQuery(&quot;#gform_' . $form['id'] . '&quot;)[0].checkValidity()){window[&quot;gf_submitting_' . $form['id'] . '&quot;]=true;}  " onkeypress="if( event.keyCode == 13 ){ if(window[&quot;gf_submitting_' . $form['id'] . '&quot;]){return false;} if( !jQuery(&quot;#gform_' . $form['id'] . '&quot;)[0].checkValidity || jQuery(&quot;#gform_' . $form['id'] . '&quot;)[0].checkValidity()){window[&quot;gf_submitting_' . $form['id'] . '&quot;]=true;}  jQuery(&quot;#gform_' . $form['id'] . '&quot;).trigger(&quot;submit&quot;,[true]); }">';
 }

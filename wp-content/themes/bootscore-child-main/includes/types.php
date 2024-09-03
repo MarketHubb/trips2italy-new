@@ -11,7 +11,7 @@ function get_section_heading($heading, $sub, $section=true, $color=false)
     $section_heading = '<' . $tag . ' class="' . $text_color . '">' . $heading;
 
     if ($sub) {
-        $section_heading .= '<span class="d-block script display-2 text-blue pt-1">' . $sub . '</span></' . $tag . '>';
+        $section_heading .= '<span class="d-block script display-2 text-brand-500 pt-1">' . $sub . '</span></' . $tag . '>';
     }
 
     return $section_heading;

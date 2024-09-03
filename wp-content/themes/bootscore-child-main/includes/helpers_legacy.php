@@ -36,7 +36,7 @@ function return_section_heading($heading, $subheading=null)
 {
     $section_heading  = '<div class="row section-heading justify-content-center">';
     $section_heading .= '<div class="col-md-10 text-center">';
-    $section_heading .= '<h2 class="font-weight-bold text-blue mb-3">' . $heading . '</h2>';
+    $section_heading .= '<h2 class="font-weight-bold text-brand-500 mb-3">' . $heading . '</h2>';
 
     if ($subheading) {
         $section_heading .= '<p class="mb-0 mb-md-3">' . $subheading. '</p>';

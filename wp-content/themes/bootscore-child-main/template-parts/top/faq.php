@@ -20,7 +20,7 @@
 
                 $c .= '<div class="text-center mt-auto">';
                 $c .= '<p class="">';
-                $c .= ' <i class="text-orange fa-solid fa-star-sharp"></i><i class="text-orange fa-solid fa-star-sharp"></i><i class="text-orange fa-solid fa-star-sharp"></i><i class="text-orange fa-solid fa-star-sharp"></i><i class="text-orange fa-solid fa-star-sharp"></i>';
+                $c .= ' <i class="text-secondary-500 fa-solid fa-star-sharp"></i><i class="text-secondary-500 fa-solid fa-star-sharp"></i><i class="text-secondary-500 fa-solid fa-star-sharp"></i><i class="text-secondary-500 fa-solid fa-star-sharp"></i><i class="text-secondary-500 fa-solid fa-star-sharp"></i>';
                 $c .= '</p>';
                 $c .= '<p class=""><small class="fw-bold">' . get_the_title($id) . '</small></p>';
                 $c .= '<img src="' . get_field('image', $id) . '" class="rounded-circle w-25 p-1" />';

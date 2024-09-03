@@ -28,7 +28,7 @@ $mobile_aspect_ratio = 177.78; // Assuming 16:9 ratio (16 / 9 * 100)
     <!-- Hero copy -->
     <div class="text-center mb-6 animate-fade-in-up text-white">
       <p class="font-heading text-2xl md:text-3xl lg:text-4xl mb-0">Custom, one-of-a-kind</p>
-      <h1 class="text-orangeLight stylized font-thin block text-5xl lg:text-6xl">Honeymoons to Italy</h1>
+      <h1 class="text-secondary-400 stylized font-thin block text-5xl lg:text-6xl">Honeymoons to Italy</h1>
       <p class="text-lg lg:text-2xl opacity-90">Celebrate your love in the most romantic place on earth</p>
     </div>
   </div>
@@ -46,7 +46,7 @@ $mobile_aspect_ratio = 177.78; // Assuming 16:9 ratio (16 / 9 * 100)
         $icons .= '<img class="max-w-12 inline-block opacity-90" src="' . get_sub_field('icon') . '" />';
         $icons .= '</div>';
         $icons .= '<p class="text-xs mb-0 uppercase opacity-70 tracking-wide">' . get_sub_field('lead_in') . '</p>';
-        $icons .= '<p class="text-lg text-orangeLight stylized">' . get_sub_field('callout') . '</p>';
+        $icons .= '<p class="text-lg text-secondary-400 stylized">' . get_sub_field('callout') . '</p>';
         $icons .= '</div>';
       endwhile;
       echo $icons;

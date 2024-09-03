@@ -14,10 +14,10 @@
 
 								<div class="relative pl-9">
 									<dt class="font-semibold text-gray-900 inline-flex items-center">
-										<div class="absolute left-1 top-1 h-5 w-5 text-blue">
+										<div class="absolute left-1 top-1 h-5 w-5 text-brand-500">
 											<i class="<?php echo $fields['icon']; ?> fa-lg object-contain w-full h-auto "></i>
 										</div>
-										<h3 class="pl-2 stylized inline-block font-normal text-2xl lg:text-4xl  text-orange "><?php echo $fields['callout'] ?></h3>
+										<h3 class="pl-2 stylized inline-block font-normal text-2xl lg:text-4xl  text-secondary-500 "><?php echo $fields['callout'] ?></h3>
 									</dt>
 									<dd class="block pl-2 mt-1">
 										<p class="text-gray-700 text-base md:text-lg lg:text-lg"><?php echo $fields['description']; ?></p>

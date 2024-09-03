@@ -33,7 +33,7 @@ function get_scroll_panels($args = [])
 		$panels .= '<div class="' . $item_div_classes . '">';
 		$panels .= '<div class="flex items-center justify-center p-2">';
 		$panels .= '<div class="relative w-full max-w-lg aspect-auto">';
-		$panels .= '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-brand opacity-50 rounded-full filter blur-xl"></div>';
+		$panels .= '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-brand-500-500-500 opacity-50 rounded-full filter blur-xl"></div>';
 		$panels .= '<img src="' . $fields['image']['url'] . '" alt="base image" class=" ' . $item_img_classes . '">';
 		$panels .= '<img src="' . get_home_url() . '/wp-content/uploads/2024/07/spiral.svg" alt="overlay image" class="absolute inset-0 w-full h-full object-contain opacity-20">';
 		$panels .= '</div></div>';
@@ -55,7 +55,7 @@ function get_image_grid($content_collection)
 {
 	if (!empty($content_collection['content'])) {
 		$grid_classes = !empty($content_collection['classes']['grid']) ? $content_collection['classes']['grid'] : ' grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 ';
-		$heading_classes = !empty($content_collection['classes']['heading']) ? $content_collection['classes']['heading'] : ' text-[2rem] md:text-3xl lg:text-4xl mt-4 stylized text-orange ';
+		$heading_classes = !empty($content_collection['classes']['heading']) ? $content_collection['classes']['heading'] : ' text-[2rem] md:text-3xl lg:text-4xl mt-4 stylized text-seccondary-500 ';
 		$copy_container_classes = !empty($content_collection['classes']['copy_container']) ? $content_collection['classes']['copy_container'] : ' ';
 		$image_classes = !empty($content_collection['classes']['image']) ? $content_collection['classes']['image'] : ' h-56 w-full object-cover object-center group-hover:opacity-75 ';
 		$description_classes = !empty($content_collection['classes']['description']) ? $content_collection['classes']['description'] : ' line-clamp-3 text-gray-600 text-lg ';
@@ -104,9 +104,9 @@ function get_vertical_list($content_array)
 			$description_color_class = $i === 2 ? ' text-gray-800 ' : ' text-gray-600 ';
 			$why_us .= '<div class="relative px-6 lg:px-9 py-8' . $bg_color_class . '">';
 			$why_us .= '<dt class="text-gray-900 lg:text-xl">';
-			$why_us .= '<svg class="hidden absolute left-0 top-1 h-5 w-5 text-orange" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>';
-			$why_us .= '<span class="text-xl font-heading text-blueGray font-bold antialiased block">' . $content_item['callout'] . '</span>';
-			$why_us .= '<span class="stylized inline text-3xl lg:text-4xl  text-orange">' . $content_item['heading'] . '</span>';
+			$why_us .= '<svg class="hidden absolute left-0 top-1 h-5 w-5 text-seccondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>';
+			$why_us .= '<span class="text-xl font-heading text-brand-500-700 font-bold antialiased block">' . $content_item['callout'] . '</span>';
+			$why_us .= '<span class="stylized inline text-3xl lg:text-4xl  text-seccondary-500">' . $content_item['heading'] . '</span>';
 			$why_us .= '<dd class=" mt-5 ' . $description_color_class . '">' . $content_item['description'] . '</dd>';
 			$why_us .= '</dt>';
 			$why_us .= '</div>';
@@ -148,14 +148,14 @@ function get_hero_fields($queried_obj)
 // GLOBAL
 function tw_heading_classes($light_bg = true)
 {
-	$color = $light_bg ? ' text-blueGray ' : ' text-white ';
+	$color = $light_bg ? ' text-brand-500-700 ' : ' text-white ';
 	return ' mb-0 md:leading-normal font-heading tracking-none text-2xl md:text-2xl lg:text-3xl mb-1 ' . $color;
 }
 
 function tw_callout_classes($light_bg = true)
 {
-	$color = $light_bg ? ' text-orange ' : ' text-blue ';
-	return ' stylized font-normal text-4xl leading-[2.5rem] lg:leading-[3.5rem] lg:text-6xl text-blue ' . $color;
+	$color = $light_bg ? ' text-seccondary-500 ' : ' text-brand-500 ';
+	return ' stylized font-normal text-4xl leading-[2.5rem] lg:leading-[3.5rem] lg:text-6xl text-brand-500 ' . $color;
 }
 
 function tw_form_cta_btn($args)
@@ -243,14 +243,14 @@ function tw_heading($post_id, $field_name, $align = null)
 
 	$heading_base_classes = ' mb-0 md:leading-normal font-heading tracking-none text-2xl md:text-2xl lg:text-3xl ';
 	$align_class = $align ?: ' text-center ';
-	$heading_classes = ($bg_color === 'Dark') ? ' text-white ' : ' text-blueGray ';
+	$heading_classes = ($bg_color === 'Dark') ? ' text-white ' : ' text-brand-500-700 ';
 	$heading  = '<div class="pb-12 ' . $align_class . '">';
 	$heading .= '<h2 class="' . $heading_base_classes . $heading_classes . '">';
 	$heading .= $fields['heading'] . '</h2>';
 
 	if (isset($fields['subheading']) && !empty($fields['subheading'])) {
 		$subheading_base_classes = ' stylized font-normal text-4xl lg:text-6xl ';
-		$subheading_classes = ($bg_color === 'Dark') ? ' text-orangeLight ' : ' text-blue ';
+		$subheading_classes = ($bg_color === 'Dark') ? ' text-seccondary-500Light ' : ' text-brand-500 ';
 		$heading .= '<h2 class="' . $subheading_base_classes . $subheading_classes . '">';
 		$heading .= $fields['subheading'] . '</h2>';
 	}
@@ -280,7 +280,7 @@ function tw_heading($post_id, $field_name, $align = null)
 function tw_section_heading($copy = [], $bg_light = true, $align = null)
 {
 	$heading_base_classes = ' mb-0 md:leading-normal font-heading tracking-none text-xl md:text-2xl lg:text-3xl ';
-	$heading_classes = (!$bg_light) ? ' text-white ' : ' text-blueGray ';
+	$heading_classes = (!$bg_light) ? ' text-white ' : ' text-brand-500-700 ';
 	$align_class = $align ?: ' text-center ';
 	$heading  = '<div class="pb-12 ' . $align_class . '">';
 	$heading .= '<h2 class="' . $heading_base_classes . $heading_classes . '">';
@@ -288,7 +288,7 @@ function tw_section_heading($copy = [], $bg_light = true, $align = null)
 
 	if (isset($copy['subheading']) && !empty($copy['subheading'])) {
 		$subheading_base_classes = ' stylized font-normal text-3xl md:text-4xl lg:text-6xl ';
-		$subheading_classes = (!$bg_light) ? ' text-orangeLight ' : ' text-blue ';
+		$subheading_classes = (!$bg_light) ? ' text-seccondary-500Light ' : ' text-brand-500 ';
 		$heading .= '<h2 class="' . $subheading_base_classes . $subheading_classes . '">';
 		$heading .= $copy['subheading'] . '</h2>';
 	}

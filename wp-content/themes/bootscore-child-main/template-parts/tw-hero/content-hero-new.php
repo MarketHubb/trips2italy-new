@@ -33,7 +33,7 @@
                </p>
             <?php } ?>
             <?php if ($hero_fields['subheading']) { ?>
-               <h1 class="text-orangeLight stylized font-thin block text-[2.25rem] lg:text-6xl mb-4 lg:mb-7">
+               <h1 class="text-secondary-400 stylized font-thin block text-[2.25rem] lg:text-6xl mb-4 lg:mb-7">
                   <?php echo $hero_fields['subheading']; ?>
                </h1>
             <?php } ?>
@@ -54,7 +54,7 @@
       <div class="lg:max-w-3xl mx-auto pb-6 animate-on-scroll relative z-30 bottom-10 -mb-10 lg:bottom-28 lg:-mb-28">
          <?php if ($hero_fields['description']) { ?>
             <div class="mx-auto text-center">
-               <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-orangeLight border border-orangeLight" role="button">
+               <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight" role="button">
                   <span><?php echo $hero_fields['copy_main']; ?></span>
                   <?php if ($hero_fields['copy_secondary']) { ?>
                      <span class="font-normal"> - <?php echo $hero_fields['copy_secondary']; ?></span>
@@ -87,7 +87,7 @@
                   $icons .= '<img class="max-h-12 inline-block opacity-90" src="' . $val['icon'] . '" />';
                   $icons .= '</div>';
                   $icons .= '<p class="text-xs lg:text-base mb-0 uppercase lg:tracking-wide opacity-90 tracking-wide font-heading">' . $val['lead_in'] . '</p>';
-                  $icons .= '<p class="text-xl lg:text-2xl text-orangeLight stylized">' . $val['callout'] . '</p>';
+                  $icons .= '<p class="text-xl lg:text-2xl text-secondary-400 stylized">' . $val['callout'] . '</p>';
                   $icons .= '</div>';
                }
                echo $icons;

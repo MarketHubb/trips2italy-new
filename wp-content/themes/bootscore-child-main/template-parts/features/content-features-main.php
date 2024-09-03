@@ -13,7 +13,7 @@
                             <i class="<?php echo $section['icon']; ?> fa-xl"></i>
                         </div>
                         <div class="description ps-3">
-                            <p class="lead pb-1 mb-1 text-blue"><strong><?php echo $section['heading']; ?></strong></p>
+                            <p class="lead pb-1 mb-1 text-brand-500"><strong><?php echo $section['heading']; ?></strong></p>
                             <p class="mb-0"><?php echo $section['description']; ?></p>
                         </div>
                     </div>

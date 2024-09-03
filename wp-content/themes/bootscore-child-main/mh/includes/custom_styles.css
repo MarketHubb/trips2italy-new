@@ -202,7 +202,7 @@ footer.site-footer .row section h2:after {
     background: linear-gradient(
         0deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.1) 15%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.5) 100%);
 }
-.text-orange {
+.text-seccondary-500 {
     color: #e07d26;
 }
 .bt-blue {
@@ -214,10 +214,10 @@ footer.site-footer .row section h2:after {
 .bt-orange {
     border-top: 6px solid #e07d26;
 }
-.text-blue {
+.text-brand-500 {
     color: rgb(25, 95, 164);
 }
-.text-blue-light, .text-light-blue {
+.text-brand-500-light, .text-light-blue {
     color: #5E9CCF;
 }
 .bg-blue-light {

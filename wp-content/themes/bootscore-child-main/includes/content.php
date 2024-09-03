@@ -281,8 +281,8 @@ function get_stats($stats = array())
 		foreach ($stats as $stat) {
 			$content .= '<div class="col-md-4 position-relative">';
 			$content .= '<div class="p-3 text-center">';
-			$content .= '<h3 class="text-blue tracking-wide text-2xl font-semibold font-heeading">' . $stat['stat'] . '</h3>';
-			$content .= '<h4 class="mt-3 stylized text-orange text-xl lg:text-3xl mb-6">' . $stat['subheading'] . '</h4>';
+			$content .= '<h3 class="text-brand-500 tracking-wide text-2xl font-semibold font-heeading">' . $stat['stat'] . '</h3>';
+			$content .= '<h4 class="mt-3 stylized text-secondary-500 text-xl lg:text-3xl mb-6">' . $stat['subheading'] . '</h4>';
 			$content .= '<p class="text-gray-700 text-base lg:text-lg px-4">' . $stat['description'] . '</p>';
 			$content .= '</div><hr class="vertical dark"></div>';
 		}
@@ -737,7 +737,7 @@ function get_alternate_text($section, $side)
 	$text = '<div class="col-lg-6 col-md-12 me-auto ' . $column_classes . '">
                 <div class="p-3 pt-0">
                     <h2 class=" tracking-normal fw-bolder mt-3 mb-0 text-xl md:text-2xl">' . $section['region'] . '</h2>
-                    <h4 class="mb-4 stylized text-2xl md:text-3xl text-orange">' . $section['callout'] . '</h4>
+                    <h4 class="mb-4 stylized text-2xl md:text-3xl text-secondary-500">' . $section['callout'] . '</h4>
                     <p class="region-description text-gray-600 text-lg lg:text-xl mb-4">' . $section['excerpt'] . '</p>';
 
 	// $text .= '<a href="' . $section['region_link'] . '" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'];

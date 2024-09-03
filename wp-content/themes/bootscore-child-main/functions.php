@@ -100,6 +100,8 @@ function enqueue_tailwind() {
 		wp_enqueue_style('tailwind-css', get_stylesheet_directory_uri() . '/css/tailwind.css', array(), null, 'all');
 		wp_enqueue_style('tailwind-overrides', get_stylesheet_directory_uri() . '/css/tailwind-overrides.css', array('tailwind-css'), null, 'all');
 		wp_enqueue_script('tailwind-form', get_stylesheet_directory_uri() . '/js/tw-form.js', [], null, false);
+	    wp_localize_script('tailwind-form', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+	
 	// }
 }
 add_action('wp_enqueue_scripts', 'enqueue_tailwind', 999);

@@ -8,15 +8,15 @@
                 <h3 class="form-feature-heading">Every Trip Includes:</h3>
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-feature">
-                <i class="fal fa-passport fa-2x text-blue"></i>
+                <i class="fal fa-passport fa-2x text-brand-500"></i>
                 <h4>Custom Built Itineraries</h4>
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-feature">
-                <i class="fal fa-plane-departure fa-2x text-blue"></i>
+                <i class="fal fa-plane-departure fa-2x text-brand-500"></i>
                 <h4>Flights &amp; Transportation</h4>
             </div>
             <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-feature">
-                <i class="fal fa-wine-glass-alt fa-2x text-blue"></i>
+                <i class="fal fa-wine-glass-alt fa-2x text-brand-500"></i>
                 <h4>Best Local Food &amp; Wine</h4>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -39,13 +39,13 @@
                 <div class="form-phone-details-container me-2">
                     <h3 class="fw-bold text-tight roboto mb-1">
                         <i class="fa-thin fa-champagne-glasses pe-2"></i>
-                        <span class="script letter-wide-medium text-blue d-inline-block d-inline-block mt-1 mb-3 px-1">Congratulations!</span>
+                        <span class="script letter-wide-medium text-brand-500 d-inline-block d-inline-block mt-1 mb-3 px-1">Congratulations!</span>
                         <i class="fa-thin fa-olive-branch ps-1"></i>
                         <br>
                         <span>You're so close to the Italian <span class="trip-type">honeymoon</span> of your dreams</span>
                     </h3>
                     <p class="text-black-50 mb-3">Fill out your information & our Italy experts will contact you when your itinerary is ready.</p>
-                    <p class="text-black-50 mb-0">Can't wait? Call <a href="tel:1-866-464-8259" id="form-phone-number" class="roboto fw-bold text-blue">1-866-464-8259</a></p>
+                    <p class="text-black-50 mb-0">Can't wait? Call <a href="tel:1-866-464-8259" id="form-phone-number" class="roboto fw-bold text-brand-500">1-866-464-8259</a></p>
                 </div>
             </div>
         </div>

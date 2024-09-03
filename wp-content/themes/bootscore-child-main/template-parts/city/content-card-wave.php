@@ -44,7 +44,7 @@
                 $callouts .= '</div>';
                 $callouts .= '<div class="card-body pt-0">';
 
-                $heading = str_replace("{", '<span class="stylized text-blue">', get_sub_field('heading'));
+                $heading = str_replace("{", '<span class="stylized text-brand-500">', get_sub_field('heading'));
                 $heading = str_replace("}", '</span>', $heading);
 
                 $callouts .= '<h3 class="fs-5 fw-bolder mb-4">' . $heading . '</h3>';

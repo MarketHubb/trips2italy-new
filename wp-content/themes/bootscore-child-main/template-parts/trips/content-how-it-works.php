@@ -37,8 +37,8 @@
                $how .= '</div>';
                $how .= '</div>';
                $how .= '<div class="flex flex-col flex-auto px-8 pb-8">';
-               $how .= '<h3 class="stylized text-orangeLight text-xl md:text-2xl mb-1 pl-4">' . $callout . '</h3>';
-               $how .= '<h3 class="font-heading text-lg md:text-xl font-semibold antialiased text-blueGray tracking-normal mb-4">';
+               $how .= '<h3 class="stylized text-secondary-400 text-xl md:text-2xl mb-1 pl-4">' . $callout . '</h3>';
+               $how .= '<h3 class="font-heading text-lg md:text-xl font-semibold antialiased text-brand-700 tracking-normal mb-4">';
                $how .= $i . '. ' .  $content_item['heading'] . '</h3>';
                $how .= '<p>' . $descripion . '</p>';
                $how .= '</div></div>';
@@ -79,7 +79,7 @@
                   $callouts .= '</div>';
                   $callouts .= '<div class="card-body pt-0 pb-12 lg:px-16">';
 
-                  $heading = str_replace("{", '<span class="stylized text-blue">', get_sub_field('heading'));
+                  $heading = str_replace("{", '<span class="stylized text-brand-500">', get_sub_field('heading'));
                   $heading = str_replace("}", '</span>', $heading);
 
                   $callouts .= '<p class="text-base lg:text-xl tracking-normal text-gray-900 font-semibold mb-4">' . $heading . '</p>';

@@ -50,11 +50,11 @@ get_template_part('template-parts/hero-banner/content', 'main', $hero);
                             </div>
                             <p class="mt-4 small ">Our trip was fabulous. All the plans were set up perfectly, everything went off like clockwork. We really appreciated the special service we received everywhere we went. Walking out to the canal in Venice and having the water taxi drive up at exactly the scheduled time was perfect. Our favorite tour of all was the food and wine tour in Rome. The food was authentic and locals were unique and memorable.</p>
                             <div class="rating mt-3">
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -70,11 +70,11 @@ get_template_part('template-parts/hero-banner/content', 'main', $hero);
                             </div>
                             <p class="mt-4 small text-white" style="">We had the most wonderful trip to Italy with Mary and Martin C. and we wanted to thank you personally for putting together such a fabulous itinerary. Too many favorite things to list! Such a beautiful place and we want to go back in a few years and hit Rome and the Amalfi Coast. When the time comes, we will make sure and contact you! Many, many thanks to you again Tommaso!</p>
                             <div class="rating mt-3">
-                                <i class="fas fa-star text-orange text-white" aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange text-white" aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange text-white" aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange text-white" aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange text-white" aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 text-white" aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 text-white" aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 text-white" aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 text-white" aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 text-white" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -90,11 +90,11 @@ get_template_part('template-parts/hero-banner/content', 'main', $hero);
                             </div>
                             <p class="mt-4 small ">Tomasso promised us a unique, wonderful traveling experience and he exceeded our expectations. We are so grateful for his care to every detail and selection of activities. The cooking class was an especially wonderful. I never dreamed it would be in an outside kitchen surrounded by the beauty of Italy. Making our own pasta was so much fun and topping the meal off with “chocolate salami” was heavenly.</p>
                             <div class="rating mt-3">
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
-                                <i class="fas fa-star text-orange " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
+                                <i class="fas fa-star text-secondary-500 " aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>

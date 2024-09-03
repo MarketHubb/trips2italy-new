@@ -24,7 +24,7 @@
                 <div class="grid grid-cols-2 lg:grid-cols-12 items-center py-24 lg:py-32 lg:gap-x-8">
                     <!-- <div class="col-md-8"> -->
                     <div class="col-span-1 md:col-span-5">
-                        <h1 class="font-heading text-blueGray text-lg md:text-3xl lg:text-5xl mb-2">
+                        <h1 class="font-heading text-brand-700 text-lg md:text-3xl lg:text-5xl mb-2">
                             <?php echo $hero['copy']['heading_1']['desktop']; ?>
                             <span class="stylized d-block mt-1">
                                 <?php echo $hero['copy']['heading_2']['desktop']; ?>
@@ -48,7 +48,7 @@
                                     <?php foreach ($hero['callouts'] as $callout) { ?>
 
                                         <li class="flex gap-x-3">
-                                            <svg class="h-7 w-6 flex-none text-orange" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <svg class="h-7 w-6 flex-none text-secondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                             </svg>
                                             <span class="text-gray-800 tracking-wide text-base md:text-lg "><?php echo $callout['desktop']; ?></span>
@@ -60,7 +60,7 @@
                                 <ul class="hidden list-group border-0">
                                     <?php foreach ($hero['callouts'] as $callout) { ?>
                                         <li class="list-group-item bg-transparent text-start border-0 py-2.5">
-                                            <p class="text-base lg:text-xl text-blueGray font-bold">
+                                            <p class="text-base lg:text-xl text-brand-700 font-bold">
                                                 <span class="tracking-wide stylized">
                                                     <?php if (!empty($callout['icon'])) {
                                                         echo $callout['icon'];

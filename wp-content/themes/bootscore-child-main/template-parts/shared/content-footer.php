@@ -15,7 +15,7 @@ echo tw_section_open($section_args);
         <div class="grid grid-cols-1 lg:flex lg:col-span-2 items-center mb-12 lg:mb-0">
             <div class="flex flex-row lg:flex-col gap-x-5 divide-x divide-gray-100 w-full">
                 <div>
-                    <h5 class="text-xl font-bold tracking-wide text-blue">Trips 2 Italy</h5>
+                    <h5 class="text-xl font-bold tracking-wide text-brand-500">Trips 2 Italy</h5>
                     <p class="py-2"><a class="text-base text-gray-800 font-semibold" href="tel:+1-866-464-8259" title="" target="_self">1-866-464-8259</a></p>
 
                     <ul class="flex flex-row justify-between lg:justify-normal lg:mb-6">

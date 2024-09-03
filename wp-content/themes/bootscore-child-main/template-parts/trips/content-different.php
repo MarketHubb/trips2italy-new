@@ -16,9 +16,9 @@
                $bg_color_class = $i === 2 ? ' bg-orange-100 ' : '';
                $why_us .= '<div class="relative pl-9 py-6' . $bg_color_class . '">';
                $why_us .= '<dt class="font-semibold text-gray-900 lg:text-xl">';
-               $why_us .= '<svg class="hidden absolute left-0 top-1 h-5 w-5 text-orange" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>';
-               $why_us .= '<span class="font-heading text-blueGray block">' . $content_item['callout'] . '</span>';
-               $why_us .= '<span class="stylized inline text-2xl lg:text-3xl  text-orange">' . $content_item['heading'] . '</span>';
+               $why_us .= '<svg class="hidden absolute left-0 top-1 h-5 w-5 text-secondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>';
+               $why_us .= '<span class="font-heading text-brand-700 block">' . $content_item['callout'] . '</span>';
+               $why_us .= '<span class="stylized inline text-2xl lg:text-3xl  text-secondary-500">' . $content_item['heading'] . '</span>';
                $why_us .= '<dd class=" mt-5 text-gray-600">' . $content_item['description'] . '</dd>';
                $why_us .= '</dt>';
                $why_us .= '</div>';

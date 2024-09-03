@@ -2,7 +2,7 @@
     <div class="text-center px-md-4 px-lg-5">
         <h1 class="fw-900 lh-1 mb-2 mt-0 pb-2 pb-md-1 text-white roboto fs-3">
             Your Dream Italian <span class="trip-type">Trip</span>
-            <span class="script text-blue mt-2">Starts Here</span>
+            <span class="script text-brand-500 mt-2">Starts Here</span>
         </h1>
         <div class="feature-seperator"></div>
         <p id="modal-body-subheadline" class="mb-5 lh-sm text-white fw-500 px-md-3 px-lg-4">Just share a few details like when you want to go, and what you like to do. Our Italian-born travel experts will do the rest.</p>

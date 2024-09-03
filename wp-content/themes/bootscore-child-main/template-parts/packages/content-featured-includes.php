@@ -9,8 +9,8 @@
 						<i class="<?php echo $args[$i]['icon']; ?> fa-xl opacity-100"></i>
 					</div>
 				<?php } ?>
-				<h5 class="stylized font-normal text-2xl lg:text-4xl text-orange my-2"><?php echo $args[$i]['callout']; ?></h5>
-				<p class="font-heading text-lg lg:text-2xl text-blueGray"><?php echo $args[$i]['description']; ?></p>
+				<h5 class="stylized font-normal text-2xl lg:text-4xl text-secondary-500 my-2"><?php echo $args[$i]['callout']; ?></h5>
+				<p class="font-heading text-lg lg:text-2xl text-brand-700"><?php echo $args[$i]['description']; ?></p>
 			</div>
 		</div>
 		

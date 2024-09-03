@@ -48,13 +48,13 @@ $content_fields = [
 		$title_raw_array = explode("|", $title_raw);
 		$title = count($title_raw_array) === 2 ? trim($title_raw_array[0]) : $title = trim($title_raw);
 		$title = explode(" ", $title);
-		$title_heading = '<span class="text-blueGray block font-heading text-lg md:text-xl font-semibold antialiased tracking-normal mb-3">';
+		$title_heading = '<span class="text-brand-700 block font-heading text-lg md:text-xl font-semibold antialiased tracking-normal mb-3">';
 
 		for ($i = 0; $i < 3; ++$i) {
 			$title_heading .= $title[$i] . ' ';
 		}
 
-		$title_heading .= '</span><span class="text-[1.25rem] sm:text-[1.5rem] md:text-[1.75rem] tracking-wide leading-6 word-spacing-wide wide font-semibold antialiased stylized text-orange">';
+		$title_heading .= '</span><span class="text-[1.25rem] sm:text-[1.5rem] md:text-[1.75rem] tracking-wide leading-6 word-spacing-wide wide font-semibold antialiased stylized text-secondary-500">';
 
 		for ($i = 3; $i <= count($title); ++$i) {
 			$title_heading .= ' ' . $title[$i];
@@ -109,11 +109,11 @@ if (!empty($content_fields)) {
 		?>
 
 		<div class="w-1/2 text-left">
-			<span class="text-blue hover:underline font-semibold"><?php echo $prev_link; ?></span>
+			<span class="text-brand-500 hover:underline font-semibold"><?php echo $prev_link; ?></span>
 		</div>
 
 		<div class="w-1/2 text-right">
-			<span class="text-blue hover:underline font-semibold"><?php echo $next_link; ?></span>
+			<span class="text-brand-500 hover:underline font-semibold"><?php echo $next_link; ?></span>
 		</div>
 	</div>
 

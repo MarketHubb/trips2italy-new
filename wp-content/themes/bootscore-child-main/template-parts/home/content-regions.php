@@ -21,7 +21,7 @@
    <div class="mt-16 flex justify-center">
       <p class="relative text-base rounded-full px-4 py-1.5 leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/10 hover:ring-gray-900/20">
          <span class="hidden md:inline">We've crafted trips to over <span class="font-bold"><?php echo wp_count_terms('location_region'); ?></span> regions in <span class="font-bold"><?php echo wp_count_posts('location')->publish; ?></span> cities and towns.</span>
-         <a href="<?php echo get_permalink(27712); ?>" class="text-base font-semibold text-blue"><span class="absolute inset-0" aria-hidden="true"></span> View all destinations <span aria-hidden="true">&rarr;</span></a>
+         <a href="<?php echo get_permalink(27712); ?>" class="text-base font-semibold text-brand-500"><span class="absolute inset-0" aria-hidden="true"></span> View all destinations <span aria-hidden="true">&rarr;</span></a>
       </p>
    </div>
 

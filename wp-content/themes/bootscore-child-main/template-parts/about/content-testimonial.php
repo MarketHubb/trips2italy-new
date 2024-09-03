@@ -37,11 +37,11 @@
                     $testimonial .= '</div></div>';
                     $testimonial .= '<p class="mt-4 ' . $text_color . '">' . get_sub_field('testimonial') . '</p>';
                     $testimonial .= '<div class="rating mt-3">
-                                        <i class="fas fa-star text-orange ' . $text_color . '" aria-hidden="true"></i>
-                                        <i class="fas fa-star text-orange ' . $text_color . '" aria-hidden="true"></i>
-                                        <i class="fas fa-star text-orange ' . $text_color . '" aria-hidden="true"></i>
-                                        <i class="fas fa-star text-orange ' . $text_color . '" aria-hidden="true"></i>
-                                        <i class="fas fa-star text-orange ' . $text_color . '" aria-hidden="true"></i>
+                                        <i class="fas fa-star text-secondary-500 ' . $text_color . '" aria-hidden="true"></i>
+                                        <i class="fas fa-star text-secondary-500 ' . $text_color . '" aria-hidden="true"></i>
+                                        <i class="fas fa-star text-secondary-500 ' . $text_color . '" aria-hidden="true"></i>
+                                        <i class="fas fa-star text-secondary-500 ' . $text_color . '" aria-hidden="true"></i>
+                                        <i class="fas fa-star text-secondary-500 ' . $text_color . '" aria-hidden="true"></i>
                                     </div>';
                     $testimonial .= '</div></div></div>';
 
