@@ -11,7 +11,7 @@ function verify_recaptcha()
     }
 
     $recaptcha_response = sanitize_text_field($_POST["recaptcha_response"]);
-    $recaptcha_secret = "YOUR_RECAPTCHA_SECRET_KEY"; // Replace with your actual secret key
+    $recaptcha_secret = "6LeR7DcqAAAAAPhlWk2Oz_LRO3BkGtrepU_1x7Mb";
 
     // Make a POST request to the reCAPTCHA API
     $verify_response = wp_remote_post(
