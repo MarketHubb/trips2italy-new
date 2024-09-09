@@ -214,36 +214,44 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (typeof grecaptcha === "undefined") {
-      console.error("reCAPTCHA not loaded");
-      return null;
-    }
+    // if (typeof grecaptcha === "undefined") {
+    //   console.error("reCAPTCHA not loaded");
+    //   return null;
+    // }
 
-    const recaptchaResponse = grecaptcha.getResponse();
+    // const recaptchaResponse = grecaptcha.getResponse();
 
-    if (!recaptchaResponse) {
-      console.error("reCAPTCHA response is empty");
-      return null;
-    }
+    // if (!recaptchaResponse) {
+    //   console.error("reCAPTCHA response is empty");
+    //   return null;
+    // }
 
-    const recaptchaData = new FormData();
-    recaptchaData.append("action", "verify_recaptcha");
-    recaptchaData.append("recaptcha_response", recaptchaResponse);
+    // const recaptchaData = new FormData();
+    // recaptchaData.append("action", "verify_recaptcha");
+    // recaptchaData.append("recaptcha_response", recaptchaResponse);
 
-    fetch(ajax_object.ajax_url, {
-      method: "POST",
-      body: recaptchaData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("reCAPTCHA verification result:", data);
-      })
-      .catch((error) => {
-        console.error("Error verifying reCAPTCHA:", error);
-      });
+    // fetch(ajax_object.ajax_url, {
+    //   method: "POST",
+    //   body: recaptchaData,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("reCAPTCHA verification result:", data);
+    //     if (data.success === true) {
+    //       // Proceed with form submission
+    //     } else {
+    //       console.error("reCAPTCHA verification failed");
+    //       return null;
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error verifying reCAPTCHA:", error);
+    //     return null;
+    //   });
 
     let isValid = true;
     const formData = new FormData(formContainer);
+
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }

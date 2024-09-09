@@ -84,7 +84,17 @@ function submit_custom_gravity_form()
 
     // Prepare the entry data
     $entry = [];
-    $test = [];
+
+    if (isset($_POST["input_12"])) {
+        $name = explode(" ", sanitize_text_field($_POST["input_12"]));
+        if (isset($name[0])) {
+            $entry["12.3"] = $name[0];
+        }
+        if (isset($name[1])) {
+            $entry["12.6"] = $name[1];
+        }
+    }
+
     foreach ($_POST as $key => $val) {
         if (strpos($key, "input_") === 0) {
             $input_name = sanitize_text_field(
