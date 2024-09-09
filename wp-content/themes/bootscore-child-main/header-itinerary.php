@@ -29,9 +29,10 @@ if (!isset($paged) || !$paged) {
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    
+
     <!-- reCAPTCHA -->
-     <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
     <!-- Google Tag Manager -->
     <script>
         (function(w, d, s, l, i) {
@@ -60,7 +61,7 @@ if (!isset($paged) || !$paged) {
 
 <body <?php body_class(); ?>>
 
-    <!-- Google Tag Manager (noscript) -->
+    <!-- End Google Tag Manager -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBB6BZNM"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
@@ -71,29 +72,6 @@ if (!isset($paged) || !$paged) {
 
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
-        <?php get_template_part('template-parts/tw/content', 'nav'); ?>
-        <?php //get_template_part('template-parts/shared/content', 'nav'); 
-        ?>
+        <?php get_template_part('template-parts/tw/content', 'nav', ['hide_nav' => true]); ?>
 
-        <div id="site" class="pt-[40px] lg:pt-[63px]">
-
-            <?php
-            $new_hero_layout = get_field('use_new_layout');
-            if ($new_hero_layout) {
-                get_template_part('template-parts/tw-hero/content', 'hero-new');
-            } else {
-                output_hero_banner(get_queried_object());
-            }
-
-
-            // if (isset($paged) && $paged > 1) {
-            //     $hero = get_hero_fields(get_queried_object());
-            //     get_template_part('template-parts/tw-hero/content', 'pagination', $hero);
-            // } else {
-            //     if ($new_hero_layout) {
-            //         get_template_part('template-parts/tw-hero/content', 'hero-new');
-            //     } else {
-            //         output_hero_banner(get_queried_object());
-            //     }
-            // }
-            ?>
+        <div id="site" class="pt-[48px]">

@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('.gform_wrapper');
-    const submitButton = form.querySelector('input[type="submit"]');
+    const formContainer = document.querySelector('.gform_wrapper');
+    const submitButton = formContainer.querySelector('input[type="submit"]');
 
-    if (!submitButton || !form) return;
+    if (!submitButton || !formContainer) return;
 
     const sliders = document.querySelectorAll('input[type="range"]');
     const radioInputs = document.querySelectorAll('input[type="radio"].peer');
-    const pageContainers = form.querySelectorAll('.grid.grid-cols-1.gap-x-8.gap-y-8.md\\:grid-cols-3');
-    const fields = form.querySelectorAll('.gfield');
-    const conditionalFields = form.querySelectorAll('.gfield_conditional');
+    const pageContainers = formContainer.querySelectorAll('.grid.grid-cols-1.gap-x-8.gap-y-8.md\\:grid-cols-3');
+    const fields = formContainer.querySelectorAll('.gfield');
+    const conditionalFields = formContainer.querySelectorAll('.gfield_conditional');
 
     // Initialize radio buttons
     radioInputs.forEach(radio => {
-        radio.addEventListener('change', function () {
+        radio.addEventListener('change', function (event) {
             handleRadioChange(this);
-            handleFieldChange();
+            handleFieldChange(event);
         });
 
         // Initialize the state for pre-selected radios
@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeConditionalLogic();
 
     // Add event listeners for form field changes and submit
-    form.addEventListener('change', handleFieldChange);
-    form.addEventListener('input', handleFieldChange);
-    form.addEventListener('submit', handleSubmit);
+    formContainer.addEventListener('change', handleFieldChange);
+    formContainer.addEventListener('input', handleFieldChange);
+    formContainer.addEventListener('submit', handleSubmit);
 
     // Add event listener for form submission
     submitButton.addEventListener('click', handleSubmit);
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         slider.addEventListener('input', function () {
             updateSliderValue(this.value);
         });
-    }); 
+    });
 
     function initializeConditionalLogic() {
         applyConditionalLogicToPages();
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function handleFieldChange() {
+    function handleFieldChange(event) {
         applyConditionalLogicToPages();
         conditionalFields.forEach(field => {
             const conditionalLogic = field.dataset.conditionalLogic;
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Add event listeners for blur events on text inputs and selects
-    form.querySelectorAll('input[type="text"], input[type="email"], input[type="number"], input[type="date"], textarea, select').forEach(input => {
+    formContainer.querySelectorAll('input[type="text"], input[type="email"], input[type="number"], input[type="date"], textarea, select').forEach(input => {
         input.addEventListener('blur', function () {
             const field = this.closest('.gfield');
             if (field && this.value.trim() !== '') {
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Add event listeners for change events on radio and checkbox inputs
-    form.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+    formContainer.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
         input.addEventListener('change', function () {
             const field = this.closest('.gfield');
             if (field) {
@@ -196,36 +196,37 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
+    
     function handleSubmit(event) {
         event.preventDefault();
-    
+
+        const recaptchaResponse = grecaptcha.getResponse();
+        console.table('recaptcha', recaptchaResponse);
+
         let isValid = true;
-        
+        const formData = new FormData(formContainer);
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+                
+        // Validation
         fields.forEach(field => {
             if (field.style.display !== 'none' || field.classList.contains('gfield_hidden')) {
                 const fieldType = field.dataset.fieldType;
-            
+
                 if (fieldType === 'radio' || fieldType === 'checkbox') {
                     const inputs = field.querySelectorAll(`input[type="${fieldType}"]`);
-                
+
                     if (inputs.length > 0) {
                         const isRequired = inputs[0].hasAttribute('required');
                         const isChecked = Array.from(inputs).some(input => input.checked);
-                    
+
                         if (isRequired && !isChecked) {
                             isValid = false;
                             showError(field, fieldType);
                         } else {
                             hideError(field, fieldType);
                         }
-                    }
-
-                    // For hidden checkbox fields, add all values to formData
-                    if (field.classList.contains('gfield_hidden')) {
-                        inputs.forEach(input => {
-                            formData.append(input.name, input.value);
-                        });
                     }
                 } else {
                     const inputs = field.querySelectorAll('input:not([type="submit"]), select, textarea');
@@ -236,29 +237,19 @@ document.addEventListener('DOMContentLoaded', function () {
                         } else {
                             hideError(field, fieldType);
                         }
-
-                        // For hidden fields, add value to formData
-                        if (field.classList.contains('gfield_hidden')) {
-                            formData.append(input.name, input.value);
-                        }
                     });
                 }
             }
         });
-        
+
         if (isValid) {
-            const formData = new FormData(form);
             formData.append('action', 'submit_custom_gravity_form');
-            formData.append('form_id', form.dataset.formId);
+            formData.append('form_id', formContainer.dataset.formId);
 
-            
-            // Handle hidden fields
-            document.querySelectorAll('.gfield_hidden input[type="hidden"]').forEach(hiddenInput => {
-                formData.append(hiddenInput.name, hiddenInput.value);
-            });
-
-            // Log the form data being sent
-            console.log('Submitting form data:', Object.fromEntries(formData));
+            // Ensure nonce is added only once
+            if (!formData.has('nonce')) {
+                formData.append('nonce', formContainer.querySelector('input[name="nonce"]').value); // Use the nonce from the form
+            }
 
             fetch(ajax_object.ajax_url, {
                 method: 'POST',
@@ -276,6 +267,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             showConfirmation(jsonData.data.confirmation);
                         } else {
                             showError(jsonData.data.error || 'An unknown error occurred');
+                            if (jsonData.data.debug) {
+                                console.log('Debug info:', jsonData.data.debug);
+                            }
                         }
                     } catch (error) {
                         console.error('Error parsing JSON:', error);
@@ -294,30 +288,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Fetch error:', error);
                     showError('An error occurred. Please try again.');
                 });
-        } 
-        else {
+        } else {
             // Scroll to the first error
-            const firstError = form.querySelector('.gfield .text-red-600:not(.hidden)');
+            const firstError = formContainer.querySelector('.gfield .text-red-600:not(.hidden)');
             if (firstError) {
                 firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
     }
 
+
     function showFormError(message) {
         // Show error message at the top of the form
         const errorDiv = document.createElement('div');
         errorDiv.className = 'form-error';
         errorDiv.textContent = message;
-        form.prepend(errorDiv);
+        formContainer.prepend(errorDiv);
     }
 
-
-
-    // Add these functions if they don't already exist
     function showConfirmation(message) {
         // Replace form with confirmation message
-        form.innerHTML = `<div class="confirmation-message">${message}</div>`;
+        formContainer.innerHTML = `<div class="confirmation-message">${message}</div>`;
     }
 
     function showError(field, fieldType) {
@@ -345,22 +336,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (errorMessage) errorMessage.classList.remove('hidden');
     }
 
-    
-    // function showError(field, fieldType) {
-    //     if (fieldType === 'radio' || fieldType === 'checkbox') {
-    //         const fieldset = field.querySelector('fieldset');
-    //         if (fieldset) {
-    //             fieldset.classList.add('error');
-    //         }
-    //     } else {
-    //         const errorIcon = field.querySelector('.pointer-events-none');
-    //         if (errorIcon) errorIcon.classList.remove('hidden');
-    //     }
-
-    //     const errorMessage = field.querySelector('.text-red-600');
-    //     if (errorMessage) errorMessage.classList.remove('hidden');
-    // }
-
     function hideError(field, fieldType) {
         if (fieldType === 'radio' || fieldType === 'checkbox') {
             const fieldset = field.querySelector('fieldset');
@@ -375,5 +350,4 @@ document.addEventListener('DOMContentLoaded', function () {
         const errorMessage = field.querySelector('.text-red-600');
         if (errorMessage) errorMessage.classList.add('hidden');
     }
-
 });

@@ -1,10 +1,13 @@
 <?php
+$section_fields = get_field('stats_heading');
+
 $bg_data = [
     'image' => get_home_url() . '/wp-content/uploads/2023/05/Florence.jpeg',
     'classes' => ' bg-center bg-cover '
 ];
-echo tw_section_open($bg_data); ?>
-<div class="mx-auto max-w-7xl">
+echo tw_section_open($section_fields); 
+?>
+<div class="mx-auto max-w-7xl relative z-10">
     <div class="pb-10 text-center">
         <?php echo tw_heading(get_the_ID(), 'stats_heading'); ?>
     </div>

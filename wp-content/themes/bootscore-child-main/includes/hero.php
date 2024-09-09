@@ -91,7 +91,7 @@ function form_heading($dynamic = null)
 function output_hero_heading($hero)
 {
     $heading_1_classes = ($hero['type'] !== "masonry") ? "text-white" : "";
-    $heading_2_classes = ($hero['type'] === "masonry") ? "text-primary text-gradient" : " stylized text-seccondary-500";
+    $heading_2_classes = ($hero['type'] === "masonry") ? "text-primary text-gradient" : " stylized text-secondary-500";
 
     if (!empty($hero['copy']['heading_1'])) {
 
@@ -133,7 +133,7 @@ function hero_description($hero, $size = 'desktop')
     if (isset($description)) {
         $classes = get_hero_copy_classes($hero);
         $output  = '<div class="mt-4 px-3 px-md-0">';
-        $output .= '<p class="hero-description lh-base fw-500">';
+        $output .= '<p class="text-white/90 text-base mt-6">';
         $output .= $description . '</p>';
         $output .= '</div>';
     }
@@ -151,7 +151,7 @@ function hero_callouts($hero, $size = "desktop")
         foreach ($hero['callouts'] as $callout) {
             $callout_key = (isset($callout[$size]) && !empty($callouts[$size])) ? $size : 'desktop';
             $callouts .= '<li class="list-group-item bg-transparent text-start ps-0 border-0 py-1 ps-1 pe-0">';
-            $callouts .= '<p class="mb-0 pb-0 fw-600 grayscale text-wider stylized"><i class="fa-solid fa-check pe-2 pe-md-3"></i>' . $callout[$callout_key] . '</p></li>';
+            $callouts .= '<p class="mb-0 pb-0 fw-600 grayscale"><i class="fa-solid fa-check pe-2 pe-md-3"></i>' . $callout[$callout_key] . '</p></li>';
         }
 
         $callouts .= '</ul>';

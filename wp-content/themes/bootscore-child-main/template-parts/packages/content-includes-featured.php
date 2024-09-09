@@ -1,13 +1,21 @@
 <?php if (!empty($args)) { ?>
 
-	<div class="overflow-hidden bg-white">
+	<div class="overflow-hidden bg-white py-24">
 		<div class="mx-auto max-w-7xl px-6 lg:px-8">
 			<div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
 				<div class="lg:pr-8 lg:pt-4">
 					<div class="lg:max-w-lg">
-						<h2 class="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
-						<p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
-						<p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
+
+						<div class="pb-10 text-center lg:col-span-6">
+							<div class="pb-12 text-left">
+								<h2 class=" mb-0 md:leading-normal font-heading tracking-none text-2xl md:text-2xl lg:text-3xl  text-brand-500-700 ">What's included in</h2>
+								<h2 class=" stylized font-normal text-4xl lg:text-6xl  text-brand-500 ">this package</h2>
+								<div class="mt-6 md:max-w-xl  lg:max-w-[40rem]  ">
+									<p class="hidden font-normal text-base sm:text-lg md:text-xl  text-gray-600 ">Say goodbye to generic trips for the masses; Experience Italy like a local with our personalized honeymoons tailored just for you.</p>
+								</div>
+							</div>
+						</div>
+
 						<dl class="mt-10 max-w-xl space-y-14 text-base leading-7 text-gray-600 lg:max-w-none">
 
 							<?php foreach ($args['content'] as $fields) { ?>
@@ -25,7 +33,7 @@
 								</div>
 
 							<?php } ?>
-							
+
 						</dl>
 					</div>
 				</div>

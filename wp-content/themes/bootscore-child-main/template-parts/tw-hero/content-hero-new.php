@@ -54,12 +54,13 @@
       <div class="lg:max-w-3xl mx-auto pb-6 animate-on-scroll relative z-30 bottom-10 -mb-10 lg:bottom-28 lg:-mb-28">
          <?php if ($hero_fields['description']) { ?>
             <div class="mx-auto text-center">
-               <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight" role="button">
+               <!-- <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight" role="button"> -->
+               <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight">
                   <span><?php echo $hero_fields['copy_main']; ?></span>
                   <?php if ($hero_fields['copy_secondary']) { ?>
                      <span class="font-normal"> - <?php echo $hero_fields['copy_secondary']; ?></span>
                   <?php } ?>
-               </button>
+               </a>
                <?php if ($hero_fields['callout']) { ?>
                   <div class="mx-auto max-w-72 mt-6">
                      <p class="text-sm text-white opacity-70">

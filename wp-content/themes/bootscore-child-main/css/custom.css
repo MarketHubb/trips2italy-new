@@ -1,3 +1,6 @@
+.gform_wrapper > .grid:last-of-type {
+    border: none !important;
+}
 #modal-description br {
     line-height: 10px !important;
 }
@@ -107,7 +110,7 @@ h4,
 h5 {
     font-family: "Lora", serif !important;
     font-optical-sizing: auto;
-    font-weight: normal !important;
+    font-weight: unset !important;
 }
 
 .stylized {

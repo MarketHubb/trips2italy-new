@@ -40,11 +40,11 @@ get_header(); ?>
         $featured_collection = [
             'classes' => [
                 'grid' => ' grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-10 divide-y divide-y-gray-50 lg:divide-y-0 pb-10 ',
-                'heading' => ' stylized text-[2rem] md:text-4xl lg:text-5xl text-seccondary-500 ',
+                'heading' => ' stylized text-[2rem] md:text-4xl lg:text-5xl text-secondary-500 ',
                 'description' => ' line-clamp-3 text-gray-600 group-hover:text-gray-700 text-base ',
                 'image' => ' h-72 w-full object-cover object-center group-hover:opacity-75 ',
             ],
-            'content' => $featured_content
+            'content' => $content
         ];
 
         echo get_image_grid($featured_collection);

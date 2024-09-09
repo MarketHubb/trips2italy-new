@@ -10,7 +10,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col">
+                <div class="col text-3xl mt-8">
 
 
                     <?php echo hero_heading($args, "mobile"); ?>
@@ -19,9 +19,13 @@
 
                     <?php echo hero_callouts($args, "mobile"); ?>
 
+                    <div class="mb-12">
+                        <a href="<?php echo get_permalink(28484); ?>" data-target="Primary" class="btn font-semibold bg-orange btn-lg mb-0">
+                            Start now </a>
+                    </div>
                     <?php
-                    $links = output_hero_links($args, "mobile");
-                    echo ($links) ?: null;
+                    // $links = output_hero_links($args, "mobile");
+                    // echo ($links) ?: null;
                     ?>
 
                 </div>

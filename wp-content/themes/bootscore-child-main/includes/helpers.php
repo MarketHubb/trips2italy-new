@@ -1,4 +1,23 @@
 <?php
+function get_referring_url() {
+    // Check if HTTP_REFERER is set and not empty
+    if (!empty($_SERVER['HTTP_REFERER'])) {
+        $referrer = filter_var($_SERVER['HTTP_REFERER'], FILTER_SANITIZE_URL);
+        
+        // Validate the URL
+        if (filter_var($referrer, FILTER_VALIDATE_URL)) {
+            return $referrer;
+        }
+    }
+    
+    // If HTTP_REFERER is not available or invalid, return current page URL
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+    $host = $_SERVER['HTTP_HOST'];
+    $uri = $_SERVER['REQUEST_URI'];
+    
+    return "{$protocol}://{$host}{$uri}";
+}
+
 function return_portion_of_string($string, $length)
 {
     // If the string length is less than or equal to the specified length minus 3 (for the ellipsis),

@@ -12,6 +12,9 @@
    ];
    $content_fields = [];
    $content_fields['content'] = change_array_keys(get_field('regions'), $keyMap);
+   $content_fields['classes']['grid'] = ' grid grid-cols-2 gap-x-3 sm:gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 ';
+   $content_fields['classes']['description'] = ' line-clamp-3 text-gray-600 text-sm sm:text-base lg:text-lg mt-4 ';
+   $content_fields['classes']['image'] = ' min-h-24 sm:min-h-56 w-full object-cover object-center group-hover:opacity-75 ';
    ?>
 
    <?php if (!empty($content_fields)) { ?>

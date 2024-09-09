@@ -12,19 +12,19 @@ echo tw_section_open($section_args); ?>
       <?php echo tw_heading(get_the_ID(), 'blog_heading'); ?>
    </div>
 
-   <div class="grid grid-cols-1 lg:grid-cols-4 gap-y-6 lg:gap-y-0 lg:gap-x-2">
+   <div class="grid grid-cols-2 gap-x-3 lg:grid-cols-4 gap-y-6 lg:gap-y-0 lg:gap-x-2">
       <?php $content_fields = get_field('posts'); ?>
 
       <?php if (!empty($content_fields)) { ?>
 
          <?php foreach ($content_fields as $field) { ?>
             <div class="rounded shadow-xl bg-white ring-1 ring-gray-300">
-               <img class="h-48 lg:h-72 rounded-t w-full border-b border-b-gray-300 object-cover object-center" src="<?php echo get_the_post_thumbnail_url($field['post']->ID); ?>" alt="" />
+               <img class="h-24 lg:h-72 rounded-t w-full border-b border-b-gray-300 object-cover object-center" src="<?php echo get_the_post_thumbnail_url($field['post']->ID); ?>" alt="" />
                <div class="px-6 py-8 flex flex-col justify-between">
                   <a class="hover:text-brand-500" href="<?php echo get_permalink($field['post']->ID); ?>">
-                     <h3 class="text-lg lg:text-xl text-brand-700 hover:text-brand-500 tracking-normal mb-3"><?php echo get_the_title($field['post']->ID) ?></h3>
+                     <h3 class="text-lg lg:text-xl text-brand-700 hover:text-brand-500 tracking-normal leading-tight mb-3"><?php echo get_the_title($field['post']->ID) ?></h3>
                   </a>
-                  <p class=" mt-auto text-base md:text-base text-gray-500 line-clamp-4"><?php echo get_excerpt_for_post(get_the_excerpt($field['post']->ID), 150); ?></p>
+                  <p class=" mt-auto text-sm sm:text-base md:text-base text-gray-600 line-clamp-4"><?php echo get_excerpt_for_post(get_the_excerpt($field['post']->ID), 150); ?></p>
                </div>
             </div>
          <?php } ?>

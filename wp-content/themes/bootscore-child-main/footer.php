@@ -224,6 +224,8 @@
     });
 </script>
 
+<?php get_template_part('template-parts/tw-modal/content', 'lead'); ?>
+
 </body>
 
 </html>

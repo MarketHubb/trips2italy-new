@@ -1,17 +1,5 @@
 <?php get_header(); ?>
 
-<?php
-$form = GFAPI::get_form(11); // Get form with ID 1
-?>
-<section class="my-12">
-    <div class="max-w-7xl mx-auto rounded-md bg-gray-50 ring-1 ring-gray-200 py-24">
-        <?php echo gravity_form_to_tailwind_exact($form); ?>
-    </div>
-</section>
-
-
-<?php get_template_part('template-parts/shared/content', 'cta-split-image-blur'); ?>
-
 <?php get_template_part('template-parts/packages/content', 'single-package'); ?>
 
 

@@ -7,9 +7,11 @@
         <div class="col-span-5">
             <?php echo tw_heading(get_the_ID(), 'how_section_heading', 'text-left'); ?>
             <div class="text-center lg:mt-8 hidden md:block">
-                <?php $image_id = 6956; ?>
-                <img class="aspect-[2/3] md:h-[20rem] w-full object-cover object-top rounded shadow-sm" src="<?php echo wp_get_attachment_image_src($image_id, 'full')[0]; ?>" alt="">
-                <p class="text-xs md:text-sm text-gray-500 mt-3 italic"><?php echo get_post_meta($image_id, '_wp_attachment_image_alt', TRUE); ?></p>
+                <?php $image_url = get_field('why_image'); ?>
+                <img class="ring-1 ring-gray-200 shadow-md aspect-[2/3] md:h-[20rem] w-full object-cover object-center rounded " src="<?php echo $image_url; ?>" alt="">
+            </div>
+            <div class="text-center lg:mt-8 block md:hidden mt-6">
+                <img class="aspect-[2/3] h-44 w-full object-cover object-center rounded ring-1 ring-gray-200 shadow-md" src="<?php echo $image_url; ?>" alt="">
             </div>
         </div>
 
@@ -20,10 +22,6 @@
                 echo get_vertical_list($content_array['sections']);
             } ?>
 
-            <div class="text-center lg:mt-8 block md:hidden mt-6">
-                <img class="aspect-[2/3] h-44 w-full object-cover object-[10%_18%] rounded shadow" src="<?php echo wp_get_attachment_image_src($image_id, 'full')[0]; ?>" alt="">
-                <p class="text-xs md:text-sm text-gray-500 mt-3 italic"><?php echo get_post_meta($image_id, '_wp_attachment_image_alt', TRUE); ?></p>
-            </div>
         </div>
 
         <div class="row align-items-center">
