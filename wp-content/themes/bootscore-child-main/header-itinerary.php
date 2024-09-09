@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The header for our theme
  *
@@ -11,11 +10,10 @@
  *
  * @version 5.2.0.0
  */
-
 ?>
 
 <?php
-set_query_var('paginated_post_count', 18);
+set_query_var("paginated_post_count", 18);
 global $paged;
 
 if (!isset($paged) || !$paged) {
@@ -26,12 +24,9 @@ if (!isset($paged) || !$paged) {
 <html <?php language_attributes(); ?>>
 
 <head>
-    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta charset="<?php bloginfo("charset"); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-
-    <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js"></script>
 
     <!-- Google Tag Manager -->
     <script>
@@ -55,7 +50,8 @@ if (!isset($paged) || !$paged) {
 
     <?php wp_head(); ?>
 
-    <?php $_SERVER['REFERER_ID'] = (get_the_ID() !== 28484) ? get_the_ID() : null; ?>
+    <?php $_SERVER["REFERER_ID"] =
+        get_the_ID() !== 28484 ? get_the_ID() : null; ?>
 
 </head>
 
@@ -72,6 +68,8 @@ if (!isset($paged) || !$paged) {
 
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
-        <?php get_template_part('template-parts/tw/content', 'nav', ['hide_nav' => true]); ?>
+        <?php get_template_part("template-parts/tw/content", "nav", [
+            "hide_nav" => true,
+        ]); ?>
 
         <div id="site" class="pt-[48px]">

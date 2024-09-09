@@ -1,6 +1,6 @@
-<?php get_template_part('template-parts/menu/content', 'city-links'); ?>
+<?php get_template_part("template-parts/menu/content", "city-links"); ?>
 
-<?php get_template_part('template-parts/shared/content', 'footer'); ?>
+<?php get_template_part("template-parts/shared/content", "footer"); ?>
 
 <?php
 /**
@@ -22,9 +22,9 @@
         <div class="max-w-7xl mx-auto relative">
 
             <!-- Top Footer Widget -->
-            <?php if (is_active_sidebar('top-footer')) : ?>
+            <?php if (is_active_sidebar("top-footer")): ?>
                 <div>
-                    <?php dynamic_sidebar('top footer'); ?>
+                    <?php dynamic_sidebar("top footer"); ?>
                 </div>
             <?php endif; ?>
 
@@ -32,36 +32,36 @@
 
                 <!-- Footer 1 Widget -->
                 <div class="col-md-6 col-lg-3">
-                    <?php if (is_active_sidebar('footer-1')) : ?>
+                    <?php if (is_active_sidebar("footer-1")): ?>
                         <div>
-                            <?php dynamic_sidebar('footer-1'); ?>
+                            <?php dynamic_sidebar("footer-1"); ?>
                         </div>
                     <?php endif; ?>
                 </div>
 
                 <!-- Footer 2 Widget -->
                 <div class="col-md-6 col-lg-3">
-                    <?php if (is_active_sidebar('footer-2')) : ?>
+                    <?php if (is_active_sidebar("footer-2")): ?>
                         <div>
-                            <?php dynamic_sidebar('footer-2'); ?>
+                            <?php dynamic_sidebar("footer-2"); ?>
                         </div>
                     <?php endif; ?>
                 </div>
 
                 <!-- Footer 3 Widget -->
                 <div class="col-md-6 col-lg-3">
-                    <?php if (is_active_sidebar('footer-3')) : ?>
+                    <?php if (is_active_sidebar("footer-3")): ?>
                         <div>
-                            <?php dynamic_sidebar('footer-3'); ?>
+                            <?php dynamic_sidebar("footer-3"); ?>
                         </div>
                     <?php endif; ?>
                 </div>
 
                 <!-- Footer 4 Widget -->
                 <div class="col-md-6 col-lg-3">
-                    <?php if (is_active_sidebar('footer-4')) : ?>
+                    <?php if (is_active_sidebar("footer-4")): ?>
                         <div>
-                            <?php dynamic_sidebar('footer-4'); ?>
+                            <?php dynamic_sidebar("footer-4"); ?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -70,17 +70,16 @@
             </div>
 
             <!-- Bootstrap 5 Nav Walker Footer Menu -->
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer-menu',
-                'container' => false,
-                'menu_class' => '',
-                'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul id="footer-menu" class="nav %2$s">%3$s</ul>',
-                'depth' => 1,
-                'walker' => new bootstrap_5_wp_nav_menu_walker()
-            ));
-            ?>
+            <?php wp_nav_menu([
+                "theme_location" => "footer-menu",
+                "container" => false,
+                "menu_class" => "",
+                "fallback_cb" => "__return_false",
+                "items_wrap" =>
+                    '<ul id="footer-menu" class="nav %2$s">%3$s</ul>',
+                "depth" => 1,
+                "walker" => new bootstrap_5_wp_nav_menu_walker(),
+            ]); ?>
             <!-- Bootstrap 5 Nav Walker Footer Menu End -->
 
         </div>
@@ -88,7 +87,9 @@
 
     <div class="bootscore-info bg-light text-muted border-top py-2 text-center">
         <div class="container">
-            <small>&copy;&nbsp;<?php echo Date('Y'); ?> - <?php bloginfo('name'); ?></small>
+            <small>&copy;&nbsp;<?php echo Date("Y"); ?> - <?php bloginfo(
+     "name"
+ ); ?></small>
         </div>
     </div>
 
@@ -110,15 +111,21 @@
         <div class="container-lg  g-0 g-md-2">
             <div class="d-grid w-100">
                 <div class="d-inline-block pt-1 pb-2">
-                    <img class="form-heading-logo" src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg' ?>" alt="">
+                    <img class="form-heading-logo" src="<?php echo home_url() .
+                        "/wp-content/uploads/2023/01/Logo-No-Shadow.svg"; ?>" alt="">
                 </div>
                 <div class="d-inline-block">
                     <?php
-                    $dynamic = (isset($hero['dynamic'])) ? $hero['dynamic'] : null;
+                    $dynamic = isset($hero["dynamic"])
+                        ? $hero["dynamic"]
+                        : null;
                     $default_nav_heading = "Italy {Vacation} Itinerary";
-                    $nav_heading = replace_variable_in_copy($default_nav_heading, $dynamic);
+                    $nav_heading = replace_variable_in_copy(
+                        $default_nav_heading,
+                        $dynamic
+                    );
                     ?>
-                    <p class="mb-0 fw-600 text-dark ps-1"><?php echo $nav_heading ?></p>
+                    <p class="mb-0 fw-600 text-dark ps-1"><?php echo $nav_heading; ?></p>
                 </div>
                 <div class="d-inline-block small pe-3">
                     <button class="form-nav-button border-0 btn-outline-info text-muted fs-5 p-0 lh-1 small" data-state="hide" id="form-hide"><i class="fa-solid fa-square-xmark fa-xl"></i></button>
@@ -138,7 +145,15 @@
         <!-- Form -->
         <div class="row justify-content-center" id="form-row">
             <div class="col">
-                <?php gravity_form(11, $display_title = false, $display_description = false, $display_inactive = false, $field_values = true, $ajax = true, 1); ?>
+                <?php gravity_form(
+                    11,
+                    $display_title = false,
+                    $display_description = false,
+                    $display_inactive = false,
+                    $field_values = true,
+                    $ajax = true,
+                    1
+                ); ?>
             </div>
         </div>
 
@@ -165,10 +180,12 @@
 
 <?php wp_footer(); ?>
 
-<?php //get_template_part('template-parts/modal/content', 'modal'); 
+<?php
+//get_template_part('template-parts/modal/content', 'modal');
 ?>
 
-<?php //get_template_part('template-parts/modal/content', 'full-page'); 
+<?php
+//get_template_part('template-parts/modal/content', 'full-page');
 ?>
 
 <script type="text/javascript">
@@ -224,7 +241,9 @@
     });
 </script>
 
-<?php get_template_part('template-parts/tw-modal/content', 'lead'); ?>
+<?php get_template_part("template-parts/tw-modal/content", "lead"); ?>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </body>
 
