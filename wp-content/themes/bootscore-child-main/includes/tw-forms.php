@@ -623,11 +623,30 @@ function render_standard_input(
 
 function get_captcha_field($field)
 {
+    $site_key = "6LeR7DcqAAAAAPttcbdc0H68FhMR5C6Y6Ka8x9B0";
+
     $output = '<div class="flex flex-col">';
-    // $output .= '<div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI">';
     $output .=
-        '<div class="g-recaptcha" data-sitekey="6LeR7DcqAAAAAPttcbdc0H68FhMR5C6Y6Ka8x9B0">';
-    $output .= "</div></div>";
+        '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">';
+    $output .= "</div>";
+
+    // Add the reCAPTCHA v3 script
+    $output .=
+        '<script src="https://www.google.com/recaptcha/api.js?render=' .
+        $site_key .
+        '"></script>';
+
+    // Add the JavaScript to execute reCAPTCHA
+    $output .=
+        '<script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute("' .
+        $site_key .
+        '", {action: "submit"}).then(function(token) {
+            document.getElementById("g-recaptcha-response").value = token;
+        });
+    });
+</script>';
 
     return $output;
 }
