@@ -858,6 +858,10 @@ select {
   bottom: 3rem !important;
 }
 
+.bottom-2 {
+  bottom: 0.5rem !important;
+}
+
 .bottom-4 {
   bottom: 1rem !important;
 }
@@ -960,10 +964,6 @@ select {
 
 .top-\[5px\] {
   top: 5px !important;
-}
-
-.bottom-2 {
-  bottom: 0.5rem !important;
 }
 
 .isolate {
@@ -1346,10 +1346,6 @@ select {
   margin-top: auto !important;
 }
 
-.-mb-4 {
-  margin-bottom: -1rem !important;
-}
-
 .line-clamp-2 {
   overflow: hidden !important;
   display: -webkit-box !important;
@@ -1719,6 +1715,10 @@ select {
   width: 100% !important;
 }
 
+.w-screen {
+  width: 100vw !important;
+}
+
 .max-w-12 {
   max-width: 3rem !important;
 }
@@ -1941,6 +1941,10 @@ select {
 
 .flex-wrap {
   flex-wrap: wrap !important;
+}
+
+.content-center {
+  align-content: center !important;
 }
 
 .items-start {
@@ -2872,10 +2876,6 @@ select {
   padding-left: 2.25rem !important;
 }
 
-.pr-2 {
-  padding-right: 0.5rem !important;
-}
-
 .pr-3 {
   padding-right: 0.75rem !important;
 }
@@ -3088,6 +3088,11 @@ select {
 
 .text-xs {
   font-size: 0.75rem !important;
+  line-height: inherit !important;
+}
+
+.text-6xl {
+  font-size: 3.75rem !important;
   line-height: inherit !important;
 }
 
@@ -4001,6 +4006,10 @@ select {
     top: -20rem !important;
   }
 
+  .sm\:bottom-4 {
+    bottom: 1rem !important;
+  }
+
   .sm\:left-\[calc\(50\%-30rem\)\] {
     left: calc(50% - 30rem) !important;
   }
@@ -4011,10 +4020,6 @@ select {
 
   .sm\:top-\[18px\] {
     top: 18px !important;
-  }
-
-  .sm\:bottom-4 {
-    bottom: 1rem !important;
   }
 
   .sm\:col-span-2 {
@@ -4377,12 +4382,8 @@ select {
     font-size: 1.5rem !important;
   }
 
-  .sm\:text-\[140\%\] {
-    font-size: 140% !important;
-  }
-
-  .sm\:text-\[150\%\] {
-    font-size: 150% !important;
+  .sm\:text-\[130\%\] {
+    font-size: 130% !important;
   }
 
   .sm\:text-base {
@@ -4400,8 +4401,9 @@ select {
     line-height: inherit !important;
   }
 
-  .sm\:text-\[130\%\] {
-    font-size: 130% !important;
+  .sm\:text-5xl {
+    font-size: 3rem !important;
+    line-height: inherit !important;
   }
 
   .sm\:leading-6 {
@@ -4410,18 +4412,6 @@ select {
 
   .sm\:leading-normal {
     line-height: 1.5 !important;
-  }
-
-  .sm\:leading-tight {
-    line-height: 1.25 !important;
-  }
-
-  .sm\:leading-0 {
-    line-height: responsive !important;
-  }
-
-  .sm\:leading-4 {
-    line-height: 1rem !important;
   }
 
   .sm\:ring-1 {
@@ -4443,10 +4433,6 @@ select {
     -webkit-backdrop-filter: saturate(200%) blur(30px) !important;
     backdrop-filter: saturate(200%) blur(30px) !important;
     background-color: rgba(255, 255, 255, 0.8) !important;
-  }
-
-  .sm\:leading-tight {
-    line-height: 1.25 !important;
   }
 }
 
@@ -5348,6 +5334,16 @@ select {
 
   .lg\:text-xl {
     font-size: 1.25rem !important;
+    line-height: inherit !important;
+  }
+
+  .lg\:text-7xl {
+    font-size: 4.5rem !important;
+    line-height: inherit !important;
+  }
+
+  .lg\:text-8xl {
+    font-size: 6rem !important;
     line-height: inherit !important;
   }
 

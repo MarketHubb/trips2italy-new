@@ -127,6 +127,7 @@ function submit_custom_gravity_form()
         wp_send_json_error($response);
     } else {
         // Get the confirmation message
+        GFAPI::send_notifications( $form, $entry );
         $confirmation = GFFormDisplay::handle_confirmation($form, $entry);
         $response["confirmation"] = is_array($confirmation)
             ? $confirmation["message"]
