@@ -2,3 +2,5 @@
 css/main.css
 css/main.map
 **/*.config*
+../../../eslint.config.mjs
+
