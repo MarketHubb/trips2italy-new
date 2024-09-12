@@ -305,39 +305,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     formContainer.querySelector('input[name="nonce"]').value,
                 ); // Use the nonce from the form
             }
-
             fetch(ajax_object.ajax_url, {
                 method: "POST",
                 body: formData,
             })
-                .then((response) => {
-                    console.log("Raw response:", response);
-                    return response.text(); // Change this to text() instead of json()
-                })
+                .then((response) => response.json())
                 .then((data) => {
-                    console.log("Raw response data:", data);
-                    try {
-                        const jsonData = JSON.parse(data);
-                        if (jsonData.success) {
-                            showConfirmation(jsonData.data.confirmation);
+                    console.log("Parsed response data:", data);
+                    if (data.success) {
+                        if (data.data.redirect) {
+                            console.log("Redirecting to:", data.data.redirect);
+                            window.location.href = data.data.redirect;
+                        } else if (data.data.confirmation) {
+                            showConfirmation(data.data.confirmation);
                         } else {
-                            showError(jsonData.data.error || "An unknown error occurred");
-                            if (jsonData.data.debug) {
-                                console.log("Debug info:", jsonData.data.debug);
-                            }
+                            console.error("Unexpected success response structure:", data);
+                            showError("An unexpected error occurred. Please try again.");
                         }
-                    } catch (error) {
-                        console.error("Error parsing JSON:", error);
-                        // If it's not JSON, it might be the HTML response we saw earlier
-                        if (data.includes("GF_AJAX_POSTBACK")) {
-                            const parser = new DOMParser();
-                            const htmlDoc = parser.parseFromString(data, "text/html");
-                            const message = htmlDoc.body.textContent.trim();
-                            showConfirmation(message);
-                        } else {
-                            showError(
-                                "An error occurred while processing the response. Please try again.",
-                            );
+                    } else {
+                        showError(data.data.error || "An unknown error occurred");
+                        if (data.data.debug) {
+                            console.log("Debug info:", data.data.debug);
                         }
                     }
                 })
@@ -345,6 +333,48 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Fetch error:", error);
                     showError("An error occurred. Please try again.");
                 });
+
+
+
+            // fetch(ajax_object.ajax_url, {
+            //     method: "POST",
+            //     body: formData,
+            // })
+            //     .then((response) => {
+            //         console.log("Raw response:", response);
+            //         return response.text(); // Change this to text() instead of json()
+            //     })
+            //     .then((data) => {
+            //         console.log("Raw response data:", data);
+            //         try {
+            //             const jsonData = JSON.parse(data);
+            //             if (jsonData.success) {
+            //                 showConfirmation(jsonData.data.confirmation);
+            //             } else {
+            //                 showError(jsonData.data.error || "An unknown error occurred");
+            //                 if (jsonData.data.debug) {
+            //                     console.log("Debug info:", jsonData.data.debug);
+            //                 }
+            //             }
+            //         } catch (error) {
+            //             console.error("Error parsing JSON:", error);
+            //             // If it's not JSON, it might be the HTML response we saw earlier
+            //             if (data.includes("GF_AJAX_POSTBACK")) {
+            //                 const parser = new DOMParser();
+            //                 const htmlDoc = parser.parseFromString(data, "text/html");
+            //                 const message = htmlDoc.body.textContent.trim();
+            //                 showConfirmation(message);
+            //             } else {
+            //                 showError(
+            //                     "An error occurred while processing the response. Please try again.",
+            //                 );
+            //             }
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         console.error("Fetch error:", error);
+            //         showError("An error occurred. Please try again.");
+            //     });
         } else {
             // Scroll to the first error
             const firstError = formContainer.querySelector(

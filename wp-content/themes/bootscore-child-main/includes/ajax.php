@@ -126,14 +126,31 @@ function submit_custom_gravity_form()
         $response["error"] = $result->get_error_message();
         wp_send_json_error($response);
     } else {
-        // Get the confirmation message
-        GFAPI::send_notifications( $form, $entry );
-        $confirmation = GFFormDisplay::handle_confirmation($form, $entry);
-        $response["confirmation"] = is_array($confirmation)
-            ? $confirmation["message"]
-            : $confirmation;
+        // Get the confirmation
+        GFAPI::send_notifications($form, $entry);
+        $confirmation_id = key($form['confirmations']);
+        $confirmation = $form['confirmations'][$confirmation_id];
+
+        // Prepare the confirmation response
+        if ($confirmation['type'] == 'page') {
+            $pageId = $confirmation['pageId'];
+            $queryString = $confirmation['queryString'];
+
+            // Replace merge tags in queryString
+            $queryString = GFCommon::replace_variables($queryString, $form, $entry, false, false, false, 'text');
+
+            $redirectUrl = get_permalink($pageId);
+            if ($queryString) {
+                $redirectUrl .= (strpos($redirectUrl, '?') === false) ? '?' : '&';
+                $redirectUrl .= $queryString;
+            }
+
+            $response['redirect'] = $redirectUrl;
+        } else {
+            $response['confirmation'] = $confirmation['message'];
+        }
+
         wp_send_json_success($response);
     }
-
     wp_die();
 }
