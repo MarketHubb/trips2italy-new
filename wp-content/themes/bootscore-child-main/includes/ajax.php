@@ -161,7 +161,7 @@ function submit_custom_gravity_form()
                 $redirectUrl .= $queryString;
             }
 
-            $response['redirect'] = $redirectUrl;
+            // $response['redirect'] = $redirectUrl;
         } else {
             $response['confirmation'] = $confirmation['message'];
         }
