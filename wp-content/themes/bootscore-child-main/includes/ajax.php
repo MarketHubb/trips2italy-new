@@ -126,7 +126,13 @@ function submit_custom_gravity_form()
         $response["error"] = $result->get_error_message();
         wp_send_json_error($response);
     } else {
-        // Get the confirmation
+        // Add the entry ID to the entry array
+        $entry['id'] = $result;
+
+        // Trigger the gform_after_submission action to process feeds
+        do_action('gform_after_submission', $entry, $form);
+
+        // Existing code to send notifications and handle confirmation
         GFAPI::send_notifications($form, $entry);
         $confirmation_id = key($form['confirmations']);
         $confirmation = $form['confirmations'][$confirmation_id];
