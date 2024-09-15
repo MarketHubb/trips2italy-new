@@ -621,7 +621,12 @@ function render_standard_input(
     return $output;
 }
 
-function get_captcha_field($field)
+function get_captcha_field( $field ) 
+{
+    return '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">';
+}
+
+function get_captcha_field2($field)
 {
     $site_key = "6LeR7DcqAAAAAPttcbdc0H68FhMR5C6Y6Ka8x9B0";
 

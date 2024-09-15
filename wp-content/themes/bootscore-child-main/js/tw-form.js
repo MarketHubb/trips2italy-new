@@ -312,23 +312,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((response) => response.json())
                 .then((data) => {
                     console.log("Parsed response data:", data);
-                    if (data.success) {
-                        if (data.data.redirect) {
-                            console.log("Redirecting to:", data.data.redirect);
-                            window.location.href = data.data.redirect;
-                        } else if (data.data.confirmation) {
-                            showConfirmation(data.data.confirmation);
+                    // if (data.success) {
+                        if (data.redirect) {
+                            console.log("Redirecting to:", data.redirect);
+                            // window.location.href = data.redirect;
+                        } else if (data.confirmation) {
+                            showConfirmation(data.confirmation);
                         } else {
                             console.error("Unexpected success response structure:", data);
                             showError("An unexpected error occurred. Please try again.");
                         }
-                    } else {
-                        showError(data.data.error || "An unknown error occurred");
-                        if (data.data.debug) {
-                            console.log("Debug info:", data.data.debug);
-                        }
-                    }
-                })
+                    } 
+                // }
+                )
                 .catch((error) => {
                     console.error("Fetch error:", error);
                     showError("An error occurred. Please try again.");

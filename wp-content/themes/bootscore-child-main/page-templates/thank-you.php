@@ -35,7 +35,7 @@ $bg_images_array = $confirmation_fields['background_images'];
                 <?php echo $confirmation_fields['tagline']; ?>
             </h1>
             <h2 class="text-3xl sm:text-5xl font-base lg:text-8xl font-semibold leading-normal text-center text-brand-950 mb-3 ">
-                <?php echo $confirmation_fields['heading']; ?> <span class=" block"><?php echo $personal; ?>!</span>
+                <?php echo $confirmation_fields['heading']; ?> <span class=" block"><?php echo $personal; ?></span>
             </h2>
             <p class="to-gray-700 text-base sm:text-lg">
                 <?php echo $confirmation_fields['description']; ?>

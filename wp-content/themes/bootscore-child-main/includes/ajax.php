@@ -51,14 +51,6 @@ add_action(
 
 function submit_custom_gravity_form()
 {
-    // Enable error reporting
-    ini_set("display_errors", 1);
-    ini_set("log_errors", 1);
-    error_reporting(E_ALL);
-
-    // Initialize an array to capture debug messages
-    $debug_messages = [];
-
     // Verify nonce for security
     if (!check_ajax_referer("submit_custom_gravity_form", "nonce", false)) {
         wp_send_json_error(["error" => "Nonce verification failed."]);
@@ -80,208 +72,72 @@ function submit_custom_gravity_form()
 
     // Get the form
     $form = GFAPI::get_form($form_id);
+
     if (!$form) {
         wp_send_json_error(["error" => "Form not found."]);
         wp_die();
     }
 
     // Prepare the entry data
-    $entry = [];
-
-    if (isset($_POST["input_12"])) {
-        $name = explode(" ", sanitize_text_field($_POST["input_12"]));
-        if (isset($name[0])) {
-            $entry["12.3"] = $name[0];
-        }
-        if (isset($name[1])) {
-            $entry["12.6"] = $name[1];
-        }
-    }
+    $input_values = [];
 
     foreach ($_POST as $key => $val) {
-        if (strpos($key, "input_") === 0) {
-            $input_name = sanitize_text_field(
-                str_replace("_", ".", substr($key, 6))
-            );
-            $input_value = sanitize_text_field($val);
-            $entry[$input_name] = $input_value;
+        if (!empty($val) && str_contains($key, 'input_')) {
+            // Split name input
+            if ($key == 'input_32') {
+                $name = array_map('trim', explode(" ", $val));
+
+                if (!empty($name[0])) {
+                    $input_values["12.3"] = sanitize_text_field($name[0]);
+                }
+
+                if (!empty($name[1])) {
+                    $input_values["12.6"] = sanitize_text_field($name[1]);
+                }
+            } else {
+                $input_value = is_string($val) ? sanitize_text_field($val) : null;
+                $input_name = sanitize_text_field(
+                    str_replace("_", ".", substr($key, 6))
+                );
+                $input_values[$input_name] = $input_value;
+            }
         }
     }
 
-    // Add additional Gravity Forms data
-    $entry["form_id"] = $form_id;
-    $entry["ip"] = GFFormsModel::get_ip();
-    $entry["source_url"] = esc_url_raw(wp_get_referer());
-    $entry["user_agent"] = sanitize_text_field($_SERVER["HTTP_USER_AGENT"]);
+    $input_values["form_id"] = $form_id;
+    // $input_values["ip"] = GFFormsModel::get_ip();
+    // $input_values["source_url"] = esc_url_raw(wp_get_referer());
+    // $input_values["user_agent"] = sanitize_text_field($_SERVER["HTTP_USER_AGENT"]);
 
-    // Add the entry to Gravity Forms
-    $result = GFAPI::add_entry($entry);
+    // $entry = GFAPI::add_entry($input_values);
 
-    $response = [
-        "entry" => $entry,
-        "result" => $result,
-        "post" => $_POST,
+    // wp_send_json([
+    //     'input_values' => $input_values,
+    //     'entry' => $entry
+    // ]);
+
+    // Submit the form
+    $result = GFAPI::submit_form($form_id, $input_values);
+    $json_response = [
+        'inputs_values' => $input_values,
+        'result' => $result
     ];
 
     if (is_wp_error($result)) {
-        $response["error"] = $result->get_error_message();
-        wp_send_json_error($response);
-    } else {
-        // Add the entry ID to the entry array
-        $entry['id'] = $result;
-
-        // Capture feed execution and errors
-        add_action('gform_after_feed_execution', function($feed, $entry, $form) use (&$debug_messages) {
-            $debug_messages[] = "Feed executed: " . $feed['addon_slug'];
-        }, 10, 3);
-
-        add_action('gform_feed_error', function($feed, $entry, $form, $error) use (&$debug_messages) {
-            $debug_messages[] = "Feed error in " . $feed['addon_slug'] . ": " . $error->getMessage();
-        }, 10, 4);
-
-        // Trigger the gform_after_submission action to process feeds
-        do_action('gform_after_submission', $entry, $form);
-
-        // Existing code to send notifications and handle confirmation
-        GFAPI::send_notifications($form, $entry);
-        $confirmation_id = key($form['confirmations']);
-        $confirmation = $form['confirmations'][$confirmation_id];
-
-        // Prepare the confirmation response
-        if ($confirmation['type'] == 'page') {
-            $pageId = $confirmation['pageId'];
-            $queryString = $confirmation['queryString'];
-
-            // Replace merge tags in queryString
-            $queryString = GFCommon::replace_variables($queryString, $form, $entry, false, false, false, 'text');
-
-            $redirectUrl = get_permalink($pageId);
-            if ($queryString) {
-                $redirectUrl .= (strpos($redirectUrl, '?') === false) ? '?' : '&';
-                $redirectUrl .= $queryString;
-            }
-
-            // $response['redirect'] = $redirectUrl;
-        } else {
-            $response['confirmation'] = $confirmation['message'];
-        }
-
-        // Include debug messages in the response
-        $response['debug'] = $debug_messages;
-
-        wp_send_json_success($response);
+        $json_response['error_message'] = $result->get_error_message();
     }
+    if (! rgar($result, 'is_valid')) {
+        $json_response['error_message'] = 'Submission is invalid.';
+        $json_response['field_errors']  = rgar($result, 'validation_messages', array());
+    }
+
+    if (rgar($result, 'confirmation_type') === 'redirect') {
+        $redirect_url = !empty($input_values['12.3']) ? rgar($result, 'confirmation_redirect') . $input_values['12.3'] : rgar($result, 'confirmation_redirect');
+        $json_response['redirect'] = $redirect_url;
+    }
+
+    // $response = [];
+    wp_send_json($json_response);
+
     wp_die();
 }
-
-// function submit_custom_gravity_form()
-// {
-//     // Enable error reporting
-//     ini_set("display_errors", 1);
-//     ini_set("log_errors", 1);
-//     error_reporting(E_ALL);
-
-//     // Verify nonce for security
-//     if (!check_ajax_referer("submit_custom_gravity_form", "nonce", false)) {
-//         wp_send_json_error(["error" => "Nonce verification failed."]);
-//         wp_die();
-//     }
-
-//     // Check if form_id is set
-//     if (!isset($_POST["form_id"])) {
-//         wp_send_json_error(["error" => "Form ID not set."]);
-//         wp_die();
-//     }
-
-//     $form_id = intval($_POST["form_id"]);
-
-//     // Load Gravity Forms if not already loaded
-//     if (!class_exists("GFAPI")) {
-//         require_once GFCommon::get_base_path() . "/gravityforms.php";
-//     }
-
-//     // Get the form
-//     $form = GFAPI::get_form($form_id);
-//     if (!$form) {
-//         wp_send_json_error(["error" => "Form not found."]);
-//         wp_die();
-//     }
-
-//     // Prepare the entry data
-//     $entry = [];
-
-//     if (isset($_POST["input_12"])) {
-//         $name = explode(" ", sanitize_text_field($_POST["input_12"]));
-//         if (isset($name[0])) {
-//             $entry["12.3"] = $name[0];
-//         }
-//         if (isset($name[1])) {
-//             $entry["12.6"] = $name[1];
-//         }
-//     }
-
-//     foreach ($_POST as $key => $val) {
-//         if (strpos($key, "input_") === 0) {
-//             $input_name = sanitize_text_field(
-//                 str_replace("_", ".", substr($key, 6))
-//             );
-//             $input_value = sanitize_text_field($val);
-//             $entry[$input_name] = $input_value;
-//         }
-//     }
-
-//     // Add additional Gravity Forms data
-//     $entry["form_id"] = $form_id;
-//     $entry["ip"] = GFFormsModel::get_ip();
-//     $entry["source_url"] = esc_url_raw(wp_get_referer());
-//     $entry["user_agent"] = sanitize_text_field($_SERVER["HTTP_USER_AGENT"]);
-
-//     // Return the entry data for debugging before calling GFAPI::add_entry
-
-//     // Add the entry to Gravity Forms
-//     $result = GFAPI::add_entry($entry);
-
-//     $response = [
-//         "entry" => $entry,
-//         "result" => $result,
-//         "post" => $_POST,
-//     ];
-
-//     if (is_wp_error($result)) {
-//         $response["error"] = $result->get_error_message();
-//         wp_send_json_error($response);
-//     } else {
-//         // Add the entry ID to the entry array
-//         $entry['id'] = $result;
-
-//         // Trigger the gform_after_submission action to process feeds
-//         do_action('gform_after_submission', $entry, $form);
-
-//         // Existing code to send notifications and handle confirmation
-//         GFAPI::send_notifications($form, $entry);
-//         $confirmation_id = key($form['confirmations']);
-//         $confirmation = $form['confirmations'][$confirmation_id];
-
-//         // Prepare the confirmation response
-//         if ($confirmation['type'] == 'page') {
-//             $pageId = $confirmation['pageId'];
-//             $queryString = $confirmation['queryString'];
-
-//             // Replace merge tags in queryString
-//             $queryString = GFCommon::replace_variables($queryString, $form, $entry, false, false, false, 'text');
-
-//             $redirectUrl = get_permalink($pageId);
-//             if ($queryString) {
-//                 $redirectUrl .= (strpos($redirectUrl, '?') === false) ? '?' : '&';
-//                 $redirectUrl .= $queryString;
-//             }
-
-//             $response['redirect'] = $redirectUrl;
-//         } else {
-//             $response['confirmation'] = $confirmation['message'];
-//         }
-
-//         wp_send_json_success($response);
-//     }
-//     wp_die();
-// }

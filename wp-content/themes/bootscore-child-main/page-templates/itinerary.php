@@ -1,10 +1,8 @@
 <?php
 /* Template Name: Itinerary */
 get_header('itinerary');
-$form = GFAPI::get_form(11); // Get form with ID 1 
-// $bg_image = get_home_url() . '/wp-content/uploads/2024/09/Itinerary-Image.webp';
+$form = GFAPI::get_form(11);
 $bg_image = get_home_url() . '/wp-content/uploads/2024/09/Itinerary-Water.webp';
-
 ?>
 <!-- <div class="absolute inset-0 h-full w-full bg-fixed bg-center bg-cover" style="background-image: url(http://t2i-new.test/wp-content/uploads/2023/07/Packages-Hero-Image.jpg);"></div> -->
 <section class=" sm:mt-6 md:pb-20 bg-fixed bg-cover bg-center" style="background-image: url(<?php echo $bg_image; ?>);">
@@ -27,6 +25,7 @@ $bg_image = get_home_url() . '/wp-content/uploads/2024/09/Itinerary-Water.webp';
     <div class="absolute inset-0 bg-gradient-to-b from-gray-950 from-0% h-full w-full"></div>
     <div class="max-w-7xl mx-auto rounded-md bg-gray-50 sm:bs-blur ring-2 ring-white shadow-md shadow-gray-400 py-16 sm:py-24 relative z-10">
         <?php echo gravity_form_to_tailwind_exact($form); ?>
+        <?php //gravity_form( 13, $display_title = true, $display_description = true, $display_inactive = false, $field_values = null, $ajax = false, $tabindex, $echo = true, $form_theme = null, $style_settings = null ); ?>
     </div>
 </section>
 
