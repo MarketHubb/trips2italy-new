@@ -131,7 +131,7 @@ function enqueue_tailwind()
 	wp_enqueue_style('tailwind-css', get_stylesheet_directory_uri() . '/css/tailwind.css', array(), null, 'all');
 	wp_enqueue_style('tailwind-overrides', get_stylesheet_directory_uri() . '/css/tailwind-overrides.css', array('tailwind-css'), null, 'all');
 	wp_enqueue_script('tailwind-form', get_stylesheet_directory_uri() . '/js/tw-form.js', [], null, false);
-	// wp_enqueue_script('tailwind-modal', get_stylesheet_directory_uri() . '/js/tw-modal.js', [], null, false);
+	wp_enqueue_script('tailwind-modal', get_stylesheet_directory_uri() . '/js/tw-modal.js', [], null, false);
 	wp_localize_script('tailwind-form', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
 	// }
@@ -159,7 +159,7 @@ function bootscore_child_enqueue_styles()
 	if (!is_admin() && !is_page(28484)) {
 		wp_enqueue_script('sliders-js', get_stylesheet_directory_uri() . '/js/sliders.js', false, '', true);
 		wp_enqueue_script('scroller-js', get_stylesheet_directory_uri() . '/js/scroller.js', false, '', true);
-		// wp_enqueue_script('modal-js', get_stylesheet_directory_uri() . '/js/modal.js', false, '', true);
+		wp_enqueue_script('modal-js', get_stylesheet_directory_uri() . '/js/modal.js', false, '', true);
 		// wp_enqueue_script('card-carousel-js', get_stylesheet_directory_uri() . '/js/card-carousel.js', false, '', true);
 	}
 
@@ -197,7 +197,7 @@ function mh_conditional_script_loading()
 {
 	if (!is_admin()) {
 		wp_enqueue_style('theme-design', get_stylesheet_directory_uri() . '/css/soft-design-system-pro.css');
-		wp_enqueue_style('custom-styles', get_stylesheet_directory_uri() . '/css/custom.css');
+		wp_enqueue_style('custom-styles', get_stylesheet_directory_uri() . '/css/custom.css', ['tailwind-css']);
 		wp_enqueue_style('hero-styles', get_stylesheet_directory_uri() . '/css/hero.css');
 		// wp_enqueue_style('open-sans-webfonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 		wp_enqueue_style('google-webfonts', 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');

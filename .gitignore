@@ -3,9 +3,11 @@
 .AppleDouble
 .LSOverride
 
+**/*.config*
 # Ignore markdown files
 *.md
 *.swp
+/wp-content/wp-rocket-config
 /wp-content/themes/bootscore-child-main/page-templates/create.php
 /wp-content/themes/bootscore-child-main/.phpactor.json
 /wp-content/themes/bootscore-child-main/notes/*

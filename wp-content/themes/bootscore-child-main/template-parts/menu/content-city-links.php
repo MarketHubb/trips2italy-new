@@ -2,7 +2,7 @@
 <?php
 $section_args = [
     'image' => get_home_url() . '/wp-content/uploads/2023/01/bg_map.png',
-    'classes' => ' footer-links bg-contain bg-center bg-no-repeat my-12 '
+    'classes' => ' footer-links bg-contain bg-center bg-no-repeat py-12 '
 ];
 echo tw_section_open($section_args); ?>
 <div class="max-w-7xl mx-auto relative">

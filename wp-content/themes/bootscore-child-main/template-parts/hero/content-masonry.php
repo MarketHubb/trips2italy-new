@@ -24,9 +24,9 @@
                 <div class="grid grid-cols-2 lg:grid-cols-12 items-center py-24 lg:py-32 lg:gap-x-8">
                     <!-- <div class="col-md-8"> -->
                     <div class="col-span-1 md:col-span-5">
-                        <h1 class="font-heading text-brand-700 text-lg md:text-3xl lg:text-5xl mb-2">
+                        <h1 class="font-heading text-brand-700 mb-2 font-semibold text-xl sm:text-3xl md:text-5xl lg:text-7xl lg:leading-tight">
                             <?php echo $hero['copy']['heading_1']['desktop']; ?>
-                            <span class="stylized d-block mt-1">
+                            <span class="stylized d-block mt-1 font-normal text-brand-500 text-[130%]">
                                 <?php echo $hero['copy']['heading_2']['desktop']; ?>
                             </span>
                         </h1>
@@ -38,20 +38,20 @@
                                                                     ?>"> -->
                         <!-- <div class="position-relative mt-n8"> -->
                         <div class="relative">
-                            <p class="text-base md:text-lg text-gray-700 mt-8 lg:pr-8">
+                            <p class="text-base font-[500] md:text-lg text-gray-800 mt-8 lg:pr-8">
                                 <?php echo $hero['copy']['description']['desktop']; ?>
                             </p>
 
-                            <div class="my-4 py-4 px-2 px-md-0 hero-callouts">
-                                <ul role="list" class="mt-8 grid grid-cols-1 gap-y-2 text-sm leading-6">
+                            <div class="my-8  px-md-0 hero-callouts">
+                                <ul role="list" class="mt-8 grid grid-cols-1 gap-y-4 text-sm leading-6 list-disc list-inside ps-1">
 
                                     <?php foreach ($hero['callouts'] as $callout) { ?>
 
-                                        <li class="flex gap-x-3">
-                                            <svg class="h-7 w-6 flex-none text-secondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <li class="">
+                                            <svg class="hidden h-7 w-6 flex-none text-secondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                                             </svg>
-                                            <span class="text-gray-800 tracking-wide text-base md:text-lg "><?php echo $callout['desktop']; ?></span>
+                                            <span class="text-gray-800 tracking-wide text-base font-[500] md:text-lg "><?php echo $callout['desktop']; ?></span>
                                         </li>
 
                                     <?php } ?>
@@ -75,9 +75,9 @@
 
                             <div class="hero-links mt-5 py-2">
                                 <div class="d-inline-flex  justify-start">
-                                    <button data-target="Primary" class="btn bg-orange btn-lg mb-0" data-type="Modal">
+                                    <a class="<?php echo tw_cta_btn_base_classes(); ?>" href="<?php echo get_permalink(28484); ?>">
                                         <?php echo $hero['links'][0]['copy']; ?>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,11 @@
                                 <?php echo $hero['copy']['description']; ?>
                             </p>
                             <div class="buttons mx-auto text-center">
-                                <button type="button" class="btn bg-gradient-warning btn-lg mt-4" data-bs-toggle="modal" data-bs-target="#modalppc">Plan My Dream Trip</button>
+                                <a class="<?php echo tw_cta_btn_base_classes(); ?>" href="<?php echo get_permalink(28484); ?>">
+                                    <?php echo $hero['links'][0]['copy']; ?>
+                                </a>
+
+                                <!-- <button type="button" class="btn bg-gradient-warning btn-lg mt-4" data-bs-toggle="modal" data-bs-target="#modalppc">Plan My Dream Trip</button> -->
                             </div>
                         </div>
                     </div>

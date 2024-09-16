@@ -178,10 +178,15 @@ function tw_form_cta_btn($args)
 
 	return $btn;
 }
+function tw_cta_btn_base_classes()
+{
+	return ' block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150  '; 
+}
 function tw_cta_btn($args)
 {
 	if (empty($args)) return null;
-	$btn_base_classes = ' rounded-md bg-orangeDark hover:bg-orangeLight px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm ';
+	// $btn_base_classes = ' rounded-md bg-orangeDark hover:bg-orangeLight px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm ';
+	$btn_base_classes = tw_cta_btn_base_classes();
 	$btn_classes = !empty($args['classes']) ? $btn_base_classes . $args['classes'] : $btn_base_classes;
 	$btn  = '<button ';
 	$btn .= 'class="' . $btn_classes . '" ';

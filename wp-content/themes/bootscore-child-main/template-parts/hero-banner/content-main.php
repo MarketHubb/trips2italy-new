@@ -19,8 +19,8 @@
 
                     <?php echo hero_callouts($args, "mobile"); ?>
 
-                    <div class="mb-12">
-                        <a href="<?php echo get_permalink(28484); ?>" data-target="Primary" class="btn font-semibold bg-orange btn-lg mb-0">
+                    <div class="mb-12 px-8">
+                        <a href="<?php echo get_permalink(28484); ?>" data-target="Primary" class="<?php echo tw_cta_btn_base_classes(); ?>">
                             Start now </a>
                     </div>
                     <?php
