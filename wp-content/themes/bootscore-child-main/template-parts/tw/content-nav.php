@@ -42,20 +42,25 @@ $nav_fields = get_field('primary_nav', 'option');
                $mobile_nav_links = '';
 
                foreach ($nav_fields as $nav_field) {
-                  $nav_active_class = get_nav_active_class(get_queried_object(), $nav_field['page']->ID, $nav_field['link_text']) ? ' drop-shadow-[0_-5px_15px_rgba(255,255,255,1)] opacity-100 ' : ' opacity-60 ';
+                  $desktop_active_class = get_nav_active_class(get_queried_object(), $nav_field['page']->ID, $nav_field['link_text']) ? ' drop-shadow-[0_-5px_15px_rgba(255,255,255,1)] opacity-100 ' : ' opacity-60 ';
+                  $mobile_active_class = get_nav_active_class(get_queried_object(), $nav_field['page']->ID, $nav_field['link_text']) ? ' drop-shadow-[0_-5px_15px_rgba(255,255,255,1)] opacity-100 ' : ' opacity-60 ';
+                  $href = get_permalink($nav_field['page']->ID);
+
                   $base_classes = 'group flex flex-col items-center text-sm font-semibold leading-6 text-white hover:opacity-100 ';
-                  $desktop_nav_links .= '<a href="' .  get_permalink($nav_field['page']->ID) . '" class="' . $base_classes . $nav_active_class . '">';
+                  $desktop_nav_links .= '<a href="' . $href . '" class="' . $base_classes . $desktop_active_class . '">';
                   $desktop_nav_links .= '<img src="' . $nav_field['icon'] . '" class="max-h-[15px] relative mb-1 invert group-hover:opacity-100" />';
                   $desktop_nav_links .= $nav_field['link_text'] . '</a>';
+
+                  $mobile_nav_links .= '<a href="' . $href . '" class="-mx-3 block rounded-lg px-3 py-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ' . $active_class . '">';
+                  $mobile_nav_links .= '<img src="' . $nav_field['icon'] . '" class="max-w-[15px] h-auto opacity-20 relative inline-block mr-2" />';
+                  $mobile_nav_links .= $nav_field['link_text'] . '</a>';
                }
 
                echo $desktop_nav_links;
                ?>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-
                <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-6 py-1.5 text-sm font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-secondary-500 hover:bg-secondary-400 border border-secondary-600" role="button">PLAN MY TRIP</a>
-               <!-- <button data-type="form" data-target="form" class="btn btn-sm bg-orange text-white btn-round mb-0 me-1" role="button">plan my trip</button> -->
             </div>
       </nav>
       <!-- mobile menu, show/hide based on menu open state. -->
@@ -64,32 +69,22 @@ $nav_fields = get_field('primary_nav', 'option');
          <div class="fixed inset-0 z-10"></div>
          <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white !px-6 !pb-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div class="flex items-center justify-between">
-               <a href="#" class="-m-1.5 p-1.5">
+
+               <a href="<?php echo get_home_url(); ?>" class="-m-1.5 p-1.5">
                   <span class="sr-only">trips 2 italy</span>
                   <img class="h-14 w-auto absolute top-[5px]" src="<?php echo home_url() . '/wp-content/uploads/2023/01/logo-no-shadow.svg'; ?>" alt="">
                </a>
                <button type="button" class="rounded-md p-2.5 text-gray-700">
-                  <span class="sr-only">close menu</span>
+                  <span class="sr-only">Close menu</span>
                   <svg class="!h-6 !w-6" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" aria-hidden="true">
-                     <path stroke-linecap="round" stroke-linejoin="round" d="m6 18l18 6m6 6l12 12" />
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                </button>
             </div>
             <div class="mt-6 flow-root">
                <div class="-my-6 divide-y divide-gray-500/10">
                   <div class="space-y-2 divide-y !py-6">
-                     <?php
-                     $mobile_nav_links = '';
-
-                     foreach ($nav_fields as $nav_field) {
-                        $active_class = (isset($current_post_id) && $current_post_id === $nav_field['page']->id) ? 'active ' : '';
-                        $mobile_nav_links .= '<a href="' .  get_permalink($nav_field['page']->id) . '" class="-mx-3 block rounded-lg px-3 py-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ' . $active_class . '">';
-                        $mobile_nav_links .= '<img src="' . $nav_field['icon'] . '" class="max-w-[15px] h-auto opacity-20 relative inline-block mr-2" />';
-                        $mobile_nav_links .= $nav_field['link_text'] . '</a>';
-                     }
-
-                     echo $mobile_nav_links;
-                     ?>
+                     <?php echo $mobile_nav_links; ?>
                   </div>
                   <div class="!py-6">
                      <button data-type="form" data-target="form" class="btn btn-sm bg-orange text-white btn-round mb-0 me-1" role="button">plan my trip
@@ -103,5 +98,5 @@ $nav_fields = get_field('primary_nav', 'option');
    <?php } ?>
 
    </header>
-
 <?php } ?>
+
