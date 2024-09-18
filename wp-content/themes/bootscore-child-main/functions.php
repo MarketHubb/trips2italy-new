@@ -134,9 +134,33 @@ function enqueue_tailwind()
 	wp_enqueue_script('tailwind-modal', get_stylesheet_directory_uri() . '/js/tw-modal.js', [], null, false);
 	wp_localize_script('tailwind-form', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
+	if (is_page(27712)) {
+		wp_enqueue_script('locations', get_stylesheet_directory_uri() . '/js/locations.js', [], null, false);
+	}
+
 	// }
 }
 add_action('wp_enqueue_scripts', 'enqueue_tailwind', 999);
+
+function enqueue_preline_script()
+{
+	// Get the website root path
+	$website_root = ABSPATH;
+
+	// Construct the path to the Preline script
+	$preline_path = $website_root . 'node_modules/preline/dist/preline.js';
+
+	// Check if the file exists
+	if (file_exists($preline_path)) {
+		// Convert the file path to a URL
+		$preline_url = str_replace(ABSPATH, site_url('/'), $preline_path);
+
+		// Enqueue the script
+		wp_enqueue_script('preline', $preline_url, array(), '1.0.0', true);
+	}
+}
+add_action('wp_enqueue_scripts', 'enqueue_preline_script');
+
 
 add_action('wp_enqueue_scripts', 'bootscore_child_enqueue_styles');
 function bootscore_child_enqueue_styles()

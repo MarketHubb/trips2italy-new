@@ -3,123 +3,105 @@
 get_header(); ?>
 
 <?php
-$regions = get_terms(
-    array(
-        'taxonomy' => 'location_region',
-        'exclude' => [5245]
-    )
-);
-?>
+$location_region_terms = get_location_region_tax_terms();
 
-<?php echo tw_section_open(); ?>
-<?php echo tw_container_open(); ?>
-<?php 
-$output = '<div class="content z-index-2" id="destinations">';
-$dropdown  = '<div class="container dropdown-container px-md-4 z-index-3">';
-$dropdown .= '<div class="row justify-content-between row-cols-2 z-index-2 border-radius-xl mb-n4 mx-auto py-3 blur shadow-blur region-dropdown-container bg-gradient-dark">';
+if (!empty($location_region_terms)) {
+    // $nav  = '<nav class="flex flex-1 flex-col bg-gray-50 px-4 py-7 ring-1 ring-gray-200/90 rounded shadow-sm" aria-label="Sidebar">';
+    // $nav .= '<ul role="list" class="space-y-1">';
+    $nav  = '<nav id="sidebar-nav" class="hidden md:block flex-1 flex-col px-4 py-7 rounded shadow-sm overflow-y-auto" aria-label="Sidebar">';
+    $nav .= '<ul role="list" class="space-y-1 overscroll-none overflow-auto " id="sidebar-content">';
+    $content = '<div class="flex flex-col gap-y-16">';
 
-// Dropdown - Region
-$dropdown_region  = '<div class="dropdown">';
-$dropdown_region .= '<a href="#" class="px-4 btn bg-white dropdown-toggle mb-0 " data-bs-toggle="dropdown" id="navbarDropdownRegion">';
-$dropdown_region .= 'Jump to Region</a>';
-$dropdown_region .= '<ul class="dropdown-menu bg-white" aria-labelledby="navbarDropdownRegion">';
+    foreach ($location_region_terms as $location_region) {
+        // Navigation
+        $nav .= '<li class="flex">';
+        $nav .= '<div class="w-10 flex-shrink-0">';
+        $nav .= '<img class="w-8 h-auto object-contain icon-blue-filter" src="' . esc_url(get_field('region_icon', $location_region)) . '" alt="">';
+        $nav .= '</div>';
+        $nav .= '<div class="flex-grow">';
+        $nav .= '<a href="#region_' . esc_attr($location_region->term_id) . '" class="block p-2 text-base font-semibold leading-6 text-gray-800">';
+        $nav .= esc_html($location_region->name);
+        $nav .= '</a>';
 
-// Dropdown - City
-$dropdown_city_array = [];
-$dropdown_city  = '<div class="d-inline-flex justify-content-end">';
-$dropdown_city .= '<div class="dropdown">';
-$dropdown_city .= '<a href="#" class="px-4 btn bg-white dropdown-toggle mb-0 " data-bs-toggle="dropdown" id="navbarDropdownCity">';
-$dropdown_city .= 'Jump to City</a>';
-$dropdown_city .= '<ul class="dropdown-menu" aria-labelledby="navbarDropdownCity">';
+        // Content - Region Card
+        $content .= '<div id="region_' . esc_attr($location_region->term_id) . '" class="group/region flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">';
+        $content .= '<a href="' . esc_url(get_term_link($location_region)) . '" class="block">';
+        $content .= '<img class="group-hover/region:opacity-75 h-44 lg:h-56 w-full rounded-t-xl" src="' . get_field('featured_image', $location_region)['url'] . '" alt="' . esc_attr($location_region->name) . '">';
+        $content .= '<div class="p-5 md:p-6 lg:p-7">';
+        $content .= '<h3 class="text-2xl md:text-2xl lg:text-3xl tracking-normal font-base font-bold text-gray-800 group-hover/region:text-brand-500">' . esc_html($location_region->name) . '</h3>';
+        $content .= '<p class="mt-1 text-gray-500 dark:text-neutral-400 text-base line-clamp-3 ">' . esc_html($location_region->description) . '</p>';
+        $content .= '</div>';
+        $content .= '</a>';
 
-foreach ($regions as $region) {
-    $output .= '<section id="' . lowercase_no_spaces($region->name) . '" class="region-container py-7" data-region="' . $region->name . '" data-termid="' . $region->term_id . '">';
-    $output .= '<div class="container">';
+        $location_posts_by_region = get_location_posts_by_location_region_tax([$location_region], true);
 
-    $dropdown_region .= '<li><a class="dropdown-item fs-6 fw-500" href="#' . lowercase_no_spaces($region->name) . '">';
-    $dropdown_region .= $region->name . '</a></li>';
+        if (!empty($location_posts_by_region) && !empty($location_posts_by_region[0])) {
+            $nav .= '<ul class="ml-2">';
+            $content .= '<div class="grid grid-cols-1 gap-y-6 py-6 md:p-6 lg:p-7 mb-5">';
+            $content .= '<div class="my-6 flex items-center gap-x-4 px-3">';
+            $content .= '<div class="h-[1px] flex-auto bg-brand-500/20"></div>';
+            $content .= '<p class="flex-none text-center text-base text-gray-500 font-semibold antialiased">';
+            $content .= 'The cities  of ' .  esc_html($location_region->name) . '</p>';
+            $content .= '<div class="h-[1px] flex-auto bg-brand-500/20"></div>';
+            $content .= '</div>';
 
-    $query_args = array(
-        'post_type' => 'location',
-        'posts_per_page' => -1,
-        'tax_query' => array(
-            array(
-                'taxonomy' => 'location_region',
-                'field' => 'term_id',
-                'terms' => $region->term_id
-            ),
-        ),
-    );
+            foreach ($location_posts_by_region[0] as $location_post) {
+                // Navigation
+                $nav .= '<li>';
+                $nav .= '<a href="#post_' . esc_attr($location_post->ID) . '" class="block px-2 py-1 text-sm text-gray-600 hover:text-indigo-600">';
+                $nav .= esc_html(get_the_title($location_post->ID));
+                $nav .= '</a>';
+                $nav .= '</li>';
 
-    $query = new WP_Query($query_args);
-
-    if ($query->have_posts()) :
-        $output .= '<div class="row align-content-center align-middle gx-md-4 mb-5">';
-        $output .= '<div class="col-md-5">';
-        $output .= '<img src="' . get_field('region_icon', $region) . '" class="region-icon d-block mb-4" />';
-        $output .= '<h2 class="d-inline-block">' . $region->name . '</h2>';
-        $output .= '<p class="clamp-4">' . $region->description . '</p>';
-        $output .= '<div class="mt-6">';
-        $output .= '<a class="btn bg-orange btn-lg mb-0" href="' . get_term_link($region->term_id) . '">Explore the ' . $region->name . ' Region</a>';
-        $output .= '</div>';
-        $output .= '</div>';
-        $output .= '<div class="col-md-7">';
-        $output .= '<img src="' . get_field('featured_image', $region)['url'] . '" class="rounded shadow object-fit h-100" />';
-        $output .= '</div>';
-        $output .= '<div class="region-image pt-4">';
-        $output .= '</div>';
-        $output .= '</div>';
-        $output .= '<hr>';
-
-        $output .= '<div class="row justify-content-start py-3">';
-        $output .= '<div class="col-md-8">';
-        $output .= '<h5 class="fw-bolder">The cities & towns of ' . $region->name . '</h5>';
-        $output .= '</div></div>';
-
-        $output .= '<div class="row justify-content-start">';
-
-        while ($query->have_posts()) : $query->the_post();
-
-            // Set region name (clean)
-            if ($post->post_parent === 0) {
-                $dropdown_city_array[] = get_field('city_name');
-                $standardized_title = get_field('standardized_title');
-                $card_id = (isset($standardized_title) && !empty($standardized_title)) ? $standardized_title : 'post-' . $post->ID;
-                $output .= '<div id="' . strtolower(str_replace(' ', '', $card_id)) . '" class="col-12 col-md-4 my-3">';
-
-                // Setup card
-                $parent_id = get_the_ID();
-                $domain = get_bloginfo('url');
-                $location_image = (get_field('featured_image')['sizes']['large']) ?: remove_dev_domain_from_url(get_field('image_slider_url', $post->ID));
-                $location_heading = '<h5 class="tracking-none fw-700 icon-move-right">' . get_the_title() . '</h5>';
-                $card_args = [];
-                $card_args['image_url'] = $location_image;
-                $card_args['background'] = 'gray-50';
-                $card_args['heading'] = $location_heading;
-
-                // Description
-                $body_content = wp_strip_all_tags(get_field('content_clean'));
-                $card_args['body']  = '<p class="clamp-3">' . $body_content . '</p>';
-                $card_args['body'] .= '<a href="' . get_permalink($post->ID) . '"><p class="tracking-none fw-600 no-anti mb-0 icon-move-right">Explore ' . get_the_title() . '<i class="fas fa-arrow-right text-sm ps-2"></i></h4></a>';
-
-
-                $card = single_card_waves($card_args);
-                $output .= $card . '</div>';
+                // Content - Location Post Card (Horizontal)
+                $content .= '<div id="post_' . esc_attr($location_post->ID) . '" class="flex bg-white rounded-b-xl sm:rounded-xl border-transparent hover:bg-brand-100/30 hover:border-brand-500 hover:shadow-md group">';
+                $content .= '<a href="' . esc_url(get_permalink($location_post->ID)) . '" class="flex flex-col sm:flex-row w-full">';
+                $content .= '<img class="rounded-0 sm:rounded-tl-xl sm:rounded-bl-xl group-hover:opacity-75 h-20 sm:h-auto w-full sm:w-1/3 object-cover" src="' . get_field('featured_image', $location_post)['sizes']['large'] . '" alt="' . esc_attr(get_the_title($location_post->ID)) . '">';
+                $content .= '<div class="w-full sm:w-2/3 p-5 overflow-hidden">';
+                $content .= '<h3 class="text-lg font-base tracking-normal font-semibold text-gray-800 group-hover:text-brand-500 dark:text-white">' . esc_html(get_the_title($location_post->ID)) . '</h3>';
+                $content .= '<p class="mt-1 text-gray-500 group-hover:text-gray-600 text-sm sm:text-sm">' . wp_kses_post(wp_trim_words(wp_strip_all_tags(get_field('content_clean', $location_post->ID)), 20)) . '</p>';
+                $content .= '</div>';
+                $content .= '</a>';
+                $content .= '</div>';
             }
 
+            $nav .= '</ul>';
+            $content .= '</div>';
+            $content .= '</div>'; // Close region card
+        }
 
-        endwhile;
-        $output .= '</div>';
-    endif;
-    $output .= '</div></section>';
-    wp_reset_postdata();
-}
+        $nav .= '</div>';
+        $nav .= '</li>';
+    }
 
-$output .= '</div>';
+    $nav .= '</ul>';
+    $nav .= '</nav>';
 
-echo $output;
+    $content .= '</div>';
 ?>
 
-<?php echo tw_container_and_section_close(); ?>
+
+
+    <?php echo tw_section_open(); ?>
+
+    <?php echo tw_container_open(); ?>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-x-8" id="location-posts">
+
+        <div class="md:col-span-3">
+            <?php echo $nav; ?>
+        </div>
+
+        <div class="md:col-span-9">
+            <?php echo $content ?>
+        </div>
+    </div>
+
+    <?php echo tw_container_close(); ?>
+
+    <?php echo get_section_close(); ?>
+
+
+<?php } ?>
 
 <?php get_footer(); ?>
