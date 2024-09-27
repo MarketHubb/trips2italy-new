@@ -97,22 +97,6 @@
     transform-style: preserve-3d;
 }
 */
-html * {
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
-}
-
-.font-heading,
-h1,
-h2,
-h3,
-h4,
-h5 {
-    font-family: "Lora", serif !important;
-    font-optical-sizing: auto;
-    font-weight: unset !important;
-}
-
 .stylized {
     font-family: "Ephesis", cursive !important;
     /*    font-family: "Great Vibes", cursive !important;*/
@@ -233,16 +217,8 @@ h5 {
     box-shadow: 0 40px 50px -12px rgb(0 0 0 / 0.75);
 }
 
-.bg-gray-100 {
-    background-color: #fcfcfd !important;
-}
-
 .bg-orange-100 {
     background-color: #FDF6EF !important;
-}
-
-.bg-gray-100 p {
-    color: #566176;
 }
 
 .opacity-9 {

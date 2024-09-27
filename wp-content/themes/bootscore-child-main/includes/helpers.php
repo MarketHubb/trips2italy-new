@@ -1,4 +1,98 @@
 <?php
+declare(strict_types=1);
+
+/**
+ * Parses HTML content, strips out <span> and <strong> tags, and returns an ordered array.
+ *
+ * @param string $html The HTML content to parse.
+ * @return array An ordered array of associative arrays with tag names as keys and text content as values.
+ */
+function parseContent(string $html): array {
+    // Suppress errors due to malformed HTML
+    libxml_use_internal_errors(true);
+
+    // Initialize DOMDocument and load the HTML
+    $dom = new DOMDocument();
+    // Use UTF-8 encoding to handle special characters
+    $dom->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    // Initialize XPath for querying
+    $xpath = new DOMXPath($dom);
+
+    // Define the tags you want to extract, maintaining their order
+    // Modify this array if you need to include more tags
+    $targetTags = ['p', 'h3', 'h4'];
+
+    // Create an XPath query that selects all target tags in document order
+    $query = implode(' | ', array_map(function($tag) {
+        return "//{$tag}";
+    }, $targetTags));
+
+    // Execute the XPath query
+    $nodes = $xpath->query($query);
+
+    // Initialize the result array
+    $result = [];
+
+    // Iterate through each node in document order
+    foreach ($nodes as $node) {
+        // Ensure the node is a DOMElement for type hinting
+        if ($node instanceof DOMElement) {
+            // Remove <span> and <strong> tags within the current node
+            removeTags($node, ['span', 'strong']);
+
+            // Get the trimmed text content
+            $text = trim($node->textContent);
+
+            // Only add non-empty text
+            if (!empty($text)) {
+                // Add the element to the result array with tag name as key
+                $result[] = [
+                    'type' => $node->tagName,
+                    'val' => $text
+                ];
+            }
+        }
+    }
+
+    // Clear libxml errors
+    libxml_clear_errors();
+
+    return $result;
+}
+
+/**
+ * Removes specified tags from a DOMElement by replacing them with their text content.
+ *
+ * @param DOMElement $element The element from which to remove tags.
+ * @param array $tagsToRemove An array of tag names to remove.
+ */
+function removeTags(DOMElement $element, array $tagsToRemove): void {
+    foreach ($tagsToRemove as $tag) {
+        // Get all descendant nodes with the specified tag
+        $nodes = $element->getElementsByTagName($tag);
+
+        // Since getElementsByTagName returns a live NodeList, iterate in reverse order to avoid issues
+        for ($i = $nodes->length - 1; $i >= 0; $i--) {
+            $child = $nodes->item($i);
+            if ($child instanceof DOMElement) {
+                // Create a text node with the child's text content
+                $textNode = $element->ownerDocument->createTextNode($child->textContent);
+
+                // Replace the child with the text node on its actual parent
+                if ($child->parentNode) {
+                    $child->parentNode->replaceChild($textNode, $child);
+                }
+            }
+        }
+    }
+}
+
+function get_current_url() {
+    global $wp;
+    return home_url(add_query_arg(array(), $wp->request)) . '/';
+}
+
 function get_referring_url() {
     // Check if HTTP_REFERER is set and not empty
     if (!empty($_SERVER['HTTP_REFERER'])) {

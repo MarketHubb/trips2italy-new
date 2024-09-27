@@ -21,8 +21,12 @@ function get_scroll_panels($args = [])
 {
 	if (empty($args)) return null;
 
+	$li_class = !empty($args['li_class']) ? $args['li_class'] : ' snap-item rounded-xl w-9/12 lg:w-full flex-shrink-0 snap-center opacity-65 lg:opacity-100 transition-all duration-300 ease-in-out ';
 	$item_div_classes = !empty($args['item_div_classes']) ? $args['item_div_classes'] : ' bg-white flex flex-col lg:flex-row lg:gap-x-4 h-full overflow-hidden rounded-xl p-4 lg:px-6 transition-all duration-300 ease-in-out transform ';
 	$item_img_classes = !empty($args['item_img_classes']) ? $args['item_img_classes'] : ' relative h-32 z-10 w-full object-contain ';
+
+	// Text
+	$heading_class = !empty($args['heading_class']) ? $args['heading_class'] : ' d-inline-block fw-bolder text-uppercase mt-3 mb-0 text-xl md:text-2xl ';
 	$item_description_classes = !empty($args['item_description_classes']) ? $args['item_description_classes'] : ' text-gray-900 text-base px-3 lg:pl-0 leading-6 ';
 	$item_img_container_classes = !empty($args['item_img_container_classes']) ? $args['item_img_container_classes'] : ' flex items-center justify-center p-2 ';
 	$ul_classes = !empty($args['ul_classes']) ? $args['ul_classes'] : ' flex lg:grid lg:grid-cols-3 lg:justify-center lg:content-center snap-slider snap-x snap-mandatory gap-x-6 lg:gap-x-8 lg:gap-y-8 py-6 lg:px-8 overflow-x-auto relative bottom-8 lg:bottom-0 ';
@@ -31,20 +35,31 @@ function get_scroll_panels($args = [])
 	$panels .= '<li class="rounded-xl w-1/12 flex-shrink-0 lg:hidden snap-center opacity-65 transition-all duration-300 ease-in-out"></li>';
 
 	foreach ($args['content'] as $fields) {
-		$panels .= '<li class="snap-item rounded-xl w-9/12 lg:w-full flex-shrink-0 snap-center opacity-65 lg:opacity-100 transition-all duration-300 ease-in-out">';
+		$panels .= '<li class="' . $li_class . '">';
 		$panels .= '<div class="' . $item_div_classes . '">';
 		$panels .= '<div class="' . $item_img_container_classes . '">';
 		$panels .= '<div class="relative w-full max-w-lg aspect-auto">';
-		$panels .= '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-brand-500-500-500 opacity-50 rounded-full filter blur-xl"></div>';
-		$panels .= '<img src="' . $fields['image']['url'] . '" alt="base image" class=" ' . $item_img_classes . '">';
-		$panels .= '<img src="' . get_home_url() . '/wp-content/uploads/2024/07/spiral.svg" alt="overlay image" class="absolute inset-0 w-full h-full object-contain opacity-20">';
+		$panels .= '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-28 h-28 bg-brand-500-500-500 opacity-50 rounded-full filter blur-xl"></div>';
+		$panels .= '<img src="' . $fields['image']['url'] . '" alt="base image" class="z-20 ' . $item_img_classes . '">';
+		$panels .= '<img src="' . get_home_url() . '/wp-content/uploads/2024/07/spiral.svg" alt="overlay image" class="absolute inset-0 w-full h-full object-contain opacity-20 z-10">';
 		$panels .= '</div></div>';
-		$panels .= '<div class="mt-2 text-center lg:text-left px-3 z-10 lg:ml-4">';
-		$panels .= '<h5 class="d-inline-block fw-bolder text-uppercase mt-3 mb-0 text-xl md:text-2xl">' . $fields['heading'] . '</h5>';
-		$panels .= '<h5 class="text-gradient text-primary stylized mb-4 text-3xl antialiased-[unset]">' . $fields['subheading'] . '</h5>';
-		$panels .= '<div class="mx-auto text-center lg:text-left max-w-[90%] lg:max-w-full mb-3">';
-		$panels .= '<p class="' . $item_description_classes . '">' . $fields['description'] . '</p>';
-		$panels .= '</div></div></div></li>';
+		$panels .= '<div class="mt-2 text-center lg:text-left px-3 z-10">';
+
+		if (!empty($fields['heading'])) {
+			$panels .= '<h5 class="' . $heading_class . '">' . $fields['heading'] . '</h5>';
+		}
+
+		if (!empty($fields['subheading'])) {
+			$panels .= '<h5 class="text-gradient text-primary stylized mb-4 text-3xl antialiased-[unset]">' . $fields['subheading'] . '</h5>';
+		}
+
+		if (!empty($fields['description'])) {
+			$panels .= '<div class="mx-auto text-center lg:text-left max-w-[90%] lg:max-w-full mb-3">';
+			$panels .= '<p class="' . $item_description_classes . '">' . $fields['description'] . '</p>';
+			$panels .= '</div>';
+		}
+
+		$panels .= '</div></div></li>';
 	}
 
 	$panels .= '<li class="rounded-xl w-3/12 flex-shrink-0 lg:hidden snap-center opacity-65 transition-all duration-300 ease-in-out"></li>';
@@ -58,7 +73,7 @@ function get_image_grid($content_collection)
 	if (!empty($content_collection['content'])) {
 		$grid_classes = !empty($content_collection['classes']['grid']) ? $content_collection['classes']['grid'] : ' grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 ';
 		$heading_classes = !empty($content_collection['classes']['heading']) ? $content_collection['classes']['heading'] : ' text-[2rem] md:text-3xl lg:text-4xl mt-4 stylized text-secondary-500 ';
-		$copy_container_classes = !empty($content_collection['classes']['copy_container']) ? $content_collection['classes']['copy_container'] : ' ';
+		$copy_container_classes = !empty($content_collection['classes']['copy_container']) ? $content_collection['classes']['copy_container'] : ' rounded-md px-4 pt-5 pb-8 ';
 		$image_classes = !empty($content_collection['classes']['image']) ? $content_collection['classes']['image'] : ' md:h-56 w-full object-cover object-center group-hover:opacity-75 ';
 		$description_classes = !empty($content_collection['classes']['description']) ? $content_collection['classes']['description'] : ' line-clamp-3 text-gray-600 text-lg ';
 
@@ -69,7 +84,7 @@ function get_image_grid($content_collection)
 			$image_grid .= '<div class="w-full overflow-hidden rounded-t-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 lg:mt-0 ">';
 			$image_grid .= '<img src="' . $content['image'] . '" class="' . $image_classes . '"/>';
 			$image_grid .= '</div>';
-			$image_grid .= '<div class="rounded-md px-4 pt-5 pb-8 ">';
+			$image_grid .= '<div class="' . $copy_container_classes . '">';
 
 			if (isset($content_collection['badges']) && $content_collection['badges']) {
 				$image_grid .= '<div class="h-6">';
@@ -154,7 +169,7 @@ function get_hero_fields($queried_obj)
 // GLOBAL
 function tw_heading_classes($light_bg = true)
 {
-	$color = $light_bg ? ' text-brand-500-700 ' : ' text-white ';
+	$color = $light_bg ? ' text-brand-700 ' : ' text-white ';
 	return ' mb-0 md:leading-normal font-heading tracking-none text-2xl md:text-2xl lg:text-3xl mb-1 ' . $color;
 }
 
@@ -180,7 +195,7 @@ function tw_form_cta_btn($args)
 }
 function tw_cta_btn_base_classes()
 {
-	return ' block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150  '; 
+	return ' block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150  ';
 }
 function tw_cta_btn($args)
 {
@@ -239,9 +254,19 @@ function tw_section_open($section_attributes = null)
 	return $section_open;
 }
 
+function get_section_close()
+{
+	return '</section>';
+}
+
 function tw_container_open()
 {
 	return '<div class="max-w-7xl mx-auto">';
+}
+
+function tw_container_close()
+{
+	return '</div>';
 }
 
 function tw_container_and_section_close()

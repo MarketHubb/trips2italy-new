@@ -1,5 +1,6 @@
 <?php
 // Content
+require_once 'includes/fonts.php';
 require_once 'includes/ajax.php';
 require_once 'includes/queries.php';
 require_once 'includes/migrate.php';
@@ -166,7 +167,7 @@ add_action('wp_enqueue_scripts', 'bootscore_child_enqueue_styles');
 function bootscore_child_enqueue_styles()
 {
 	// style.css
-	wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css', []);
+	// wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css', []);
 	// custom.js
 	if (!is_page(28484)) {
 		wp_enqueue_script('custom-js', get_stylesheet_directory_uri() . '/js/custom.js', false, '', true);

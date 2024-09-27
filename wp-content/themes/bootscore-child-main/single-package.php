@@ -1,6 +1,16 @@
 <?php get_header(); ?>
 
-<?php get_template_part('template-parts/packages/content', 'single-package'); ?>
+<?php get_template_part('template-parts/packages/content', 'single-cta'); ?>
+
+<?php get_template_part('template-parts/packages/content', 'timeline'); ?>
+
+<?php //get_template_part('template-parts/packages/content', 'description'); ?>
+
+<?php //get_template_part('template-parts/packages/content', 'includes'); ?>
+
+<?php //get_template_part('template-parts/packages/content', 'itinerary'); ?>
+
+<?php //get_template_part('template-parts/packages/content', 'single-package'); ?>
 
 
 <!-- Content -->

@@ -1,16 +1,27 @@
-<?php $hero_inputs = get_hero_inputs(get_queried_object()); ?>
+<?php
+if (isset($args)) {
+   $hero_inputs = $args['hero'];
+} else {
+   $hero_inputs = get_hero_inputs(get_queried_object());
+}
+?>
 
 <?php if (!empty($hero_inputs)) { ?>
 
-   <header class="hidden sm:block">
+   <header class="block">
       <div class="min-h-96 relative flex items-center bg-cover bg-center p-0 overflow-hidden" style="background-image: url(<?php echo $hero_inputs['images']['background_image']; ?>);">
-         <span class="absolute inset-0 w-full h-full  sm:bg-gradient-to-r sm:from-gray-800 from-[1%]"></span>
+         <span class="absolute inset-0 w-full h-full  bg-gradient-to-r from-[#121821] from-[100%] opacity-60 sm:opacity-100 sm:from-[#0d1117] sm:from-[1%] "></span>
          <!-- Copy -->
          <div class="pl-8 max-w-7xl mx-auto w-full z-10 relative py-24 lg:py-44 xl:py-56 ">
-            <div class="lg:max-w-[40%] mb-[104px]">
-               <h1 class="">
-                  <span class="text-xl md:text-3xl xl:text-4xl text-secondary-400 tracking-normal block"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
-                  <span class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white stylized"><?php echo $hero_inputs['copy']['heading_2']['desktop']; ?></span>
+            <div class="lg:max-w-[40%]">
+               <?php if (!empty($hero_inputs['breadcrumbs'])) { ?>
+
+                  <?php get_template_part( 'template-parts/tw-hero/content', 'breadcrumbs', $hero_inputs['breadcrumbs'] ); ?>
+                  
+               <?php  } ?>
+               <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-normal sm:leading-none">
+                  <span class="text-secondary-500 tracking-normal font-base uppercase font-bold block leading-none"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
+                  <span class="text-[120%] text-white stylized "><?php echo $hero_inputs['copy']['heading_2']['desktop']; ?></span>
                </h1>
                <p class="text-white text-lg mt-6">
                   <?php echo $hero_inputs['copy']['description']['desktop']; ?>

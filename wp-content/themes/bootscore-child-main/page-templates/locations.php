@@ -3,13 +3,15 @@
 get_header(); ?>
 
 <?php
+
 $location_region_terms = get_location_region_tax_terms();
 
 if (!empty($location_region_terms)) {
-    // $nav  = '<nav class="flex flex-1 flex-col bg-gray-50 px-4 py-7 ring-1 ring-gray-200/90 rounded shadow-sm" aria-label="Sidebar">';
-    // $nav .= '<ul role="list" class="space-y-1">';
-    $nav  = '<nav id="sidebar-nav" class="hidden md:block flex-1 flex-col px-4 py-7 rounded shadow-sm overflow-y-auto" aria-label="Sidebar">';
+    $nav  = '<nav id="sidebar-nav" class="hidden bg-gray-50 rounded-md ring-1 ring-gray-200/90 shadow-md md:block flex-1 flex-col px-4 py-7 overflow-y-auto" aria-label="Sidebar">';
     $nav .= '<ul role="list" class="space-y-1 overscroll-none overflow-auto " id="sidebar-content">';
+    $mobile_nav  = '<div class="md:hidden flex w-full shadow-sm pb-1 justify-center overflow-hidden bg-white" id="mobile-nav-container">';
+    $mobile_nav .= '<select name="location" id="mobile-nav" class="mt-2 block w-fit rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6" aria-label="Mobile Navigation">';
+    $mobile_nav .= '<option>-- Jump to location --</option>';
     $content = '<div class="flex flex-col gap-y-16">';
 
     foreach ($location_region_terms as $location_region) {
@@ -22,6 +24,11 @@ if (!empty($location_region_terms)) {
         $nav .= '<a href="#region_' . esc_attr($location_region->term_id) . '" class="block p-2 text-base font-semibold leading-6 text-gray-800">';
         $nav .= esc_html($location_region->name);
         $nav .= '</a>';
+
+        // Mobile navigation
+        $mobile_nav .= '<option value="#region_' . esc_attr($location_region->term_id) . '">';
+        $mobile_nav .= esc_html($location_region->name);
+        $mobile_nav .= '</option>';
 
         // Content - Region Card
         $content .= '<div id="region_' . esc_attr($location_region->term_id) . '" class="group/region flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">';
@@ -53,6 +60,12 @@ if (!empty($location_region_terms)) {
                 $nav .= '</a>';
                 $nav .= '</li>';
 
+                // Mobile navigation
+                $mobile_nav .= '<option value="#post_' . esc_attr($location_post->ID) . '">';
+                $mobile_nav .= '&nbsp;&nbsp;' . esc_html(get_the_title($location_post->ID));
+                $mobile_nav .= '</option>';
+
+
                 // Content - Location Post Card (Horizontal)
                 $content .= '<div id="post_' . esc_attr($location_post->ID) . '" class="flex bg-white rounded-b-xl sm:rounded-xl border-transparent hover:bg-brand-100/30 hover:border-brand-500 hover:shadow-md group">';
                 $content .= '<a href="' . esc_url(get_permalink($location_post->ID)) . '" class="flex flex-col sm:flex-row w-full">';
@@ -74,15 +87,22 @@ if (!empty($location_region_terms)) {
         $nav .= '</li>';
     }
 
+    // Navigation
     $nav .= '</ul>';
     $nav .= '</nav>';
+
+    // Mobile navigation
+    $mobile_nav .= '</select>';
+    $mobile_nav .= '</div>';
 
     $content .= '</div>';
 ?>
 
-
-
-    <?php echo tw_section_open(); ?>
+    <?php 
+    $section_attributes = [
+        'grid_classes' => ' px-6 lg:px-0 pt-8 pb-16 md:py-24 relative '
+    ];
+    echo tw_section_open($section_attributes); ?>
 
     <?php echo tw_container_open(); ?>
 
@@ -90,9 +110,10 @@ if (!empty($location_region_terms)) {
 
         <div class="md:col-span-3">
             <?php echo $nav; ?>
+            <?php echo $mobile_nav; ?>
         </div>
 
-        <div class="md:col-span-9">
+        <div class="md:col-span-9 pt-8 md:pt-0">
             <?php echo $content ?>
         </div>
     </div>

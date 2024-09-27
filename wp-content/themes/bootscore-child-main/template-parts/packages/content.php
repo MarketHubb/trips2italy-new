@@ -4,7 +4,7 @@ $post_count = get_query_var('paginated_post_count');
 $packages_query = query_posts_package($paged);
 ?>
 
-<?php echo tw_section_open(['id' => 'posts-container']); ?>
+<?php echo tw_section_open(['id' => 'posts-container', 'grid_classes' => 'px-6 lg:px-0 py-16 md:py-24 relative bg-gray-100']); ?>
 
 <?php echo tw_container_open(); ?>
 
@@ -32,9 +32,10 @@ $packages_query = query_posts_package($paged);
 $content_fields = [
 	'badges' => true,
 	'classes' => [
-		'grid' => ' grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-10 divide-y divide-y-gray-50 lg:divide-y-0 pb-10 ',
+		'grid' => ' grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 pb-10 px-6 ',
 		'heading' => ' mt-6 mb-4 ',
 		'description' => ' line-clamp-3 text-gray-600 group-hover:text-gray-700 text-base ',
+		'copy_container' => ' rounded-md px-4 pt-5 pb-8 bg-white ',
 	]
 ];
 ?>
@@ -48,15 +49,19 @@ $content_fields = [
 		$title_raw_array = explode("|", $title_raw);
 		$title = count($title_raw_array) === 2 ? trim($title_raw_array[0]) : $title = trim($title_raw);
 		$title = explode(" ", $title);
-		$title_heading = '<span class="text-brand-700 block font-heading text-lg md:text-xl font-semibold antialiased tracking-normal mb-3">';
+		// $title_heading = '<span class="text-brand-700 block font-heading text-lg md:text-xl font-semibold antialiased tracking-normal mb-3">';
+		$title_heading = '<span class="text-[1.15rem] sm:text-[1.25rem] md:text-[1.6rem] tracking-wide leading-6 word-spacing-wide wide font-semibold antialiased stylized text-secondary-500 mb-2 inline-block">';
 
-		for ($i = 0; $i < 3; ++$i) {
+		$split_number = count($title) <= 4 ? 2 : 3;
+
+		for ($i = 0; $i < $split_number; ++$i) {
 			$title_heading .= $title[$i] . ' ';
 		}
 
-		$title_heading .= '</span><span class="text-[1.25rem] sm:text-[1.5rem] md:text-[1.75rem] tracking-wide leading-6 word-spacing-wide wide font-semibold antialiased stylized text-secondary-500">';
+		// $title_heading .= '</span><span class="text-[1.25rem] sm:text-[1.5rem] md:text-[1.75rem] tracking-wide leading-6 word-spacing-wide wide font-semibold antialiased stylized text-secondary-500">';
+		$title_heading .= '</span><span class="text-brand-700 block font-heading text-lg md:text-xl font-semibold antialiased tracking-tight mb-3">';
 
-		for ($i = 3; $i <= count($title); ++$i) {
+		for ($i = $split_number; $i <= count($title); ++$i) {
 			$title_heading .= ' ' . $title[$i];
 		}
 

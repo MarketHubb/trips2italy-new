@@ -1,5 +1,10 @@
 <?php
+function get_package_description($post_id)
+{
+	$package_description = get_field('description', $post_id);
 
+	return splitParagraph($package_description);
+}
 function get_first_sentence($paragraph)
 {
 	// Regular expression to match the first sentence
@@ -334,74 +339,128 @@ function get_formatted_region_page_type($title, $destination = null)
 function get_hero_breadcrumb_links($object, $type)
 {
 
+	$breadcrumbs = [];
+
 	$breadcrumbs[] = [
-		'text' => 'All Destinations',
+		'text' => 'Regions',
 		'link' => get_permalink(27712),
 		'icon' => get_home_url() . '/wp-content/uploads/2023/01/Marker.svg',
 	];
 
 	if ($object->post_type === 'location') {
-		$terms = get_the_terms($object->ID, 'location_region');
-
-		foreach ($terms as $term) {
-			if ($term->parent === 0) {
-				$name = "Region of $term->name";
-				$region_name_clean = lowercase_no_spaces($term->name);
-				$breadcrumbs[] = [
-					'text' => $name,
-					'link' => get_term_link($term, $taxonomy = 'location_region'),
-					'icon' => get_field('region_icon', $term),
-				];
-			}
+		if ($object->post_parent) {
+			$current_title = str_replace(get_the_title($object->post_parent), '', $object->post_title);
+			$breadcrumbs[] = [
+				'text' => get_the_title($object->post_parent),
+				'link' => get_permalink($object->post_parent),
+				'icon' => null,
+			];
+			$breadcrumbs[]  = [
+				'text' => $current_title,
+				'link' => null,
+				'icon' => null
+			];
+		} else {
+			$breadcrumbs[]  = [
+				'text' => $object->post_title,
+				'link' => null,
+				'icon' => null
+			];
 		}
+	} else {
+		$current_page = ($type === "post") ? get_the_title($object->ID) : get_term($object->term_id)->name;
+
+		$breadcrumbs[] = [
+			'text' => str_replace("Ultimate", "", $current_page),
+			'link' => null,
+			'icon' => get_home_url() . '/wp-content/uploads/2023/07/Map-Pin.svg',
+		];
 	}
-
-	$current_page = ($type === "post") ? get_the_title($object->ID) : get_term($object->term_id)->name;
-
-	$breadcrumbs[] = [
-		'text' => str_replace("Ultimate", "", $current_page),
-		'link' => null,
-		'icon' => get_home_url() . '/wp-content/uploads/2023/07/Map-Pin.svg',
-	];
 
 	return $breadcrumbs;
 }
 
-function get_post_hero_inputs($postObj)
+function get_post_hero_inputs($object)
 {
-	$id = $postObj->ID;
-	$parent = get_post_parent($postObj);
-	$initial = ($parent) ? $parent : $postObj;
+	$id = $object->ID;
+	$parent = get_post_parent($object);
+	$initial = ($parent) ? $parent : $object;
 	$hero = [];
 
-	if ($postObj->post_type === 'location') {
+	if ($object->post_type === 'location') {
 		$image = (get_field('featured_image', $id)) ? get_field('featured_image', $id)['url'] : get_field('image_slider_url', $id);
 
 		if ($image) {
 			$hero['image'] = remove_dev_domain_from_url($image);
 		}
 
-		$hero['heading'] = ($parent) ? $parent->post_title : $postObj->post_title;
-
-		$hero['heading_2'] = ($parent) ? trim(str_replace($parent->post_title, "", $postObj->post_title)) . " Guide" : "Ultimate Travel Guide";
-
-		$hero['button_text'] = "Get My Custom " . $initial->post_title . " Itinerary";
-
-		$hero['button_text_mobile'] = "Get My Custom Itinerary";
+		if (!$object->post_parent) {
+			$heading_1 = $object->post_title;
+			$heading_2 = 'City Guide';
+		} else {
+			$parent = get_the_title($object->post_parent);
+			if (isset($parent)) {
+				$heading_2 = str_replace($parent, '', $object->post_title);
+				$heading_1 = str_replace($heading_2, '', $object->post_title);
+			}
+		}
 	}
 
-	return $hero;
+	$hero_inputs = [
+		'images' => [
+			'background_image' => $image
+		],
+		'copy' => [
+			'heading_1' => [
+				'desktop' => $heading_1
+			],
+			'heading_2' => [
+				'desktop' => $heading_2
+			]
+		]
+
+	];
+
+	return $hero_inputs;
 }
 
 function get_tax_hero_inputs($term)
 {
 	$image = (get_field('featured_image', $term)) ? get_field('featured_image', $term)['url'] : remove_dev_domain_from_url(get_field('image_slider_url', $term));
-	$hero['image'] = $image;
-	$hero['heading'] = $term->name;
-	$region_name = ($term->parent === 0) ? $term->name : get_term($term->parent)->name;
-	$hero['button_text'] = 'Get My Custom ' . $region_name . ' Itinerary';
 
-	return $hero;
+	if (!$term->parent) {
+		$heading_1 = $term->name;
+		$heading_2 = 'Region Guide';
+	} else {
+		$parent = get_term($term->parent)->name;
+		if (isset($parent)) {
+			$heading_2 = str_replace($parent, '', $term->name);
+			$heading_1 = str_replace($heading_2, '', $term->name);
+		}
+	}
+
+	$hero_inputs = [
+		'images' => [
+			'background_image' => $image
+		],
+		'copy' => [
+			'heading_1' => [
+				'desktop' => $heading_1
+			],
+			'heading_2' => [
+				'desktop' => $heading_2
+			]
+		]
+
+	];
+
+	// $hero['image'] = $image;
+	// $hero['heading'] = $term->name;
+	// $region_name = ($term->parent === 0) ? $term->name : get_term($term->parent)->name;
+	// $hero['button_text'] = 'Get My Custom ' . $region_name . ' Itinerary';
+
+	// return $hero;
+	return $hero_inputs;
 }
 function sort_order_locations($child_title)
 {

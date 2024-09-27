@@ -12,11 +12,11 @@ function get_hero_by_post_type($object)
     // Locations (Cities & Regions)
     if ($object->taxonomy === 'location_region' || $object->post_type === 'location') {
         $inputs = location_hero_and_tab_inputs(get_queried_object());
-        set_query_var('inputs', $inputs);
+        get_template_part('template-parts/tw-hero/content', 'hero-overlay-wave', $inputs);
 
-        if ($inputs['hero']) {
-            get_template_part('template-parts/banner/content', 'full-width-text-overlay', $inputs['hero']);
-        }
+        // if ($inputs['hero']) {
+        //     get_template_part('template-parts/banner/content', 'full-width-text-overlay', $inputs['hero']);
+        // }
     }
 
     // Trip Types
