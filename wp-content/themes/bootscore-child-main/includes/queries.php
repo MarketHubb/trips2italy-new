@@ -22,12 +22,14 @@ function get_related_packages_by_trip_type($post_id)
 	return !empty($related_packages) ? $related_packages : null;
 }
 
-function query_posts_package($paged = 1)
+function paginated_post_query($post_type, $paged = 1)
 {
-	$post_count = get_query_var('paginated_post_count');
+	$post_count = !empty(get_field('post_per_page', 'option')) ? get_field('posts_per_page', 'option') : 12;
+
 	$args = array(
-		'post_type' => 'package',
+		'post_type' => $post_type,
 		'posts_per_page' => $post_count,
+		'orderby' => 'date', 
 		'paged' => $paged,
 	);
 

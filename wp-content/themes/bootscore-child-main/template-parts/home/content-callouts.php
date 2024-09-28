@@ -8,7 +8,7 @@ $bg_data = [
 echo tw_section_open($section_fields); 
 ?>
 <div class="mx-auto max-w-7xl relative z-10">
-    <div class="pb-10 text-center">
+    <div class="pb-10 text-center animate-fade-in-up">
         <?php echo tw_heading(get_the_ID(), 'stats_heading'); ?>
     </div>
 

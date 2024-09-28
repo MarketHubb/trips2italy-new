@@ -17,12 +17,11 @@ ksort($tab_inputs['pages']);
 <?php //get_template_part('template-parts/tw/content', 'hero-background-image', $queried_object); 
 ?>
 
-<?php echo tw_section_open(['grid_classes' => 'px-6 lg:px-0 pb-16 md:pb-24 relative']); ?>
+<?php echo tw_section_open(['grid_classes' => ' px-6 lg:px-0 py-16 md:py-24 relative bottom-[10rem]']); ?>
 
-<?php echo tw_container_open(); ?>
+<?php echo tw_container_open('max-w-7xl mx-auto'); ?>
 
 <div class="entry-content single-city">
-    <?php get_template_part('template-parts/tw-shared/content', 'table', $tab_inputs); ?>
     <?php get_template_part('template-parts/tw-shared/content', 'tab-icons', $tab_inputs); ?>
 
     <?php
@@ -53,7 +52,7 @@ ksort($tab_inputs['pages']);
         </div>
     </section>
 
-    <?php get_template_part('template-parts/location/content', 'cta'); ?>
+    <?php //get_template_part('template-parts/location/content', 'cta'); ?>
 
 </div>
 

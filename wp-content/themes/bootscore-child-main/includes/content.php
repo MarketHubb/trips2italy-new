@@ -752,6 +752,45 @@ function get_icon_for_region_page($formatted_title)
 	}
 }
 
+function return_portion_of_text($text, $length = 150)
+{
+    // Convert $length to a positive integer
+    $length = abs((int)$length);
+
+    // Strip HTML tags and decode HTML entities
+    $text = wp_strip_all_tags(html_entity_decode($text, ENT_QUOTES, 'UTF-8'));
+
+    // Remove extra whitespace
+    $text = preg_replace('/\s+/', ' ', trim($text));
+
+    // If the text is longer than the desired length
+    if (mb_strlen($text) > $length) {
+        // Find the position of the 150th character (ignoring spaces)
+        $char_count = 0;
+        $truncate_pos = 0;
+        for ($i = 0; $i < mb_strlen($text); $i++) {
+            if (mb_substr($text, $i, 1) !== ' ') {
+                $char_count++;
+            }
+            if ($char_count == $length) {
+                $truncate_pos = $i + 1;
+                break;
+            }
+        }
+
+        // Truncate the text
+        $text = mb_substr($text, 0, $truncate_pos);
+
+        // Remove partial words at the end
+        $text = preg_replace('/\s+?(\S+)?$/', '', $text);
+
+        // Add ellipsis
+        $text .= '...';
+    }
+
+    return $text;
+}
+
 function get_excerpt_for_post($text, $length = 10)
 {
 	$length = abs((int) $length);
@@ -840,50 +879,3 @@ function get_alternate_content($section, $side)
 	return $content;
 }
 
-function get_left_alternate($section)
-{
-	return '<div class="row py-7">
-            <div class="col-lg-6 col-md-12 me-auto">
-                <div class="p-3 pt-0">
-                    <div class="icon icon-shape bg-gradient-warning rounded-circle shadow text-center mb-4">
-                    </div>
-                    <h2 class="text-gradient text-warning mb-0 font-weight-bolder">' . $section['region'] . '</h2>
-                    <h4 class="mb-4">' . $section['callout'] . '</h4>
-                    <p class="region-description lead">' . $section['excerpt'] . '</p>
-                    <a href="' . $section['region_link'] . '" class="text-dark icon-move-right  fw-bold fs-5">Discover ' . $section['region'] . '
-                        <i class="fas fa-arrow-right text-sm ms-1"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-8">
-                <div class="position-relative ms-md-5 d-none d-md-block d-lg-block d-xl-block h-75">
-                    <div class="w-100 h-100 bg-gradient-warning border-radius-xl position-absolute background-shape" alt=""></div>
-                    <img src="' . $section['image_mobile'] . '" class="w-100 border-radius-xl mt-4 ms-n4 position-absolute shadow" alt="">
-                </div>
-            </div>
-        </div>';
-}
-
-function get_right_alternate($section)
-{
-	return '<div class="row py-7">
-            <div class="col-lg-6 col-md-8 order-2 order-md-2 order-lg-1">
-                <div class="position-relative ms-md-5 mb-0 mb-md-7 mb-lg-0 d-none d-md-block d-lg-block d-xl-block h-75">
-                    <div class="bg-gradient-info w-100 h-100 border-radius-xl position-absolute background-shape" alt=""></div>
-                    <img src="' . $section['image_mobile'] . '" class="w-100 border-radius-xl mt-3 ms-3 position-absolute" alt="">
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-12 ms-auto order-1 order-md-1 order-lg-1">
-                <div class="p-3 pt-0">
-                    <div class="icon icon-shape bg-gradient-info rounded-circle shadow text-center mb-4">
-                    </div>
-                    <h3 class="text-gradient text-info mb-0">' . $section['region'] . '</h3>
-                    <h4 class="mb-4">' . $section['callout'] . '</h4>
-                    <p class="region-description lead">' . $section['excerpt'] . '</p>
-                    <a href="' . $section['region_link'] . '" class="text-dark icon-move-right fw-bold fs-5">Discover ' . $section['region'] . '
-                        <i class="fas fa-arrow-right text-sm ms-1"></i>
-                    </a>
-                </div>
-            </div>
-        </div>';
-}

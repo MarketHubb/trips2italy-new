@@ -20,7 +20,7 @@
 
 <div class="hidden bg-white px-6 py-16 lg:px-8">
    <div class="mx-auto max-w-2xl text-center">
-      <?php $packages_query = query_posts_package($paged); ?>
+      <?php $packages_query = paginated_post_query($paged); ?>
 
       <?php if (isset($packages_query) && isset($paged)) { ?>
 

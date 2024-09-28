@@ -1,13 +1,13 @@
 <?php
 if (isset($args)) {
-    $output = '<div class="row">';
+    $output = '<div class="row py-24">';
     $output .= '<div class="col-12">';
 
     $heading_modifier = ($args['type'] === 'post') ? 'other ' : '';
     $heading = 'Explore these ' . $heading_modifier . ' cities and towns in the ' . get_the_terms(get_the_ID(), "location_region")[0]->name . ' region of Italy';
     $heading = 'Explore the ' . get_the_terms(get_the_ID(), "location_region")[0]->name . ' region of Italy';
 
-    $output .= '<h3 class="mb-5">' . $heading . '</h3>';
+    $output .= '<h3 class="mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">' . $heading . '</h3>';
     $output .= '</div>';
 
     foreach ($args['related_locations'] as $location) {

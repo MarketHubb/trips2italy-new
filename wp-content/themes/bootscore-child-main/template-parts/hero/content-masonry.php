@@ -24,9 +24,9 @@
                 <div class="grid grid-cols-2 lg:grid-cols-12 items-center py-24 lg:py-32 lg:gap-x-8">
                     <!-- <div class="col-md-8"> -->
                     <div class="col-span-1 md:col-span-5">
-                        <h1 class="font-heading text-brand-700 mb-2 font-semibold text-xl sm:text-3xl md:text-5xl lg:text-7xl lg:leading-tight">
+                        <h1 class="font-heading text-brand-700 mb-2 font-semibold text-xl sm:text-3xl md:text-5xl lg:text-6xl lg:leading-normal">
                             <?php echo $hero['copy']['heading_1']['desktop']; ?>
-                            <span class="stylized d-block mt-1 font-normal text-brand-500 text-[130%]">
+                            <span class="animate-fade-in-up stylized d-block mt-1 font-normal text-brand-500 text-[130%] leading-none">
                                 <?php echo $hero['copy']['heading_2']['desktop']; ?>
                             </span>
                         </h1>
@@ -37,47 +37,59 @@
                         <!-- <div class="my-auto d-none d-md-block <?php //echo $text_columns; 
                                                                     ?>"> -->
                         <!-- <div class="position-relative mt-n8"> -->
-                        <div class="relative">
-                            <p class="text-base font-[500] md:text-lg text-gray-800 mt-8 lg:pr-8">
-                                <?php echo $hero['copy']['description']['desktop']; ?>
-                            </p>
 
-                            <div class="my-8  px-md-0 hero-callouts">
-                                <ul role="list" class="mt-8 grid grid-cols-1 gap-y-4 text-sm leading-6 list-disc list-inside ps-1">
+                        <div class="relative lg:max-w-[90%]">
+                            <div class="my-12">
+                                <p class="text-base font-semibold antialiased md:text-lg text-gray-800 lg:pr-8">
+                                    <?php echo $hero['copy']['description']['desktop']; ?>
+                                </p>
 
-                                    <?php foreach ($hero['callouts'] as $callout) { ?>
+                                <div class=" px-md-0 hero-callouts">
+                                    <ul role="list" class="mt-10 grid grid-cols-1 gap-y-4 text-sm leading-6 list-none list-inside ps-1">
 
-                                        <li class="">
-                                            <svg class="hidden h-7 w-6 flex-none text-secondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                            </svg>
-                                            <span class="text-gray-800 tracking-wide text-base font-[500] md:text-lg "><?php echo $callout['desktop']; ?></span>
-                                        </li>
+                                        <?php foreach ($hero['callouts'] as $callout) { ?>
 
-                                    <?php } ?>
-                                </ul>
+                                            <li class="">
+                                                <!-- <img class="h-5 w-5 flex-none filter brightness-[0.4784] sepia-[0.3] saturate-[6.7] hue-rotate-[194deg] inline-block mr-3" src="<?php echo get_stylesheet_directory_uri() . '/img/Check-Black.svg'; ?>" /> -->
+                                                <img class="h-5 w-5 flex-none filter-secondary-500 inline-block mr-3" src="<?php echo get_stylesheet_directory_uri() . '/img/Check-Black.svg'; ?>" />
+                                                <svg class="hidden h-7 w-6 flex-none text-secondary-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                                </svg>
+                                                <span class="text-gray-800 tracking-wide text-base stylized capitalize font-bold antialiased md:text-lg lg:text-2xl"><?php echo $callout['desktop']; ?></span>
+                                            </li>
 
-                                <ul class="hidden list-group border-0">
-                                    <?php foreach ($hero['callouts'] as $callout) { ?>
-                                        <li class="list-group-item bg-transparent text-start border-0 py-2.5">
-                                            <p class="text-base lg:text-xl text-brand-700 font-bold">
-                                                <span class="tracking-wide stylized">
-                                                    <?php if (!empty($callout['icon'])) {
-                                                        echo $callout['icon'];
-                                                    } ?>
-                                                    <?php echo $callout['desktop']; ?>
-                                                </span>
-                                            </p>
-                                        </li>
-                                    <?php } ?>
-                                </ul>
+                                        <?php } ?>
+                                    </ul>
+
+                                    <ul class="hidden list-group border-0">
+                                        <?php foreach ($hero['callouts'] as $callout) { ?>
+                                            <li class="list-group-item bg-transparent text-start border-0 py-2.5">
+                                                <p class="text-base lg:text-xl text-brand-700 font-bold">
+                                                    <span class="tracking-wide stylized">
+                                                        <?php if (!empty($callout['icon'])) {
+                                                            echo $callout['icon'];
+                                                        } ?>
+                                                        <?php echo $callout['desktop']; ?>
+                                                    </span>
+                                                </p>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
                             </div>
 
-                            <div class="hero-links mt-5 py-2">
-                                <div class="d-inline-flex  justify-start">
+                            <div class="hero-links pb-2">
+                                <div class="">
                                     <a class="<?php echo tw_cta_btn_base_classes(); ?>" href="<?php echo get_permalink(28484); ?>">
-                                        <?php echo $hero['links'][0]['copy']; ?>
+                                        <?php //echo $hero['links'][0]['copy']; 
+                                        ?>
+
+                                        <span class="font-bold antialiased">Start now</span>
+                                        <span class="font-normal"> - for free</span>
                                     </a>
+                                    <p class="text-sm text-brand-700 opacity-80 mt-4">
+                                        <span class="block mt-1 stylized tracking-normal">Takes just 3 minutes to complete</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

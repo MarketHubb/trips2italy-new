@@ -3,7 +3,6 @@
 get_header(); ?>
 
 <?php
-
 $location_region_terms = get_location_region_tax_terms();
 
 if (!empty($location_region_terms)) {

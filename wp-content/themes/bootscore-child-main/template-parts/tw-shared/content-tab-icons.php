@@ -16,10 +16,10 @@ for ($i = 0; $i < $tab_count; ++$i) {
       $border = ' rounded-tr-lg ';
    }
 
-   $anchor = $args['pages'][$i]['permalink'] === $current_url ? ' bg-brand-500 text-white ring-1 ring-brand-500 shadow-inner shadow-brand-200 ' : ' bg-gray-200/60 text-gray-500 hover:bg-gray-200 ring-1 ring-gray-200 hover:text-gray-800 ';
+   $anchor = $args['pages'][$i]['permalink'] === $current_url ? ' bg-brand-500 text-white shadow-lg ' : ' bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-800 ';
    $color = $args['pages'][$i]['permalink'] === $current_url ? ' text-white ' : ' text-gray-500 ';
-   $icon = $args['pages'][$i]['permalink'] === $current_url ? ' opacity-80 invert brightness-0 ' : ' opacity-40 ';
-   $tabs .= '<a href="' . $args['pages'][$i]['permalink'] . '" class="' . $tab_width . ' px-1 py-4 text-center text-base font-semibold ' . $border . $anchor . '">';
+   $icon = $args['pages'][$i]['permalink'] === $current_url ? ' opacity-80 invert brightness-0 ' : ' opacity-70 ';
+   $tabs .= '<a href="' . $args['pages'][$i]['permalink'] . '" class="' . $tab_width . ' relative border-r border-gray-400/60 z-10 px-1 py-4 text-center text-base font-semibold ' . $border . $anchor . '">';
    $tabs .= '<img class="inline-block -ml-0.5 mr-2 relative bottom-[3px] h-5 w-5 text-gray-400 ' . $icon . '" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" ';
    $tabs .= 'src="' . $args['pages'][$i]['icon'] . '" />';
    $tabs .= '<span>' . $args['pages'][$i]['name'] . '</span>';
@@ -49,8 +49,8 @@ foreach ($args['pages'] as $tab) {
       </select>
    </div>
    <div class="hidden sm:block pt-2">
-      <div class="border-b border-gray-200">
-         <nav class="-mb-px flex shadow" aria-label="Tabs">
+      <div class="relative shadow-sm rounded-tr-[.7rem] rounded-tl-[.7rem] bottom-[3px] border-l-[3px] border-t-[3px] border-r-[3px] border-white">
+         <nav class="-mb-px flex rounded-lg" aria-label="Tabs">
             <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
             <?php echo $tabs; ?>
          </nav>

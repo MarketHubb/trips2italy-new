@@ -259,9 +259,11 @@ function get_section_close()
 	return '</section>';
 }
 
-function tw_container_open()
+function tw_container_open($classes = null)
 {
-	return '<div class="max-w-7xl mx-auto">';
+	$container_classes = $classes ?: ' max-w-7xl mx-auto ';
+
+	return '<div class="' . $container_classes . '">';
 }
 
 function tw_container_close()
@@ -299,7 +301,7 @@ function tw_heading($post_id, $field_name, $align = null)
 	$heading .= $fields['heading'] . '</h2>';
 
 	if (isset($fields['subheading']) && !empty($fields['subheading'])) {
-		$subheading_base_classes = ' stylized font-normal text-[150%] ';
+		$subheading_base_classes = 'animate-on-scroll stylized font-normal text-[150%] ';
 		$subheading_classes = ($bg_color === 'Dark') ? ' text-secondary-400 ' : ' text-brand-500 ';
 		$subheading_align_classes = $align ? ' col-span-10 col-start-2 ' : ' col-span-12 ';
 		$heading .= '<h2 class="' . $subheading_base_classes . $subheading_classes . $subheading_align_classes .  '">';

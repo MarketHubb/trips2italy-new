@@ -1,9 +1,10 @@
 <?php
 // region HERO - Setup
-function get_hero_for_page($queried_object) {
-   $hero = output_hero_banner($queried_object);
+function get_hero_for_page($queried_object)
+{
+    $hero = output_hero_banner($queried_object);
 
-   return !empty($hero) ? $hero : null;
+    return !empty($hero) ? $hero : null;
 }
 
 function get_hero_by_post_type($object)
@@ -35,9 +36,14 @@ function get_shared_hero_banner($object)
 {
     $hero_inputs = get_hero_inputs($object);
 
+
     if (! empty($hero_inputs) && $hero_inputs['include']) {
-        get_template_part('template-parts/hero/content', $hero_inputs['template'], $hero_inputs);
-        get_template_part('template-parts/hero-banner/content', 'main', $hero_inputs);
+        if ($hero_inputs['type'] === "masonry") {
+            get_template_part('template-parts/hero/content', $hero_inputs['template'], $hero_inputs);
+            get_template_part('template-parts/hero-banner/content', 'main', $hero_inputs);
+        } else {
+            get_template_part('template-parts/tw-hero/content', 'hero-overlay-wave', $hero_inputs);
+        }
     }
 }
 

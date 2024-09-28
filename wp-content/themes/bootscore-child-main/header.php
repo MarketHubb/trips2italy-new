@@ -29,7 +29,7 @@ if (!isset($paged) || !$paged) {
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    
+
     <!-- Google Tag Manager -->
     <script>
         (function(w, d, s, l, i) {
@@ -58,6 +58,20 @@ if (!isset($paged) || !$paged) {
 
 <body <?php body_class(); ?>>
 
+    <?php
+    //Set up the global $paged variable
+    global $paged;
+
+    if (get_query_var('paged')) {
+        $paged = get_query_var('paged');
+    } elseif (get_query_var('page')) {
+        $paged = get_query_var('page');
+    } else {
+        $paged = 1;
+    }
+    set_query_var('paged', $paged);
+    ?>
+
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBB6BZNM"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -77,6 +91,7 @@ if (!isset($paged) || !$paged) {
 
             <?php
             $new_hero_layout = get_field('use_new_layout');
+
             if ($new_hero_layout) {
                 get_template_part('template-parts/tw-hero/content', 'hero-new');
             } else {

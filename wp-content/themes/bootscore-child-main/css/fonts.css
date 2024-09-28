@@ -55,8 +55,14 @@ h5 {
 
 body,
 .font-base {
-    font-family: "Geist", sans-serif !important;
+/*    font-family: "Geist", sans-serif !important;*/
+    font-family: "Open Sans", sans-serif !important;
     letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.stylized {
+    font-family: "relation-two", cursive !important;
+    font-size: 120%;
+    letter-spacing: .05rem;
 }

@@ -1,35 +1,40 @@
 <?php
 if (isset($args)) {
-   $hero_inputs = $args['hero'];
+    if (empty($args['hero'])) {
+        $hero_inputs = $args;
+    } else {
+        $hero_inputs = $args['hero'];
+    }
 } else {
-   $hero_inputs = get_hero_inputs(get_queried_object());
+    $hero_inputs = get_hero_inputs(get_queried_object());
 }
+
 ?>
 
-<?php if (!empty($hero_inputs)) { ?>
+<?php if (isset($hero_inputs) && !empty($hero_inputs)) { ?>
 
    <header class="block">
       <div class="min-h-96 relative flex items-center bg-cover bg-center p-0 overflow-hidden" style="background-image: url(<?php echo $hero_inputs['images']['background_image']; ?>);">
          <span class="absolute inset-0 w-full h-full  bg-gradient-to-r from-[#121821] from-[100%] opacity-60 sm:opacity-100 sm:from-[#0d1117] sm:from-[1%] "></span>
          <!-- Copy -->
          <div class="pl-8 max-w-7xl mx-auto w-full z-10 relative py-24 lg:py-44 xl:py-56 ">
-            <div class="lg:max-w-[40%]">
+            <div class="lg:max-w-[50%]">
                <?php if (!empty($hero_inputs['breadcrumbs'])) { ?>
 
                   <?php get_template_part( 'template-parts/tw-hero/content', 'breadcrumbs', $hero_inputs['breadcrumbs'] ); ?>
                   
                <?php  } ?>
                <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-normal sm:leading-none">
-                  <span class="text-secondary-500 tracking-normal font-base uppercase font-bold block leading-none"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
-                  <span class="text-[120%] text-white stylized "><?php echo $hero_inputs['copy']['heading_2']['desktop']; ?></span>
+                  <span class="text-secondary-500 tracking-normal uppercase font-bold block leading-none"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
+                  <span class="text-[120%] text-white stylized leading-[1]"><?php echo $hero_inputs['copy']['heading_2']['desktop']; ?></span>
                </h1>
-               <p class="text-white text-lg mt-6">
+               <p class="text-white text-lg font-semibold antialiased mt-8 lg:max-w-[90%]">
                   <?php echo $hero_inputs['copy']['description']['desktop']; ?>
                </p>
             </div>
          </div>
          <!-- Wave -->
-         <div class="position-absolute w-100 z-index-1 bottom-0">
+         <div class="hidden position-absolute w-100 z-index-1 bottom-0">
             <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
                <defs>
                   <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>

@@ -5,17 +5,18 @@ $form = GFAPI::get_form(11);
 $bg_image = get_home_url() . '/wp-content/uploads/2024/09/Itinerary-Water.webp';
 ?>
 <!-- <div class="absolute inset-0 h-full w-full bg-fixed bg-center bg-cover" style="background-image: url(http://t2i-new.test/wp-content/uploads/2023/07/Packages-Hero-Image.jpg);"></div> -->
-<section class=" sm:mt-6 md:pb-20 bg-fixed bg-cover bg-center" style="background-image: url(<?php echo $bg_image; ?>);">
+<section class=" md:py-16 mb-8 bg-fixed bg-cover bg-center" style="background-image: url(<?php echo $bg_image; ?>);">
+
     <!-- <section class="sm:py-12"> -->
     <div class="max-w-7xl px-6 sm:px-0 sm:mx-auto z-10 relative py-12 sm:pt-0 text-center text-2xl md:text-3xl lg:text-4xl xl:text-[2.75rem]">
-        <span class="rounded-full bg-white/80 px-3 py-1 text-xs sm:text-sm font-semibold leading-6 text-brand-700 ring-1 ring-inset ring-brand-700/10">Takes 2 minutes</span>
-        <h1 class="text-white tracking-normal sm:leading-normal mt-5 sm:mt-0 mb-2 sm:mb-0">
+        <span class="rounded-full bg-white/90 px-3 py-1 text-xs sm:text-sm font-semibold leading-6 text-brand-700 ring-1 ring-inset ring-brand-700/10">Takes 2 minutes</span>
+        <h1 class="text-white tracking-normal sm:leading-normal mt-5 sm:my-4 mb-2 sm:mb-0">
             Your Custom Itinerary to Italy
         </h1>
-        <span class="block sm:inline-block relative bottom-2 sm:bottom-4 stylized text-[130%] sm:text-[130%] text-secondary-500  ">Starts Right Here</span>
+        <span class="block sm:inline-block relative sm:leading-normal stylized text-[130%] sm:text-[130%] text-secondary-500  ">Starts Right Here</span>
         <div class="sm:max-w-lg mx-auto mt-4 lg:mt-0">
-            <p class="hidden sm:block text-white font-base md:text-lg leading-normal">
-                Tell us what will make your trip to Italy perfect, and we'll make it a reality with a personalized itineray.
+            <p class="hidden sm:block text-white font-semibold md:text-lg leading-normal">
+                Tell us how <span class="stylized text-[150%] pr-1">you</span> want to see Italy, and we'll make it a reality with a personalized itineray.
             </p>
             <p class="block sm:hidden text-white font-base md:text-lg leading-normal text-center max-w-[90%] mx-auto">
                 Tell us what will make your trip perfect & we'll help make it a reality.
