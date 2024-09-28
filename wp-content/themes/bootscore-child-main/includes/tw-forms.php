@@ -503,11 +503,11 @@ function render_checkbox_input($field, $form)
         $output .=
             '<label for="choice_' .
             $input_attributes["id"] .
-            '" class="flex cursor-pointer h-full rounded-lg border text-gray-600 font-medium bg-white px-4 py-2 sm:p-4 shadow-sm focus:outline-none peer-checked:ring-2 peer-checked:ring-brand-500 peer-checked:bg-brand-100/30 peer-checked:text-gray-900">';
+            '" class="flex cursor-pointer rounded-lg border text-gray-600 font-semibold  bg-white px-4 py-2 sm:p-4 shadow-sm focus:outline-none peer-checked:ring-2 peer-checked:ring-brand-500 peer-checked:bg-brand-100/30 peer-checked:text-gray-900">';
         $output .= '<span class="flex flex-1 items-center sm:items-start">';
         $output .= '<span class="flex flex-col">';
         $output .=
-            '<span class="block text-sm sm:text-base tracking-normal leading-normal pr-5">' .
+            '<span class="block text-sm tracking-tight leading-normal pr-5">' .
             $input_attributes["label_parts"][0] .
             "</span>";
         if (isset($input_attributes["label_parts"][1])) {
