@@ -62,10 +62,7 @@ function verify_recaptcha()
 }
 
 add_action("wp_ajax_submit_custom_gravity_form", "submit_custom_gravity_form");
-add_action(
-    "wp_ajax_nopriv_submit_custom_gravity_form",
-    "submit_custom_gravity_form"
-);
+add_action("wp_ajax_nopriv_submit_custom_gravity_form", "submit_custom_gravity_form");
 
 function submit_custom_gravity_form()
 {
@@ -123,16 +120,6 @@ function submit_custom_gravity_form()
     }
 
     $input_values["form_id"] = $form_id;
-    // $input_values["ip"] = GFFormsModel::get_ip();
-    // $input_values["source_url"] = esc_url_raw(wp_get_referer());
-    // $input_values["user_agent"] = sanitize_text_field($_SERVER["HTTP_USER_AGENT"]);
-
-    // $entry = GFAPI::add_entry($input_values);
-
-    // wp_send_json([
-    //     'input_values' => $input_values,
-    //     'entry' => $entry
-    // ]);
 
     // Submit the form
     $result = GFAPI::submit_form($form_id, $input_values);
@@ -154,8 +141,6 @@ function submit_custom_gravity_form()
         $json_response['redirect'] = $redirect_url;
     }
 
-    // $response = [];
     wp_send_json($json_response);
-
-    wp_die();
+    exit; // Add this line to ensure no further execution
 }
