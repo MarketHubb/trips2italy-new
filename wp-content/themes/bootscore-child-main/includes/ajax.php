@@ -79,21 +79,6 @@ function submit_custom_gravity_form()
     }
 
     $form_id = intval($_POST["form_id"]);
-
-    // Load Gravity Forms if not already loaded
-    if (!class_exists("GFAPI")) {
-        require_once GFCommon::get_base_path() . "/gravityforms.php";
-    }
-
-    // Get the form
-    $form = GFAPI::get_form($form_id);
-
-    if (!$form) {
-        wp_send_json_error(["error" => "Form not found."]);
-        wp_die();
-    }
-
-    // Prepare the entry data
     $input_values = [];
 
     foreach ($_POST as $key => $val) {
@@ -119,28 +104,34 @@ function submit_custom_gravity_form()
         }
     }
 
-    $input_values["form_id"] = $form_id;
-
-    // Submit the form
     $result = GFAPI::submit_form($form_id, $input_values);
-    $json_response = [
-        'inputs_values' => $input_values,
-        'result' => $result
-    ];
 
     if (is_wp_error($result)) {
-        $json_response['error_message'] = $result->get_error_message();
-    }
-    if (! rgar($result, 'is_valid')) {
-        $json_response['error_message'] = 'Submission is invalid.';
-        $json_response['field_errors']  = rgar($result, 'validation_messages', array());
-    }
-
-    if (rgar($result, 'confirmation_type') === 'page') {
-        $redirect_url = !empty($input_values['12.3']) ? rgar($result, 'confirmation_redirect') . $input_values['12.3'] : rgar($result, 'confirmation_redirect');
-        $json_response['redirect'] = $redirect_url;
+        $error_message = $result->get_error_message();
+        GFCommon::log_debug(__METHOD__ . '(): GFAPI Error Message => ' . $error_message);
+        wp_send_json_error(["error" => $error_message]);
+        wp_die();
     }
 
-    wp_send_json($result);
-    exit; // Add this line to ensure no further execution
+    if (!rgar($result, 'is_valid')) {
+        $error_message = 'Submission is invalid.';
+        $field_errors = rgar($result, 'validation_messages', array());
+        GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors, true));
+        wp_send_json_error(["error" => $error_message, "field_errors" => $field_errors]);
+        wp_die();
+    }
+
+    if (rgar($result, 'confirmation_type') === 'redirect') {
+        $redirect_url = rgar($result, 'confirmation_redirect');
+        // Add the first name as a query parameter
+        $redirect_url = add_query_arg('id', $input_values['12.3'], $redirect_url);
+        GFCommon::log_debug(__METHOD__ . '(): GFAPI Redirect URL => ' . $redirect_url);
+        wp_send_json_success(["redirect" => $redirect_url]);
+    } else {
+        $confirmation_message = rgar($result, 'confirmation_message');
+        GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $confirmation_message);
+        wp_send_json_success(["confirmation" => $confirmation_message]);
+    }
+
+    wp_die();
 }
