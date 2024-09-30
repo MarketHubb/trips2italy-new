@@ -141,6 +141,6 @@ function submit_custom_gravity_form()
         $json_response['redirect'] = $redirect_url;
     }
 
-    wp_send_json($json_response);
+    wp_send_json($result);
     exit; // Add this line to ensure no further execution
 }
