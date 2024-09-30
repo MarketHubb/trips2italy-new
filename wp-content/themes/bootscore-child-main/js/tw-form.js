@@ -214,16 +214,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     function verifyCaptcha(formData) {
-        // Create a FormData object to send the data
-        // let formData = new FormData();
-
-        // Dump formData object (verifyCaptcha)
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
+        const token = formData.get('g-recaptcha-response');
+        if (!token) {
+            console.error("No reCAPTCHA token found in form data");
+            return Promise.resolve(false);
         }
 
         formData.append('action', 'verify_recaptcha');
-        formData.append('token', token);
+        // No need to append token again, it's already in formData
 
         return fetch(ajax_object.ajax_url, {
             method: "POST",
@@ -244,6 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return false; // Error occurred
             });
     }
+
 
     function generateCaptchaToken() {
         return new Promise((resolve, reject) => {
@@ -273,9 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        
-        let isValid = true;
-        
+    
         try {
             // Wait for the token to be generated
             await generateCaptchaToken();
@@ -284,24 +281,39 @@ document.addEventListener("DOMContentLoaded", function () {
             let formData = new FormData(formContainer);
 
             // Verify the captcha
-            const captchaVerified = await verifyCaptcha(formData.get('g-recaptcha-response'));
+            const captchaVerified = await verifyCaptcha(formData);
 
             if (!captchaVerified) {
                 console.error("reCAPTCHA verification failed");
-                // Handle captcha verification failure
+                showFormError("reCAPTCHA verification failed. Please try again.");
                 return;
             }
 
-            // Rest of your form submission code here
-            // ...
+            // Proceed with form validation
+            let isValid = validateForm();
+
+            if (isValid) {
+                // Proceed with form submission
+                await submitForm(formData);
+            } else {
+                // Scroll to the first error
+                const firstError = formContainer.querySelector(
+                    ".gfield .text-red-600:not(.hidden)"
+                );
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            }
 
         } catch (error) {
             console.error("Error during form submission:", error);
-            // Handle the error (e.g., show an error message to the user)
+            showFormError("An error occurred during form submission. Please try again.");
         }
+    }
 
-
-        // Validation
+    function validateForm() {
+        let isValid = true;
+    
         fields.forEach((field) => {
             if (
                 field.style.display !== "none" ||
@@ -325,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 } else {
                     const inputs = field.querySelectorAll(
-                        'input:not([type="submit"]), select, textarea',
+                        'input:not([type="submit"]), select, textarea'
                     );
                     inputs.forEach((input) => {
                         if (input.hasAttribute("required") && !input.value.trim()) {
@@ -339,51 +351,44 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        if (isValid) {
-            formData.append("action", "submit_custom_gravity_form");
-            formData.append("form_id", formContainer.dataset.formId);
+        return isValid;
+    }
 
-            // Ensure nonce is added only once
-            if (!formData.has("nonce")) {
-                formData.append(
-                    "nonce",
-                    formContainer.querySelector('input[name="nonce"]').value,
-                ); // Use the nonce from the form
-            }
-            fetch(ajax_object.ajax_url, {
+    async function submitForm(formData) {
+        formData.append("action", "submit_custom_gravity_form");
+        formData.append("form_id", formContainer.dataset.formId);
+
+        // Ensure nonce is added only once
+        if (!formData.has("nonce")) {
+            formData.append(
+                "nonce",
+                formContainer.querySelector('input[name="nonce"]').value
+            );
+        }
+
+        try {
+            const response = await fetch(ajax_object.ajax_url, {
                 method: "POST",
                 body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("Parsed response data:", data);
-                    // if (data.success) {
-                    if (data.redirect) {
-                        console.log("Redirecting to:", data.redirect);
-                        // window.location.href = data.redirect;
-                    } else if (data.confirmation) {
-                        showConfirmation(data.confirmation);
-                    } else {
-                        console.error("Unexpected success response structure:", data);
-                        showError("An unexpected error occurred. Please try again.");
-                    }
-                } 
-                    // }
-                )
-                .catch((error) => {
-                    console.error("Fetch error:", error);
-                    showError("An error occurred. Please try again.");
-                });
-        } else {
-            // Scroll to the first error
-            const firstError = formContainer.querySelector(
-                ".gfield .text-red-600:not(.hidden)",
-            );
-            if (firstError) {
-                firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+            });
+            const data = await response.json();
+            console.log("Parsed response data:", data);
+
+            if (data.redirect) {
+                console.log("Redirecting to:", data.redirect);
+                window.location.href = data.redirect;
+            } else if (data.confirmation) {
+                showConfirmation(data.confirmation);
+            } else {
+                console.error("Unexpected response structure:", data);
+                showFormError("An unexpected error occurred. Please try again.");
             }
+        } catch (error) {
+            console.error("Fetch error:", error);
+            showFormError("An error occurred. Please try again.");
         }
     }
+
 
     function showFormError(message) {
         // Show error message at the top of the form
