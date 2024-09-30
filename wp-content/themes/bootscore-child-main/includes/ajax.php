@@ -121,12 +121,18 @@ function submit_custom_gravity_form()
         wp_die();
     }
 
-    if (rgar($result, 'confirmation_type') === 'redirect') {
+    $confirmation_type = rgar($result, 'confirmation_type');
+    $first_name = isset($input_values['12.3']) ? $input_values['12.3'] : '';
+
+    if ($confirmation_type === 'redirect' || $confirmation_type === 'page') {
         $redirect_url = rgar($result, 'confirmation_redirect');
         // Add the first name as a query parameter
-        $redirect_url = add_query_arg('id', $input_values['12.3'], $redirect_url);
+        $redirect_url = add_query_arg('id', $first_name, $redirect_url);
         GFCommon::log_debug(__METHOD__ . '(): GFAPI Redirect URL => ' . $redirect_url);
-        wp_send_json_success(["redirect" => $redirect_url]);
+
+        if (wp_redirect($redirect_url)) {
+            exit;
+        }
     } else {
         $confirmation_message = rgar($result, 'confirmation_message');
         GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $confirmation_message);
