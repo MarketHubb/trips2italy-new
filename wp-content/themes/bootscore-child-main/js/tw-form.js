@@ -213,15 +213,15 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-    function verifyCaptcha(formData) {
-        const token = formData.get('g-recaptcha-response');
+    function verifyCaptcha(token) {
         if (!token) {
-            console.error("No reCAPTCHA token found in form data");
+            console.error("No reCAPTCHA token provided");
             return Promise.resolve(false);
         }
 
+        let formData = new FormData();
         formData.append('action', 'verify_recaptcha');
-        // No need to append token again, it's already in formData
+        formData.append('token', token);
 
         return fetch(ajax_object.ajax_url, {
             method: "POST",
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.success === true) {
                     return true; // Verification successful
                 } else {
-                    console.error("reCAPTCHA verification failed:", data.data.error);
+                    console.error("reCAPTCHA verification failed:", data.data?.error);
                     return false; // Verification failed
                 }
             })
@@ -242,7 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return false; // Error occurred
             });
     }
-
 
     function generateCaptchaToken() {
         return new Promise((resolve, reject) => {
@@ -275,13 +274,14 @@ document.addEventListener("DOMContentLoaded", function () {
     
         try {
             // Wait for the token to be generated
-            await generateCaptchaToken();
+            const token = await generateCaptchaToken();
 
             // Now that we have the token, proceed with the rest of the submission
             let formData = new FormData(formContainer);
+            formData.append('g-recaptcha-response', token);  // Add this line
 
             // Verify the captcha
-            const captchaVerified = await verifyCaptcha(formData);
+            const captchaVerified = await verifyCaptcha(token);  // Pass token directly
 
             if (!captchaVerified) {
                 console.error("reCAPTCHA verification failed");
@@ -310,6 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showFormError("An error occurred during form submission. Please try again.");
         }
     }
+
 
     function validateForm() {
         let isValid = true;
