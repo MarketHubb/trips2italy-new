@@ -233,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Error executing reCAPTCHA:", error);
                 });
         });
+
+        return token;
     }
 
     function verifyCaptcha(token) {
