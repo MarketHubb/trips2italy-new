@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const formContainer = document.querySelector(".gform_wrapper");
     const submitButton = formContainer.querySelector('input[type="submit"]');
+    const siteKey = document.getElementById('recaptchaResponse').dataset.sitekey;
+    const recaptchaInput = document.getElementById('recaptchaResponse');
 
     if (!submitButton || !formContainer) return;
 
@@ -212,9 +214,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     function getCaptchaToken() {
-        const siteKey = document.getElementById('recaptchaResponse').dataset.sitekey;
-        const recaptchaInput = document.getElementById('recaptchaResponse');
-
         if (!siteKey || !recaptchaInput) {
             console.error("reCAPTCHA elements not found");
             return null;
@@ -233,8 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Error executing reCAPTCHA:", error);
                 });
         });
-
-        return token;
     }
 
     function verifyCaptcha(token) {
@@ -269,8 +266,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = true;
         let captchaToken = getCaptchaToken();
 
-        if (!captchaToken) {
-            console.log("No reCAPTCHA token generated");
+        if (!recaptchaInput.value) {
+            console.log("No reCAPTCHA input value (token)");
             return null;
         }
 
