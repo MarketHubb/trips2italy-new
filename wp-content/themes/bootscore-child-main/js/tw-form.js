@@ -372,8 +372,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 body: formData,
             });
-            const data = await response.json();
-            console.log("Parsed response data:", data);
+
+            // Log the raw response text
+            const responseText = await response.text();
+            console.log("Raw response:", responseText);
+
+            // Try to parse the response as JSON
+            let data;
+            try {
+                data = JSON.parse(responseText);
+                console.log("Parsed response data:", data);
+            } catch (jsonError) {
+                console.error("Failed to parse response as JSON:", jsonError);
+                throw new Error("Invalid JSON response from server");
+            }
 
             if (data.redirect) {
                 console.log("Redirecting to:", data.redirect);
@@ -389,6 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showFormError("An error occurred. Please try again.");
         }
     }
+
 
 
     function showFormError(message) {
