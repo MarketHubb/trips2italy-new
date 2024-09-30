@@ -234,30 +234,36 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function verifyCaptcha(token) {
+    function verifyCaptcha(formData) {
         // Create a FormData object to send the data
-        let formData = new FormData();
-        formData.append('action', 'verify_recaptcha');
-        formData.append('token', token);
+        // let formData = new FormData();
 
-        return fetch(ajax_object.ajax_url, {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("reCAPTCHA verification result:", data);
-                if (data.success === true) {
-                    return true; // Verification successful
-                } else {
-                    console.error("reCAPTCHA verification failed:", data.data.error);
-                    return false; // Verification failed
-                }
-            })
-            .catch((error) => {
-                console.error("Error verifying reCAPTCHA:", error);
-                return false; // Error occurred
-            });
+        // Dump formData object (verifyCaptcha)
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+        // formData.append('action', 'verify_recaptcha');
+        // formData.append('token', token);
+
+        // return fetch(ajax_object.ajax_url, {
+        //     method: "POST",
+        //     body: formData,
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         console.log("reCAPTCHA verification result:", data);
+        //         if (data.success === true) {
+        //             return true; // Verification successful
+        //         } else {
+        //             console.error("reCAPTCHA verification failed:", data.data.error);
+        //             return false; // Verification failed
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error verifying reCAPTCHA:", error);
+        //         return false; // Error occurred
+        //     });
     }
 
     function handleSubmit(event) {
@@ -265,13 +271,14 @@ document.addEventListener("DOMContentLoaded", function () {
         
         let isValid = true;
         let captchaToken = getCaptchaToken();
+        let formData = new FormData(formContainer);
 
-        if (!recaptchaInput.value) {
-            console.log("No reCAPTCHA input value (token)");
-            return null;
+        // Dump formData object (handleSubmit)
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
         }
 
-        verifyCaptcha(captchaToken)
+        verifyCaptcha()
             .then((result) => {
                 // Here, 'result' is the value that the Promise resolved with
                 console.log("reCAPTCHA verified:", result);
@@ -282,15 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("reCAPTCHA verification failed:", error.message);
                 // Handle the error
             });
-
-
-
-        const formData = new FormData(formContainer);
-
-        // Dump formData object
-        for (const [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-        }
 
         // Validation
         fields.forEach((field) => {
