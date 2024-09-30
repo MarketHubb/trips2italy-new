@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
     async function submitForm(formData) {
         formData.append("action", "submit_custom_gravity_form");
         formData.append("form_id", formContainer.dataset.formId);
-        
+
         // Ensure nonce is added only once
         if (!formData.has("nonce")) {
             formData.append(
@@ -373,23 +373,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: formData,
             });
 
-            const data = await response.json();
-            console.log("Form submission response:", data);
+            // Log the raw response text
+            const responseText = await response.text();
+            console.log("Raw response:", responseText);
 
-            if (data.success) {
-                if (data.data.redirect) {
-                    console.log("Redirecting to:", data.data.redirect);
-                    window.location.href = data.data.redirect;
-                } else if (data.data.confirmation) {
-                    showConfirmation(data.data.confirmation);
-                }
+            // Try to parse the response as JSON
+            let data;
+            try {
+                data = JSON.parse(responseText);
+                console.log("Parsed response data:", data);
+            } catch (jsonError) {
+                console.error("Failed to parse response as JSON:", jsonError);
+                throw new Error("Invalid JSON response from server");
+            }
+
+            if (data.redirect) {
+                console.log("Redirecting to:", data.redirect);
+                window.location.href = data.redirect;
+            } else if (data.confirmation) {
+                showConfirmation(data.confirmation);
             } else {
-                console.error("Form submission error:", data.data.error);
-                if (data.data.field_errors) {
-                    console.error("Field errors:", data.data.field_errors);
-                    // Handle field errors (e.g., display them next to the relevant fields)
-                }
-                showFormError(data.data.error || "An error occurred. Please try again.");
+                console.error("Unexpected response structure:", data);
+                showFormError("An unexpected error occurred. Please try again.");
             }
         } catch (error) {
             console.error("Fetch error:", error);
