@@ -11,6 +11,8 @@ function gravity_form_to_tailwind_exact($form)
         $form["id"] .
         '" class="gform_wrapper gravity-theme px-4 sm:px-8 md:px-10 space-y-10 md:space-y-16 divide-y divide-gray-900/10 bg-transparent" method="post" enctype="multipart/form-data">';
 
+    $output .= '<input type="hidden" name="recaptchaResponse" id="recaptchaResponse" data-sitekey="' . get_recaptcha_site() . '">';
+
     if (!empty($form["pagination"])) {
         // Paginated form
         foreach ($form["pagination"]["pages"] as $page_index => $page_info) {
@@ -206,7 +208,7 @@ function render_field_exact($field, $form)
         ? json_encode($field["conditionalLogic"])
         : "";
 
-    $wrapper_class = "gfield";
+    $wrapper_class = "gfield col-span-full min-w-0";
     $wrapper_class .= $is_hidden ? " gfield_hidden" : "";
     $wrapper_class .= !empty($field["cssClass"])
         ? " " . $field["cssClass"]
@@ -234,7 +236,7 @@ function render_field_exact($field, $form)
         $input_class_array = get_input_class_array($field);
         $is_required = isset($field["isRequired"]) && $field["isRequired"];
         $input_class =
-            " peer block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-500 sm:text-base sm:leading-6 placeholder:italic placeholder:text-slate-400 ";
+            " peer block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-500 text-base font-semibold sm:leading-6 placeholder:italic placeholder:text-slate-400 ";
         // $input_class_array = explode(' ', $field['cssClass']);
 
         switch ($field["type"]) {
@@ -507,7 +509,7 @@ function render_checkbox_input($field, $form)
         $output .= '<span class="flex flex-1 items-center sm:items-start">';
         $output .= '<span class="flex flex-col">';
         $output .=
-            '<span class="block text-sm tracking-tight leading-normal pr-5">' .
+            '<span class="block text-base tracking-tight leading-normal pr-5">' .
             $input_attributes["label_parts"][0] .
             "</span>";
         if (isset($input_attributes["label_parts"][1])) {
@@ -621,9 +623,29 @@ function render_standard_input(
     return $output;
 }
 
-function get_captcha_field( $field ) 
+function get_recaptcha_field() {
+    $site_key = get_recaptcha_site();
+    $field_id = 'input_recaptcha_response';
+
+    $output  = '<div class="ginput_container ginput_recaptcha_v3" data-sitekey="' . esc_attr($site_key) . '">';
+    $output .= '<input type="hidden" id="' . $field_id . '" name="' . $field_id . '" class="gfield_recaptcha_response">';
+    $output .= '</div>';
+
+    return $output;
+}
+
+
+
+function get_recaptcha_field1() 
 {
-    return '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">';
+    $output  = ' <div class="gf_invisible ginput_recaptchav3" data-sitekey="' . get_recaptcha_site() . '" ';
+    $output .= 'data-tabindex="0">';
+    $output .= '<input id="input_f0f979ac39cfb1adbcbbd07077fac107" class="gfield_recaptcha_response" ';
+    $output .= 'type="hidden" name="input_f0f979ac39cfb1adbcbbd07077fac107" value=""></div>';
+
+    return $output;
+
+    // return '<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">';
 }
 
 function get_captcha_field2($field)

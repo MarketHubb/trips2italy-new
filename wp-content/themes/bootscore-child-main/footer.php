@@ -76,7 +76,7 @@
                 "menu_class" => "",
                 "fallback_cb" => "__return_false",
                 "items_wrap" =>
-                    '<ul id="footer-menu" class="nav %2$s">%3$s</ul>',
+                '<ul id="footer-menu" class="nav %2$s">%3$s</ul>',
                 "depth" => 1,
                 "walker" => new bootstrap_5_wp_nav_menu_walker(),
             ]); ?>
@@ -88,8 +88,8 @@
     <div class="bootscore-info bg-light text-muted border-top py-2 text-center">
         <div class="container">
             <small>&copy;&nbsp;<?php echo Date("Y"); ?> - <?php bloginfo(
-     "name"
- ); ?></small>
+                                                                "name"
+                                                            ); ?></small>
         </div>
     </div>
 
@@ -112,7 +112,7 @@
             <div class="d-grid w-100">
                 <div class="d-inline-block pt-1 pb-2">
                     <img class="form-heading-logo" src="<?php echo home_url() .
-                        "/wp-content/uploads/2023/01/Logo-No-Shadow.svg"; ?>" alt="">
+                                                            "/wp-content/uploads/2023/01/Logo-No-Shadow.svg"; ?>" alt="">
                 </div>
                 <div class="d-inline-block">
                     <?php
@@ -145,15 +145,17 @@
         <!-- Form -->
         <div class="row justify-content-center" id="form-row">
             <div class="col">
-                <?php gravity_form(
-                    11,
-                    $display_title = false,
-                    $display_description = false,
-                    $display_inactive = false,
-                    $field_values = true,
-                    $ajax = true,
-                    1
-                ); ?>
+                <?php
+                // gravity_form(
+                //     11,
+                //     $display_title = false,
+                //     $display_description = false,
+                //     $display_inactive = false,
+                //     $field_values = true,
+                //     $ajax = true,
+                //     1
+                // ); 
+                ?>
             </div>
         </div>
 
@@ -207,27 +209,40 @@
     t.parentNode.insertBefore(s, t);
 </script>
 
+<!-- reCAPTCHA -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM fully loaded and parsed');
+        var recaptchaElements = document.querySelectorAll('.ginput_recaptcha_v3');
+        recaptchaElements.forEach(function(element) {
+            var siteKey = element.getAttribute('data-sitekey');
+            var inputElement = element.querySelector('.gfield_recaptcha_response');
 
+            if (siteKey && inputElement) {
+                grecaptcha.ready(function() {
+                    grecaptcha.execute(siteKey, {
+                        action: 'submit'
+                    }).then(function(token) {
+                        inputElement.value = token;
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+<!-- Text animations -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
-        console.log('Elements to be animated:', animateOnScrollElements);
-
-        if (animateOnScrollElements.length === 0) {
-            console.log('No elements found with the class "animate-on-scroll".');
-        }
+        if (animateOnScrollElements.length === 0) {}
 
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    console.log('Element is intersecting:', entry.target);
                     entry.target.classList.add('animate-fade-in-up', 'opacity-100');
                     entry.target.classList.remove('opacity-0');
                     observer.unobserve(entry.target);
-                } else {
-                    console.log('Element is not intersecting:', entry.target);
-                }
+                } else {}
             });
         }, {
             rootMargin: '0px 0px 0px 0px', // Adjust as needed
@@ -236,7 +251,6 @@
 
         animateOnScrollElements.forEach(element => {
             observer.observe(element);
-            console.log('Observing element:', element);
         });
     });
 </script>

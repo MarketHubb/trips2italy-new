@@ -211,46 +211,148 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
+    function handleCaptcha(event, formData) {
+        const siteKey = document.getElementById('recaptchaResponse').dataset.sitekey;
+        const recaptchaInput = document.getElementById('recaptchaResponse');
+
+        if (!siteKey || !recaptchaInput) {
+            console.error("reCAPTCHA elements not found");
+            return null;
+        }
+
+        console.log("Site key:", siteKey);
+        console.log("grecaptcha object:", typeof grecaptcha, grecaptcha);
+
+        grecaptcha.ready(function () {
+            grecaptcha.execute(siteKey, { action: 'submit' })
+                .then(function (token) {
+                    console.log("reCAPTCHA token generated:", token);
+                    recaptchaInput.value = token;
+                    console.log("Token set to input field:", recaptchaInput.value);
+                })
+                .catch(function (error) {
+                    console.error("Error executing reCAPTCHA:", error);
+                });
+        });
+    }
+
+    // function handleCaptcha(event, formData) {
+    //     const siteKey = document.getElementById('recaptchaResponse').dataset.sitekey;
+    //     const recaptchaInput = document.getElementById('recaptchaResponse');
+
+    //     if (!siteKey || !recaptchaInput) return null;
+    //     grecaptcha.execute(siteKey, { action: 'submit' })
+    //         .then(function (token) {
+    //             console.log("reCAPTCHA token generated:", token);
+    //             recaptchaInput.value = token;
+    //             console.log("Token set to input field:", recaptchaInput.value);
+    //         })
+    //         .catch(function (error) {
+    //             console.error("Error executing reCAPTCHA:", error);
+    //         });
+
+    // grecaptcha.ready(function () {
+    //     grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
+    //         recaptchaInput.value = token;
+    //         proceedWithSubmission(event.target);
+    //     });
+    // });
+
+    // grecaptcha.ready(function () { // Wait for the recaptcha to be ready
+    //     grecaptcha
+    //         .execute("yoursitekey", {
+    //             action: "contact"
+    //         }) // Execute the recaptcha
+    //         .then(function (token) {
+
+    //             let recaptchaResponse = document.getElementById("recaptchaResponse")
+    //             recaptchaResponse.value = token // Set the recaptcha response
+
+    //             fetch("/send.php", {
+    //                 method: "POST",
+    //                 body: new FormData(form), // Send the form data
+    //             })
+    //                 .then((response) => response.text())
+    //                 .then((response) => {
+    //                     const responseText = JSON.parse(response) // Get the response
+    //                     if (responseText.error !== "") { // If there is an error
+    //                         document.querySelector("#alert").innerText = responseText.error
+    //                         document.querySelector("#alert").classList.add("error")
+    //                         document.querySelector(".formfields").style.display = "block"
+    //                         return
+    //                     }
+    //                     document.querySelector("#alert").innerText = responseText.success
+    //                     document.querySelector("#alert").classList.add("success")
+    //                     window.location.replace("/thanks") // Redirect to the thanks page
+    //                 })
+    //         })
+    // })
+    // }
+
     function handleSubmit(event) {
         event.preventDefault();
+        let isValid = true;
+        const formData = new FormData(formContainer);
 
-        // if (typeof grecaptcha === "undefined") {
-        //   console.error("reCAPTCHA not loaded");
-        //   return null;
+        let captcha = handleCaptcha(event, formData);
+
+        // const recaptchaInput = document.getElementById('input_recaptcha_response');
+        // const recaptchaContainer = document.querySelector('.ginput_recaptcha_v3');
+    
+        // if (!recaptchaInput || !recaptchaContainer) {
+        //     console.error("reCAPTCHA elements not found");
+        //     return;
         // }
 
-        // const recaptchaResponse = grecaptcha.getResponse();
+        // const siteKey = recaptchaContainer.getAttribute('data-sitekey');
+
+        // if (!siteKey) {
+        //     console.error("reCAPTCHA site key not found");
+        //     return;
+        // }
+
+        // grecaptcha.ready(function () {
+        //     grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
+        //         recaptchaInput.value = token;
+        //         proceedWithSubmission(event.target);
+        //     });
+        // });
+     
+
+        // const recaptchaResponse = document.getElementById('input_recaptcha_response').value;
 
         // if (!recaptchaResponse) {
-        //   console.error("reCAPTCHA response is empty");
-        //   return null;
+        //     console.error("reCAPTCHA response is empty");
+        //     return null;
         // }
 
+        // console.log("recaptchaResponse",recaptchaResponse);
+
         // const recaptchaData = new FormData();
+
         // recaptchaData.append("action", "verify_recaptcha");
         // recaptchaData.append("recaptcha_response", recaptchaResponse);
 
         // fetch(ajax_object.ajax_url, {
-        //   method: "POST",
-        //   body: recaptchaData,
+        //     method: "POST",
+        //     body: recaptchaData,
         // })
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log("reCAPTCHA verification result:", data);
-        //     if (data.success === true) {
-        //       // Proceed with form submission
-        //     } else {
-        //       console.error("reCAPTCHA verification failed");
-        //       return null;
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.error("Error verifying reCAPTCHA:", error);
-        //     return null;
-        //   });
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         console.log("reCAPTCHA verification result:", data);
+        //         if (data.success === true) {
+        //             // Proceed with form submission
+        //         } else {
+        //             console.error("reCAPTCHA verification failed");
+        //             return null;
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error verifying reCAPTCHA:", error);
+        //         return null;
+        //     });
 
-        let isValid = true;
-        const formData = new FormData(formContainer);
+
 
         for (const [key, value] of formData.entries()) {
             console.log(`${key}: ${value}`);
@@ -313,64 +415,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then((data) => {
                     console.log("Parsed response data:", data);
                     // if (data.success) {
-                        if (data.redirect) {
-                            console.log("Redirecting to:", data.redirect);
-                            // window.location.href = data.redirect;
-                        } else if (data.confirmation) {
-                            showConfirmation(data.confirmation);
-                        } else {
-                            console.error("Unexpected success response structure:", data);
-                            showError("An unexpected error occurred. Please try again.");
-                        }
-                    } 
-                // }
+                    if (data.redirect) {
+                        console.log("Redirecting to:", data.redirect);
+                        // window.location.href = data.redirect;
+                    } else if (data.confirmation) {
+                        showConfirmation(data.confirmation);
+                    } else {
+                        console.error("Unexpected success response structure:", data);
+                        showError("An unexpected error occurred. Please try again.");
+                    }
+                } 
+                    // }
                 )
                 .catch((error) => {
                     console.error("Fetch error:", error);
                     showError("An error occurred. Please try again.");
                 });
-
-
-
-            // fetch(ajax_object.ajax_url, {
-            //     method: "POST",
-            //     body: formData,
-            // })
-            //     .then((response) => {
-            //         console.log("Raw response:", response);
-            //         return response.text(); // Change this to text() instead of json()
-            //     })
-            //     .then((data) => {
-            //         console.log("Raw response data:", data);
-            //         try {
-            //             const jsonData = JSON.parse(data);
-            //             if (jsonData.success) {
-            //                 showConfirmation(jsonData.data.confirmation);
-            //             } else {
-            //                 showError(jsonData.data.error || "An unknown error occurred");
-            //                 if (jsonData.data.debug) {
-            //                     console.log("Debug info:", jsonData.data.debug);
-            //                 }
-            //             }
-            //         } catch (error) {
-            //             console.error("Error parsing JSON:", error);
-            //             // If it's not JSON, it might be the HTML response we saw earlier
-            //             if (data.includes("GF_AJAX_POSTBACK")) {
-            //                 const parser = new DOMParser();
-            //                 const htmlDoc = parser.parseFromString(data, "text/html");
-            //                 const message = htmlDoc.body.textContent.trim();
-            //                 showConfirmation(message);
-            //             } else {
-            //                 showError(
-            //                     "An error occurred while processing the response. Please try again.",
-            //                 );
-            //             }
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.error("Fetch error:", error);
-            //         showError("An error occurred. Please try again.");
-            //     });
         } else {
             // Scroll to the first error
             const firstError = formContainer.querySelector(

@@ -1,4 +1,10 @@
 <?php
+// function enqueue_recaptcha_script() {
+//     $site_key = get_recaptcha_site();
+//     wp_enqueue_script('google-recaptcha', "https://www.google.com/recaptcha/api.js?render={$site_key}", array(), null, true);
+// }
+// add_action('wp_enqueue_scripts', 'enqueue_recaptcha_script');
+
 // Content
 require_once 'includes/tailwind-content.php';
 require_once 'includes/fonts.php';

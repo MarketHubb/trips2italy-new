@@ -26,7 +26,6 @@ $bg_image = get_home_url() . '/wp-content/uploads/2024/09/Itinerary-Water.webp';
     <div class="absolute inset-0 bg-gradient-to-b from-gray-950 from-0% h-full w-full"></div>
     <div class="max-w-7xl mx-auto rounded-md bg-gray-50 sm:bs-blur ring-2 ring-white shadow-md shadow-gray-400 py-16 sm:py-24 relative z-10">
         <?php echo gravity_form_to_tailwind_exact($form); ?>
-        <?php //gravity_form( 13, $display_title = true, $display_description = true, $display_inactive = false, $field_values = null, $ajax = false, $tabindex, $echo = true, $form_theme = null, $style_settings = null ); ?>
     </div>
 </section>
 

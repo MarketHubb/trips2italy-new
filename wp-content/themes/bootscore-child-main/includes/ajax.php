@@ -1,4 +1,21 @@
 <?php
+function get_recaptcha_secret()
+{
+    if (str_contains(get_home_url(), '.test')) {
+        return '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+    }
+
+    return '6LeR7DcqAAAAAPhlWk2Oz_LRO3BkGtrepU_1x7Mb';
+}
+
+function get_recaptcha_site()
+{
+    if (str_contains(get_home_url(), '.test')) {
+        return '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+    }
+
+    return '6LeR7DcqAAAAAPttcbdc0H68FhMR5C6Y6Ka8x9B0';
+}
 add_action("wp_ajax_verify_recaptcha", "verify_recaptcha");
 add_action("wp_ajax_nopriv_verify_recaptcha", "verify_recaptcha");
 
@@ -11,7 +28,7 @@ function verify_recaptcha()
     }
 
     $recaptcha_response = sanitize_text_field($_POST["recaptcha_response"]);
-    $recaptcha_secret = "6LeR7DcqAAAAAPhlWk2Oz_LRO3BkGtrepU_1x7Mb";
+    $recaptcha_secret = get_recaptcha_secret();
 
     // Make a POST request to the reCAPTCHA API
     $verify_response = wp_remote_post(
