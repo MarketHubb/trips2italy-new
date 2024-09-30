@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-    function getCaptchaToken() {
+    function generateCaptchaToken() {
         if (!siteKey || !recaptchaInput) {
             console.error("reCAPTCHA elements not found");
             return null;
@@ -233,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         });
     }
+
+    generateCaptchaToken();
 
     function verifyCaptcha(formData) {
         // Create a FormData object to send the data
@@ -270,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         
         let isValid = true;
-        let captchaToken = getCaptchaToken();
+        let captchaToken = generateCaptchaToken();
         let formData = new FormData(formContainer);
 
         // Dump formData object (handleSubmit)
