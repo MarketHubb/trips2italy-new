@@ -105,39 +105,66 @@ function submit_custom_gravity_form()
     }
 
     $result = GFAPI::submit_form($form_id, $input_values);
-
+    
     if (is_wp_error($result)) {
         $error_message = $result->get_error_message();
         GFCommon::log_debug(__METHOD__ . '(): GFAPI Error Message => ' . $error_message);
-        wp_send_json_error(["error" => $error_message]);
-        wp_die();
+        // Do something with the error message.
+        return;
     }
 
-    if (!rgar($result, 'is_valid')) {
+    if (! rgar($result, 'is_valid')) {
         $error_message = 'Submission is invalid.';
-        $field_errors = rgar($result, 'validation_messages', array());
-        GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors, true));
-        wp_send_json_error(["error" => $error_message, "field_errors" => $field_errors]);
-        wp_die();
+        $field_errors  = rgar($result, 'validation_messages', array());
+        GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors));
+        // Do something with the message and errors.
+        return;
     }
 
-    $confirmation_type = rgar($result, 'confirmation_type');
-    $first_name = isset($input_values['12.3']) ? $input_values['12.3'] : '';
-
-    if ($confirmation_type === 'redirect' || $confirmation_type === 'page') {
+    if (rgar($result, 'confirmation_type') === 'redirect') {
         $redirect_url = rgar($result, 'confirmation_redirect');
-        // Add the first name as a query parameter
-        $redirect_url = add_query_arg('id', $first_name, $redirect_url);
         GFCommon::log_debug(__METHOD__ . '(): GFAPI Redirect URL => ' . $redirect_url);
-
         if (wp_redirect($redirect_url)) {
             exit;
         }
     } else {
         $confirmation_message = rgar($result, 'confirmation_message');
-        GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $confirmation_message);
-        wp_send_json_success(["confirmation" => $confirmation_message]);
+        // GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $error_message);
+        // Do something with the confirmation message.
     }
+
+    // if (is_wp_error($result)) {
+    //     $error_message = $result->get_error_message();
+    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Error Message => ' . $error_message);
+    //     wp_send_json_error(["error" => $error_message]);
+    //     wp_die();
+    // }
+
+    // if (!rgar($result, 'is_valid')) {
+    //     $error_message = 'Submission is invalid.';
+    //     $field_errors = rgar($result, 'validation_messages', array());
+    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors, true));
+    //     wp_send_json_error(["error" => $error_message, "field_errors" => $field_errors]);
+    //     wp_die();
+    // }
+
+    // $confirmation_type = rgar($result, 'confirmation_type');
+    // $first_name = isset($input_values['12.3']) ? $input_values['12.3'] : '';
+
+    // if ($confirmation_type === 'redirect' || $confirmation_type === 'page') {
+    //     $redirect_url = rgar($result, 'confirmation_redirect');
+    //     // Add the first name as a query parameter
+    //     $redirect_url = add_query_arg('id', $first_name, $redirect_url);
+    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Redirect URL => ' . $redirect_url);
+
+    //     if (wp_redirect($redirect_url)) {
+    //         exit;
+    //     }
+    // } else {
+    //     $confirmation_message = rgar($result, 'confirmation_message');
+    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $confirmation_message);
+    //     wp_send_json_success(["confirmation" => $confirmation_message]);
+    // }
 
     wp_die();
 }
