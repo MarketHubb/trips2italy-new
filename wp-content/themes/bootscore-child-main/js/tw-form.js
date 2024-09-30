@@ -271,22 +271,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function handleSubmit(event) {
         event.preventDefault();
-    
+
+        // Check if the current environment is local
+        const localDev = isLocalDev();
+
         try {
-            // Wait for the token to be generated
-            const token = await generateCaptchaToken();
-
-            // Now that we have the token, proceed with the rest of the submission
             let formData = new FormData(formContainer);
-            formData.append('g-recaptcha-response', token);  // Add this line
 
-            // Verify the captcha
-            const captchaVerified = await verifyCaptcha(token);  // Pass token directly
+            if (!localDev) {
+                // Only perform reCAPTCHA steps if not on local dev
+                // Wait for the token to be generated
+                const token = await generateCaptchaToken();
 
-            if (!captchaVerified) {
-                console.error("reCAPTCHA verification failed");
-                showFormError("reCAPTCHA verification failed. Please try again.");
-                return;
+                // Add the reCAPTCHA token to formData
+                formData.append('g-recaptcha-response', token);  
+
+                // Verify the captcha
+                const captchaVerified = await verifyCaptcha(token);  
+
+                if (!captchaVerified) {
+                    console.error("reCAPTCHA verification failed");
+                    showFormError("reCAPTCHA verification failed. Please try again.");
+                    return;
+                }
+            } else {
+                console.log("Local development environment detected. Skipping reCAPTCHA verification.");
             }
 
             // Proceed with form validation
@@ -294,7 +303,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (isValid) {
                 // Proceed with form submission
-                await submitForm(formData);
+                // If local, ensure formData doesn't include reCAPTCHA token
+                if (localDev) {
+                    // Optionally remove reCAPTCHA fields if they exist
+                    formData.delete('g-recaptcha-response');
+                }
+                await submitForm(formData, localDev);
             } else {
                 // Scroll to the first error
                 const firstError = formContainer.querySelector(
@@ -311,10 +325,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
     function validateForm() {
         let isValid = true;
-    
+
         fields.forEach((field) => {
             if (
                 field.style.display !== "none" ||
@@ -355,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return isValid;
     }
 
-    async function submitForm(formData) {
+    async function submitForm(formData, isLocalDev) {
         formData.append("action", "submit_custom_gravity_form");
         formData.append("form_id", formContainer.dataset.formId);
 
@@ -373,34 +386,48 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: formData,
             });
 
-            // Log the raw response text
-            const responseText = await response.text();
-            console.log("Raw response:", responseText);
-
             // Try to parse the response as JSON
             let data;
             try {
-                data = JSON.parse(responseText);
+                data = await response.json();
                 console.log("Parsed response data:", data);
             } catch (jsonError) {
                 console.error("Failed to parse response as JSON:", jsonError);
                 throw new Error("Invalid JSON response from server");
             }
 
-            if (data.redirect) {
-                console.log("Redirecting to:", data.redirect);
-                window.location.href = data.redirect;
-            } else if (data.confirmation) {
-                showConfirmation(data.confirmation);
+            if (data.success) {
+                if (data.data.redirect) {
+                    console.log("Redirecting to:", data.data.redirect);
+                    window.location.href = data.data.redirect;
+                } else if (data.data.confirmation) {
+                    showConfirmation(data.data.confirmation);
+                } else {
+                    console.error("Unexpected success response structure:", data);
+                    showFormError("An unexpected success response was received.");
+                }
             } else {
-                console.error("Unexpected response structure:", data);
-                showFormError("An unexpected error occurred. Please try again.");
+                if (data.data.error) {
+                    console.error("Form submission error:", data.data.error);
+                    showFormError(data.data.error);
+                } else {
+                    console.error("Unknown error occurred during form submission:", data);
+                    showFormError("An unknown error occurred. Please try again.");
+                }
             }
         } catch (error) {
             console.error("Fetch error:", error);
             showFormError("An error occurred. Please try again.");
         }
     }
+
+    // Helper function to detect if the current environment is local (.test TLD)
+    function isLocalDev() {
+        return window.location.hostname.endsWith('.test');
+    }
+
+    // Attach the handleSubmit function to your form's submit event
+    formContainer.addEventListener('submit', handleSubmit);
 
     function showFormError(message) {
         // Show error message at the top of the form

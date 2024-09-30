@@ -61,30 +61,40 @@ function verify_recaptcha()
     wp_die();
 }
 
-add_action("wp_ajax_submit_custom_gravity_form", "submit_custom_gravity_form");
-add_action("wp_ajax_nopriv_submit_custom_gravity_form", "submit_custom_gravity_form");
+add_action('wp_ajax_submit_custom_gravity_form', 'submit_custom_gravity_form');
+add_action('wp_ajax_nopriv_submit_custom_gravity_form', 'submit_custom_gravity_form');
 
 function submit_custom_gravity_form()
 {
+    // Start output buffering to capture any unexpected output
+    ob_start();
+
     // Verify nonce for security
     if (!check_ajax_referer("submit_custom_gravity_form", "nonce", false)) {
+        // Clean the output buffer
+        ob_end_clean();
         wp_send_json_error(["error" => "Nonce verification failed."]);
         wp_die();
     }
 
     // Check if form_id is set
     if (!isset($_POST["form_id"])) {
+        ob_end_clean();
         wp_send_json_error(["error" => "Form ID not set."]);
         wp_die();
     }
 
     $form_id = intval($_POST["form_id"]);
     $input_values = [];
+    $input_32_value = ''; // To store the raw 'input_32' value
 
+    // Sanitize and prepare input values
     foreach ($_POST as $key => $val) {
-        if (!empty($val) && str_contains($key, 'input_')) {
-            // Split name input
+        if (!empty($val) && strpos($key, 'input_') !== false) {
+            // Handle specific input fields as needed
             if ($key == 'input_32') {
+                $input_32_value = sanitize_text_field($val); // Store raw input_32 value
+
                 $name = array_map('trim', explode(" ", $val));
 
                 if (!empty($name[0])) {
@@ -104,67 +114,65 @@ function submit_custom_gravity_form()
         }
     }
 
+    // Submit the form using GFAPI
     $result = GFAPI::submit_form($form_id, $input_values);
-    
+
+    // Handle potential WP_Error
     if (is_wp_error($result)) {
         $error_message = $result->get_error_message();
         GFCommon::log_debug(__METHOD__ . '(): GFAPI Error Message => ' . $error_message);
-        // Do something with the error message.
-        return;
+        ob_end_clean();
+        wp_send_json_error(["error" => $error_message]);
+        wp_die();
     }
 
-    if (! rgar($result, 'is_valid')) {
+    // Check if the submission is valid
+    if (!rgar($result, 'is_valid')) {
         $error_message = 'Submission is invalid.';
         $field_errors  = rgar($result, 'validation_messages', array());
-        GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors));
-        // Do something with the message and errors.
-        return;
+        GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors, true));
+        ob_end_clean();
+        wp_send_json_error(["error" => $error_message, "field_errors" => $field_errors]);
+        wp_die();
     }
 
-    if (rgar($result, 'confirmation_type') === 'redirect') {
-        $redirect_url = rgar($result, 'confirmation_redirect');
-        GFCommon::log_debug(__METHOD__ . '(): GFAPI Redirect URL => ' . $redirect_url);
-        if (wp_redirect($redirect_url)) {
-            exit;
-        }
+    // **Redirection Logic Starts Here**
+
+    // Determine the 'id' parameter
+    if (isset($input_values["12.3"]) && !empty($input_values["12.3"])) {
+        $id_param = sanitize_text_field($input_values["12.3"]);
+    } elseif (!empty($input_32_value)) {
+        // If "12.3" is not set, use the raw 'input_32' value
+        $id_param = sanitize_text_field($input_32_value);
     } else {
-        $confirmation_message = rgar($result, 'confirmation_message');
-        // GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $error_message);
-        // Do something with the confirmation message.
+        // Fallback if neither is set
+        $id_param = '';
     }
 
-    // if (is_wp_error($result)) {
-    //     $error_message = $result->get_error_message();
-    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Error Message => ' . $error_message);
-    //     wp_send_json_error(["error" => $error_message]);
-    //     wp_die();
-    // }
+    // Get the URL of the page with ID 32250
+    $redirect_page_id = 32250;
+    $redirect_url = get_permalink($redirect_page_id);
 
-    // if (!rgar($result, 'is_valid')) {
-    //     $error_message = 'Submission is invalid.';
-    //     $field_errors = rgar($result, 'validation_messages', array());
-    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Field Errors => ' . print_r($field_errors, true));
-    //     wp_send_json_error(["error" => $error_message, "field_errors" => $field_errors]);
-    //     wp_die();
-    // }
+    if ($redirect_url === false) {
+        // Handle case where the page ID is invalid
+        GFCommon::log_debug(__METHOD__ . '(): Invalid redirect page ID.');
+        ob_end_clean();
+        wp_send_json_error(["error" => "Redirect page not found."]);
+        wp_die();
+    }
 
-    // $confirmation_type = rgar($result, 'confirmation_type');
-    // $first_name = isset($input_values['12.3']) ? $input_values['12.3'] : '';
+    // Append the 'id' query parameter if it's not empty
+    if (!empty($id_param)) {
+        // Ensure the URL does not already have query parameters
+        $redirect_url = add_query_arg('id', $id_param, $redirect_url);
+    }
 
-    // if ($confirmation_type === 'redirect' || $confirmation_type === 'page') {
-    //     $redirect_url = rgar($result, 'confirmation_redirect');
-    //     // Add the first name as a query parameter
-    //     $redirect_url = add_query_arg('id', $first_name, $redirect_url);
-    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Redirect URL => ' . $redirect_url);
+    // **End of Redirection Logic**
 
-    //     if (wp_redirect($redirect_url)) {
-    //         exit;
-    //     }
-    // } else {
-    //     $confirmation_message = rgar($result, 'confirmation_message');
-    //     GFCommon::log_debug(__METHOD__ . '(): GFAPI Confirmation Message => ' . $confirmation_message);
-    //     wp_send_json_success(["confirmation" => $confirmation_message]);
-    // }
+    // Clean the output buffer
+    ob_end_clean();
 
+    // Send the redirect URL in the JSON response with the key 'redirect' to match JavaScript expectations
+    wp_send_json_success(["redirect" => $redirect_url]);
     wp_die();
 }
