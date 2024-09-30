@@ -136,7 +136,7 @@ function submit_custom_gravity_form()
         $json_response['field_errors']  = rgar($result, 'validation_messages', array());
     }
 
-    if (rgar($result, 'confirmation_type') === 'redirect') {
+    if (rgar($result, 'confirmation_type') === 'page') {
         $redirect_url = !empty($input_values['12.3']) ? rgar($result, 'confirmation_redirect') . $input_values['12.3'] : rgar($result, 'confirmation_redirect');
         $json_response['redirect'] = $redirect_url;
     }
