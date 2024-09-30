@@ -232,14 +232,6 @@ function mh_conditional_script_loading()
 		wp_enqueue_style('theme-design', get_stylesheet_directory_uri() . '/css/soft-design-system-pro.css');
 		wp_enqueue_style('custom-styles', get_stylesheet_directory_uri() . '/css/custom.css', ['tailwind-css']);
 		wp_enqueue_style('hero-styles', get_stylesheet_directory_uri() . '/css/hero.css');
-		// wp_enqueue_style('open-sans-webfonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
-		wp_enqueue_style('google-webfonts', 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-		// wp_enqueue_style('style-script-fonts', 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Style+Script&display=swap');
-		// wp_enqueue_style('great-vibes-font', 'https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-		// wp_enqueue_style('cookie-font', 'https://fonts.googleapis.com/css2?family=Cookie&display=swap');
-		// wp_enqueue_style('Oooh-Baby-font', 'https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap');
-		wp_enqueue_style('ephesis-fonts', 'https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
-		// wp_enqueue_style('courgette-webfonts', 'https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 	}
 }
 add_action('wp_enqueue_scripts', 'mh_conditional_script_loading');
