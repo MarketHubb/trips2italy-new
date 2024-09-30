@@ -356,6 +356,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function submitForm(formData) {
+        formData.append("action", "submit_custom_gravity_form");
+        formData.append("form_id", formContainer.dataset.formId);
+        
+        // Ensure nonce is added only once
+        if (!formData.has("nonce")) {
+            formData.append(
+                "nonce",
+                formContainer.querySelector('input[name="nonce"]').value
+            );
+        }
+
         try {
             const response = await fetch(ajax_object.ajax_url, {
                 method: "POST",
