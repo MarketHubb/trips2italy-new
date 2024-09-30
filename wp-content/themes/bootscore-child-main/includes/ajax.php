@@ -16,18 +16,19 @@ function get_recaptcha_site()
 
     return '6LeR7DcqAAAAAPttcbdc0H68FhMR5C6Y6Ka8x9B0';
 }
+
 add_action("wp_ajax_verify_recaptcha", "verify_recaptcha");
 add_action("wp_ajax_nopriv_verify_recaptcha", "verify_recaptcha");
 
 function verify_recaptcha()
 {
     // Verify that the required parameters are set
-    if (!isset($_POST["recaptcha_response"])) {
-        wp_send_json_error(["error" => "reCAPTCHA response not set."]);
+    if (!isset($_POST["token"])) {
+        wp_send_json_error(["error" => "reCAPTCHA token not set."]);
         wp_die();
     }
 
-    $recaptcha_response = sanitize_text_field($_POST["recaptcha_response"]);
+    $recaptcha_response = sanitize_text_field($_POST["token"]);
     $recaptcha_secret = get_recaptcha_secret();
 
     // Make a POST request to the reCAPTCHA API

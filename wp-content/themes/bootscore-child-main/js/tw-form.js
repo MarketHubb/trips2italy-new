@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-    function handleCaptcha(event, formData) {
+    function getCaptchaToken() {
         const siteKey = document.getElementById('recaptchaResponse').dataset.sitekey;
         const recaptchaInput = document.getElementById('recaptchaResponse');
 
@@ -219,7 +219,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("reCAPTCHA elements not found");
             return null;
         }
-
         console.log("Site key:", siteKey);
         console.log("grecaptcha object:", typeof grecaptcha, grecaptcha);
 
@@ -236,124 +235,60 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // function handleCaptcha(event, formData) {
-    //     const siteKey = document.getElementById('recaptchaResponse').dataset.sitekey;
-    //     const recaptchaInput = document.getElementById('recaptchaResponse');
+    function verifyCaptcha(token) {
+        // Create a FormData object to send the data
+        let formData = new FormData();
+        formData.append('action', 'verify_recaptcha');
+        formData.append('token', token);
 
-    //     if (!siteKey || !recaptchaInput) return null;
-    //     grecaptcha.execute(siteKey, { action: 'submit' })
-    //         .then(function (token) {
-    //             console.log("reCAPTCHA token generated:", token);
-    //             recaptchaInput.value = token;
-    //             console.log("Token set to input field:", recaptchaInput.value);
-    //         })
-    //         .catch(function (error) {
-    //             console.error("Error executing reCAPTCHA:", error);
-    //         });
-
-    // grecaptcha.ready(function () {
-    //     grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
-    //         recaptchaInput.value = token;
-    //         proceedWithSubmission(event.target);
-    //     });
-    // });
-
-    // grecaptcha.ready(function () { // Wait for the recaptcha to be ready
-    //     grecaptcha
-    //         .execute("yoursitekey", {
-    //             action: "contact"
-    //         }) // Execute the recaptcha
-    //         .then(function (token) {
-
-    //             let recaptchaResponse = document.getElementById("recaptchaResponse")
-    //             recaptchaResponse.value = token // Set the recaptcha response
-
-    //             fetch("/send.php", {
-    //                 method: "POST",
-    //                 body: new FormData(form), // Send the form data
-    //             })
-    //                 .then((response) => response.text())
-    //                 .then((response) => {
-    //                     const responseText = JSON.parse(response) // Get the response
-    //                     if (responseText.error !== "") { // If there is an error
-    //                         document.querySelector("#alert").innerText = responseText.error
-    //                         document.querySelector("#alert").classList.add("error")
-    //                         document.querySelector(".formfields").style.display = "block"
-    //                         return
-    //                     }
-    //                     document.querySelector("#alert").innerText = responseText.success
-    //                     document.querySelector("#alert").classList.add("success")
-    //                     window.location.replace("/thanks") // Redirect to the thanks page
-    //                 })
-    //         })
-    // })
-    // }
+        return fetch(ajax_object.ajax_url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("reCAPTCHA verification result:", data);
+                if (data.success === true) {
+                    return true; // Verification successful
+                } else {
+                    console.error("reCAPTCHA verification failed:", data.data.error);
+                    return false; // Verification failed
+                }
+            })
+            .catch((error) => {
+                console.error("Error verifying reCAPTCHA:", error);
+                return false; // Error occurred
+            });
+    }
 
     function handleSubmit(event) {
         event.preventDefault();
+        
         let isValid = true;
+        let captchaToken = getCaptchaToken();
+
+        if (!captchaToken) {
+            console.log("No reCAPTCHA token generated");
+            return null;
+        }
+
+        verifyCaptcha(captchaToken)
+            .then((result) => {
+                // Here, 'result' is the value that the Promise resolved with
+                console.log("reCAPTCHA verified:", result);
+                // Proceed with form submission
+            })
+            .catch((error) => {
+                // Here, 'error' is the error that was thrown if the Promise was rejected
+                console.error("reCAPTCHA verification failed:", error.message);
+                // Handle the error
+            });
+
+
+
         const formData = new FormData(formContainer);
 
-        let captcha = handleCaptcha(event, formData);
-
-        // const recaptchaInput = document.getElementById('input_recaptcha_response');
-        // const recaptchaContainer = document.querySelector('.ginput_recaptcha_v3');
-    
-        // if (!recaptchaInput || !recaptchaContainer) {
-        //     console.error("reCAPTCHA elements not found");
-        //     return;
-        // }
-
-        // const siteKey = recaptchaContainer.getAttribute('data-sitekey');
-
-        // if (!siteKey) {
-        //     console.error("reCAPTCHA site key not found");
-        //     return;
-        // }
-
-        // grecaptcha.ready(function () {
-        //     grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
-        //         recaptchaInput.value = token;
-        //         proceedWithSubmission(event.target);
-        //     });
-        // });
-     
-
-        // const recaptchaResponse = document.getElementById('input_recaptcha_response').value;
-
-        // if (!recaptchaResponse) {
-        //     console.error("reCAPTCHA response is empty");
-        //     return null;
-        // }
-
-        // console.log("recaptchaResponse",recaptchaResponse);
-
-        // const recaptchaData = new FormData();
-
-        // recaptchaData.append("action", "verify_recaptcha");
-        // recaptchaData.append("recaptcha_response", recaptchaResponse);
-
-        // fetch(ajax_object.ajax_url, {
-        //     method: "POST",
-        //     body: recaptchaData,
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         console.log("reCAPTCHA verification result:", data);
-        //         if (data.success === true) {
-        //             // Proceed with form submission
-        //         } else {
-        //             console.error("reCAPTCHA verification failed");
-        //             return null;
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error("Error verifying reCAPTCHA:", error);
-        //         return null;
-        //     });
-
-
-
+        // Dump formData object
         for (const [key, value] of formData.entries()) {
             console.log(`${key}: ${value}`);
         }
