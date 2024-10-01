@@ -1,3 +1,9 @@
+.fieldset-cols input + label {
+    height: 100%;
+} 
+#gform_11 .grid.grid-cols-1:first-of-type {
+    border-top: none !important;
+}
 .gform_wrapper>.grid:last-of-type {
     border: none !important;
 }

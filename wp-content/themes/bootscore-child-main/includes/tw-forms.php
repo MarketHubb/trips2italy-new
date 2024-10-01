@@ -437,7 +437,7 @@ function get_checkbox_radio_input_open($field, $input_class_array)
         $output .=
             '<div class="mt-6 grid ' .
             $sm_grid_cols .
-            ' sm:grid-cols-3 gap-4 auto-rows-fr">';
+            ' sm:grid-cols-3 gap-4 auto-rows-fr fieldset-cols">';
     } elseif (in_array("col-cards", $input_class_array)) {
         $output .= '<div class="space-y-4">';
     } else {
@@ -509,7 +509,7 @@ function render_checkbox_input($field, $form)
         $output .= '<span class="flex flex-1 items-center sm:items-start">';
         $output .= '<span class="flex flex-col">';
         $output .=
-            '<span class="block text-base tracking-tight leading-normal pr-5">' .
+            '<span class="block text-sm lg:text-base tracking-tight leading-normal pr-5">' .
             $input_attributes["label_parts"][0] .
             "</span>";
         if (isset($input_attributes["label_parts"][1])) {

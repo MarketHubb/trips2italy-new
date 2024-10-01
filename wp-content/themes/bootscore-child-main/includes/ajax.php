@@ -98,11 +98,11 @@ function submit_custom_gravity_form()
                 $name = array_map('trim', explode(" ", $val));
 
                 if (!empty($name[0])) {
-                    $input_values["12.3"] = sanitize_text_field($name[0]);
+                    $input_values["input_12_3"] = sanitize_text_field($name[0]);
                 }
 
                 if (!empty($name[1])) {
-                    $input_values["12.6"] = sanitize_text_field($name[1]);
+                    $input_values["input_12_6"] = sanitize_text_field($name[1]);
                 }
             } else {
                 $input_value = is_string($val) ? sanitize_text_field($val) : null;
@@ -139,8 +139,8 @@ function submit_custom_gravity_form()
     // **Redirection Logic Starts Here**
 
     // Determine the 'id' parameter
-    if (isset($input_values["12.3"]) && !empty($input_values["12.3"])) {
-        $id_param = sanitize_text_field($input_values["12.3"]);
+    if (isset($input_values["input_12_3"]) && !empty($input_values["input_12_3"])) {
+        $id_param = sanitize_text_field($input_values["input_12_3"]);
     } elseif (!empty($input_32_value)) {
         // If "12.3" is not set, use the raw 'input_32' value
         $id_param = sanitize_text_field($input_32_value);
