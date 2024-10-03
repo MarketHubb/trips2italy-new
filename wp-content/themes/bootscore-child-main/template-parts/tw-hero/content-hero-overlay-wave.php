@@ -24,7 +24,7 @@ if (isset($args)) {
                   <?php get_template_part( 'template-parts/tw-hero/content', 'breadcrumbs', $hero_inputs['breadcrumbs'] ); ?>
                   
                <?php  } ?>
-               <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-normal sm:leading-none">
+               <h1 class="text-4xl md:text-4xl lg:text-5xl xl:text-6xl leading-normal sm:leading-none">
                   <span class="text-secondary-500 tracking-normal uppercase font-bold block leading-none"><?php echo $hero_inputs['copy']['heading_1']['desktop']; ?></span>
                   <span class="text-[120%] text-white stylized leading-[1]"><?php echo $hero_inputs['copy']['heading_2']['desktop']; ?></span>
                </h1>

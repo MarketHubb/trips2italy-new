@@ -1,4 +1,39 @@
 <?php
+function output_formatted_review($post_object)
+{
+	$raw_review = get_field('review', $post_object->ID);
+	$title_raw = trim(remove_dashes_from_string(get_the_title($post_object->ID), "before"));
+	$location_no_author = str_replace($title_raw, "", get_field('location', $post_object->ID));
+	$location_raw = trim(remove_dashes_from_string($location_no_author, "after"));
+	$location = str_replace($title_raw, "", $location_raw);
+	$review = str_replace($location, "", $raw_review);
+	$author_clean = str_replace("-", "", str_replace("&amp;", "&", $title_raw));
+	$author = trim(str_replace($location, "", $author_clean));
+
+	$output  = '<div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700">';
+    $output .= '<div class="flex-auto p-4 md:p-6 md:pb-[6rem]">';
+    $output .= '<p class="line-clamp-4 h-full mt-3 sm:mt-6 text-base text-gray-800 md:text-lg dark:text-white"><em>';
+    $output .= $review . '</em></p>';
+    $output .= '<span class="testimonial-full hidden">' . $review . '</span>';
+    $output .= '</div>';
+
+    $output .= '<div class="p-4 rounded-b-xl md:px-6 bg-gray-100 min-h-[77px]">';
+    if ($author) {
+    	$output .= '<h3 class="text-sm font-semibold text-gray-800 sm:text-base dark:text-neutral-200">';
+    	$output .= $author;
+    	$output .= '</h3>';
+    }
+    if ($location) {
+    	$output .= '<p class="text-sm text-gray-500 dark:text-neutral-500">';
+    	$output .= $location;
+    	$output .= '</p>';
+    }
+    $output .= '</div>';
+    $output .= '</div>';
+
+	return $output;
+}
+
 function get_package_description($post_id)
 {
 	$package_description = get_field('description', $post_id);
@@ -754,41 +789,41 @@ function get_icon_for_region_page($formatted_title)
 
 function return_portion_of_text($text, $length = 150)
 {
-    // Convert $length to a positive integer
-    $length = abs((int)$length);
+	// Convert $length to a positive integer
+	$length = abs((int)$length);
 
-    // Strip HTML tags and decode HTML entities
-    $text = wp_strip_all_tags(html_entity_decode($text, ENT_QUOTES, 'UTF-8'));
+	// Strip HTML tags and decode HTML entities
+	$text = wp_strip_all_tags(html_entity_decode($text, ENT_QUOTES, 'UTF-8'));
 
-    // Remove extra whitespace
-    $text = preg_replace('/\s+/', ' ', trim($text));
+	// Remove extra whitespace
+	$text = preg_replace('/\s+/', ' ', trim($text));
 
-    // If the text is longer than the desired length
-    if (mb_strlen($text) > $length) {
-        // Find the position of the 150th character (ignoring spaces)
-        $char_count = 0;
-        $truncate_pos = 0;
-        for ($i = 0; $i < mb_strlen($text); $i++) {
-            if (mb_substr($text, $i, 1) !== ' ') {
-                $char_count++;
-            }
-            if ($char_count == $length) {
-                $truncate_pos = $i + 1;
-                break;
-            }
-        }
+	// If the text is longer than the desired length
+	if (mb_strlen($text) > $length) {
+		// Find the position of the 150th character (ignoring spaces)
+		$char_count = 0;
+		$truncate_pos = 0;
+		for ($i = 0; $i < mb_strlen($text); $i++) {
+			if (mb_substr($text, $i, 1) !== ' ') {
+				$char_count++;
+			}
+			if ($char_count == $length) {
+				$truncate_pos = $i + 1;
+				break;
+			}
+		}
 
-        // Truncate the text
-        $text = mb_substr($text, 0, $truncate_pos);
+		// Truncate the text
+		$text = mb_substr($text, 0, $truncate_pos);
 
-        // Remove partial words at the end
-        $text = preg_replace('/\s+?(\S+)?$/', '', $text);
+		// Remove partial words at the end
+		$text = preg_replace('/\s+?(\S+)?$/', '', $text);
 
-        // Add ellipsis
-        $text .= '...';
-    }
+		// Add ellipsis
+		$text .= '...';
+	}
 
-    return $text;
+	return $text;
 }
 
 function get_excerpt_for_post($text, $length = 10)
@@ -878,4 +913,3 @@ function get_alternate_content($section, $side)
 
 	return $content;
 }
-

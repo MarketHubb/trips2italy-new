@@ -1,14 +1,6 @@
 /* jQuery (Footer) */
 (function($) {
 
-    gform.addAction( 'gform_frontend_page_visible', function( page, formId ) {
-        console.log( page );
-    }, 10, 2 );
-
-    gform.addAction( 'gform_frontend_pages_evaluated', function( pages, formId, pageLogic ) {
-        console.log( arguments );
-    }, 10, 3 );
-
     function showHideText(sSelector, options) {
         // Def. options
         var defaults = {
@@ -84,8 +76,6 @@
         const tripType = $('#top-page').data('type');
         const mediaQueryLarge = window.matchMedia('(min-width: 768px)')
         const mediaQuerySmall = window.matchMedia('(max-width: 768px)')
-        const backgroundLinerLight = 'linear-gradient(to right,rgba(255,255,255,.1), rgba(255,255,255,.1) 35%, rgba(255,255,255,.1) 100%),url(';
-        const backgroundLinerDark = 'linear-gradient(to right,rgba(0,0,0,.1), rgba(0,0,0,.1) 35%, rgba(0,0,0,.1) 100%),url(';
 
         // Dynamically replace trip "type" in template
         if (tripType !== null) {
@@ -109,9 +99,9 @@
             $('.bg-desktop-replace').each(function() {
                 let bgDesktopImg = $(this).data('bgimage');
                 if (bgDesktopImg !== null && bgDesktopImg.length > 0) {
-                    bgDesktopImgVal = "url(" + bgDesktopImg + ")";
+                    bgDesktopImg = "url(" + bgDesktopImg + ")";
                     $(this).css({
-                        'background-image': bgDesktopImgVal
+                        'background-image': bgDesktopImg
                     });
                 }
             });

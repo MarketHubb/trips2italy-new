@@ -1,4 +1,17 @@
 <?php
+// region Reviews
+function get_reviews_ordered()
+{
+	$output_array = output_order_testimonials();
+
+	return get_posts(array(
+		'post_type' => 'review',
+		'posts_per_page' => -1,
+		'order' => $output_array['order'],
+		'orderby' => 'modified'
+	));
+}
+
 function get_related_packages_by_trip_type($post_id)
 {
 	$package_topic_term_id = get_field('related_packages', $post_id);
@@ -29,7 +42,7 @@ function paginated_post_query($post_type, $paged = 1)
 	$args = array(
 		'post_type' => $post_type,
 		'posts_per_page' => $post_count,
-		'orderby' => 'date', 
+		'orderby' => 'date',
 		'paged' => $paged,
 	);
 
@@ -81,8 +94,8 @@ function get_location_posts_by_location_region_tax($tax_terms = [], $parents_onl
 		$args = array(
 			'post_type' => 'location',
 			'posts_per_page' => -1,
-			'orderby' => 'title', 
-			'order' => 'ASC',     
+			'orderby' => 'title',
+			'order' => 'ASC',
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'location_region',
