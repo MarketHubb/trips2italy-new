@@ -5,20 +5,31 @@
    </div>
 
    <?php
-   $keyMap = [
-      'region_link' => 'link',
-      'excerpt' => 'description',
-      'region' => 'heading',
-   ];
+   $content = [];
+   $regions = get_field('regions');
+
+   foreach ($regions as $region) {
+      $heading = $region['region_type'] === 'Location' ? get_the_title($region['region_post']) : get_term($region['region_tax'])->name;
+      $link = $region['region_type'] === 'Location' ? get_permalink($region['region_post']) : get_term_link($region['region_tax']);
+
+      $content[] = [
+         'heading' => $heading,
+         'description' => $region['excerpt'],
+         'link' => $link,
+         'image' => $region['image'],
+         'image_mobile' => $region['image_mobile']
+      ];
+   }
+
    $content_fields = [];
-   $content_fields['content'] = change_array_keys(get_field('regions'), $keyMap);
-   $content_fields['classes']['grid'] = ' grid grid-cols-2 gap-x-3 sm:gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 ';
-   $content_fields['classes']['description'] = ' line-clamp-3 text-gray-600 text-sm sm:text-base lg:text-lg mt-4 ';
-   $content_fields['classes']['image'] = ' min-h-24 sm:min-h-56 w-full object-cover object-center group-hover:opacity-75 ';
+   $content['content'] = $content;
+   $content['classes']['grid'] = ' grid grid-cols-2 gap-x-3 sm:gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 divide-y divide-y-gray-50 lg:divide-y-0 ';
+   $content['classes']['description'] = ' line-clamp-3 text-gray-600 text-sm sm:text-base lg:text-lg mt-4 ';
+   $content['classes']['image'] = ' min-h-24 sm:min-h-56 w-full object-cover object-center group-hover:opacity-75 ';
    ?>
 
-   <?php if (!empty($content_fields)) { ?>
-      <?php echo get_image_grid($content_fields); ?>
+   <?php if (!empty($content)) { ?>
+      <?php echo get_image_grid($content); ?>
    <?php } ?>
 
    <div class="mt-16 flex justify-center">
