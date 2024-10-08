@@ -13,17 +13,26 @@
         // region Functions
 
         // Hide mobile menu by default
-        $('.lg\\:hidden[role="dialog"]').addClass('hidden');
+        // $('.lg\\:hidden[role="dialog"]').addClass('hidden');
 
         // Open mobile menu
+        $('.nav-mobile-btn button').on('click', function(event){
+            $('.nav-mobile-btn button').each(function(){
+                if (event.currentTarget.id === $(this).attr('id')) {
+                    $(this).addClass('hidden');
+                } else {
+                    $(this).removeClass('hidden');
+                }
+            });
+        });
         $('button:contains("Open main menu")').click(function () {
-            $('.lg\\:hidden[role="dialog"]').removeClass('hidden');
+            $('#mobile-nav-container').removeClass('hidden');
             $('body').addClass('overflow-hidden'); // Prevent scrolling when menu is open
         });
 
         // Close mobile menu
         $('button:contains("Close menu")').click(function () {
-            $('.lg\\:hidden[role="dialog"]').addClass('hidden');
+            $('#mobile-nav-container').addClass('hidden');
             $('body').removeClass('overflow-hidden');
         });
 

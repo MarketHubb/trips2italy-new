@@ -24,14 +24,22 @@ $nav_fields = get_field('primary_nav', 'option');
 
          <?php } elseif (!$hide_nav) { ?>
 
-            <div class="flex lg:hidden py-2">
-               <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
+            <div class="flex lg:hidden py-2 nav-mobile-btn">
+               <button id="nav-mobile-open" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
                   <span class="sr-only">Open main menu</span>
                   <svg class="!h-6 !w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                   </svg>
                </button>
+               <!-- <button id="nav-mobile-close" type="button" class="hidden rounded-md p-2.5 text-gray-700"> -->
+               <button id="nav-mobile-close" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white hidden">
+                  <span class="sr-only">Close menu</span>
+                  <svg class="!h-6 !w-6" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" aria-hidden="true">
+                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+               </button>
             </div>
+
             <div class="hidden lg:flex lg:justify-center lg:items-center pt-3 pb-2  lg:gap-x-12">
 
                <?php
@@ -51,8 +59,8 @@ $nav_fields = get_field('primary_nav', 'option');
                   $desktop_nav_links .= '<img src="' . $nav_field['icon'] . '" class="max-h-[15px] relative mb-1 invert group-hover:opacity-100" />';
                   $desktop_nav_links .= $nav_field['link_text'] . '</a>';
 
-                  $mobile_nav_links .= '<a href="' . $href . '" class="-mx-3 block rounded-lg px-3 py-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ' . $active_class . '">';
-                  $mobile_nav_links .= '<img src="' . $nav_field['icon'] . '" class="max-w-[15px] h-auto opacity-20 relative inline-block mr-2" />';
+                  $mobile_nav_links .= '<a href="' . $href . '" class="flex w-full items-center -mx-3 px-3 py-4 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 ' . $active_class . '">';
+                  $mobile_nav_links .= '<img src="' . $nav_field['icon'] . '" class="max-w-[15px] h-auto opacity-20 relative inline-block mr-3" />';
                   $mobile_nav_links .= $nav_field['link_text'] . '</a>';
                }
 
@@ -60,36 +68,28 @@ $nav_fields = get_field('primary_nav', 'option');
                ?>
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-               <!-- <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-6 py-1.5 text-sm font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-secondary-500 hover:bg-secondary-400 border border-secondary-600">Plan My Trip</a> -->
                <a href="<?php echo get_permalink(28484); ?>" class="block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1 text-[.9rem] font-semibold text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150">Plan My Trip</a>
             </div>
       </nav>
       <!-- mobile menu, show/hide based on menu open state. -->
-      <div class="lg:hidden" role="dialog" aria-modal="true">
+      <div class="hidden" role="dialog" aria-modal="true" id="mobile-nav-container">
          <!-- background backdrop, show/hide based on slide-over state. -->
-         <div class="fixed inset-0 z-10"></div>
-         <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white !px-6 !pb-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+         <!-- <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white !px-6 !pb-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"> -->
+         <div class=" z-10 w-full overflow-y-auto bg-brand-100 !px-6 !pb-12 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-2xl">
             <div class="flex items-center justify-between">
 
                <a href="<?php echo get_home_url(); ?>" class="-m-1.5 p-1.5">
                   <span class="sr-only">trips 2 italy</span>
                   <img class="h-14 w-auto absolute top-[5px]" src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg'; ?>" alt="">
                </a>
-               <button type="button" class="rounded-md p-2.5 text-gray-700">
-                  <span class="sr-only">Close menu</span>
-                  <svg class="!h-6 !w-6" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" aria-hidden="true">
-                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-               </button>
             </div>
-            <div class="mt-6 flow-root">
-               <div class="-my-6 divide-y divide-gray-500/10">
-                  <div class="space-y-2 divide-y !py-6">
+            <div class="mt-12 flow-root">
+               <div class="-my-6">
+                  <div class=" divide-y divide-brand-500/10 !py-6">
                      <?php echo $mobile_nav_links; ?>
                   </div>
-                  <div class="!py-6">
-                     <button data-type="form" data-target="form" class="btn btn-sm bg-orange text-white btn-round mb-0 me-1" role="button">plan my trip
-                     </button>
+                  <div class="!py-6 !border-t-transparent">
+                     <a href="<?php echo get_permalink(28484); ?>" class="<?php echo tw_cta_btn_base_classes(); ?> !text-center">Plan My Trip</a>
                   </div>
                </div>
             </div>

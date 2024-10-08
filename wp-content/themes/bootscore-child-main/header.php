@@ -84,8 +84,6 @@ if (!isset($paged) || !$paged) {
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
         <?php get_template_part('template-parts/tw/content', 'nav'); ?>
-        <?php //get_template_part('template-parts/shared/content', 'nav'); 
-        ?>
 
         <div id="site" class="pt-[40px] lg:pt-[63px]">
 
@@ -97,16 +95,5 @@ if (!isset($paged) || !$paged) {
             } else {
                 output_hero_banner(get_queried_object());
             }
-
-
-            // if (isset($paged) && $paged > 1) {
-            //     $hero = get_hero_fields(get_queried_object());
-            //     get_template_part('template-parts/tw-hero/content', 'pagination', $hero);
-            // } else {
-            //     if ($new_hero_layout) {
-            //         get_template_part('template-parts/tw-hero/content', 'hero-new');
-            //     } else {
-            //         output_hero_banner(get_queried_object());
-            //     }
-            // }
             ?>
+
