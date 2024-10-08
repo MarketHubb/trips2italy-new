@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const hiddenDiv = button.nextElementSibling;
 
       if (!hiddenDiv || !hiddenDiv.classList.contains('hidden')) {
-         console.error('Hidden div not found or invalid');
          return;
       }
 
