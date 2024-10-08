@@ -61,7 +61,7 @@ $nav_fields = get_field('primary_nav', 'option');
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                <!-- <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-6 py-1.5 text-sm font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-secondary-500 hover:bg-secondary-400 border border-secondary-600">Plan My Trip</a> -->
-               <a href="<?php echo get_permalink(28484); ?>" class="block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1 text-[.9rem] font-bold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150">Plan My Trip</a>
+               <a href="<?php echo get_permalink(28484); ?>" class="block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1 text-[.9rem] font-semibold text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150">Plan My Trip</a>
             </div>
       </nav>
       <!-- mobile menu, show/hide based on menu open state. -->
@@ -73,7 +73,7 @@ $nav_fields = get_field('primary_nav', 'option');
 
                <a href="<?php echo get_home_url(); ?>" class="-m-1.5 p-1.5">
                   <span class="sr-only">trips 2 italy</span>
-                  <img class="h-14 w-auto absolute top-[5px]" src="<?php echo home_url() . '/wp-content/uploads/2023/01/logo-no-shadow.svg'; ?>" alt="">
+                  <img class="h-14 w-auto absolute top-[5px]" src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg'; ?>" alt="">
                </a>
                <button type="button" class="rounded-md p-2.5 text-gray-700">
                   <span class="sr-only">Close menu</span>
@@ -100,4 +100,3 @@ $nav_fields = get_field('primary_nav', 'option');
 
    </header>
 <?php } ?>
-
