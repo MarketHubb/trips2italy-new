@@ -6,6 +6,8 @@ $tab_count = count($args['pages']);
 $tab_width = 'w-1/' . $tab_count;
 $select = '';
 $tabs = '';
+$mobile_options = '';
+
 
 for ($i = 0; $i < $tab_count; ++$i) {
    $border = '';
@@ -16,36 +18,27 @@ for ($i = 0; $i < $tab_count; ++$i) {
       $border = ' rounded-tr-lg ';
    }
 
+   // Vars
    $anchor = $args['pages'][$i]['permalink'] === $current_url ? ' bg-brand-500 text-white shadow-lg ' : ' bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-800 ';
    $color = $args['pages'][$i]['permalink'] === $current_url ? ' text-white ' : ' text-gray-500 ';
    $icon = $args['pages'][$i]['permalink'] === $current_url ? ' opacity-80 invert brightness-0 ' : ' opacity-70 ';
+   $selected = $args['pages'][$i]['permalink'] === $current_url ? 'selected' : '';
+   // Tabs
    $tabs .= '<a href="' . $args['pages'][$i]['permalink'] . '" class="' . $tab_width . ' relative border-r border-gray-400/60 z-10 px-1 py-4 text-center text-base font-semibold ' . $border . $anchor . '">';
    $tabs .= '<img class="inline-block -ml-0.5 mr-2 relative bottom-[3px] h-5 w-5 text-gray-400 ' . $icon . '" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" ';
    $tabs .= 'src="' . $args['pages'][$i]['icon'] . '" />';
    $tabs .= '<span>' . $args['pages'][$i]['name'] . '</span>';
    $tabs .= '</a>';
-}
-foreach ($args['pages'] as $tab) {
-
-   // $anchor = $tab['permalink'] === $current_url ? ' bg-brand-500 text-white ' : ' bg-white text-gray-500 hover:bg-gray-100 ring-1 ring-gray-200 hover:text-gray-800 ';
-   // $color = $tab['permalink'] === $current_url ? ' text-white ' : ' text-gray-500 ';
-   // $icon = $tab['permalink'] === $current_url ? ' opacity-80 invert brightness-0 ' : ' opacity-40 ';
-   // $tabs .= '<a href="' . $tab['permalink'] . '" class="' . $tab_width . ' px-1 py-4 text-center text-base font-semibold rounded-tl-lg rounded-tr-lg ' . $anchor . '">';
-   // $tabs .= '<img class="inline-block -ml-0.5 mr-2 relative bottom-[3px] h-5 w-5 text-gray-400 ' . $icon . '" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" ';
-   // $tabs .= 'src="' . $tab['icon'] . '" />';
-   // $tabs .= '<span>' . $tab['name'] . '</span>';
-   // $tabs .= '</a>';
+   // Mobile options
+   $mobile_options .= '<option value="' . $args['pages'][$i]['permalink'] . '" ' . $selected . '>' . $args['pages'][$i]['name'] . '</option>';
 }
  ?>
-<div>
+<div class="mb-4 md:mb-8">
    <div class="sm:hidden">
-      <label for="tabs" class="sr-only">Select a tab</label>
+      <label for="tabs" class="font-semibold antialiased text-sm">Explore the region:</label>
       <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
       <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
-         <option>My Account</option>
-         <option>Company</option>
-         <option selected>Team Members</option>
-         <option>Billing</option>
+         <?php echo $mobile_options; ?>
       </select>
    </div>
    <div class="hidden sm:block pt-2">

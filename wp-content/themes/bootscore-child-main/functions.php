@@ -175,6 +175,7 @@ function bootscore_child_enqueue_styles()
 	// Locations
 	if (is_tax('location_region') || is_singular('location') || is_singular('trip')) {
 		wp_enqueue_script('location-region-js', get_stylesheet_directory_uri() . '/js/location-region.js', false, '', true);
+		wp_enqueue_script('nav-js', get_stylesheet_directory_uri() . '/js/nav.js', false, '', true);
 	}
 	// Sliders
 	if (!is_admin() && !is_page(28484)) {

@@ -14,10 +14,7 @@ $tab_inputs = location_tabs($queried_object, $type);
 ksort($tab_inputs['pages']);
 ?>
 
-<?php //get_template_part('template-parts/tw/content', 'hero-background-image', $queried_object); 
-?>
-
-<?php echo tw_section_open(['grid_classes' => ' px-6 lg:px-0 py-16 md:py-24 relative bottom-[10rem]']); ?>
+<?php echo tw_section_open(['grid_classes' => ' px-6 lg:px-0 py-8 md:py-24 relative sm:bottom-[10rem]']); ?>
 
 <?php echo tw_container_open('max-w-7xl mx-auto'); ?>
 
