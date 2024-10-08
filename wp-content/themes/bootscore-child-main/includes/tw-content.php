@@ -293,7 +293,7 @@ function tw_heading($post_id, $field_name, $align = null)
 
 	$bg_color = $fields['background_color'];
 
-	$heading_base_classes = ' mb-0 md:leading-normal font-heading font-semibold antialiased tracking-none col-span-12 ';
+	$heading_base_classes = ' mb-1 md:leading-normal font-heading font-medium antialiased col-span-12 ';
 	$align_class = $align ?: ' text-center ';
 	$heading_classes = ($bg_color === 'Dark') ? ' text-white ' : ' text-brand-700 ';
 	$heading  = '<div class="z-10 relative grid grid-cols-12 sm:block sm:pb-12 text-2xl md:text-2xl lg:text-3xl ' . $align_class . '">';
@@ -301,9 +301,9 @@ function tw_heading($post_id, $field_name, $align = null)
 	$heading .= $fields['heading'] . '</h2>';
 
 	if (isset($fields['subheading']) && !empty($fields['subheading'])) {
-		$subheading_base_classes = 'animate-on-scroll stylized font-normal text-[150%] ';
+		$subheading_base_classes = 'animate-on-scroll stylized font-normal text-[140%] ';
 		$subheading_classes = ($bg_color === 'Dark') ? ' text-secondary-400 ' : ' text-brand-500 ';
-		$subheading_align_classes = $align ? ' col-span-10 col-start-2 ' : ' col-span-12 ';
+		$subheading_align_classes = $align ? ' col-span-12 ' : ' col-span-12 ';
 		$heading .= '<h2 class="' . $subheading_base_classes . $subheading_classes . $subheading_align_classes .  '">';
 		$heading .= $fields['subheading'] . '</h2>';
 	}
@@ -320,7 +320,7 @@ function tw_heading($post_id, $field_name, $align = null)
 		$description_container_classes .= (!$align) ? ' mx-2 sm:mx-auto ' : ' ';
 		$description_classes = ($bg_color === 'Dark') ? ' text-white ' : ' text-gray-600 ';
 		$description_align_classes = $align ? ' sm:mx-0 ' : ' mx-4 sm:mx-auto ';
-		$heading .= '<div class="mt-4 sm:mt-6 col-span-12 ' . $description_align_classes . $description_container_classes . '">';
+		$heading .= '<div class="mb-6 mt-2 sm:mt-6 col-span-12 ' . $description_align_classes . $description_container_classes . '">';
 		$heading .= '<p class="' . $description_base_classes . $description_classes . '">';
 		$heading .= $fields['description'] . '</p>';
 		$heading .= '</div>';
