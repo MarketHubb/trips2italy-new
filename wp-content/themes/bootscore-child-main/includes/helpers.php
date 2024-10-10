@@ -1,6 +1,20 @@
 <?php
 declare(strict_types=1);
 
+function format_trip_type_heading($title) {
+    // Convert the input to lowercase for case-insensitive comparison
+    $lowercaseInput = strtolower($title);
+    
+    // Check if the string ends with 's'
+    if (substr($lowercaseInput, -1) === 's') {
+        // Remove the last character ('s') and return
+        return substr($title, 0, -1);
+    } else {
+        // Append ' Trip' to the string and return
+        return $title . ' Trip';
+    }
+}
+
 /**
  * Parses HTML content, strips out <span> and <strong> tags, and returns an ordered array.
  *
@@ -155,6 +169,7 @@ function change_array_keys($content_fields, $key_map = [])
 
     return $content_fields;
 }
+
 function is_page_and_parent($post_id)
 {
     $post = get_post($post_id);
