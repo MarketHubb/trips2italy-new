@@ -1,7 +1,7 @@
 <?php if (empty($args)) return; ?>
 
 <nav class="flex mb-6" aria-label="Breadcrumb">
-   <ol role="list" class="flex items-center space-x-4">
+   <ol role="list" class="flex items-center space-x-1 md:space-x-4">
       <li>
          <div>
             <a href="<?php echo get_home_url(); ?>" class="text-gray-300 hover:underline">
@@ -25,7 +25,7 @@
                <svg class="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                </svg>
-               <a href="<?php echo $href; ?>" class="ml-4 text-sm font-medium <?php echo $color; ?>" <?php echo $aria; ?>>
+               <a href="<?php echo $href; ?>" class="ml-1 md:ml-4 text-sm font-medium <?php echo $color; ?>" <?php echo $aria; ?>>
                   <?php echo $breadcrumb['text']; ?>
                </a>
             </div>
