@@ -75,7 +75,7 @@ $nav_fields = get_field('primary_nav', 'option');
       <div class="hidden" role="dialog" aria-modal="true" id="mobile-nav-container">
          <!-- background backdrop, show/hide based on slide-over state. -->
          <!-- <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white !px-6 !pb-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"> -->
-         <div class=" z-10 w-full overflow-y-auto bg-brand-100 !px-6 !pb-12 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-2xl">
+         <div class=" z-10 w-full overflow-y-auto bg-white !px-6 !pb-12 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-2xl">
             <div class="flex items-center justify-between">
 
                <a href="<?php echo get_home_url(); ?>" class="-m-1.5 p-1.5">
