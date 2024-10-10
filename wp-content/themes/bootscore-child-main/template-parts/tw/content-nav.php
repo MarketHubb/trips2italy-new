@@ -72,7 +72,7 @@ $nav_fields = get_field('primary_nav', 'option');
             </div>
       </nav>
       <!-- mobile menu, show/hide based on menu open state. -->
-      <div class="hidden" role="dialog" aria-modal="true" id="mobile-nav-container">
+      <div class="hidden" role="dialog" aria-modal="true" id="mobile-nav">
          <!-- background backdrop, show/hide based on slide-over state. -->
          <!-- <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white !px-6 !pb-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"> -->
          <div class=" z-10 w-full overflow-y-auto bg-white !px-6 !pb-12 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-2xl">
@@ -80,7 +80,7 @@ $nav_fields = get_field('primary_nav', 'option');
 
                <a href="<?php echo get_home_url(); ?>" class="-m-1.5 p-1.5">
                   <span class="sr-only">trips 2 italy</span>
-                  <img class="h-14 w-auto absolute top-[5px]" src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg'; ?>" alt="">
+                  <!-- <img class="h-14 w-auto absolute top-[5px]" src="<?php echo home_url() . '/wp-content/uploads/2023/01/Logo-No-Shadow.svg'; ?>" alt=""> -->
                </a>
             </div>
             <div class="mt-12 flow-root">
