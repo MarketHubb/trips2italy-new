@@ -3,6 +3,8 @@
 get_header(); 
 ?>
 
+<?php get_template_part('template-parts/preline/content', 'snap-center');  ?>
+
 <?php get_template_part('template-parts/home/content', 'how-it-works');  ?>
 
 <?php get_template_part('template-parts/home/content', 'callouts');  ?>

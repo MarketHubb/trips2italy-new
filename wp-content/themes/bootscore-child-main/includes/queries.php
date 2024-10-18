@@ -1,21 +1,9 @@
 <?php
-// region Reviews
-function get_reviews_ordered()
-{
-	$output_array = output_order_testimonials();
-
-	return get_posts(array(
-		'post_type' => 'review',
-		'posts_per_page' => -1,
-		'order' => $output_array['order'],
-		'orderby' => 'modified'
-	));
-}
-
+// region Packages
 function get_related_packages_by_trip_type($post_id)
 {
 	$package_topic_term_id = get_field('related_packages', $post_id);
-	$package_count = get_field('package_count', $post_id);
+	$package_count = get_field('package_count', 'option');
 
 	if (!$package_topic_term_id || !$package_count) return null;
 
@@ -33,6 +21,19 @@ function get_related_packages_by_trip_type($post_id)
 	]);
 
 	return !empty($related_packages) ? $related_packages : null;
+}
+
+// region Reviews
+function get_reviews_ordered()
+{
+	$output_array = output_order_testimonials();
+
+	return get_posts(array(
+		'post_type' => 'review',
+		'posts_per_page' => -1,
+		'order' => $output_array['order'],
+		'orderby' => 'modified'
+	));
 }
 
 function paginated_post_query($post_type, $paged = 1)

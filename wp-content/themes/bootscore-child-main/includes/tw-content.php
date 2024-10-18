@@ -16,7 +16,54 @@ function get_hero_cta_and_callouts($hero_fields)
 	return $hero_fields;
 }
 
-// region SECTONS
+// region: Panels
+function get_why_us_panels($field)
+{
+	$panel  = '<li class="snap-item rounded-xl w-9/12 lg:w-full flex-shrink-0 snap-center opacity-65 lg:opacity-100  transition-all duration-300 ease-in-out shadow-xl">';
+	$panel .= '<div class="bg-white opacity-[98%] grid grid-cols-1 md:grid-cols-12 lg:gap-x-4 h-full overflow-hidden rounded-xl p-4 lg:px-6 transition-all duration-300 ease-in-out transform">';
+	$panel .= '<div class="flex items-center justify-center p-2 md:col-span-3">';
+	$panel .= '<div class="grid mt-4 sm:mt-0 relative justify-center w-full max-w-lg aspect-auto">';
+	$panel .= '<div class="absolute sm:top-1/2 left-1/2 transform -translate-x-1/2 sm:-translate-y-1/2 w-32 h-32  bg-brand-500/50 opacity-50 rounded-full filter blur-xl">';
+	$panel .= '</div>';
+	$panel .= '<img src="' . $field['image']['url'] . '" alt="base image" class="relative h-32 w-auto z-10 object-contain drop-shadow-md" />';
+	$panel .= '<img src="' . get_home_url() . '/wp-content/uploads/2024/07/spiral.svg" alt="overlay image" class="absolute inset-0 w-full h-full object-contain opacity-60" />';
+	$panel .= '</div>';
+	$panel .= '</div>';
+	$panel .= '<div class="mt-2 text-center lg:text-left z-10 lg:ml-2 md:col-span-9">';
+	$panel .= '<h5 class="d-inline-block fw-bolder text-uppercase mt-3 mb-0 text-xl md:text-2xl">' . $field['heading'] . '</h5>';
+	$panel .= '<h5 class="text-gradient text-primary stylized mb-3 md:mb-1 text-3xl antialiased-[unset]">' . $field['subheading'] . '</h5>';
+	$panel .= '<div class="mx-auto text-center lg:text-left max-w-[90%] lg:max-w-full mb-3">';
+	$panel .= '<p class="text-gray-800 font-medium text-base px-3 lg:pl-0 leading-normal md:leading-6 mb-5">' . $field['description'] . '</p>';
+	$panel .= '</div></div></div></li>';
+
+	return $panel;
+}
+
+function get_home_region_panels($field)
+{
+	
+}
+
+// region: Shared (Post)
+function get_data_for_package_post($post_id)
+{
+	$title_raw = get_the_title($post_id) ?: null;
+	$title_array = explode("|", $title_raw);
+	$title = count($title_array) === 2 ? $title_array[0] : $title_raw;
+	$price = get_field('price', $post_id) ?: null;
+	$image = get_field('featured_image', $post_id)['sizes']['large'] ?: null;
+	$description = get_field('description', $post_id) ?: null;
+
+	return [
+		'heading' => $title,
+		'link' => get_permalink($post_id),
+		'price' => $price,
+		'image' => $image,
+		'description' => $description,
+	];
+}
+
+// region: Shared (Content)
 function get_scroll_panels($args = [])
 {
 	if (empty($args)) return null;
@@ -111,6 +158,7 @@ function get_image_grid($content_collection)
 	}
 	return $image_grid;
 }
+
 function get_vertical_list($content_array)
 {
 	if (!empty($content_array)) {
@@ -166,7 +214,7 @@ function get_hero_fields($queried_obj)
 	return $hero_fields;
 }
 
-// GLOBAL
+// Region: Global
 function tw_heading_classes($light_bg = true)
 {
 	$color = $light_bg ? ' text-brand-700 ' : ' text-white ';
@@ -193,10 +241,12 @@ function tw_form_cta_btn($args)
 
 	return $btn;
 }
+
 function tw_cta_btn_base_classes()
 {
 	return ' block sm:inline-block rounded-full bg-secondary-500 border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150  ';
 }
+
 function tw_cta_btn($args)
 {
 	if (empty($args)) return null;
@@ -216,6 +266,24 @@ function tw_cta_btn($args)
 	return $btn;
 }
 
+function tw_output_section_open($args)
+{
+
+	$heading_fields = tw_format_heading_fields($args);
+	$args['section']['image'] = isset($heading_fields['image']) ? $heading_fields['image'] : null;
+	$args['section']['mobile_image'] = isset($heading_fields['mobile_image']) ? $heading_fields['mobile_image'] : null;
+	$attribute_list = ['grid_classes', 'classes', 'id', 'style', 'image', 'mobile_image', 'overlay_classes'];
+
+	$section_args = array_combine(
+		$attribute_list,
+		array_map(function ($value) use ($args) {
+			return !empty($args['section'][$value]) ? $args['section'][$value] : null;
+		}, $attribute_list)
+	);
+
+	return !empty(tw_section_open($section_args)) ? tw_section_open($section_args) : null;
+}
+
 function tw_section_open($section_attributes = null)
 {
 	$section_grid_classes = isset($section_attributes['grid_classes']) ? $section_attributes['grid_classes'] : ' px-6 lg:px-0 py-16 md:py-24 relative ';
@@ -232,6 +300,10 @@ function tw_section_open($section_attributes = null)
 		$section_open .= 'id="' . $section_attributes['id'] . '" ';
 	}
 
+	if ($section_attributes['style']) {
+		$section_open .= 'style="' . $section_attributes['style'] . '" ';
+	}
+
 	$section_open .= '>';
 
 	if ($section_attributes['mobile_image']) {
@@ -241,12 +313,13 @@ function tw_section_open($section_attributes = null)
 	}
 
 	if ($section_attributes['image']) {
-		$section_open .= '<div class="absolute h-full w-full inset-0 bg-cover bg-center hidden sm:block" ';
+		$section_open .= '<div class="absolute h-full w-full inset-0 bg-cover bg-no-repeat bg-center hidden sm:block" ';
 		$section_open .= 'style="background-image: url(' . $section_attributes['image'] . ');">';
 		$section_open .= '</div>';
 	}
 
 	if (!empty($section_attributes['overlay_classes'])) {
+		$overlay_classes = !empty($section_attributes['overlay_classes']) ? $section_attributes['overlay_classes'] : ' absolute h-full w-full inset-0 ';
 		$section_open .= '<div class="absolute h-full w-full inset-0 ' . $section_attributes['overlay_classes'] . ' "></div>';
 	}
 
@@ -302,7 +375,7 @@ function tw_heading($post_id, $field_name, $align = null)
 
 	if (isset($fields['subheading']) && !empty($fields['subheading'])) {
 		$subheading_base_classes = 'animate-on-scroll stylized font-normal text-[140%] ';
-		$subheading_classes = ($bg_color === 'Dark') ? ' text-secondary-400 ' : ' text-brand-500 ';
+		$subheading_classes = ($bg_color === 'Dark') ? ' text-secondary-500 ' : ' text-brand-500 ';
 		$subheading_align_classes = $align ? ' col-span-12 ' : ' col-span-12 ';
 		$heading .= '<h2 class="' . $subheading_base_classes . $subheading_classes . $subheading_align_classes .  '">';
 		$heading .= $fields['subheading'] . '</h2>';
@@ -330,6 +403,219 @@ function tw_heading($post_id, $field_name, $align = null)
 
 	return $heading;
 }
+
+// Region Section Heading
+function tw_get_fields_by_acf_option($args = [])
+{
+	if (isset($args['field_name'])) {
+		$field_prefix = 'global_' . $args['field_name'] . '_';
+		$args['fields'] = [
+			'background_color' => get_field($field_prefix . 'background_color', 'option'),
+			'heading' => get_field($field_prefix . 'heading', 'option'),
+			'subheading' => get_field($field_prefix . 'subheading', 'option'),
+			'description' => get_field($field_prefix . 'description', 'option')
+		];
+	}
+
+	return !empty($args['fields']) ? $args['fields'] : null;
+}
+
+function tw_get_fields_by_acf_post($args = [])
+{
+	if (isset($args['field_name']) && isset($args['post_id'])) {
+		return get_field($args['field_name'], $args['post_id']) ?: null;
+	}
+
+	return null;
+}
+
+function tw_get_section_heading_fields($args = [])
+{
+	if (!empty($args['heading'])) {
+		return $args;
+	}
+
+	$fields = tw_get_fields_by_acf_post($args);
+
+	return $fields ?: tw_get_fields_by_acf_option($args);
+}
+
+function tw_get_section_heading_container_open($args = [])
+{
+	if (empty($args)) return;
+
+	$align = !empty($args['align']) ? $args['align'] : 'center';
+
+	$classes  = !empty($args['container_classes']) ? $args['container_classes'] : ' pb-10 z-10 relative sm:block sm:pb-12 text-2xl md:text-2xl lg:text-3xl ';
+	$classes .= $align !== 'center' ? ' text-' . strtolower($args['align']) : ' text-center ';
+
+	return '<div class="' . $classes . '">';
+}
+
+function tw_get_section_heading_output($args = [])
+{
+	if (empty($args) || empty($args['heading'])) return;
+
+	$background_color = !empty($args['background_color']) ? $args['background_color'] : 'light';
+	$classes  = ' mb-1 md:leading-normal font-heading font-medium antialiased col-span-12 ';
+	$classes .=  strtolower($background_color) === 'dark' ? ' text-white ' : ' text-brand-700 ';
+
+	return '<h2 class="' . $classes . '">' . $args['heading'] . '</h2>';
+}
+
+function tw_get_section_subheading_output($args = [])
+{
+	if (empty($args) || empty($args['subheading'])) return;
+
+	$background_color = !empty($args['background_color']) ? $args['background_color'] : 'light';
+	$classes  = ' animate-on-scroll stylized font-normal text-[140%] ';
+	$classes .= strtolower($background_color) === 'dark' ? ' text-secondary-500 ' : ' text-brand-500 ';
+
+	return '<h2 class="' . $classes . '">' . $args['subheading'] . '</h2>';
+}
+
+function tw_get_section_description_output($args = [])
+{
+	if (empty($args) || !isset($args['description'])) return;
+
+	$align = !empty($args['align']) ? $args['align'] : 'center';
+	$background_color = !empty($args['background_color']) ? $args['background_color'] : 'light';
+
+	$container_classes  = ' md:max-w-xl ';
+	$container_classes .= strtolower($align) === 'center' ? ' mx-auto lg:max-w-[32rem] ' : '';
+
+	$classes  = ' font-normal text-base sm:text-lg md:text-xl  ';
+	$classes .= strtolower($background_color) === 'dark' ? ' text-white ' : ' text-gray-600 ';
+
+	if (isset($fields['max_width'])) {
+		$container_classes .= ' lg:max-w-[' . $fields['max_width'] . 'rem] ';
+	}
+
+	$description  = '<div class="mb-6 mt-2 sm:mt-6 col-span-12 ' . $container_classes . '">';
+	$description .= '<p class="' . $classes . '">';
+	$description .= $args['description'] . '</p>';
+	$description .= '</div>';
+
+	return $description ?: null;
+}
+
+function tw_output_section_heading($fields = [])
+{
+	if (empty($fields) || !isset($fields['post_id'])) return;
+
+	// $fields = tw_get_section_heading_fields($args);
+	$fields['background_color'] = $fields['background_color'];
+	$fields['align'] = $fields['align'];
+
+	$section_heading = tw_get_section_heading_container_open($fields);
+
+	if (!empty($fields['heading'])) {
+		$section_heading .= tw_get_section_heading_output($fields);
+	}
+
+	if (!empty($fields['subheading'])) {
+		$section_heading .= tw_get_section_subheading_output($fields);
+	}
+
+	if (!empty($fields['description'])) {
+		$section_heading .= tw_get_section_description_output($fields);
+	}
+
+	$section_heading .= '</div>';
+
+	return $section_heading ?: null;
+}
+
+function tw_format_heading_fields($args)
+{
+	$post_id = !empty($args['post_id']) ? $args['post_id'] : null;
+
+	if (!$post_id) return null;
+	
+	$field_name = !empty($args['heading']['field_name']) ? $args['heading']['field_name'] : null;
+	$use_global_fields = $field_name ? get_field($field_name . '_global_options', $post_id) : null;
+	$fields = $use_global_fields ? get_field($field_name, 'option') : get_field($field_name, $post_id);
+
+	// Post values
+	if (!empty($fields)) {
+		$fields['post_id'] = $args['post_id'];
+		$fields['align'] = !empty($args['heading']['align']) ? $args['heading']['align'] : 'center';
+		$fields['container_classes'] = !empty($args['heading']['container_classes']) ? $args['heading']['container_classes'] : ' pb-10 z-10 relative sm:block sm:pb-12 text-2xl md:text-2xl lg:text-3xl ';
+
+		return $fields ?: null;
+	}
+}
+
+function tw_output_heading($args)
+{
+	$fields = tw_format_heading_fields($args);
+
+	if ($fields) {
+		return tw_output_section_heading($fields) ?: null;
+	}
+
+	$attribute_list = ['image', 'mobile_image', 'heading', 'subheading', 'description', 'container_classes'];
+
+	$section_args = array_combine(
+		$attribute_list,
+		array_map(function ($value) use ($args) {
+			return !empty($args[$value]) ? $args[$value] : null;
+		}, $attribute_list)
+	);
+
+
+
+	// if (!$fields) {
+	// 	$fields = $field_name ? get_field($field_name, 'option') : null;
+	// }
+
+	// if (!empty($fields)) {
+
+	// 	$empty_post_fields = array_filter($fields, function ($value) {
+	// 		return empty($value);
+	// 	});
+	// } else {
+	// 	$empty_post_fields = ['background_color', 'image', 'mobile_image', 'heading', 'subheading', 'description', 'max_width'];
+	// }
+
+	// $fields['post_id'] = $args['post_id'];
+	// $fields['align'] = !empty($args['heading']['align']) ? $args['heading']['align'] : 'center';
+	// $fields['background_color'] = !empty($args['heading']['background_color']) ? $args['heading']['background_color'] : 'light';
+
+	// if (!empty($empty_post_fields)) {
+	// 	foreach ($empty_post_fields as $key => $val) {
+	// 		if (array_key_exists($key, $fields)) {
+	// 			$fields[$key] = !empty($args['heading'][$key]) ? $args['heading'][$key] : null;
+	// 		}
+	// 	}
+	// }
+
+	// return tw_output_section_heading($fields) ?: null;
+}
+// endregion
+
+// region Content
+
+function tw_get_template_content($args)
+{
+
+	if (!empty($args['content']['fields'])) return $args['content']['fields'];
+
+	if (empty($args['post_id']) || empty($args['content']['field_name'])) return null;
+
+	$post_id = $args['post_id'];
+	$key = isset($args['content']['key']) ? $args['content']['key'] : null;
+	$field_name = isset($args['content']['field_name']) ? $args['content']['field_name'] : null;
+	$content = $key ? get_field($field_name, $post_id)[$key] : get_field($field_name, $post_id);
+
+	if ($content) return $content;
+
+	$content = $key ? get_field($field_name, 'option')[$key] : get_field($field_name, 'option');
+
+	return !empty($content) ? $content : null;
+}
+
+
 
 function tw_section_heading($copy = [], $bg_light = true, $align = null)
 {

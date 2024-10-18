@@ -129,19 +129,21 @@ function my_acf_op_init()
 // style and scripts
 function enqueue_tailwind()
 {
-	// if (is_singular('trip')) {
+	// Custom Itinerary
+	if (is_page(28484)) {
+		wp_enqueue_script('tailwind-form', get_stylesheet_directory_uri() . '/js/tw-form.js', [], null, false);
+	}
 	wp_enqueue_style('tailwind-css', get_stylesheet_directory_uri() . '/css/tailwind.css', array(), null, 'all');
 	wp_enqueue_style('tailwind-overrides', get_stylesheet_directory_uri() . '/css/tailwind-overrides.css', array('tailwind-css'), null, 'all');
-	wp_enqueue_script('tailwind-form', get_stylesheet_directory_uri() . '/js/tw-form.js', [], null, false);
 	wp_enqueue_script('animations', get_stylesheet_directory_uri() . '/js/animations.js', [], null, false);
 	wp_enqueue_script('tailwind-modal', get_stylesheet_directory_uri() . '/js/tw-modal.js', [], null, false);
 	wp_localize_script('tailwind-form', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 
+	// Regions (Parent)
 	if (is_page(27712)) {
 		wp_enqueue_script('locations', get_stylesheet_directory_uri() . '/js/locations.js', [], null, false);
 	}
 
-	// }
 }
 add_action('wp_enqueue_scripts', 'enqueue_tailwind', 999);
 

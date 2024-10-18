@@ -12,7 +12,7 @@ function output_formatted_review($post_object)
 
 	$output  = '<div class="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700">';
     $output .= '<div class="flex-auto p-4 md:p-6 md:pb-[6rem]">';
-    $output .= '<p class="line-clamp-4 h-full mt-3 sm:mt-6 text-base text-gray-800 md:text-lg dark:text-white"><em>';
+    $output .= '<p class="mt-3 sm:mt-6 text-base text-gray-800 md:text-lg dark:text-white"><em>';
     $output .= $review . '</em></p>';
     $output .= '<span class="testimonial-full hidden">' . $review . '</span>';
     $output .= '</div>';

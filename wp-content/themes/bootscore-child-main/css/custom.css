@@ -1,3 +1,9 @@
+.features-vertical-tabs button img {
+   filter: none; 
+}
+.features-vertical-tabs button.active img {
+    filter: invert(67%) sepia(29%) saturate(636%) hue-rotate(182deg) brightness(96%) contrast(87%);
+}
 .fieldset-cols input + label {
     height: 100%;
 } 
@@ -786,11 +792,6 @@ button.btn.btn-primary:not(.page-active):hover {
     background-color: #f1f8fd;
 }
 
-.tl-point.wpex_point {
-    font-weight: 800 !important;
-    color: #344767 !Important;
-}
-
 .background-image-container {
     background-position: center;
     -webkit-background-size: cover;
@@ -1132,6 +1133,12 @@ button.btn.btn-primary:not(.page-active):hover {
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 767px) {
+    .features-vertical-tabs button .vertical-tabs-description  {
+        display: none !important;
+    }
+    .features-vertical-tabs button.active .vertical-tabs-description  {
+        display: inherit !important;
+    }
     .scroller[data-speed="fast"] {
         --_animation-duration: 10s;
     }

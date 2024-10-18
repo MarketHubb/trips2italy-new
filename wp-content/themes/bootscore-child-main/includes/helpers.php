@@ -1,6 +1,12 @@
 <?php
 declare(strict_types=1);
 
+function get_form_link()
+{
+    $link = get_permalink(28484); 
+    return $link ?: '#';
+}
+
 function format_trip_type_heading($title) {
     // Convert the input to lowercase for case-insensitive comparison
     $lowercaseInput = strtolower($title);

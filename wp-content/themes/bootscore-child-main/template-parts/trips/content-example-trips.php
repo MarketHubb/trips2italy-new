@@ -3,7 +3,7 @@
 
 <?php if (!empty($content_array['feature_panels'])) { ?>
 
-   <?php echo tw_get_section_open(); ?>
+   <?php //echo tw_get_section_open(); ?>
    <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl text-center">
          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>

@@ -17,7 +17,7 @@ $args = [
 // get_template_part('template-parts/tw-shared/content', 'post-list', ['post_type' => 'post']); 
 get_template_part('template-parts/tw-shared/content', 'post-list', $args);
 
-get_template_part('template-parts/packages/content');
+// get_template_part('template-parts/packages/content');
 ?>
 
 <?php get_footer(); ?>

@@ -1,4 +1,4 @@
-<?php $hero_fields = get_hero_fields(get_queried_object());?>
+<?php $hero_fields = get_hero_fields(get_queried_object()); ?>
 
 <?php if (!empty($hero_fields)) { ?>
 
@@ -24,22 +24,22 @@
       </div>
 
       <!-- Content Container -->
-      <div class="relative z-20 h-full flex flex-col justify-end pb-8 md:pb-24 lg:pb-32 px-4 sm:px-6 lg:px-8">
+      <div class="relative z-20 mobile-full-nav flex flex-col justify-end pb-12 md:pb-16 lg:pb-24 px-4 sm:px-6 lg:px-8">
          <!-- Hero copy -->
          <div class="text-center animate-fade-in-up text-white">
             <?php if ($hero_fields['heading']) { ?>
-               <p class="font-heading text-xl lg:text-3xl mb-0">
+               <p class="font-heading text-lg font-bold antialiased lg:text-3xl mb-0 tracking-tight">
                   <?php echo $hero_fields['heading']; ?>
                </p>
             <?php } ?>
             <?php if ($hero_fields['subheading']) { ?>
-               <h1 class="text-secondary-400 stylized font-thin block text-[2.25rem] lg:text-6xl mb-4 lg:mb-7">
+               <h1 class="text-secondary-400 stylized font-thin block text-[2.35rem] lg:text-6xl mb-4 lg:mb-7">
                   <?php echo $hero_fields['subheading']; ?>
                </h1>
             <?php } ?>
             <?php if ($hero_fields['description']) { ?>
-               <div class="lg:max-w-lg mx-auto px-4 lg:px-10 text-center">
-                  <p class="text-base md:text-lg lg:text-xl opacity-90">
+               <div class="lg:max-w-lg mx-auto px-4 lg:px-10 text-center max-w-[90%] sm:max-w-full">
+                  <p class="text-base font-medium md:text-lg lg:text-xl !leading-normal">
                      <?php echo $hero_fields['description']; ?>
                   </p>
                </div>
@@ -50,31 +50,30 @@
    </section>
 
    <!-- CTA + Icons -->
-   <section class="bg-[#0d0f11] py-12 block mx-auto">
-      <div class="lg:max-w-3xl mx-auto pb-6 animate-on-scroll relative z-30 bottom-10 -mb-10 lg:bottom-28 lg:-mb-28">
-         <?php if ($hero_fields['description']) { ?>
-            <div class="mx-auto text-center">
-               <!-- <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight" role="button"> -->
-               <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight">
-                  <span><?php echo $hero_fields['copy_main']; ?></span>
-                  <?php if ($hero_fields['copy_secondary']) { ?>
-                     <span class="font-normal"> - <?php echo $hero_fields['copy_secondary']; ?></span>
-                  <?php } ?>
-               </a>
-               <?php if ($hero_fields['callout']) { ?>
-                  <div class="mx-auto max-w-72 mt-6">
-                     <p class="text-sm text-white opacity-70">
-                        <?php echo $hero_fields['callout']; ?>
-                        <?php if ($hero_fields['callout_secondary']) { ?>
-                           <span class="block mt-1"><?php echo $hero_fields['callout_secondary']; ?></span>
-                        <?php } ?>
-                     </p>
-                  </div>
+   <section class="bg-[#0d0f11] py-6 block mx-auto">
+      <div class="lg:max-w-3xl mx-auto pb-6 animate-on-scroll relative z-30 bottom-[4rem] -mb-20 lg:bottom-[7rem] lg:-mb-[7rem]">
+         <div class="mx-auto text-center">
+            <!-- <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight" role="button"> -->
+            <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight">
+               <span><?php echo $hero_fields['copy_main']; ?></span>
+               <?php if ($hero_fields['copy_secondary']) { ?>
+                  <span class="font-normal"> - <?php echo $hero_fields['copy_secondary']; ?></span>
                <?php } ?>
-            </div>
-         <?php } ?>
+            </a>
+            <?php if ($hero_fields['callout']) { ?>
+               <div class="mx-auto mt-12 px-12 md:px-12">
+                  <p class="text-sm text-white opacity-70 italic tracking-normal leading-tight">
+                     <?php echo $hero_fields['callout']; ?>
+                     <?php if ($hero_fields['callout_secondary']) { ?>
+                        <span class="block mt-2"><?php echo $hero_fields['callout_secondary']; ?></span>
+                     <?php } ?>
+                  </p>
+               </div>
+            <?php } ?>
+         </div>
 
-         <?php //if ($hero_fields['callout_icons']) { ?>
+         <?php //if ($hero_fields['callout_icons']) { 
+         ?>
          <?php if ($hero_fields['icons'] !== 'None') { ?>
             <div class="grid grid-cols-3 animate-on-scroll justify-center pt-6 gap-x-2 text-white opacity-0 transition-opacity duration-500" id="icons">
                <?php

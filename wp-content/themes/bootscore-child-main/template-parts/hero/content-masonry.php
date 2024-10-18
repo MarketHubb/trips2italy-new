@@ -24,7 +24,7 @@
                 <div class="grid grid-cols-2 lg:grid-cols-12 items-center py-24 lg:py-32 lg:gap-x-8">
                     <!-- <div class="col-md-8"> -->
                     <div class="col-span-1 md:col-span-5">
-                        <h1 class="font-heading text-brand-700 mb-2 font-semibold text-xl sm:text-3xl md:text-5xl lg:text-6xl lg:leading-normal">
+                        <h1 class="font-heading text-brand-700 mb-2 font-semibold text-xl sm:text-3xl md:text-4xl lg:text-5xl lg:leading-normal">
                             <?php echo $hero['copy']['heading_1']['desktop']; ?>
                             <span class="animate-fade-in-up stylized d-block mt-1 font-normal text-brand-500 text-[130%] leading-none">
                                 <?php echo $hero['copy']['heading_2']['desktop']; ?>

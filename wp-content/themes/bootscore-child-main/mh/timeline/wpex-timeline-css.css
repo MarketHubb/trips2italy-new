@@ -4,10 +4,6 @@
 .exclearfix:after { clear: both; }
 /*----Basic----*/
 .wpex-timeline-list,
-.wpex{ font-family:'Source Sans Pro', sans-serif;
-    background-size: cover;
-    background-position: top center;
-}
 .wpex a:focus,
 .wpex-timeline-list a:focus{outline:none !important;}
 .wpex h2,
@@ -98,10 +94,6 @@
 }
 .wpex-timeline > li .wpex-timeline-time span { display: block;}
 
-.wpex-timeline > li .wpex-timeline-time span.info-h {
-    font-size: 12px;
-    color: #9c9c9c;
-}
 .wpex-timeline > li .wpex-timeline-time .info-img{
     height: 80px;
     width: 80px;

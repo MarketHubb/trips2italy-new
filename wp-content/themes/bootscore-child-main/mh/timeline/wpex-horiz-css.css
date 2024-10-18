@@ -289,8 +289,8 @@
 .wpex.horizontal-timeline.ex-multi-item .horizontal-nav li .wpex_point:before,
 .wpex.horizontal-timeline.ex-multi-item .horizontal-nav li.ex_s_lick-current .wpex_point:before{
     border: 0;
-    background-color: #00BCD4;
-    bottom:-37px; left:35px;
+    background-color: #195fa4; 
+    bottom:-35px; left:35px;
 }
 .wpex.horizontal-timeline.ex-multi-item .timeline-hr{ border-bottom:3px solid #cccccc}
 .wpex.horizontal-timeline.ex-multi-item .timeline-hr:before {
@@ -414,7 +414,7 @@
     height: 40px;
     display: block;
     width: 2px;
-    background: #ccc;
+    background: #F3F4F6;
     margin-left: 22px;
     margin-top:20px;
 }

@@ -12,7 +12,7 @@
                $type = $el['type'];
                $val = $el['val'];
                if (str_contains($type, 'h')) {
-                  $output .= '<' . $el['type'] . ' class="mt-12 mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">' . $el['val'] . '</' . $el['type'] . '>';
+                  $output .= '<' . $el['type'] . ' class="mt-4 sm:mt-12 mb-6 text-xl md:text-2xl xl:text-4xl font-bold tracking-tight text-gray-900">' . $el['val'] . '</' . $el['type'] . '>';
                }
                if (str_contains($type, 'p')) {
                   $output .= '<' . $el['type'] . ' class="mt-6">' . $el['val'] . '</' . $el['type'] . '>';

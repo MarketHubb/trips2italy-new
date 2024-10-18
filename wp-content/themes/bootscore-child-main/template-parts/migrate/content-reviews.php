@@ -4,7 +4,7 @@
 
 <?php echo tw_container_open(); ?>
 
-<div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 gap-6">
     <?php
     foreach ($review_posts as $review_post) {
         echo output_formatted_review($review_post);

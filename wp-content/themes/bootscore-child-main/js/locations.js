@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     document.getElementById('mobile-nav').addEventListener('change', function () {
         var selectedValue = this.value;
         if (selectedValue) {

@@ -130,7 +130,8 @@ function acf_load_homepage_region_links($field)
         ));
 
         foreach ($location_parent_posts as $location_parent_post) {
-            $post_link = get_permalink($location_parent_post);
+            $base_url = get_home_url();
+            $post_link = str_replace($base_url, '', get_permalink($location_parent_post));
             $field['choices'][$post_link] = get_the_title($location_parent_post->ID);
         }
     }
