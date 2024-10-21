@@ -26,7 +26,13 @@ function get_why_us_panels($field)
 	$panel .= '<div class="absolute sm:top-1/2 left-1/2 transform -translate-x-1/2 sm:-translate-y-1/2 w-32 h-32  bg-brand-500/50 opacity-50 rounded-full filter blur-xl">';
 	$panel .= '</div>';
 	$panel .= '<img src="' . $field['image']['url'] . '" alt="base image" class="relative h-32 w-auto z-10 object-contain drop-shadow-md" />';
-	$panel .= '<img src="' . get_home_url() . '/wp-content/uploads/2024/07/spiral.svg" alt="overlay image" class="absolute inset-0 w-full h-full object-contain opacity-60" />';
+
+	$accent_image = get_field('global_features_accent_image', 'option');
+
+	if ($accent_image) {
+		$panel .= '<img src="' . $accent_image . '" alt="overlay image" class="absolute inset-0 w-full h-full object-contain opacity-60" />';
+	}
+
 	$panel .= '</div>';
 	$panel .= '</div>';
 	$panel .= '<div class="mt-2 text-center lg:text-left z-10 lg:ml-2 md:col-span-9">';
@@ -39,10 +45,7 @@ function get_why_us_panels($field)
 	return $panel;
 }
 
-function get_home_region_panels($field)
-{
-	
-}
+function get_home_region_panels($field) {}
 
 // region: Shared (Post)
 function get_data_for_package_post($post_id)
@@ -531,7 +534,7 @@ function tw_format_heading_fields($args)
 	$post_id = !empty($args['post_id']) ? $args['post_id'] : null;
 
 	if (!$post_id) return null;
-	
+
 	$field_name = !empty($args['heading']['field_name']) ? $args['heading']['field_name'] : null;
 	$use_global_fields = $field_name ? get_field($field_name . '_global_options', $post_id) : null;
 	$fields = $use_global_fields ? get_field($field_name, 'option') : get_field($field_name, $post_id);
