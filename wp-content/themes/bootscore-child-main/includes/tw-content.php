@@ -25,7 +25,7 @@ function get_why_us_panels($field)
 	$panel .= '<div class="grid mt-4 sm:mt-0 relative justify-center w-full max-w-lg aspect-auto">';
 	$panel .= '<div class="absolute sm:top-1/2 left-1/2 transform -translate-x-1/2 sm:-translate-y-1/2 w-32 h-32  bg-brand-500/50 opacity-50 rounded-full filter blur-xl">';
 	$panel .= '</div>';
-	$panel .= '<img src="' . $field['image']['url'] . '" alt="base image" class="relative h-32 w-auto z-10 object-contain drop-shadow-md" />';
+	$panel .= '<img src="' . $field['image']['url'] . '" alt="base image" class="relative h-32 w-auto z-10 object-contain drop-shadow-sm" />';
 
 	$accent_image = get_field('global_features_accent_image', 'option');
 
