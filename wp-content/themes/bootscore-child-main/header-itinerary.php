@@ -57,12 +57,15 @@ if (!isset($paged) || !$paged) {
 
 <body <?php body_class(); ?>>
 
+
     <!-- End Google Tag Manager -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBB6BZNM"
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <?php wp_body_open(); ?>
+
+    <?php $bg_image = get_home_url() . '/wp-content/uploads/2024/09/Itinerary-Water.webp'; ?>
 
     <div id="page" class="site" data-title="<?php echo get_the_title(); ?>">
 

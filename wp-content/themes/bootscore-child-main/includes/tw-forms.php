@@ -44,7 +44,7 @@ function gravity_form_to_tailwind_exact($form)
             // $output .= '<h2 class="text-base sm:text-lg lg:text-xl font-base tracking-normal font-semibold leading-7 text-gray-800 md:pt-6">' . esc_html($title) . '</h2>';
             $output .= '<div class="text-2xl md:text-3xl mb-4">';
             $output .=
-                '<h2 class="tracking-tight font-base font-normal leading-7 text-brand-600 md:pt-6">' .
+                '<h2 class="tracking-tight font-base font-normal leading-7 text-brand-700 md:pt-6">' .
                 $formatted_title .
                 "</h2>";
             $output .= "</div>";
@@ -58,7 +58,7 @@ function gravity_form_to_tailwind_exact($form)
                 '<div class="p-2 sm:p-6 bg-white shadow-md ring-1 ring-gray-300 rounded-xl md:col-span-2">';
             $output .= '<div class="px-2 sm:px-4 py-6">';
             $output .=
-                '<div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">';
+                '<div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-12">';
 
             // Render fields for this page
             foreach ($form["fields"] as $field) {
@@ -208,7 +208,10 @@ function render_field_exact($field, $form)
         ? json_encode($field["conditionalLogic"])
         : "";
 
-    $wrapper_class = "gfield col-span-full min-w-0";
+    $col_span = !empty($field['layoutGridColumnSpan']) ? $field['layoutGridColumnSpan'] : 12;
+
+    // $wrapper_class = "gfield col-span-full min-w-0";
+    $wrapper_class = 'gfield col-span-12 sm:col-span-' . $col_span . ' min-w-0';
     $wrapper_class .= $is_hidden ? " gfield_hidden" : "";
     $wrapper_class .= !empty($field["cssClass"])
         ? " " . $field["cssClass"]
@@ -237,7 +240,6 @@ function render_field_exact($field, $form)
         $is_required = isset($field["isRequired"]) && $field["isRequired"];
         $input_class =
             " peer block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-500 text-base font-semibold sm:leading-6 placeholder:italic placeholder:text-slate-400 ";
-        // $input_class_array = explode(' ', $field['cssClass']);
 
         switch ($field["type"]) {
             case "text":
@@ -245,8 +247,8 @@ function render_field_exact($field, $form)
             case "phone":
             case "email":
             case "number":
-                $output .= '<div class="sm:col-span-4">';
-                // $output .= '<label for="input_' . $field['id'] . '" class="block text-sm font-medium leading-6 text-gray-900">' . esc_html($field['label']) . '</label>';
+
+                $output .= '<div class="sm:col-span-full">';
                 $output .= get_label_for_input($field);
                 $output .= '<div class="relative mt-2">';
                 $output .=
@@ -465,9 +467,9 @@ function get_attributes_for_radio_and_checkboxes($form, $field, $index)
         "value" => esc_attr($field["choices"][$index]["value"]),
         "selected" => $field["choices"][$index]["isSelected"],
         "name" =>
-            $field["type"] === "radio"
-                ? "input_" . $field["id"]
-                : "input_" . $field["inputs"][$index]["id"],
+        $field["type"] === "radio"
+            ? "input_" . $field["id"]
+            : "input_" . $field["inputs"][$index]["id"],
         "input_index" => $field["type"] === "radio" ? $index : $index + 1,
         "id" => $form["id"] . "_" . $field["id"] . "_" . $input_index,
         "label_parts" => explode(" - ", $field["choices"][$index]["text"], 2),
@@ -623,7 +625,8 @@ function render_standard_input(
     return $output;
 }
 
-function get_recaptcha_field() {
+function get_recaptcha_field()
+{
     $site_key = get_recaptcha_site();
     $field_id = 'input_recaptcha_response';
 
@@ -636,7 +639,7 @@ function get_recaptcha_field() {
 
 
 
-function get_recaptcha_field1() 
+function get_recaptcha_field1()
 {
     $output  = ' <div class="gf_invisible ginput_recaptchav3" data-sitekey="' . get_recaptcha_site() . '" ';
     $output .= 'data-tabindex="0">';

@@ -28,7 +28,6 @@ $panel_args = [
 		'key' => 'featured',
 		'output_function' => 'get_why_us_panels'
 	]
-
 ];
 
 get_template_part('template-parts/shared/content', 'panels', $panel_args); ?>

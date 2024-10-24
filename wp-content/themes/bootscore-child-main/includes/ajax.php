@@ -92,25 +92,25 @@ function submit_custom_gravity_form()
     foreach ($_POST as $key => $val) {
         if (!empty($val) && strpos($key, 'input_') !== false) {
             // Handle specific input fields as needed
-            if ($key == 'input_32') {
-                $input_32_value = sanitize_text_field($val); // Store raw input_32 value
+            // if ($key == 'input_32') {
+            //     $input_32_value = sanitize_text_field($val); // Store raw input_32 value
 
-                $name = array_map('trim', explode(" ", $val));
+            //     $name = array_map('trim', explode(" ", $val));
 
-                if (!empty($name[0])) {
-                    $input_values["input_12_3"] = sanitize_text_field($name[0]);
-                }
+            //     if (!empty($name[0])) {
+            //         $input_values["input_12_3"] = sanitize_text_field($name[0]);
+            //     }
 
-                if (!empty($name[1])) {
-                    $input_values["input_12_6"] = sanitize_text_field($name[1]);
-                }
-            } else {
+            //     if (!empty($name[1])) {
+            //         $input_values["input_12_6"] = sanitize_text_field($name[1]);
+            //     }
+            // } else {
                 $input_value = is_string($val) ? sanitize_text_field($val) : null;
                 $input_name = sanitize_text_field(
                     str_replace("_", ".", substr($key, 6))
                 );
                 $input_values[$input_name] = $input_value;
-            }
+            // }
         }
     }
 
@@ -139,16 +139,7 @@ function submit_custom_gravity_form()
     // **Redirection Logic Starts Here**
 
     // Determine the 'id' parameter
-    if (isset($input_values["input_12_3"]) && !empty($input_values["input_12_3"])) {
-        $id_param = sanitize_text_field($input_values["input_12_3"]);
-    } elseif (!empty($input_32_value)) {
-        // If "12.3" is not set, use the raw 'input_32' value
-        $id_param = sanitize_text_field($input_32_value);
-    } else {
-        // Fallback if neither is set
-        $id_param = '';
-    }
-
+    $id_param = !empty($input_values["input_32"]) ? sanitize_text_field($input_values["input_32"]) : null;
     // Get the URL of the page with ID 32250
     $redirect_page_id = 32250;
     $redirect_url = get_permalink($redirect_page_id);
