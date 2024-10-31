@@ -86,7 +86,7 @@
                $price_cta_args = [
                   'copy' => 'Talk to Us'
                ];
-               echo tw_form_cta_btn($price_cta_args); ?>
+               echo tw_cta_btn_link($price_cta_args); ?>
             </div>
          </div>
       </div>
@@ -112,7 +112,7 @@
             $price_cta_args = [
                'copy' => 'Talk to Us'
             ];
-            echo tw_form_cta_btn($price_cta_args); ?>
+            echo tw_cta_btn_link($price_cta_args); ?>
          </div>
       </div>
       <div class="absolute inset-x-0 -top-16 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl" aria-hidden="true">

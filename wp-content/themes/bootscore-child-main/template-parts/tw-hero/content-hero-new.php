@@ -54,22 +54,18 @@
       <div class="lg:max-w-3xl mx-auto pb-6 animate-on-scroll relative z-30 bottom-[4rem] -mb-20 lg:bottom-[7rem] lg:-mb-[7rem]">
          <div class="mx-auto text-center">
             <!-- <button data-type="Form" data-target="form" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight" role="button"> -->
-            <a href="<?php echo get_permalink(28484); ?>" class="rounded-md px-3.5 py-2.5 text-base font-semibold text-white shadow shadow-gray-500 hover:shadow-none bg-orange hover:bg-secondary-300 border border-orangeLight">
-               <span><?php echo $hero_fields['copy_main']; ?></span>
-               <?php if ($hero_fields['copy_secondary']) { ?>
-                  <span class="font-normal"> - <?php echo $hero_fields['copy_secondary']; ?></span>
-               <?php } ?>
-            </a>
-            <?php if ($hero_fields['callout']) { ?>
-               <div class="mx-auto mt-12 px-12 md:px-12">
-                  <p class="text-sm text-white opacity-70 italic tracking-normal leading-tight">
-                     <?php echo $hero_fields['callout']; ?>
-                     <?php if ($hero_fields['callout_secondary']) { ?>
-                        <span class="block mt-2"><?php echo $hero_fields['callout_secondary']; ?></span>
-                     <?php } ?>
-                  </p>
-               </div>
-            <?php } ?>
+            <?php
+            $btn_args = [
+               'heading' => [
+                  'background_color' => 'dark'
+               ],
+               'cta' => [
+                  'copy' => $hero_fields['copy_main'],
+                  'callout' => $hero_fields['callout']
+               ]
+            ];
+            echo tw_cta_btn_link($btn_args);
+            ?>
          </div>
 
          <?php //if ($hero_fields['callout_icons']) { 

@@ -5,13 +5,12 @@
    <div class="relative p-6 md:p-16">
       <!-- Grid -->
       <div class="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-         <div class="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
 
+         <div class="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
             <?php
             $section_heading = tw_output_heading($args);
             if ($section_heading) echo $section_heading;
             ?>
-
 
             <nav class="grid gap-4 mt-5 md:mt-10 features-vertical-tabs" aria-label="Tabs" role="tablist" aria-orientation="vertical">
 
@@ -55,9 +54,12 @@
                         </span>
                      </span>
                   </button>
+
                   <?php $i++; ?>
+
                <?php endforeach; ?>
             </nav>
+
          </div>
 
          <!-- Images -->
@@ -89,8 +91,9 @@
             </div>
          </div>
          <!-- End Col -->
-      </div>
+
       <!-- End Grid -->
+      </div>
 
       <!-- Background Color -->
       <div class="absolute inset-0 grid grid-cols-12 size-full">

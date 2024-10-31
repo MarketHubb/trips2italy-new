@@ -143,7 +143,6 @@ function enqueue_tailwind()
 	if (is_page(27712)) {
 		wp_enqueue_script('locations', get_stylesheet_directory_uri() . '/js/locations.js', [], null, false);
 	}
-
 }
 add_action('wp_enqueue_scripts', 'enqueue_tailwind', 999);
 
@@ -173,6 +172,10 @@ function bootscore_child_enqueue_styles()
 	// Navbar
 	if (!is_admin()) {
 		wp_enqueue_script('custom-js', get_stylesheet_directory_uri() . '/js/custom.js', false, '', true);
+	}
+	// Trip Type (Singular)
+	if (is_singular('trip')) {
+		wp_enqueue_script('features-image-top', get_stylesheet_directory_uri() . '/js/features-image-top.js', false, '', true);
 	}
 	// Locations
 	if (is_tax('location_region') || is_singular('location') || is_singular('trip')) {

@@ -1,6 +1,9 @@
+<?php if (empty($args)) return; ?>
 <?php $post_id = get_field('page_id', $post->ID); ?>
 
-<?php echo tw_section_open(['px-6 lg:px-0 py-16 md:py-24 relative bg-gray-50']) ?>
+<?php //echo tw_section_open(['px-6 lg:px-0 py-16 md:py-24 relative bg-gray-50']) 
+?>
+<?php echo tw_section_open($args) ?>
 
 <?php echo tw_container_open(); ?>
 
@@ -72,6 +75,13 @@ if ($section_heading) echo $section_heading;
         </div>
     </div>
 </div>
+<div class="max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
+    <?php
+    $cta_btn = tw_get_template_cta_btn($args);
+    if ($cta_btn) echo $cta_btn;
+    ?>
+</div>
+
 </div>
 <!-- </div> -->
 </section>

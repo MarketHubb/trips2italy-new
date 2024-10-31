@@ -33,26 +33,28 @@ if ($section_heading) echo $section_heading;
 <?php if (!empty($args['content'])): ?>
 
    <!-- Grid -->
-   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-30">
+   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 relative z-30">
 
       <!-- Card -->
       <?php foreach ($args['content']['fields'] as $content): ?>
 
          <?php echo $card['heading']; ?>
 
-         <a class="group bg-white shadow-xl hover:bg-gray-100 focus:outline-none focus:bg-gray-100 rounded-xl p-5 transition dark:hover:bg-white/10 dark:focus:bg-white/10" href="<?php echo $content['link']; ?>">
-            <div class="aspect-w-16 aspect-h-10 h-56 overflow-hidden">
-               <img class="w-full h-full object-cover object-center rounded-xl transition-transform duration-300 ease-in-out group-hover:scale-105" src="<?php echo $content['image']; ?>" alt="Blog Image">
+         <a class="group bg-gray-50 shadow-xl shadow-gray-600 ring-2 ring-brand-100 hover:bg-gray-100 focus:outline-none focus:bg-white rounded-xl transition" href="<?php echo $content['link']; ?>">
+            <div class="aspect-w-16 aspect-h-10 h-56 overflow-hidden rounded-t-xl">
+               <img class="w-full h-full object-cover object-center rounded-t-xl transition-transform duration-300 ease-in-out group-hover:opacity-90 group-hover:scale-105" src="<?php echo $content['image']; ?>" alt="Blog Image">
             </div>
-            <h3 class="mt-5 text-xl text-brand-700 group-hover:text-brand-500  dark:text-neutral-300 dark:hover:text-white">
-               <?php echo $content['heading']; ?>
-            </h3>
-            <p class="mt-3 items-center gap-x-1 line-clamp-3 text-base font-semibold text-gray-600 group-hover:text-gray-800 dark:text-neutral-200">
-               <?php echo $content['description']; ?>
-               <svg class="shrink-0 size-4 transition ease-in-out group-hover:translate-x-1 group-focus:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m9 18 6-6-6-6" />
-               </svg>
-            </p>
+            <div class="p-5">
+               <h3 class="mt-5 text-xl text-brand-700 group-hover:text-brand-500 ">
+                  <?php echo $content['heading']; ?>
+               </h3>
+               <p class="my-3 items-center gap-x-1 line-clamp-3 text-base font-semibold text-gray-600 group-hover:text-gray-800">
+                  <?php echo $content['description']; ?>
+                  <svg class="shrink-0 size-4 transition ease-in-out group-hover:translate-x-1 group-focus:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <path d="m9 18 6-6-6-6" />
+                  </svg>
+               </p>
+            </div>
          </a>
 
       <?php endforeach ?>

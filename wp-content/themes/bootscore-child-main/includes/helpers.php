@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-function get_form_link()
+function get_cta_href()
 {
     $link = get_permalink(28484); 
     return $link ?: '#';
@@ -20,6 +20,22 @@ function format_trip_type_heading($title) {
         return $title . ' Trip';
     }
 }
+
+
+
+function get_substring_before_dash(string $string) 
+{
+    if (empty($string)) return;
+    
+    // First decode HTML entities
+    $string = html_entity_decode($string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    
+    // Now split on en dash with spaces
+    $parts = explode(' – ', $string);
+    
+    return trim($parts[0]);
+}
+
 
 /**
  * Parses HTML content, strips out <span> and <strong> tags, and returns an ordered array.

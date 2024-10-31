@@ -7,6 +7,7 @@
 
 
     <?php echo tw_container_open(); ?>
+    <div class="absolute inset-0 h-full w-full bg-gradient-to-t from-[1%] from-gray-800 via-gray-800/80 via-20% to-gray-800/40 to-30% "></div>
 
     <?php
     $section_heading = tw_output_heading($args);
@@ -22,10 +23,10 @@
 
         if (!empty($content_fields)) {
             $output_function = !empty($args['content']['output_function']) ? $args['content']['output_function'] : null;
-       
+
             if ($output_function && function_exists($output_function)) {
-               $panels = ''; 
-                
+                $panels = '';
+
                 foreach ($content_fields as $field) {
                     $panels .= $output_function($field);
                 }
@@ -39,8 +40,18 @@
 
     </ul>
 
+    <?php if ($args['cta']): ?>
+        <div class="max-w-3xl px-4 pt-10 sm:px-6 sm:pt-20 lg:px-8 lg:pt-24 mx-auto text-center relative">
+            <?php
+            $cta_btn = tw_get_template_cta_btn($args);
+            if ($cta_btn) echo $cta_btn;
+            ?>
+        </div>
+
+    <?php endif ?>
+
     </div>
 
-</section>
+    </section>
 
 <?php } ?>

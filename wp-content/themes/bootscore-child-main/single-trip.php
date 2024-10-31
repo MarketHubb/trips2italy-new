@@ -1,10 +1,23 @@
 <?php
 get_header();
+$post_id = get_the_ID();
 $id = get_field('page_id', $post->ID);
 ?>
 
 <!-- Testimonials -->
-<?php get_template_part('template-parts/tw/content', 'testimonials'); ?>
+<?php
+$review_ids = get_review_posts_for_trip_type($post_id);
+
+if (count($review_ids) > 2) {
+	$testimonial_args = [
+		'post_id' => $post_id,
+		'id' => 'testimonials',
+		'content' => $review_ids
+	];
+
+	get_template_part('template-parts/tw/content', 'testimonials', $testimonial_args);
+}
+?>
 
 <!-- What's included (panels) -->
 <?php
@@ -12,7 +25,8 @@ $section_image = get_field('global_features_bg_image', 'option')['url'];
 $section_style = !empty($section_image) ? 'background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4)), url(' . $section_image . ');' : null;
 
 $panel_args = [
-	'post_id' => get_the_ID(),
+	'post_id' => $post_id,
+	'id' => 'included',
 	'section' => [
 		'grid_classes' => ' md:px-6 lg:px-0 py-16 md:py-24 relative ',
 		'classes' => ' flex items-center py-16 md:py-32 bg-gradient-overlay bg-bottom bg-cover bg-no-repeat ',
@@ -21,12 +35,17 @@ $panel_args = [
 	],
 	'heading' => [
 		'field_name' => 'included',
-		'container_classes' => ' px-8 pb-10 z-10 relative sm:block sm:pb-12 text-2xl md:text-2xl lg:text-3xl '
+		'container_classes' => ' px-8 pb-10 z-10 relative sm:block sm:pb-12 text-2xl md:text-2xl lg:text-3xl ',
+		'background_color' => 'dark'
 	],
 	'content' => [
 		'field_name' => 'trip_features',
 		'key' => 'featured',
 		'output_function' => 'get_why_us_panels'
+	],
+	'cta' => [
+		'copy' => 'Plan our Italy honeymoon',
+		'callout' => 'An unforgettable honeymoon, planned entirely for you'
 	]
 ];
 
@@ -35,7 +54,8 @@ get_template_part('template-parts/shared/content', 'panels', $panel_args); ?>
 <!-- Why (Trips 2 Italy) -->
 <?php
 $steps = [
-	'post_id' => get_the_ID(),
+	'post_id' => $post_id,
+	'id' => 'why',
 	'section' => [],
 	'heading' => [
 		'field_name' => 'why',
@@ -55,16 +75,22 @@ $bg_image = get_home_url() . '/wp-content/uploads/2022/12/Lombardo-1.jpg';
 $heading  = '<span class="block mb-2">Your Italian ' . format_trip_type_heading(get_the_title(get_the_ID())) . '</span>';
 $heading .= '<span class="font-semibold stylized capitalize text-[150%] text-secondary-400">Starts Right Here</span>';
 $descripion = "Tell us what you'd like to do and see, and our Italian-born travel experts will handle the rest.";
-$content = '<a href="' . get_form_link() . '" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-brand-600 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get started today</a>';
+$content = '<a href="' . get_cta_href() . '" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-brand-600 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get started today</a>';
 
 
 $cta_args = [
-	'post_id' => get_the_ID(),
-	'section' => [],
+	'post_id' => $post_id,
+	'id' => 'cta',
+	'section' => [
+		'bg_position' => 'bg-bottom'
+	],
 	'heading' => [],
 	'content' => [
 		'field_name' => 'cta',
 	],
+	'cta' => [
+		'copy' => 'Design our dream honeymoon',
+	]
 ];
 get_template_part('template-parts/tw-shared/content', 'cta-centered-simple', $cta_args);
 ?>
@@ -88,24 +114,31 @@ foreach ($vertical_tabs_field_content['feature_panels'] as $content) {
 }
 
 $vertical_tabs = [
-	'post_id' => get_the_ID(),
+	'post_id' => $post_id,
+	'id' => 'how',
 	'section' => [],
 	'heading' => [
 		'field_name' => 'trips',
-		'align' => 'left',
 	],
 	'content' =>  [
 		'fields' =>	$vertical_tabs_content
+	],
+	'cta' => [
+		'copy' => 'Craft our perfect trip',
+		'callout' => 'Take a one-of-a-kind, romantic getaway to Italy'
 	]
 ];
 
-get_template_part('template-parts/preline/content', 'vertical-tabs', $vertical_tabs);
+// get_template_part('template-parts/preline/content', 'vertical-tabs', $vertical_tabs);
+
+get_template_part('template-parts/tw-shared/content', 'features-image-top', $vertical_tabs);
 ?>
 
 <!-- Stats -->
 <?php
 $stat_callouts = [
-	'post_id' => get_the_ID(),
+	'post_id' => $post_id,
+	'id' => 'stats',
 	'section' => [
 		'image' => get_home_url() . '/wp-content/uploads/2023/05/Florence.jpeg',
 		'classes' => ' bg-center bg-cover '
@@ -134,14 +167,21 @@ get_template_part('template-parts/shared/content', 'callouts', $stat_callouts); 
 <?php
 if (get_field('itinerary')) {
 	$itinerary = [
-		'post_id' => get_the_ID(),
-		'section' => [],
+		'post_id' => $post_id,
+		'id' => 'itinerary',
+		'section' => [
+			'classes' => ' px-6 lg:px-0 py-16 md:py-24 relative bg-gray-50 ',
+		],
 		'heading' => [
 			'field_name' => 'itineraries',
 			'align' => 'center',
 		],
 		'content' =>  [
 			'field_name' => 'itinerary_id'
+		],
+		'cta' => [
+			'copy' => 'Get your custom itinerary',
+			'callout' => ''
 		]
 	];
 	get_template_part('template-parts/top/timeline', '', $itinerary);
@@ -167,7 +207,8 @@ if ($related_packages && !empty($related_packages)) {
 
 	if (!empty($content)) {
 		$packages_args = [
-			'post_id' => get_the_ID(),
+			'post_id' => $post_id,
+			'id' => 'packages',
 			'section' => [],
 			'heading' => [
 				'field_name' => 'package',

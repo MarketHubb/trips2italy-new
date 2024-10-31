@@ -36,6 +36,83 @@ function get_reviews_ordered()
 	));
 }
 
+function query_args_for_reviews_by_trip_type($post_id = null)
+{
+	// Initialize the meta query array
+	$meta_query = array(
+		'relation' => 'AND'
+	);
+
+	// Add post_trip condition only if post_id is not null
+	if ($post_id !== null) {
+		$meta_query[] = array(
+			'key' => 'post_trip',
+			'value' => $post_id,
+			'compare' => 'LIKE'
+		);
+	}
+
+	// Add the rest of the meta query conditions
+	$meta_query[] = array(
+		'key' => 'background_image',
+		'compare' => 'EXISTS',
+	);
+	$meta_query[] = array(
+		'key' => 'background_image',
+		'value' => '',
+		'compare' => '!='
+	);
+	$meta_query[] = array(
+		'key' => 'square_image',
+		'compare' => 'EXISTS',
+	);
+	$meta_query[] = array(
+		'key' => 'square_image',
+		'value' => '',
+		'compare' => '!='
+	);
+
+	// Set up WP_Query arguments
+	$args = array(
+		'post_type' => 'review',
+		'post_status' => 'publish',
+		'posts_per_page' => -1,
+		'orderby' => 'rand',
+		'meta_query' => $meta_query
+	);
+
+	return new WP_Query($args);
+}
+
+function get_review_posts_for_trip_type($post_id)
+{
+	if (empty($post_id)) return array();
+
+	// Run the query
+	$reviews_query_by_trip = query_args_for_reviews_by_trip_type($post_id);
+	$reviews_query = isset($reviews_query_by_trip) && $reviews_query_by_trip->post_count > 2 ? $reviews_query_by_trip : query_args_for_reviews_by_trip_type();
+
+	// Initialize array for post IDs
+	$matching_post_ids = array();
+
+	// Get all matching post IDs
+	if ($reviews_query->have_posts()) {
+		while ($reviews_query->have_posts()) {
+			$reviews_query->the_post();
+			$matching_post_ids[] = get_the_ID();
+
+			// Break the loop if we've reached 4 items
+			if (count($matching_post_ids) >= 4) {
+				break;
+			}
+		}
+		wp_reset_postdata();
+	}
+
+	return $matching_post_ids;
+}
+
+
 function paginated_post_query($post_type, $paged = 1)
 {
 	$post_count = !empty(get_field('post_per_page', 'option')) ? get_field('posts_per_page', 'option') : 12;

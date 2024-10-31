@@ -95,5 +95,17 @@
       <!-- End Col -->
    </div>
    <!-- End Grid -->
+
+   <?php if (!empty($args['cta'])): ?>
+
+      <div class="max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto text-center">
+         <?php 
+         $link = tw_cta_btn_link($args['cta']); 
+        highlight_string("<?php\n\$args =\n" . var_export($args, true) . ";\n?>"); 
+         ?>
+      </div>
+      
+   <?php endif ?>
+
 </div>
 <!-- End Features -->
