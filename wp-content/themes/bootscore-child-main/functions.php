@@ -239,7 +239,7 @@ function enqueue_custom_tracking_scripts() {
     if ($current_page_id != 32250) {
         wp_enqueue_script(
             'user-flow-tracking',
-            get_template_directory_uri() . '/js/user-flow.js',
+            get_stylesheet_directory_uri() . '/js/user-flow.js',
             array(), // no dependencies
             '1.0.0', // version number
             true // load in footer
@@ -250,7 +250,7 @@ function enqueue_custom_tracking_scripts() {
     if ($current_page_id == 32250) {
         wp_enqueue_script(
             'thank-you-analytics',
-            get_template_directory_uri() . '/js/analytics.js',
+            get_stylesheet_directory_uri() . '/js/analytics.js',
             array(), // no dependencies
             '1.0.0', // version number
             true // load in footer
