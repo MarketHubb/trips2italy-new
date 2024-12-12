@@ -229,3 +229,33 @@ function mh_conditional_script_loading()
 	}
 }
 add_action('wp_enqueue_scripts', 'mh_conditional_script_loading');
+
+
+function enqueue_custom_tracking_scripts() {
+    // Get the current page ID
+    $current_page_id = get_queried_object_id();
+    
+    // Enqueue user-flow.js on all pages EXCEPT thank you page
+    if ($current_page_id != 32250) {
+        wp_enqueue_script(
+            'user-flow-tracking',
+            get_template_directory_uri() . '/js/user-flow.js',
+            array(), // no dependencies
+            '1.0.0', // version number
+            true // load in footer
+        );
+    }
+    
+    // Enqueue analytics.js ONLY on thank you page
+    if ($current_page_id == 32250) {
+        wp_enqueue_script(
+            'thank-you-analytics',
+            get_template_directory_uri() . '/js/analytics.js',
+            array(), // no dependencies
+            '1.0.0', // version number
+            true // load in footer
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_tracking_scripts');
+
