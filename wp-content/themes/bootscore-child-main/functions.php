@@ -1,5 +1,20 @@
 <?php
+// Autoloader
+require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
+new \MH\T2I\Theme();
+
+// Sections
+require_once 'includes/sections/config.php';
+require_once 'includes/sections/queries.php';
+require_once 'includes/sections/container.php';
+require_once 'includes/sections/header.php';
+require_once 'includes/sections/content.php';
+require_once 'includes/sections/cta.php';
+require_once 'includes/sections/helpers.php';
+require_once 'includes/sections/render.php';
+
 // Content
+// require_once 'includes/getters.php';
 require_once 'includes/tailwind-content.php';
 require_once 'includes/fonts.php';
 require_once 'includes/ajax.php';
