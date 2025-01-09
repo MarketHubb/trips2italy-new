@@ -11,7 +11,7 @@ h5 {
     font-family: "Merriweather", serif !important;
     font-optical-sizing: auto;
     font-weight: unset !important;
-    letter-spacing: -.025rem !important;
+    letter-spacing: 0rem;
 }
 
 body,
@@ -27,7 +27,8 @@ body,
 }
 
 .stylized {
-    font-family: "relation-two", cursive !important;
+    font-family: "birthstone", cursive !important;
+/*    font-family: "relation-two", cursive !important;*/
     font-size: 120%;
     letter-spacing: .025rem;
 }
