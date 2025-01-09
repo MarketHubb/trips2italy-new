@@ -1,5 +1,4 @@
 <?php
-require_once 'src/init.php';
 /**
  * The header for our theme
  *
