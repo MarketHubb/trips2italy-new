@@ -119,7 +119,7 @@ if (!empty($location_region_terms)) {
 
     <?php echo tw_container_close(); ?>
 
-    <?php echo get_section_close(); ?>
+    <?php echo render_section_close(); ?>
 
 
 <?php } ?>
