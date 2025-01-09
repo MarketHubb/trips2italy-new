@@ -1,4 +1,5 @@
 <?php
+/* region Object */
 function is_object_post($queried_object)
 {
     return $queried_object instanceof WP_Post;
@@ -28,3 +29,37 @@ function get_object_tax_name($queried_object)
 {
     return $queried_object->taxonomy ?? null;
 }
+/* endregion */
+
+/* region Template */
+function section_template_set($section)
+{
+    if (!is_array($section)) return false;
+
+    return !empty($section['template']);
+}
+
+function get_section_template($section)
+{
+    if (!is_array($section)) return null;
+
+    return !empty($section['template'])
+        ? $section['template']
+        : null;
+}
+/* endregion */
+
+/* region Sections */
+function get_section_container_parent_key(array $section)
+{
+    if (!is_array($section) || empty($section)) return null;
+
+    return $section['name'] === 'cta'
+        ? 'content'
+        : 'heading';
+}
+/* endregion */
+
+/* region Heading */
+
+/* endregion */

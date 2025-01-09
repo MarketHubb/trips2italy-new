@@ -18,7 +18,8 @@ function render_cta_close()
 /* region::CONTAINER - CONTENT */
 function render_content_open()
 {
-    return '<div class="max-w-7xl mx-auto relative z-[30]">';
+    return '<div class="max-w-screen-2xl mx-auto relative z-[30] py-10 lg:py-14">';
+    // return '<div class="max-w-7xl mx-auto relative z-[30]">';
 }
 
 function render_content_close()
@@ -39,41 +40,86 @@ function get_section_open(array $section_data)
     return $section;
 }
 
-function get_section_container_bg_overlay_classes(string $overlay_field)
+function get_section_container_bg_overlay_classes(array $section)
 {
-    return match ($overlay_field) {
-        'Light' => 'bg-white opacity-70',
-        'Llightest' => 'bg-white opacity-85',
-        'Dark' => 'bg-black opacity-70',
-        'Darker' => 'bg-black opacity-85',
-        default => ''
-    };
+    $parent_key = get_section_container_parent_key($section);
+    $opacity_key = $parent_key . '_background_image_overlay_copy';
+    $color_key = $parent_key . '_background_color';
+
+    $bg_opacity = 'opacity-' . $section[$parent_key][$opacity_key];
+
+    $bg_color = $section[$parent_key][$color_key] === 'Light'
+        ? 'bg-white '
+        : 'bg-black ';
+
+    return $bg_color . $bg_opacity;
+
+    // return match ($overlay_field) {
+    //     'Light' => 'bg-white opacity-70',
+    //     'Llightest' => 'bg-white opacity-85',
+    //     'Dark' => 'bg-black opacity-70',
+    //     'Darker' => 'bg-black opacity-85',
+    //     default => ''
+    // };
 }
 
-function render_section_bg_image_container_classes(array $section_data)
+function render_section_bg_image_container_classes(array $section)
 {
     $classes = 'absolute inset-0 z-10 ';
+    $parent_key = get_section_container_parent_key($section);
+    $child_key = $parent_key . '_background_image_overlay_copy';
 
-    if (! empty($section_data['heading']['heading_background_image_overlay'])) {
-        $classes .= get_section_container_bg_overlay_classes(
-            $section_data['heading']['heading_background_image_overlay']
-        );
+    if (! empty($section[$parent_key][$child_key])) {
+        $classes .= get_section_container_bg_overlay_classes($section);
     }
+    // if (! empty($section['heading']['heading_background_image_overlay'])) {
+    //     $classes .= get_section_container_bg_overlay_classes(
+    //         $section['heading']['heading_background_image_overlay']
+    //     );
+    // }
 
     return $classes;
 }
 
-function render_section_bg_image_container(array $section_data)
+function render_section_bg_image_container(array $section)
 {
     $bg_image_container_classes = '';
-    $bg_image = '';
+    $image_el = '';
 
-    if (!empty($section_data['heading']['heading_image'])) {
-        $bg_image_container_classes = render_section_bg_image_container_classes($section_data);
-        $bg_image = '<img src="' . $section_data['heading']['heading_image'] . '" class="absolute inset-0 -z-10 size-full object-cover" />';
+    if ($section['name'] === 'cta' && is_array($section['content'])) {
+        $bg_image = !empty($section['content']['content_image'])
+            ? $section['content']['content_image']
+            : null;
     }
 
-    return '<div class="' . $bg_image_container_classes . '"></div>' . $bg_image;
+    if ($section['name'] !== 'cta' && is_array($section['heading'])) {
+        $bg_image = !empty($section['heading']['heading_image'])
+            ? $section['heading']['heading_image']
+            : null;
+    }
+
+
+
+    // if ($section['name'] === 'cta' && !is_array($section['content']) || $section['name'] !== 'cta' && !is_array($section['heading'])) return;
+
+    // $bg_image = $section['name'] === 'cta' && is_array($section['content'] && !empty($section['content']['content_image']))
+    //     ? $section['content']['content_image']
+    //     : null;
+
+    // $bg_image = $section['name'] === 'cta' && is_array($section['content'] && !empty($section['content']['content_image']))
+    //     ? $section['content']['content_image']
+    //     : null;
+
+    // $bg_image = !$bg_image && is_array($section['heading'] && !empty($section['heading']['heading_image']))
+    //     ? $section['heading']['heading_image']
+    //     : null;
+
+    if (isset($bg_image) && !empty($bg_image)) {
+        $bg_image_container_classes = render_section_bg_image_container_classes($section);
+        $image_el = '<img src="' . $bg_image . '" class="absolute inset-0 -z-10 size-full object-cover" />';
+    }
+
+    return '<div class="' . $bg_image_container_classes . '"></div>' . $image_el;
 }
 
 function get_post_section_container_args(int $post_id, string $section_name)
@@ -86,19 +132,20 @@ function get_global_section_container_args(string $section_name)
     return get_field($section_name, 'option') ?? null;
 }
 
-function render_section_close()
+function render_section_end()
 {
     return '</section>';
 }
 
-function render_section_open(array $section_data)
+function render_section_open(array $section)
 {
-    $id =  ! empty($section_data['name'])
-        ? 'id="' . $section_data['name'] . '"'
+    $id =  ! empty($section['name'])
+        ? 'id="' . $section['name'] . '"'
         : '';
-    $section = '<section ' . $id . ' class="relative px-4 md:px-0 py-16 md:py-24">';
-    $section .= render_section_bg_image_container($section_data);
 
-    return $section;
+    $section_open = '<section ' . $id . ' class="relative px-4 md:px-0 py-16 md:py-24">';
+    $section_open .= render_section_bg_image_container($section);
+
+    return $section_open;
 }
 /* endregion */

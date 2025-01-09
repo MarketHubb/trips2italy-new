@@ -1,5 +1,34 @@
 <?php
-/* region:: Containers */
+/* region:: CTA */
+function render_section_cta(array $section)
+{
+    $primary_copy = get_cta_btn_copy_primary($section);
+    $primary_link = get_cta_btn_link_primary($section);
+
+    if (empty($section['cta']) || !$primary_copy || !$primary_link) return null;
+
+    $section_cta = get_cta_btn_container_open();
+    $section_cta .= '<a href="' . get_cta_btn_link_primary($section) . '" ';
+    $section_cta .= 'class="' . get_cta_btn_base_classes_primary() . '">';
+    $section_cta .= get_cta_btn_gradient_el();
+    $section_cta .= get_cta_btn_copy_el(get_cta_btn_copy_primary($section));
+    $section_cta .= '</a>';
+
+    $secondary_copy = get_cta_btn_copy_secondary($section);
+    $secondary_link = get_cta_btn_link_secondary($section);
+
+    if ($secondary_copy && $secondary_link) {
+        $section_cta .= '<a href="' . $secondary_link . '" ';
+        $section_cta .= 'class="' . get_cta_btn_base_classes_secondary() . '">';
+        $section_cta .= $secondary_copy;
+        // $section_cta .= '<span aria-hidden="true">→</span>';
+        $section_cta .= '</a>';
+    }
+
+    $section_cta .= get_cta_btn_container_close();
+
+    return $section_cta ?? null;
+}
 /* endregion */
 
 /* single-trip */
@@ -196,112 +225,45 @@ function render_section_steps(array $content)
     return $output;
 }
 
-/**
- * Renders a CTA section based on provided arguments.
- *
- * @param array $args {
- *     Array of arguments for rendering the CTA block.
- *
- *     @type string 'name'    Name/key of the block (default: 'cta').
- *     @type string 'heading' Main heading text (e.g., "Your dream honeymoon to Italy").
- *     @type array  'content' {
- *         @type string 'content_text_color'             (e.g., 'Light')
- *         @type string 'content_background_image_overlay' (e.g., 'Dark')
- *         @type string 'content_overlay_direction'       (e.g., 'Bottom Top')
- *         @type string 'content_background_color'        (e.g., 'Dark')
- *         @type string 'content_image'                   (URL to background image)
- *         @type string 'content_mobile_image'            (URL to mobile background image)
- *         @type string 'content_heading'                 (redundant heading; optional if already set at top level)
- *         @type string 'content_subheading'              (e.g., "Starts right here")
- *         @type string 'content_description'             (e.g., "Just tell us your preferences...")
- *         @type string 'content_max_width'               (max width as number or string)
- *         @type string 'content_copy'                    (CTA button text, e.g., "Design our dream honeymoon")
- *         @type string 'content_callout'
- *     }
- *     @type string|NULL 'cta'  (Unused in this example)
- * }
- * @return string HTML output for the CTA block.
- */
-function render_section_cta( $args = array() ) {
+function render_section_cta2(array $content)
+{
+    $output = '<div class="">';
+    $output .= '<div class="px-6 sm:px-6 lg:px-8">';
+    $output .= '<div class="mx-auto max-w-2xl text-center">';
 
-    // Define reasonable defaults for all expected keys.
-    $defaults = array(
-        'name'    => 'cta',
-        'heading' => '',
-        'content' => array(
-            'content_text_color'              => '',
-            'content_background_image_overlay'=> '',
-            'content_overlay_direction'       => '',
-            'content_background_color'        => '',
-            'content_image'                   => '',
-            'content_mobile_image'            => '',
-            'content_heading'                 => '',
-            'content_subheading'              => '',
-            'content_description'             => '',
-            'content_max_width'               => '',
-            'content_copy'                    => '',
-            'content_callout'                 => '',
-        ),
-        'cta' => null,
-    );
+    if (!empty($content['content_heading'])) {
+        $heading = $content['content_heading'];
 
-    // Merge provided args with defaults.
-    $args = wp_parse_args( $args, $defaults );
+        $heading .= !empty($content['content_subheading'])
+            ? ' ' . $content['content_subheading']
+            : '';
 
-    // For clarity, pull out the main content fields.
-    // The snippet uses top-level 'heading' & subheading/description from 'content'.
-    $heading     = ! empty( $args['heading'] ) ? $args['heading'] : '';
-    $subheading  = ! empty( $args['content']['content_subheading'] ) ? $args['content']['content_subheading'] : '';
-    $description = ! empty( $args['content']['content_description'] ) ? $args['content']['content_description'] : '';
-    $cta_copy    = ! empty( $args['content']['content_copy'] ) ? $args['content']['content_copy'] : '';
-
-    // Start building the output buffer for the CTA section.
-    $html  = '<div class="mx-auto max-w-3xl text-center text-2xl sm:text-3xl md:text-4xl">' . "\n";
-
-    // Heading.
-    if ( $heading ) {
-        $html .= '    <h2 class="font-semibold antialiased tracking-tight mb-4 text-white">' 
-              . esc_html( $heading ) 
-              . '</h2>' . "\n";
+        $output .= sprintf(
+            '<h2 class="text-balance text-4xl font-semibold tracking-tight text-brand-950 sm:text-5xl">%s</h2>',
+            esc_html($heading)
+        );
     }
 
-    // Subheading.
-    if ( $subheading ) {
-        $html .= '    <h2 class="stylized font-semibold text-[150%] text-secondary-500">' 
-              . esc_html( $subheading ) 
-              . '</h2>' . "\n";
+    if (!empty($content['content_description'])) {
+        $output .= sprintf(
+            '<p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">%s</p>',
+            esc_html($content['content_description'])
+        );
     }
 
-    // Description.
-    if ( $description ) {
-        $html .= '    <p class="mx-auto mt-6 max-w-xl text-lg md:text-xl leading-normal md:leading-8 font-semibold text-white">' 
-              . esc_html( $description ) 
-              . '</p>' . "\n";
-    }
+    $output .= '<div class="mt-10 flex items-center justify-center gap-x-6">';
+    $output .= '<a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>';
+    $output .= '<a href="#" class="text-sm/6 font-semibold text-gray-900">Learn more <span aria-hidden="true">→</span></a>';
+    $output .= '</div>';
 
-    // CTA Button (if CTA text is provided).
-    if ( $cta_copy ) {
-        $html .= '    <div class="max-w-3xl px-4 pt-10 sm:px-6 sm:pb-20 lg:px-8 lg:pb-28 mx-auto text-center">' . "\n";
-        $html .= '        <a href="' . esc_url( 'https://www.trips2italy.com/get-custom-itinerary/' ) . '" 
-                           class="inline-block relative rounded-full border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150 ">' . "\n";
-        $html .= '            <span class="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter blur-sm bg-gradient-to-br from-secondary-600 to-secondary-400"></span>' . "\n";
-        $html .= '            <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded-full opacity-50 from-secondary-600 to-secondary-400"></span>' . "\n";
-        $html .= '            <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl bg-gradient-to-br filter group-active:opacity-0 from-secondary-600 to-secondary-400"></span>' . "\n";
-        $html .= '            <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-br to-secondary-600 from-secondary-400"></span>' . "\n";
-        $html .= '            <span class="relative">' . esc_html( $cta_copy ) . '</span>' . "\n";
-        $html .= '        </a>' . "\n";
-        $html .= '    </div>' . "\n";
-    }
+    $output .= '</div>';
+    $output .= '</div>';
+    $output .= '</div>';
 
-    // Close container div.
-    $html .= '</div>' . "\n";
-
-    // Return the constructed HTML.
-    return $html;
+    return $output;
 }
 
-
-function render_section_examples(array $content)
+function render_section_examples2(array $content)
 {
     $featured_image = $content['content_featured_image'];
 
@@ -478,7 +440,7 @@ function render_section_itinerary(array $content)
 /* endregion */
 
 /* region init */
-function render_section(array $section)
+function render_section_components_legacy(array $section)
 {
     if (empty($section) || empty($section['content'])) {
         return null;
@@ -487,19 +449,126 @@ function render_section(array $section)
     $section_name = sanitize_key($section['name']);
     $section_output_function = 'render_section_' . $section_name;
 
-    if (function_exists($section_output_function)) {
-        $content = $section_output_function($section['content']);
+    $content = function_exists($section_output_function)
+        ? $section_output_function($section['content'])
+        : get_section_template_part($section);
 
-        if ($content) {
-            $output = render_section_open($section);
-            $output .= render_content_open();
-            $output .= $content;
-            $output .= render_content_close();
-            $output .= render_section_close();
-            return $output;
+    if ($content) {
+        $output = render_section_open($section);
+
+        if (!empty($section['heading'])) {
+            $output .= get_section_header($section);
         }
+
+        $output .= render_content_open();
+        $output .= $content;
+        $output .= render_content_close();
+        $output .= render_section_end();
+        return $output;
     }
+    // }
 
     return null;
 }
-/* endregion */
+
+function get_section_function(array $section)
+{
+    if (empty($section) || empty($section['content'])) {
+        return null;
+    }
+
+    $section_name = sanitize_key($section['name']);
+    $section_output_function = 'render_section_' . $section_name;
+
+    return function_exists($section_output_function)
+        ? $section_output_function($section['content'])
+        : null;
+
+    return null;
+}
+
+function get_section_template_part(array $section)
+{
+    if (empty($section) || empty($section['content']) || empty($section['template'])) {
+        return null;
+    }
+
+    $template_field_val = get_section_layout_template($section);
+
+    $section_template = $template_field_val && is_string($template_field_val)
+        ? $template_field_val
+        : sanitize_key($section['template']);
+
+    $template_path = 'template-parts/render/content-' . $section_template;
+
+    // Check if template exists
+    if (!locate_template($template_path . '.php')) {
+        return null;
+    }
+
+    ob_start();
+    // Change this line - pass the section array directly, not wrapped in another array
+    get_template_part($template_path, null, $section);
+    $template_content = ob_get_clean();
+
+    return $template_content ?? null;
+}
+
+function render_section_legacy($section)
+{
+    $content = get_section_template_part($section) ?? get_section_function($section);
+
+    if (empty($section) || empty($content)) return '';
+
+    if (section_template_set($section) && !str_contains(get_section_template($section), 'hero')) {
+        $output = render_section_open($section);
+
+        if (!empty($section['heading'])) {
+            $output .= get_section_header($section);
+        }
+
+        $output .= render_content_open();
+        $output .= $content;
+        $output .= render_content_close();
+        $output .= render_section_end();
+        return $output;
+    } else {
+        return $content;
+    }
+}
+
+function render_section($section)
+{
+    // Attempt to load via template-part first; if not found, fallback to any custom function
+    $content = get_section_template_part($section) ?? get_section_function($section);
+
+    // If we fail to get content, return an empty string
+    if (empty($section) || empty($content)) {
+        return '';
+    }
+
+    // If there is a template set in the section, check if it contains "hero"
+    $template = $section['template'] ?? '';
+    $is_hero   = (!empty($template) && str_contains($template, 'hero'));
+
+    // If 'hero' is in the template name, return ONLY the content (no wrappers)
+    if ($is_hero) {
+        return $content;
+    }
+
+    // Otherwise, wrap in your containers
+    $output = render_section_open($section);
+
+    // If you have a heading, add it
+    if (!empty($section['heading'])) {
+        $output .= get_section_header($section);
+    }
+
+    // Insert content inside the content wrapper
+    $output .= render_content_open();
+    $output .= $content;
+    $output .= render_content_close();
+
+    $output .= render_section_end();
+    return $output;
+}

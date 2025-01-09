@@ -1,4 +1,30 @@
 <?php
+function get_section_cta_btn_classes()
+{
+    return 'inline-block bg-secondary-500 relative rounded-full border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150 ';
+}
+
+
+function render_section_cta_btn(array $section)
+{
+    if (empty($section) || empty($section['content']['copy_main'])) return null;
+
+    $args = [
+        'cta' => [
+            'copy' => $section['content']['copy_main']
+        ],
+    ];
+
+    return tw_cta_btn_link($args); 
+
+    $href = '/get-custom-itinerary/';
+
+    $btn = '<a class="' . get_section_cta_btn_classes() . ' href="' . $href . '">';
+    $btn .= '<span class="font-bold antialiased">' . $section['content']['copy_main'] . '</span>';
+    $btn .= '</a>';
+
+    return $btn;
+}
 
 function output_section_cta(array $section_data)
 {

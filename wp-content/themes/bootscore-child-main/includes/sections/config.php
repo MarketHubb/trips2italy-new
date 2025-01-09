@@ -123,10 +123,10 @@ function get_section($section_args)
     }
 
     if (!empty($section_data['cta'])) {
-        $section .= render_section_cta($section_data);
+        $section .= render_cta($section_data);
     }
 
-    $section .= get_section_close();
+    $section .= render_section_close();
 
     return $section;
 }
@@ -139,13 +139,9 @@ function content_sections(object $queried_object)
 
     if (empty($content_sections) || !is_array($content_sections)) return;
 
-   highlight_string("<?php\n\$content_sections =\n" . var_export($content_sections, true) . ";\n?>"); 
-
     $output = '';
 
     foreach ($content_sections as $section) {
-        // if (empty($section['name']) || empty($section['content'])) return '';
-
         $output .= render_section($section);
     }
 
@@ -169,8 +165,16 @@ function get_template_post(object $queried_object)
 function get_single_trip_section_args()
 {
     return [
-        'testimonials' => [
+        'hero' => [
             'function' => [
+                'name' => 'get_hero_data',
+                'args' => [get_queried_object_id()]
+            ],
+            'template' => 'hero-full-center'
+        ],
+        'testimonials' => [
+            'function' =>
+            [
                 'name' => 'get_review_posts_for_trip_type',
                 'args' => [get_queried_object_id()]
             ],
@@ -179,24 +183,37 @@ function get_single_trip_section_args()
             'key' => 'content_featured'
         ],
         'steps' => [
-            'key' => 'content_sections'
+            'key' => 'content_sections',
+            'template' => 'steps'
+
         ],
-        'cta' => [],
+        'cta' => [
+            'template' => 'cta'
+        ],
         'how' => [],
         'callouts' => [
             'key' => 'content_callouts'
         ],
         'examples' => [
-            'key' => 'content_feature_panels'
+            'key' => 'content_feature_panels',
+            'template' => 'tabs-horizontal'
         ],
         'stats' => [
-            'key' => 'content_stats'
+            'key' => 'content_stats',
+            'template' => 'stats'
         ],
         'itinerary' => [
             'key' => 'content_itinerary'
         ],
         'packages' => [
-            'function' => ''
+            'function' => [
+                'name' => 'get_post_list_content',
+                'args' => ['packages']
+            ],
+            'template' => 'posts_layout'
+            // 'template' => 'post-list-image-overlay'
+            // 'template' => 'post-list-card'
+            // 'template' => 'post-list-2-grid'
         ],
     ];
 }
