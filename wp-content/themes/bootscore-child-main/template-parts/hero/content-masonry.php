@@ -13,7 +13,7 @@
     ?>
 
     <!-- Hero (Desktop) -->
-    <header class="d-none d-md-block header-hero hero-masonry" id="hero-masonry" style="background-image:url(<?php echo $hero['images']['background_image']; ?>">
+    <header class="d-none d-md-block header-hero hero-masonry" id="hero-masonry" style="background-image:url(<?php echo $hero['images']['background_image']['url']; ?>">
         <div class="page-header min-vh-50 pt-5 pt-md-0">
 
             <!-- <div class="container py-8"> -->
@@ -113,7 +113,7 @@
     </header>
 
     <!-- Hero (Mobile) -->
-    <?php $mobile_bg = ($hero['images']['mobile_image']) ?: $hero['images']['background_image']; ?>
+    <?php $mobile_bg = ($hero['images']['mobile_image']['url']) ?: $hero['images']['background_image']['url']; ?>
     <header class="position-relative d-none d-block d-md-none header-hero-mobile">
         <div class="page-header min-vh-75 pt-4 pt-md-0 align-items-start" style="background-image: linear-gradient(to right,rgba(255,255,255,.25), rgba(255,255,255,.25) 35%, rgba(255,255,255,.25) 100%),url(<?php echo $mobile_bg; ?>">
             <!--        <span class="mask bg-gradient-secondary"></span>-->
