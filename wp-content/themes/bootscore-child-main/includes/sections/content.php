@@ -123,11 +123,19 @@ function get_content($section, $config)
         ? get_global_section_content($section)
         : get_post_section_content($section);
 
-    // return $content;
+    $key = $config['key'];
 
-    return is_array($content)
+    $content = is_array($content)
         ? $content
         : [$content];
+
+    if (!array_key_exists('key', $config) && !empty($content)) {
+        return $content;
+    }
+
+    return array_key_exists('key', $config) && !empty($content[$config['key']])
+        ? $content
+        : null;
 }
 
 function get_section_field_data($section, $config)
@@ -193,7 +201,7 @@ function get_description_classes(string $text_color = "Light")
 /* region Content: CTA (Buttons) */
 function get_cta_btn_container_open()
 {
-    return '<div class="mt-10 flex items-center justify-center gap-x-6">';
+    return '<div class="mt-10 flex items-center justify-center gap-x-6 z-30 relative">';
 }
 
 function get_cta_btn_container_close()
@@ -203,7 +211,7 @@ function get_cta_btn_container_close()
 
 function get_cta_btn_base_classes()
 {
-    return 'px-3.5 py-2.5 text-sm font-semibold rounded-md subpixel-antialiased ';
+    return 'px-3.5 py-2.5 text-sm font-bold rounded-md antialiased ';
 }
 
 function get_cta_btn_base_classes_primary()
@@ -224,6 +232,22 @@ function get_cta_btn_copy_el(string $btn_copy)
 {
 
     return '<span class="relative">' . $btn_copy . '</span>';
+}
+
+function get_cta_btn_callout_el(array $section)
+{
+    $callout_field = $section['cta']['cta_callout'] ?? null;
+
+    if (!$callout_field) return;
+
+    $text_color = $section['heading']['heading_text_color'] ?? 'Light';
+    $text_color_class = get_description_color_class($text_color);
+
+    $callout = '<div class="relative z-30 mx-auto max-w-lg text-center mt-5 ' . $text_color_class . '">';
+    $callout .= add_classes_to_p($callout_field,['font-semibold', '!subpixel-antialiased']);
+    $callout .= '</div>';
+
+    return $callout;
 }
 
 function get_cta_btn_base_classes_secondary()

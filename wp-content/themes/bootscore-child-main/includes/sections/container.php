@@ -19,7 +19,6 @@ function render_cta_close()
 function render_content_open()
 {
     return '<div class="max-w-screen-2xl mx-auto relative z-[30] py-10 lg:py-14">';
-    // return '<div class="max-w-7xl mx-auto relative z-[30]">';
 }
 
 function render_content_close()
@@ -53,14 +52,6 @@ function get_section_container_bg_overlay_classes(array $section)
         : 'bg-black ';
 
     return $bg_color . $bg_opacity;
-
-    // return match ($overlay_field) {
-    //     'Light' => 'bg-white opacity-70',
-    //     'Llightest' => 'bg-white opacity-85',
-    //     'Dark' => 'bg-black opacity-70',
-    //     'Darker' => 'bg-black opacity-85',
-    //     default => ''
-    // };
 }
 
 function render_section_bg_image_container_classes(array $section)
@@ -72,11 +63,6 @@ function render_section_bg_image_container_classes(array $section)
     if (! empty($section[$parent_key][$child_key])) {
         $classes .= get_section_container_bg_overlay_classes($section);
     }
-    // if (! empty($section['heading']['heading_background_image_overlay'])) {
-    //     $classes .= get_section_container_bg_overlay_classes(
-    //         $section['heading']['heading_background_image_overlay']
-    //     );
-    // }
 
     return $classes;
 }
@@ -97,22 +83,6 @@ function render_section_bg_image_container(array $section)
             ? $section['heading']['heading_image']
             : null;
     }
-
-
-
-    // if ($section['name'] === 'cta' && !is_array($section['content']) || $section['name'] !== 'cta' && !is_array($section['heading'])) return;
-
-    // $bg_image = $section['name'] === 'cta' && is_array($section['content'] && !empty($section['content']['content_image']))
-    //     ? $section['content']['content_image']
-    //     : null;
-
-    // $bg_image = $section['name'] === 'cta' && is_array($section['content'] && !empty($section['content']['content_image']))
-    //     ? $section['content']['content_image']
-    //     : null;
-
-    // $bg_image = !$bg_image && is_array($section['heading'] && !empty($section['heading']['heading_image']))
-    //     ? $section['heading']['heading_image']
-    //     : null;
 
     if (isset($bg_image) && !empty($bg_image)) {
         $bg_image_container_classes = render_section_bg_image_container_classes($section);

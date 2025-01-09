@@ -27,6 +27,10 @@ function render_section_cta(array $section)
 
     $section_cta .= get_cta_btn_container_close();
 
+    if ($section['cta']['cta_callout']) {
+       $section_cta .= get_cta_btn_callout_el($section);
+    }
+
     return $section_cta ?? null;
 }
 /* endregion */
@@ -559,7 +563,6 @@ function render_section($section)
     // Otherwise, wrap in your containers
     $output = render_section_open($section);
 
-    // If you have a heading, add it
     if (!empty($section['heading'])) {
         $output .= get_section_header($section);
     }
@@ -568,6 +571,11 @@ function render_section($section)
     $output .= render_content_open();
     $output .= $content;
     $output .= render_content_close();
+
+    if (!empty($section['cta'])) {
+        $output .= render_section_cta($section);
+    }
+
 
     $output .= render_section_end();
     return $output;

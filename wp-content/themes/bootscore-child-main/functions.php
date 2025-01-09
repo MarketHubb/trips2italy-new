@@ -1,7 +1,7 @@
 <?php
 // Autoloader
-require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
-new \MH\T2I\Theme();
+// require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
+// new \MH\T2I\Theme();
 
 // Sections
 require_once 'includes/sections/config.php';

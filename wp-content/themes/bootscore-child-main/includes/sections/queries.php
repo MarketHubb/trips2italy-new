@@ -13,9 +13,48 @@ function validate_section_content($content, $section_args)
 /* endregion */
 
 /* region Hero */
+
+function get_hero_data_legacy(int $post_id)
+{
+    $hero = get_field('hero_banner', $post_id);
+    if (empty($hero) || empty($hero['hero_banner_shared'])) {
+        return null;
+    }
+
+    $shared = $hero['hero_banner_shared'];
+    $required_fields = [
+        'background_image',
+        'mobile_image',
+        'hero_heading_2',
+        'hero_heading_1',
+        'hero_description'
+    ];
+
+    foreach ($required_fields as $field) {
+        if (empty($shared[$field])) {
+            return null;
+        }
+    }
+    $primary_copy = $shared['links_links'][0]['copy'] ?? 'Start my itinerary';
+    $primary_link = '/get-custom-itinerary/'; 
+
+    return [
+        'image' => $shared['background_image'],
+        'mobile_image' => $shared['mobile_image'],
+        'heading' => explode(',', $shared['hero_heading_2'])[0],
+        'subheading' => explode(',', $shared['hero_heading_1'])[0],
+        'description' => preg_split('/\r\n|\r|\n/', $shared['hero_description'])[0],
+        'align' => 'center',
+        'mobile_align' => 'center',
+        'copy_main' => explode(',', $primary_copy)[0],
+    ];
+}
+
 function get_hero_data(int $post_id)
 {
-    return get_field('hero_simple', $post_id) ?? null;
+    $hero = get_field('hero_simple', $post_id);
+
+    return $hero ?? get_hero_data_legacy($post_id);
 }
 /* endregion */
 

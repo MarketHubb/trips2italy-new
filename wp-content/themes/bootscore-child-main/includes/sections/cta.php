@@ -62,7 +62,7 @@ function output_section_cta(array $section_data)
 
 function render_cta(array $section_data)
 {
-    if (empty($section_data['cta'])) return;
+    if (empty($section_data['cta']) || empty($section_data['cta']['cta_copy'])) return;
 
     $cta = render_cta_open();
     $cta .= output_section_cta($section_data);

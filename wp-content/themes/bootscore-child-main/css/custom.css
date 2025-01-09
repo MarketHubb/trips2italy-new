@@ -286,10 +286,6 @@
     padding: 0 15px;
 }
 
-.justify-start {
-    justify-self: start;
-}
-
 /*.pb-7 {
     padding-bottom: 7rem !important;
 }
@@ -995,10 +991,6 @@ button.btn.btn-primary:not(.page-active):hover {
         color: #fff !important;
     }
 
-    p,
-    a {
-        font-size: 1.1rem;
-    }
 }
 
 /****************************************

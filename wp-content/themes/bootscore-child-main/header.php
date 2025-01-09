@@ -1,5 +1,5 @@
 <?php
-
+require_once 'src/init.php';
 /**
  * The header for our theme
  *
@@ -84,16 +84,26 @@ if (!isset($paged) || !$paged) {
         <span class="mask mask-light opacity-100 d-none" id="form-mask"></span>
 
         <?php get_template_part('template-parts/tw/content', 'nav'); ?>
+      
+        <?php
+        $site_div_padding = is_singular('trip')
+            ? ''
+            : 'pt-[40px] lg:pt-[63px]';
+        ?>
 
-        <div id="site" class="pt-[40px] lg:pt-[63px]">
+        <div id="site" class="<?php echo $site_div_padding; ?>">
 
             <?php
             $new_hero_layout = get_field('use_new_layout');
 
-            if ($new_hero_layout) {
-                get_template_part('template-parts/tw-hero/content', 'hero-new');
-            } else {
-                output_hero_banner(get_queried_object());
+            // $hero = !is_singular('trip') && $new_hero_layout
+            //     ? get_template_part('template-parts/tw-hero/content', 'hero-new')
+            //     : output_hero_banner(get_queried_object()); 
+            if (!is_singular('trip')) {
+                if ($new_hero_layout) {
+                    get_template_part('template-parts/tw-hero/content', 'hero-new');
+                } else {
+                    output_hero_banner(get_queried_object());
+                }
             }
             ?>
-

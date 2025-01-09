@@ -211,9 +211,6 @@ function get_single_trip_section_args()
                 'args' => ['packages']
             ],
             'template' => 'posts_layout'
-            // 'template' => 'post-list-image-overlay'
-            // 'template' => 'post-list-card'
-            // 'template' => 'post-list-2-grid'
         ],
     ];
 }

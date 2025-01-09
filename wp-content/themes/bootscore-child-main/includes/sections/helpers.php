@@ -60,6 +60,19 @@ function get_section_container_parent_key(array $section)
 }
 /* endregion */
 
-/* region Heading */
-
+/* region Shared */
+function add_classes_to_p($content, $classes = []) {
+    if (empty($content)) return '';
+    
+    // Convert array of classes to space-separated string
+    $class_string = is_array($classes) 
+        ? implode(' ', array_map('esc_attr', $classes)) 
+        : esc_attr($classes);
+    
+    return preg_replace(
+        '/<p>/',
+        '<p class="' . $class_string . '">',
+        $content
+    );
+}
 /* endregion */

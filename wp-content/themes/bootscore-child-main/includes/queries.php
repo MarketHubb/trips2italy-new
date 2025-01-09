@@ -84,6 +84,57 @@ function query_args_for_reviews_by_trip_type($post_id = null)
 	return new WP_Query($args);
 }
 
+function query_reviews_by_images_fields($post_id = null)
+{
+	// Initialize the meta query array
+	$meta_query = array(
+		'relation' => 'AND'
+	);
+
+	// Add post_trip condition only if post_id is not null
+	if ($post_id !== null) {
+		$meta_query[] = array(
+			'key' => 'post_trip',
+			'value' => $post_id,
+			'compare' => 'LIKE'
+		);
+	}
+
+	// Add the rest of the meta query conditions
+	$meta_query[] = array(
+		'key' => 'background_image',
+		'compare' => 'EXISTS',
+	);
+	$meta_query[] = array(
+		'key' => 'background_image',
+		'value' => '',
+		'compare' => '!='
+	);
+	$meta_query[] = array(
+		'key' => 'square_image',
+		'compare' => 'EXISTS',
+	);
+	$meta_query[] = array(
+		'key' => 'square_image',
+		'value' => '',
+		'compare' => '!='
+	);
+
+	// Set up WP_Query arguments
+	$args = array(
+		'post_type' => 'review',
+		'post_status' => 'publish',
+		'posts_per_page' => 4,
+		'orderby' => 'rand',
+		'fields' => 'ids',
+		'meta_query' => $meta_query
+	);
+
+	$query = new WP_Query($args);
+	
+	return $query->get_posts(); 
+}
+
 function get_review_posts_for_trip_type($post_id)
 {
 	if (empty($post_id)) return array();

@@ -237,17 +237,17 @@ function tw_cta_btn_base_classes($block = null, $gradient = null)
 {
 	$display = $block ? 'block ' : 'inline-block ';
 	$bg_color = !$gradient ? ' bg-secondary-500' : '';
-	$base =  ' relative rounded-full border border-transparent px-6 py-1.5 sm:py-2.5 text-base font-semibold antialiased text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150 ';
+	$base =  ' relative rounded-md border border-transparent px-6 py-1.5 sm:py-2.5 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-secondary-600 hover:border hover:border-secondary-600 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-500 tracking-normal hover:scale-105 ease-linear duration-150 ';
 
 	return $display . $bg_color . $base;
 }
 
 function tw_cta_btn_gradient()
 {
-	return '<span class="absolute top-0 left-0 w-full h-full rounded-full opacity-50 filter blur-sm bg-gradient-to-br from-secondary-600 to-secondary-400"></span>
-         <span class="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded-full opacity-50 from-secondary-600 to-secondary-400"></span>
-         <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-full shadow-xl bg-gradient-to-br filter group-active:opacity-0 from-secondary-600 to-secondary-400"></span>
-         <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-full bg-gradient-to-br to-secondary-600 from-secondary-400"></span>';
+	return '<span class="absolute top-0 left-0 w-full h-full rounded-md opacity-50 filter blur-sm bg-gradient-to-br from-secondary-600 to-secondary-400"></span>
+         <span class="h-full w-full inset-0 absolute bg-gradient-to-br filter group-active:opacity-0 rounded-md opacity-50 from-secondary-600 to-secondary-400"></span>
+         <span class="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded-md shadow-xl bg-gradient-to-br filter group-active:opacity-0 from-secondary-600 to-secondary-400"></span>
+         <span class="absolute inset-0 w-full h-full transition duration-200 ease-out rounded-md bg-gradient-to-br to-secondary-600 from-secondary-400"></span>';
 }
 
 function tw_cta_btn_link($args)
@@ -256,6 +256,7 @@ function tw_cta_btn_link($args)
 		return null;
 	}
 
+	$type = $args['cta']['type'] ?? 'a';
 	$href = $args['cta']['href'] ?? get_cta_href();
 	$class = $args['cta']['anchor_class'] ?? tw_cta_btn_base_classes(null, true);
 	$attr = $args['cta']['attributes'] ?? '';
@@ -263,67 +264,34 @@ function tw_cta_btn_link($args)
 	$icon = $args['cta']['icon'] ?? '';
 	$copy = $args['cta']['copy'] ?? 'Get started today';
 	$callout = $args['cta']['callout'] ?? null;
-
-
-	$btn_link = '<a ';
+	
+	$cta_link = '<' . $type . ' ';
 
 	if ($id) {
-		$btn_link .= 'id="' . esc_attr($id) . '" ';
+		$cta_link .= 'id="' . esc_attr($id) . '" ';
 	}
 
-	$btn_link .= 'href="' . esc_url($href) . '" ';
-	$btn_link .= 'class="' . esc_attr($class) . '" ';
+	$cta_link .= $type === 'a' ? 'href="' . esc_url($href) . '"' : '';
+
+	// $cta_link .= 'href="' . esc_url($href) . '" ';
+	$cta_link .= 'class="' . esc_attr($class) . '" ';
 
 	if ($attr) {
-		$btn_link .= esc_attr($attr) . ' ';
+		$cta_link .= esc_attr($attr) . ' ';
 	}
 
-	$btn_link .= '>';
-
-	if ($icon) {
-		$icon_class = $args['cta']['icon_class'] ?? 'shrink-0 size-6 inline';
-		$btn_link .= '<img src="' . esc_url($icon) . '" class="' . esc_attr($icon_class) . '" />';
-	}
-
-	$btn_link .= tw_cta_btn_gradient();
-	$btn_link .= '<span class="relative">' . esc_html($copy) . '</span>';
-
-	$btn_link .= '</a>';
+	$cta_link .= '>';
+	$cta_link .= tw_cta_btn_gradient();
+	$cta_link .= '<span class="relative subpixel-antialiased">' . esc_html($copy) . '</span>';
+	$cta_link .= '</' . $type . '>';
 
 	if ($callout) {
 		$callout_color = $args['heading']['background_color'] === 'dark' ? ' text-white' : ' text-gray-900 ';
-		$btn_link .= '<p class="text-sm sm:text-[.9rem] mt-6 relative font-medium tracking-normal leading-relaxed ' . $callout_color . '">';
-		$btn_link .= $callout . '</p>';
+		$cta_link .= '<p class="text-sm sm:text-[.9rem] mt-6 relative font-medium tracking-normal leading-relaxed ' . $callout_color . '">';
+		$cta_link .= $callout . '</p>';
 	}
 
-	return $btn_link;
-}
-
-function tw_cta_btn($args)
-{
-	if (empty($args)) return null;
-	// $btn_base_classes = ' rounded-md bg-orangeDark hover:bg-orangeLight px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm ';
-	$btn_base_classes = tw_cta_btn_base_classes();
-	$btn_classes = !empty($args['classes']) ? $btn_base_classes . $args['classes'] : $btn_base_classes;
-	$btn  = '<button ';
-	$btn .= 'class="' . $btn_classes . '" ';
-
-	if ($args['attributes']) {
-		$btn .= $args['attributes'];
-	}
-
-	$btn .= '>';
-
-	if ($args['icon']) {
-		$icon_class = isset($args['icon']['classes']) ? $args['icon']['classes'] : ' shrink-0 size-6 inline ';
-		$icon_src = isset($args['icon']['src']) ? $args['icon']['src'] : '';
-
-		$btn .= '<img src="' . $icon_src . '" class="' . $icon_class . '" />';
-	}
-
-	$btn .= $args['copy'] . '</button>';
-
-	return $btn;
+	return $cta_link;
 }
 
 function tw_output_section_open($args)
@@ -358,17 +326,17 @@ function tw_section_open($section_attributes = null)
 
 	$section_open .= '" ';
 
-	if ($section_attributes['id']) {
+	if (!empty($section_attributes['id'])) {
 		$section_open .= 'id="section-' . $section_attributes['id'] . '" ';
 	}
 
-	if ($section_attributes['style']) {
+	if (!empty($section_attributes['style'])) {
 		$section_open .= 'style="' . $section_attributes['style'] . '" ';
 	}
 
 	$section_open .= '>';
 
-	if ($section_attributes['mobile_image']) {
+	if (!empty($section_attributes['mobile_image'])) {
 		$section_open .= '<div class="absolute h-full w-full inset-0 bg-cover bg-center md:hidden" ';
 		$section_open .= 'style="background-image: url(' . $section_attributes['mobile_image'] . ');">';
 		$section_open .= '</div>';
@@ -389,7 +357,7 @@ function tw_section_open($section_attributes = null)
 	return $section_open;
 }
 
-function get_section_close()
+function render_section_close()
 {
 	return '</section>';
 }
@@ -624,61 +592,10 @@ function tw_output_heading($args)
 			return !empty($args[$value]) ? $args[$value] : null;
 		}, $attribute_list)
 	);
-
-
-
-	// if (!$fields) {
-	// 	$fields = $field_name ? get_field($field_name, 'option') : null;
-	// }
-
-	// if (!empty($fields)) {
-
-	// 	$empty_post_fields = array_filter($fields, function ($value) {
-	// 		return empty($value);
-	// 	});
-	// } else {
-	// 	$empty_post_fields = ['background_color', 'image', 'mobile_image', 'heading', 'subheading', 'description', 'max_width'];
-	// }
-
-	// $fields['post_id'] = $args['post_id'];
-	// $fields['align'] = !empty($args['heading']['align']) ? $args['heading']['align'] : 'center';
-	// $fields['background_color'] = !empty($args['heading']['background_color']) ? $args['heading']['background_color'] : 'light';
-
-	// if (!empty($empty_post_fields)) {
-	// 	foreach ($empty_post_fields as $key => $val) {
-	// 		if (array_key_exists($key, $fields)) {
-	// 			$fields[$key] = !empty($args['heading'][$key]) ? $args['heading'][$key] : null;
-	// 		}
-	// 	}
-	// }
-
-	// return tw_output_section_heading($fields) ?: null;
 }
 // endregion
 
 // region Content
-
-// function tw_get_template_content($args)
-// {
-
-// 	if (!empty($args['content']['fields'])) return $args['content']['fields'];
-
-// 	if (empty($args['post_id']) || empty($args['content']['field_name'])) return null;
-
-// 	$post_id = $args['post_id'];
-// 	$key = isset($args['content']['key']) ? $args['content']['key'] : null;
-// 	$field_name = isset($args['content']['field_name']) ? $args['content']['field_name'] : null;
-// 	$content = $key ? get_field($field_name, $post_id)[$key] : get_field($field_name, $post_id);
-
-// 	if (is_array($content)) {
-// 		$postContent = !empty(array_filter($content));
-// 	}
-// 	if ($postContent) return $content;
-
-// 	$content = $key ? get_field($field_name, 'option')[$key] : get_field($field_name, 'option');
-
-// 	return !empty($content) ? $content : null;
-// }
 function tw_get_template_cta_btn(array $args)
 {
 	$field_name = $args['heading']['field_name'] ?? null;
@@ -696,7 +613,6 @@ function tw_get_template_cta_btn(array $args)
 
 
 	if (!$btn_copy) return;
-
 
 
 	$cta_args = [
