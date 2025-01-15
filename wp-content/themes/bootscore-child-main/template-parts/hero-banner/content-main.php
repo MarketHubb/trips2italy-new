@@ -3,7 +3,7 @@
 
     <?php
     $text_color = $args['copy']['mobile_text_color'] ?: 'Dark';
-    $mobile_image = $args['images']['mobile_image'] ?: $args['images']['background_image'] ?>
+    $mobile_image = $args['images']['mobile_image']['url'] ?: $args['images']['background_image']['url'] ?>
 
     <!-- Mobile -->
     <header class="d-flex d-md-none py-5 hero-container hero-mobile hero-text-<?php echo strtolower($text_color); ?>" style="background-image: url(<?php echo $mobile_image; ?>);">
