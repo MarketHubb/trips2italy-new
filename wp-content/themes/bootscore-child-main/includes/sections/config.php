@@ -170,7 +170,8 @@ function get_single_trip_section_args()
                 'name' => 'get_hero_data',
                 'args' => [get_queried_object_id()]
             ],
-            'template' => 'hero-full-center'
+            'key' => 'content_hero_content_full',
+            'template' => 'hero-full-bottom-left'
         ],
         'testimonials' => [
             'function' =>

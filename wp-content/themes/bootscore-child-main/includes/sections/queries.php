@@ -52,7 +52,8 @@ function get_hero_data_legacy(int $post_id)
 
 function get_hero_data(int $post_id)
 {
-    $hero = get_field('hero_simple', $post_id);
+    // $hero = get_field('hero_simple', $post_id);
+    $hero = get_field('hero_content', $post_id)['content_hero_content_full'];
 
     return $hero ?? get_hero_data_legacy($post_id);
 }
