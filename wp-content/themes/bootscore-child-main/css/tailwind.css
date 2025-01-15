@@ -1086,10 +1086,6 @@ select {
   z-index: 100 !important;
 }
 
-.z-\[1\] {
-  z-index: 1 !important;
-}
-
 .z-\[30\] {
   z-index: 30 !important;
 }
@@ -1391,10 +1387,6 @@ select {
   margin-inline-end: 0.5rem !important;
 }
 
-.me-20 {
-  margin-inline-end: 5rem !important;
-}
-
 .me-3 {
   margin-inline-end: 0.75rem !important;
 }
@@ -1547,10 +1539,6 @@ select {
   margin-top: auto !important;
 }
 
-.mt-32 {
-  margin-top: 8rem !important;
-}
-
 .line-clamp-2 {
   overflow: hidden !important;
   display: -webkit-box !important;
@@ -1648,6 +1636,10 @@ select {
   aspect-ratio: 4/3 !important;
 }
 
+.aspect-\[5\/2\] {
+  aspect-ratio: 5/2 !important;
+}
+
 .aspect-\[7\/12\] {
   aspect-ratio: 7/12 !important;
 }
@@ -1666,14 +1658,6 @@ select {
 
 .aspect-video {
   aspect-ratio: 16 / 9 !important;
-}
-
-.aspect-\[10\/3\] {
-  aspect-ratio: 10/3 !important;
-}
-
-.aspect-\[5\/2\] {
-  aspect-ratio: 5/2 !important;
 }
 
 .size-3 {
@@ -2073,10 +2057,6 @@ select {
   width: 50.0625rem !important;
 }
 
-.w-\[50rem\] {
-  width: 50rem !important;
-}
-
 .w-\[82\.375rem\] {
   width: 82.375rem !important;
 }
@@ -2144,10 +2124,6 @@ select {
 
 .max-w-7xl {
   max-width: 80rem !important;
-}
-
-.max-w-\[1140px\] {
-  max-width: 1140px !important;
 }
 
 .max-w-\[15px\] {
@@ -2902,6 +2878,11 @@ select {
   border-color: rgb(229 231 235 / var(--tw-border-opacity)) !important;
 }
 
+.border-brand-400 {
+  --tw-border-opacity: 1 !important;
+  border-color: rgb(30 117 204 / var(--tw-border-opacity)) !important;
+}
+
 .border-brand-500 {
   --tw-border-opacity: 1 !important;
   border-color: rgb(25 95 164 / var(--tw-border-opacity)) !important;
@@ -2955,11 +2936,6 @@ select {
 .border-white {
   --tw-border-opacity: 1 !important;
   border-color: rgb(255 255 255 / var(--tw-border-opacity)) !important;
-}
-
-.border-brand-400 {
-  --tw-border-opacity: 1 !important;
-  border-color: rgb(30 117 204 / var(--tw-border-opacity)) !important;
 }
 
 .\!border-b-gray-200 {
@@ -3128,24 +3104,16 @@ select {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
 }
 
+.bg-white\/70 {
+  background-color: rgb(255 255 255 / 0.7) !important;
+}
+
 .bg-white\/80 {
   background-color: rgb(255 255 255 / 0.8) !important;
 }
 
 .bg-white\/90 {
   background-color: rgb(255 255 255 / 0.9) !important;
-}
-
-.bg-gray-50\/50 {
-  background-color: rgb(249 250 251 / 0.5) !important;
-}
-
-.bg-white\/60 {
-  background-color: rgb(255 255 255 / 0.6) !important;
-}
-
-.bg-white\/70 {
-  background-color: rgb(255 255 255 / 0.7) !important;
 }
 
 .bg-opacity-50 {
@@ -3780,6 +3748,10 @@ select {
 
 .pe-5 {
   padding-inline-end: 1.25rem !important;
+}
+
+.pe-8 {
+  padding-inline-end: 2rem !important;
 }
 
 .pl-1 {
@@ -4444,12 +4416,12 @@ select {
   -moz-osx-font-smoothing: grayscale !important;
 }
 
-.subpixel-antialiased {
+.\!subpixel-antialiased {
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
 }
 
-.\!subpixel-antialiased {
+.subpixel-antialiased {
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
 }
@@ -4539,12 +4511,6 @@ select {
 .shadow-2xl {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25) !important;
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color) !important;
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
-}
-
-.shadow-\[0_2\.75rem_3\.5rem_-2rem_rgb\(45_55_75_\/_20\%\)\2c _0_0_5rem_-2rem_rgb\(45_55_75_\/_15\%\)\] {
-  --tw-shadow: 0 2.75rem 3.5rem -2rem rgb(45 55 75 / 20%), 0 0 5rem -2rem rgb(45 55 75 / 15%) !important;
-  --tw-shadow-colored: 0 2.75rem 3.5rem -2rem var(--tw-shadow-color), 0 0 5rem -2rem var(--tw-shadow-color) !important;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 
@@ -4989,6 +4955,16 @@ select {
   right: 0px !important;
 }
 
+.before\:end-3::before {
+  content: var(--tw-content) !important;
+  inset-inline-end: 0.75rem !important;
+}
+
+.before\:top-1\/2::before {
+  content: var(--tw-content) !important;
+  top: 50% !important;
+}
+
 .before\:z-\[-2\]::before {
   content: var(--tw-content) !important;
   z-index: -2 !important;
@@ -4999,10 +4975,33 @@ select {
   z-index: 1 !important;
 }
 
+.before\:size-1::before {
+  content: var(--tw-content) !important;
+  width: 0.25rem !important;
+  height: 0.25rem !important;
+}
+
 .before\:size-full::before {
   content: var(--tw-content) !important;
   width: 100% !important;
   height: 100% !important;
+}
+
+.before\:-translate-y-1\/2::before {
+  content: var(--tw-content) !important;
+  --tw-translate-y: -50% !important;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+}
+
+.before\:rounded-full::before {
+  content: var(--tw-content) !important;
+  border-radius: 9999px !important;
+}
+
+.before\:bg-gray-300::before {
+  content: var(--tw-content) !important;
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity)) !important;
 }
 
 .before\:bg-\[url\(\'https\:\/\/prod\.speakcdn\.com\/SiteFiles\/2147\/images\/tall-leaf-pattern\.svg\'\)\]::before {
@@ -5121,11 +5120,20 @@ select {
   content: var(--tw-content) !important;
 }
 
+.last\:pe-0:last-child {
+  padding-inline-end: 0px !important;
+}
+
 .last\:pr-\[5\%\]:last-child {
   padding-right: 5% !important;
 }
 
 .last\:after\:hidden:last-child::after {
+  content: var(--tw-content) !important;
+  display: none !important;
+}
+
+.last-of-type\:before\:hidden:last-of-type::before {
   content: var(--tw-content) !important;
   display: none !important;
 }
@@ -5237,6 +5245,10 @@ select {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity)) !important;
 }
 
+.hover\:bg-gray-50\/90:hover {
+  background-color: rgb(249 250 251 / 0.9) !important;
+}
+
 .hover\:bg-gray-800\/10:hover {
   background-color: rgb(31 41 55 / 0.1) !important;
 }
@@ -5268,10 +5280,6 @@ select {
 
 .hover\:bg-sky-50\/40:hover {
   background-color: rgb(240 249 255 / 0.4) !important;
-}
-
-.hover\:bg-gray-50\/90:hover {
-  background-color: rgb(249 250 251 / 0.9) !important;
 }
 
 .hover\:text-brand-400:hover {
@@ -5307,11 +5315,6 @@ select {
 .hover\:text-indigo-900:hover {
   --tw-text-opacity: 1 !important;
   color: rgb(49 46 129 / var(--tw-text-opacity)) !important;
-}
-
-.hover\:text-gray-900:hover {
-  --tw-text-opacity: 1 !important;
-  color: rgb(17 24 39 / var(--tw-text-opacity)) !important;
 }
 
 .hover\:underline:hover {
@@ -5892,6 +5895,10 @@ select {
     margin-top: 3rem !important;
   }
 
+  .sm\:mt-2 {
+    margin-top: 0.5rem !important;
+  }
+
   .sm\:mt-20 {
     margin-top: 5rem !important;
   }
@@ -5906,10 +5913,6 @@ select {
 
   .sm\:mt-8 {
     margin-top: 2rem !important;
-  }
-
-  .sm\:mt-40 {
-    margin-top: 10rem !important;
   }
 
   .sm\:block {
@@ -5994,6 +5997,11 @@ select {
 
   .sm\:w-auto {
     width: auto !important;
+  }
+
+  .sm\:w-fit {
+    width: -moz-fit-content !important;
+    width: fit-content !important;
   }
 
   .sm\:w-full {
@@ -6402,6 +6410,10 @@ select {
     line-height: 1.5rem !important;
   }
 
+  .sm\:leading-\[1\.75rem\] {
+    line-height: 1.75rem !important;
+  }
+
   .sm\:leading-none {
     line-height: 1 !important;
   }
@@ -6515,10 +6527,6 @@ select {
 
   .md\:mt-10 {
     margin-top: 2.5rem !important;
-  }
-
-  .md\:mt-16 {
-    margin-top: 4rem !important;
   }
 
   .md\:mt-24 {
@@ -7722,10 +7730,6 @@ select {
     max-width: 42rem !important;
   }
 
-  .xl\:max-w-7xl {
-    max-width: 80rem !important;
-  }
-
   .xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
   }
@@ -7759,14 +7763,14 @@ select {
     padding-right: 5rem !important;
   }
 
-  .xl\:py-56 {
-    padding-top: 14rem !important;
-    padding-bottom: 14rem !important;
-  }
-
   .xl\:px-8 {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
+  }
+
+  .xl\:py-56 {
+    padding-top: 14rem !important;
+    padding-bottom: 14rem !important;
   }
 
   .xl\:pt-80 {

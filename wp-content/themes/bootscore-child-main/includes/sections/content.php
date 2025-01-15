@@ -56,6 +56,10 @@ function get_post_section_content($section)
 
 function get_post_section_cta($section)
 {
+    if ($section === 'hero') {
+        return get_field('hero_content', get_queried_object_id())['content_hero_cta'] ?? null;
+    }
+
     return get_field($section . CTA_SUFFIX, get_queried_object_id()) ?? null;
 }
 
@@ -198,10 +202,41 @@ function get_description_classes(string $text_color = "Light")
 }
 /* endregion */
 
-/* region Content: CTA (Buttons) */
+/* region Content: HERO */
+function get_hero_description_desktop_classes()
+{
+
+    return 'hidden sm:block text-gray-200 sm:mt-6 sm:text-[1.15rem] sm:leading-[1.75rem] subpixel-antialiased max-w-lg text-left ';
+}
+
+function get_hero_description_mobile_classes()
+{
+
+    return 'block sm:hidden text-gray-200 mt-0 text-sm  subpixel-antialiased max-w-lg text-left ';
+}
+
+function get_hero_description($content)
+{
+    return $content['description'] ?? null;
+}
+
+function get_hero_use_mobile_description($content)
+{
+    return $content['use_mobile_description'] ?? null;
+}
+
+function get_hero_mobile_description($content)
+{
+    return get_hero_use_mobile_description($content) && !empty($content['mobile_description'])
+        ? $content['mobile_description']
+        : get_hero_description($content);
+}
+/* endregion */
+
+/* region Content: CTA */
 function get_cta_btn_container_open()
 {
-    return '<div class="mt-10 flex items-center justify-center gap-x-6 z-30 relative">';
+    return '<div class="mt-10 mb-4 px-2 sm:px-0 sm:mx-0 flex flex-col sm:flex-row w-full items-center justify-center sm:justify-start gap-x-6 z-30 relative">';
 }
 
 function get_cta_btn_container_close()
@@ -211,7 +246,7 @@ function get_cta_btn_container_close()
 
 function get_cta_btn_base_classes()
 {
-    return 'px-3.5 py-2.5 text-sm font-bold rounded-md antialiased ';
+    return 'w-full sm:w-fit px-6 py-2.5 text-sm font-bold rounded-md antialiased ';
 }
 
 function get_cta_btn_base_classes_primary()
@@ -231,7 +266,7 @@ function get_cta_btn_gradient_el()
 function get_cta_btn_copy_el(string $btn_copy)
 {
 
-    return '<span class="relative">' . $btn_copy . '</span>';
+    return '<span class="relative text-center w-full inline-block">' . $btn_copy . '</span>';
 }
 
 function get_cta_btn_callout_el(array $section)
@@ -244,7 +279,7 @@ function get_cta_btn_callout_el(array $section)
     $text_color_class = get_description_color_class($text_color);
 
     $callout = '<div class="relative z-30 mx-auto max-w-lg text-center mt-5 ' . $text_color_class . '">';
-    $callout .= add_classes_to_p($callout_field,['font-semibold', '!subpixel-antialiased']);
+    $callout .= add_classes_to_p($callout_field, ['font-semibold', '!subpixel-antialiased']);
     $callout .= '</div>';
 
     return $callout;
@@ -269,6 +304,13 @@ function get_cta_btn_link_primary(array $section)
         : null;
 
     return get_permalink($id) ?? null;
+}
+
+function get_cta_btn_secondary_active(array $section)
+{
+    if (!is_array($section['cta']['cta_secondary_button'])) return null;
+
+    return $section['cta']['cta_secondary_button'];
 }
 
 function get_cta_btn_copy_secondary(array $section)

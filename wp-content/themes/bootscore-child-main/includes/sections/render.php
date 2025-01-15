@@ -1,4 +1,49 @@
 <?php
+/* region:: HERO */
+function render_hero_description(array $content)
+{
+    if (!get_hero_description($content)) return;
+
+    $description_desktop = esc_html(get_hero_description($content));
+    $description_mobile = esc_html(get_hero_mobile_description($content));
+
+    $description = '<p class="' . get_hero_description_desktop_classes() . '">';
+    $description .= $description_desktop;
+    $description .= '<p>';
+
+    $description_mobile = explode("\n", $description_mobile);
+    $description_mobile = array_map('trim', $description_mobile);
+
+    if (count($description_mobile) === 1) {
+        $description .= '<p class="' . get_hero_description_mobile_classes() . '">';
+        $description .= $description_mobile[0];
+        $description .= '<p>';
+
+        return $description;
+    }
+
+    $description .= render_hero_description_callouts($description_mobile);
+
+    return $description ?? null;
+}
+
+function render_hero_description_callouts(array $description)
+{
+    $callouts = '<ul class="text-sm text-gray-600 flex sm:hidden justify-center w-full mt-4">';
+
+    foreach ($description as $callout) {
+        $callouts .= '<li class="text-center inline-block text-white leading-tight font-semibold tracking-tight relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:size-1 before:bg-gray-300 before:rounded-full">';
+        $callouts .= $callout;
+        $callouts .= '</li>';
+    }
+
+    $callouts .= '</ul>';
+
+    return $callouts;
+}
+
+/* endregion */
+
 /* region:: CTA */
 function render_section_cta(array $section)
 {
@@ -14,10 +59,11 @@ function render_section_cta(array $section)
     $section_cta .= get_cta_btn_copy_el(get_cta_btn_copy_primary($section));
     $section_cta .= '</a>';
 
+    $secondary_active = get_cta_btn_secondary_active($section);
     $secondary_copy = get_cta_btn_copy_secondary($section);
     $secondary_link = get_cta_btn_link_secondary($section);
 
-    if ($secondary_copy && $secondary_link) {
+    if ($secondary_active && $secondary_copy && $secondary_link) {
         $section_cta .= '<a href="' . $secondary_link . '" ';
         $section_cta .= 'class="' . get_cta_btn_base_classes_secondary() . '">';
         $section_cta .= $secondary_copy;
@@ -28,7 +74,7 @@ function render_section_cta(array $section)
     $section_cta .= get_cta_btn_container_close();
 
     if ($section['cta']['cta_callout']) {
-       $section_cta .= get_cta_btn_callout_el($section);
+        $section_cta .= get_cta_btn_callout_el($section);
     }
 
     return $section_cta ?? null;
