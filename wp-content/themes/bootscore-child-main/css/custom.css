@@ -1,3 +1,12 @@
+.ex_s_lick-prev {
+    left: 0px !important;    
+}
+.ex_s_lick-next {
+    right: 0px !important;
+}
+.ex_s_lick-arrow {
+    width: fit-content !important;
+}
 .features-vertical-tabs button img {
    filter: none; 
 }
