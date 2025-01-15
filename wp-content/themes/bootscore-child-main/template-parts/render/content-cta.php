@@ -30,18 +30,7 @@
                     <p class="<?php echo get_description_classes($text_color); ?>">
                         <?php echo $args['content']['content_description']; ?>
                     </p>
-                <?php } ?>
-
-                <div class="hidden mt-10 flex items-center justify-center gap-x-6">
-                    <?php
-                    $cta_btn = render_section_cta($args);
-
-                    echo $cta_btn
-                        ? $cta_btn
-                        : '';
-
-                    ?>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
