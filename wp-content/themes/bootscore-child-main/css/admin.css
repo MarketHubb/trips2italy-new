@@ -1,3 +1,38 @@
+.acf-field.acf-field-clone[data-name="layout_settings"] .acf-clone-fields.acf-fields {
+    padding: 1rem;
+}
+
+div.acf-field[data-name="content_cards"] .acf-repeater div.acf-field[data-name="description"] {
+    border: none !important;
+    padding-top: 0 !important;
+}
+
+div.acf-field[data-name="content_cards"] .acf-repeater div.acf-field[data-name="heading"],
+div.acf-field[data-name="content_cards"] .acf-repeater div.acf-field[data-name="subheading"] {
+    border: none !important;
+}
+
+.acf-field .acf-label {
+    margin-bottom: 6px !important;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.acf-field.image-row [data-preview_size="thumbnail"] div.show-if-value.image-wrap {
+    max-width: none !important;
+    display: flex !important;
+    max-height: 50px !important;
+}
+
+.acf-field.image-row [data-preview_size="thumbnail"] div.show-if-value.image-wrap>img {
+    max-height: none !important;
+    border-radius: 6px;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: 0 -20px;
+}
+
 body.term-php form#edittag {
     max-width: 100% !important;
 }
