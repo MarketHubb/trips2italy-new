@@ -1,16 +1,77 @@
 <?php
+
 declare(strict_types=1);
+
+function parseTextWithParentheses(string $text)
+{
+    // Split the text into lines and remove empty lines
+    $lines = array_filter(explode("\n", $text), 'trim');
+    $result = [];
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+
+        // Check if line contains parentheses
+        if (strpos($line, '(') !== false && strpos($line, ')') !== false) {
+            // Get the position of opening and closing parentheses
+            $start = strpos($line, '(');
+            $end = strpos($line, ')');
+
+            // Extract the main text and the parenthetical text
+            $mainText = trim(substr($line, 0, $start));
+            $parentheticalText = trim(substr($line, $start + 1, $end - $start - 1));
+
+            // Add to result array as main text with sub-array
+            $result[] = [
+                'text' => $mainText,
+                'note' => $parentheticalText
+            ];
+        } else {
+            // Add lines without parentheses as simple strings
+            $result[]['text'] = $line;
+        }
+    }
+
+    return $result;
+}
+
+
+function return_url_query_params()
+{
+    $url = $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $components = parse_url($url);
+    parse_str($components['query'], $results);
+
+    return $results;
+}
+
+function return_cta_btn($args)
+{
+
+    $type = $args['type'] === 'button' ? 'button' : 'a';
+
+    $btn = '<' . $type;
+
+    if (!empty($args['attributes'])) {
+        $btn .= ' ' .  trim($args['attributes']) . ' ';
+    }
+
+    $btn .= '>' . trim($args['text']) . '</' . $type . '>';
+
+    return $btn;
+}
 
 function get_cta_href()
 {
-    $link = get_permalink(28484); 
+    $link = get_permalink(28484);
     return $link ?: '#';
 }
 
-function format_trip_type_heading($title) {
+function format_trip_type_heading($title)
+{
     // Convert the input to lowercase for case-insensitive comparison
     $lowercaseInput = strtolower($title);
-    
+
     // Check if the string ends with 's'
     if (substr($lowercaseInput, -1) === 's') {
         // Remove the last character ('s') and return
@@ -23,16 +84,16 @@ function format_trip_type_heading($title) {
 
 
 
-function get_substring_before_dash(string $string) 
+function get_substring_before_dash(string $string)
 {
     if (empty($string)) return;
-    
+
     // First decode HTML entities
     $string = html_entity_decode($string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    
+
     // Now split on en dash with spaces
     $parts = explode(' – ', $string);
-    
+
     return trim($parts[0]);
 }
 
@@ -43,7 +104,8 @@ function get_substring_before_dash(string $string)
  * @param string $html The HTML content to parse.
  * @return array An ordered array of associative arrays with tag names as keys and text content as values.
  */
-function parseContent(string $html): array {
+function parseContent(string $html): array
+{
     // Suppress errors due to malformed HTML
     libxml_use_internal_errors(true);
 
@@ -60,7 +122,7 @@ function parseContent(string $html): array {
     $targetTags = ['p', 'h3', 'h4'];
 
     // Create an XPath query that selects all target tags in document order
-    $query = implode(' | ', array_map(function($tag) {
+    $query = implode(' | ', array_map(function ($tag) {
         return "//{$tag}";
     }, $targetTags));
 
@@ -103,7 +165,8 @@ function parseContent(string $html): array {
  * @param DOMElement $element The element from which to remove tags.
  * @param array $tagsToRemove An array of tag names to remove.
  */
-function removeTags(DOMElement $element, array $tagsToRemove): void {
+function removeTags(DOMElement $element, array $tagsToRemove): void
+{
     foreach ($tagsToRemove as $tag) {
         // Get all descendant nodes with the specified tag
         $nodes = $element->getElementsByTagName($tag);
@@ -124,32 +187,31 @@ function removeTags(DOMElement $element, array $tagsToRemove): void {
     }
 }
 
-function get_object_attributes($post_object)
-{
-    
-}
+function get_object_attributes($post_object) {}
 
-function get_current_url() {
+function get_current_url()
+{
     global $wp;
     return home_url(add_query_arg(array(), $wp->request)) . '/';
 }
 
-function get_referring_url() {
+function get_referring_url()
+{
     // Check if HTTP_REFERER is set and not empty
     if (!empty($_SERVER['HTTP_REFERER'])) {
         $referrer = filter_var($_SERVER['HTTP_REFERER'], FILTER_SANITIZE_URL);
-        
+
         // Validate the URL
         if (filter_var($referrer, FILTER_VALIDATE_URL)) {
             return $referrer;
         }
     }
-    
+
     // If HTTP_REFERER is not available or invalid, return current page URL
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
     $host = $_SERVER['HTTP_HOST'];
     $uri = $_SERVER['REQUEST_URI'];
-    
+
     return "{$protocol}://{$host}{$uri}";
 }
 
