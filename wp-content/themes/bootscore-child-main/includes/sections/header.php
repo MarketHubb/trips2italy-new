@@ -12,9 +12,6 @@ function subheading_color_class(string $text_color = "Light")
     return $text_color === 'Light'
         ? ' text-white '
         : ' text-brand-900 ';
-    // return $text_color === 'Light'
-    //     ? ' text-secondary-500 '
-    //     : ' text-brand-500 ';
 }
 
 function header_description_classes(string $text_color = "Light")
@@ -25,20 +22,16 @@ function header_description_classes(string $text_color = "Light")
 function header_subheading_classes(string $text_color = "Light")
 {
     return 'stylized font-normal text-2xl sm:text-4xl opacity-100 ' . subheading_color_class($text_color);
-    // return 'animate-on-scroll stylized font-normal text-2xl sm:text-4xl animate-fade-in-up opacity-100 ' . subheading_color_class($text_color);
-    // return 'animate-on-scroll stylized font-normal text-[140%] animate-fade-in-up opacity-100 ' . subheading_color_class($text_color);
 }
 
 function header_heading_classes(string $text_color = "Light")
 {
     return 'mb-4 text-balance text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl col-span-12 ' . heading_color_class($text_color);
-    // return 'mb-1 md:leading-normal font-heading font-medium antialiased col-span-12 ' . heading_color_class($text_color);
 }
 
 function header_container_text_classes(string $custom_classes = null)
 {
     return 'animate-on-scroll';
-    // return ' text-2xl md:text-2xl lg:text-3xl ';
 }
 
 function header_container_open_center(string $custom_classes = null)
