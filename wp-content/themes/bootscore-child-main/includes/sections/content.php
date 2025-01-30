@@ -12,8 +12,13 @@ function get_section_layout_template($section)
 {
     if (!is_array($section) || empty($section['template'])) return null;
 
+    $template_val = null;
     $template = sanitize_key($section['template']);
-    $template_val = $section['content']['content_' . $template];
+
+    if (is_array($section['content'])) {
+        $template_val = $section['content']['content_' . $template];
+    }
+
     $template_val = $template_val ?? $template;
     $template_path = 'template-parts/render/content-' . $template_val;
 
@@ -22,6 +27,50 @@ function get_section_layout_template($section)
         : null;
 }
 /* endregion */
+
+// region Cards
+function output_card_heading(string $heading)
+{
+    return $heading
+        ? '<h2 class="text-lg font-bold text-gray-800">' . esc_html($heading) . '</h2>'
+        : '';
+}
+
+function output_card_subheading(string $subheading)
+{
+    return $subheading
+        ? '<h3 class="text-xl subpixel-antialiased md:text-2xl tracking-wide stylized">' . esc_html($subheading) . '</h3>'
+        : '';
+}
+
+function output_card_description(string $description)
+{
+    return $description
+        ? '<p class="mt-1 text-gray-500">' . esc_html($description) . '</p>'
+        : '';
+}
+// endregion
+
+// region FLEXIBLE
+function get_grid_container($args)
+{
+    $mobile_cols = isset($args['grid']['mobile_cols']) ? $args['grid']['mobile_cols'] : '1';
+    $desktop_cols = isset($args['grid']['desktop_cols']) ? $args['grid']['desktop_cols'] : '1';
+
+    return sprintf(
+        '<div class="grid grid-cols-%s md:grid-cols-%s gap-4 md:gap-6">',
+        esc_attr($mobile_cols),
+        esc_attr($desktop_cols)
+    );
+}
+
+function flexible_content(int $post_id)
+{
+    $post_id = $post_id ?? get_queried_object_id();
+
+    return get_field('content', $post_id);
+}
+// endregion
 
 /* region Section Content */
 function heading_global($section)
@@ -236,7 +285,12 @@ function get_hero_mobile_description($content)
 /* region Content: CTA */
 function get_cta_btn_container_open()
 {
-    return '<div class="mt-10 mb-4 px-2 sm:px-0 sm:mx-0 flex flex-col sm:flex-row w-full items-center justify-center sm:justify-start gap-x-6 z-30 relative">';
+    return '<div class="mt-10 mb-4 px-2 sm:px-0 sm:mx-0 flex flex-col sm:flex-row w-full items-center justify-center gap-x-6 z-30 relative">';
+}
+
+function get_cta_btn_container_open_hero()
+{
+    return '<div class="mt-10 mb-4 px-2 sm:px-0 sm:mx-0 flex flex-col sm:flex-row w-full items-center justify-start gap-x-6 z-30 relative">';
 }
 
 function get_cta_btn_container_close()
@@ -246,7 +300,7 @@ function get_cta_btn_container_close()
 
 function get_cta_btn_base_classes()
 {
-    return 'w-full sm:w-fit px-6 py-2.5 text-sm font-bold rounded-md antialiased ';
+    return 'min-w-full sm:min-w-20 md:min-w-32 lg:min-w-44 text-center inline-block px-6 py-2.5 text-sm font-bold rounded-md antialiased ';
 }
 
 function get_cta_btn_base_classes_primary()
@@ -287,7 +341,7 @@ function get_cta_btn_callout_el(array $section)
 
 function get_cta_btn_base_classes_secondary()
 {
-    return get_cta_btn_base_classes() . ' text-gray-700 hover:text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 bg-white/70 hover:bg-gray-50/90 tracking-normal ';
+    return get_cta_btn_base_classes() . ' text-gray-700 hover:text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 bg-white/90 hover:bg-gray-200 tracking-normal ';
 }
 
 function get_cta_btn_copy_primary(array $section)
@@ -308,7 +362,7 @@ function get_cta_btn_link_primary(array $section)
 
 function get_cta_btn_secondary_active(array $section)
 {
-    if (!is_array($section['cta']['cta_secondary_button'])) return null;
+    if (empty($section['cta']['cta_secondary_button'])) return null;
 
     return $section['cta']['cta_secondary_button'];
 }

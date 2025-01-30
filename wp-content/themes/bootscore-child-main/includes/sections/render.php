@@ -47,12 +47,17 @@ function render_hero_description_callouts(array $description)
 /* region:: CTA */
 function render_section_cta(array $section)
 {
+
     $primary_copy = get_cta_btn_copy_primary($section);
     $primary_link = get_cta_btn_link_primary($section);
+    $section_type = $section['name'] ?? null;
 
     if (empty($section['cta']) || !$primary_copy || !$primary_link) return null;
 
-    $section_cta = get_cta_btn_container_open();
+    $section_cta = $section_type && $section_type === 'hero'
+        ? get_cta_btn_container_open_hero()
+        : get_cta_btn_container_open();
+
     $section_cta .= '<a href="' . get_cta_btn_link_primary($section) . '" ';
     $section_cta .= 'class="' . get_cta_btn_base_classes_primary() . '">';
     $section_cta .= get_cta_btn_gradient_el();
@@ -490,37 +495,6 @@ function render_section_itinerary(array $content)
 /* endregion */
 
 /* region init */
-function render_section_components_legacy(array $section)
-{
-    if (empty($section) || empty($section['content'])) {
-        return null;
-    }
-
-    $section_name = sanitize_key($section['name']);
-    $section_output_function = 'render_section_' . $section_name;
-
-    $content = function_exists($section_output_function)
-        ? $section_output_function($section['content'])
-        : get_section_template_part($section);
-
-    if ($content) {
-        $output = render_section_open($section);
-
-        if (!empty($section['heading'])) {
-            $output .= get_section_header($section);
-        }
-
-        $output .= render_content_open();
-        $output .= $content;
-        $output .= render_content_close();
-        $output .= render_section_end();
-        return $output;
-    }
-    // }
-
-    return null;
-}
-
 function get_section_function(array $section)
 {
     if (empty($section) || empty($section['content'])) {
@@ -564,31 +538,10 @@ function get_section_template_part(array $section)
     return $template_content ?? null;
 }
 
-function render_section_legacy($section)
-{
-    $content = get_section_template_part($section) ?? get_section_function($section);
-
-    if (empty($section) || empty($content)) return '';
-
-    if (section_template_set($section) && !str_contains(get_section_template($section), 'hero')) {
-        $output = render_section_open($section);
-
-        if (!empty($section['heading'])) {
-            $output .= get_section_header($section);
-        }
-
-        $output .= render_content_open();
-        $output .= $content;
-        $output .= render_content_close();
-        $output .= render_section_end();
-        return $output;
-    } else {
-        return $content;
-    }
-}
-
 function render_section($section)
 {
+    if ($section['name'] === 'hero') {
+    }
     // Attempt to load via template-part first; if not found, fallback to any custom function
     $content = get_section_template_part($section) ?? get_section_function($section);
 
@@ -608,8 +561,10 @@ function render_section($section)
 
     // Otherwise, wrap in your containers
     $output = render_section_open($section);
+    $header_layout = $section['heading']['header_layout'] ?? null;
 
-    if (!empty($section['heading'])) {
+
+    if (!empty($section['heading']) && $header_layout !== 'Left') {
         $output .= get_section_header($section);
     }
 
